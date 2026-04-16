@@ -19,7 +19,7 @@
 }
 
 .header {
-  padding: 48px var(--carousel-side-padding) 24px;
+  padding: 36px var(--carousel-side-padding) 24px;
 }
 
 .sectionTitle {
@@ -161,7 +161,7 @@
     --card-peek: 36px;
   }
 
-  .header { padding: 32px var(--carousel-side-padding) 16px; }
+  .header { padding: 24px var(--carousel-side-padding) 16px; }
   .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
   .sectionTitle { font-size: 1.5rem; }
