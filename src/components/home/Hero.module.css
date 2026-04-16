@@ -1,0 +1,87 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 600vh;
+  scroll-snap-align: start;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+}
+
+.textBlock {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: 0px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.subtitleContainer {
+  position: relative;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitle {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: 0px;
+  color: var(--color-blue);
+  margin: 0;
+  white-space: nowrap;
+  will-change: opacity, transform;
+}
+
+.scrollArrow {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  color: var(--color-orange);
+  animation: heroArrowBounce 1.8s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .sticky { padding: 0 24px; }
+  .heading { font-size: 16px; }
+  .subtitle { font-size: 16px; }
+}

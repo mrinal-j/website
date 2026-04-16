@@ -1,0 +1,490 @@
+.page {
+  padding-top: 60px; /* navbar height */
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  width: 100%;
+}
+
+.heroHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 64px 120px 48px;
+  gap: 80px;
+  background-color: var(--bg-primary);
+  width: 100%;
+}
+
+.heroTitle {
+  flex: 0 0 55%;
+}
+
+.heroTitle h1 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.5vw, 3.5rem);
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.heroDesc {
+  flex: 1;
+}
+
+.heroDesc p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 160%;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+}
+
+.heroImage {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.heroImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  display: block;
+}
+
+/* ============================================================
+   METADATA GRID
+   ============================================================ */
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0;
+  width: 100%;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.metaCell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px 48px 48px;
+  border-right: 1px solid var(--border-light);
+}
+
+.metaCellLast {
+  border-right: none;
+}
+
+.metaLabel {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  color: var(--text-muted);
+}
+
+.metaValue {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  white-space: pre-line;
+}
+
+/* ============================================================
+   OVERVIEW
+   ============================================================ */
+.overview {
+  padding: 96px 120px;
+  width: 100%;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding-top: 48px;
+}
+
+.overviewHeading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.overviewBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 170%;
+  letter-spacing: -0.02em;
+  color: #666;
+}
+
+/* ============================================================
+   HIGHLIGHT BANNER
+   ============================================================ */
+.highlight {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: visible;
+}
+
+.highlightBg {
+  position: absolute;
+  bottom: -10px;
+  left: -37px;
+  right: -27px;
+  height: 313px;
+  background-color: var(--color-indigo);
+  overflow: visible;
+}
+
+.highlightContent {
+  position: absolute;
+  top: 0;
+  left: 157px;
+  width: 45%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.highlightText {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 120%;
+  color: #fff;
+  max-width: 543px;
+}
+
+.highlightText em {
+  font-style: italic;
+}
+
+.highlightPhone {
+  position: absolute;
+  z-index: 1;
+  width: 465px;
+  top: -256px;
+  bottom: 0;
+  left: 700px;
+}
+
+.highlightPhone img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ============================================================
+   DATA / PROBLEM SECTION
+   ============================================================ */
+.dataSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: var(--bg-primary);
+}
+
+.dataLeft {
+  flex: 1;
+  padding: 80px 40px 80px 120px;
+}
+
+.dataRight {
+  flex: 1;
+  padding: 80px 120px 80px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statBlock {
+  margin-bottom: 32px;
+}
+
+.statLabel {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0 0 8px;
+}
+
+.statNumber {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 120%;
+  color: var(--color-yellow);
+  margin: 0;
+}
+
+.statUnit {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 4px 0 8px;
+}
+
+.statBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.88rem;
+  line-height: 160%;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.statDivider {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 32px 0;
+}
+
+
+
+/* Bubble chart */
+.bubbleChart {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.bubbleLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legendWork,
+.legendAdult {
+  writing-mode: vertical-rl;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.legendWork { color: var(--color-yellow); }
+.legendAdult { color: var(--color-indigo); }
+
+.bubbleGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 208px;
+}
+
+.bubble {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.bubbleYellow { background-color: var(--color-yellow); }
+.bubbleBlue { background-color: var(--color-indigo); }
+
+/* ============================================================
+   HMW QUESTION
+   ============================================================ */
+.hmwSection {
+  padding: 64px 196px;
+  background-color: var(--bg-primary);
+}
+
+.hmwCard {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: transparent;
+  border: 2px solid var(--color-indigo);
+  border-radius: 20px;
+  padding: 20px 16px 20px 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 36px;
+}
+
+.hmwIcon {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.hmwText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 160%;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ============================================================
+   SOLUTION SECTION (Dark)
+   ============================================================ */
+.solutionSection {
+  background-color: #000;
+  width: 100%;
+}
+
+.solutionLabelWrap {
+  padding: 40px 120px 0;
+}
+
+.carousel {
+  position: relative;
+  height: 689px;
+  overflow: hidden;
+}
+
+.carouselTrack {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  height: 553px;
+  display: flex;
+  flex-direction: row;
+  transform: translateX(-1330px);
+  pointer-events: none;
+}
+
+.screenCard {
+  width: 260px;
+  height: 553px;
+  flex-shrink: 0;
+  margin-right: 40px;
+  border-radius: 46px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screenLabel {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.phoneBezels {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.phoneFrame {
+  width: 260px;
+  height: 553px;
+  border-radius: 46px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+}
+
+.phoneScreen {
+  position: absolute;
+  inset: 9px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.carouselFade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, #000 0%, transparent 18%),
+    linear-gradient(to left, #000 0%, transparent 18%);
+  pointer-events: none;
+  z-index: 30;
+}
+
+.concludingQuote {
+  padding: 64px 120px 80px;
+}
+
+.concludingQuote p {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 130%;
+  color: #fff;
+  max-width: 960px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1199px) {
+  .heroHeader { padding: 48px 48px 32px; gap: 40px; }
+  .overview { padding: 64px 48px; }
+  .overviewHeading { font-size: 2rem; }
+  .highlightContent { left: 80px; width: 50%; }
+  .highlightText { font-size: 2rem; }
+  .highlightPhone { width: 272px; top: -93px; left: 480px; }
+  .dataLeft { padding: 64px 24px 64px 48px; }
+  .dataRight { padding: 64px 48px 64px 24px; }
+  .hmwSection { padding: 64px 48px; }
+  .solutionLabelWrap { padding: 40px 48px 0; }
+  .concludingQuote { padding: 48px 48px 64px; }
+}
+
+@media (max-width: 767px) {
+  .heroHeader { flex-direction: column; padding: 32px 24px 24px; gap: 16px; }
+  .heroTitle { flex: none; }
+  .heroImage { height: 200px; }
+  .metaGrid { grid-template-columns: 1fr 1fr; }
+  .metaCell { border-bottom: 1px solid var(--border-light); }
+  .metaCellLast { border-bottom: none; }
+  .overview { padding: 48px 24px; }
+  .overviewGrid { grid-template-columns: 1fr; gap: 24px; }
+  .overviewHeading { font-size: 1.6rem; }
+  .highlight { height: auto; min-height: 300px; }
+  .highlightContent { position: relative; left: auto; width: 100%; padding: 32px 24px; }
+  .highlightText { font-size: 1.5rem; }
+  .highlightPhone { position: relative; width: 160px; top: auto; left: auto; margin: 0 auto; }
+  .dataSection { flex-direction: column; }
+  .dataLeft { padding: 48px 24px 16px; }
+  .dataRight { padding: 16px 24px 48px; }
+  .hmwSection { padding: 48px 24px; }
+  .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
+  .solutionLabelWrap { padding: 32px 24px 0; }
+  .carousel { height: 500px; }
+  .screenCard { width: 200px; height: 426px; margin-right: 16px; border-radius: 36px; }
+  .phoneFrame { width: 200px; height: 426px; border-radius: 36px; }
+  .concludingQuote { padding: 32px 24px 48px; }
+  .concludingQuote p { font-size: 1.3rem; }
+}
