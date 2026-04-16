@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import styles from './FeaturedWorks.module.css'
 
+const DESKTOP_SIDE_PADDING = 80
+const MOBILE_SIDE_PADDING = 24
+const CARD_GAP = 20
+const DESKTOP_CARD_PEEK = 140
+const MOBILE_CARD_PEEK = 36
+
 const projects = [
   {
     slug: '/in-the-loop',
@@ -28,7 +34,7 @@ const projects = [
 
 export function FeaturedWorks() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const [translateX, setTranslateX] = useState(0)
+  const [translateX, setTranslateX] = useState(DESKTOP_SIDE_PADDING)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -38,15 +44,25 @@ export function FeaturedWorks() {
       const rect = section.getBoundingClientRect()
       const sectionHeight = section.offsetHeight
       const viewportHeight = window.innerHeight
-      const scrolled = -(rect.top - 60)
+      const scrolled = Math.max(0, -rect.top)
       const totalScroll = sectionHeight - viewportHeight
       const progress = Math.max(0, Math.min(1, scrolled / totalScroll))
-      const maxTranslate = (projects.length - 1) * (window.innerWidth - 100)
-      setTranslateX(progress * maxTranslate)
+      const isMobile = window.innerWidth <= 767
+      const sidePadding = isMobile ? MOBILE_SIDE_PADDING : DESKTOP_SIDE_PADDING
+      const cardPeek = isMobile ? MOBILE_CARD_PEEK : DESKTOP_CARD_PEEK
+      const cardWidth = window.innerWidth - sidePadding - cardPeek
+      const step = cardWidth + CARD_GAP
+      const maxTranslate = (projects.length - 1) * step
+      setTranslateX(sidePadding - progress * maxTranslate)
     }
 
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
   }, [])
 
   return (
@@ -58,7 +74,7 @@ export function FeaturedWorks() {
         <div className={styles.carouselViewport}>
           <div
             className={styles.carouselTrack}
-            style={{ transform: `translateX(-${translateX}px)` }}
+            style={{ transform: `translateX(${translateX}px)` }}
           >
             {projects.map((project) => (
               <Link

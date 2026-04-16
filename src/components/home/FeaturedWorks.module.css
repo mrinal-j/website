@@ -1,4 +1,7 @@
 .section {
+  --carousel-side-padding: 80px;
+  --card-gap: 20px;
+  --card-peek: 140px;
   background-color: var(--bg-primary);
   width: 100%;
   height: 300vh;
@@ -16,7 +19,7 @@
 }
 
 .header {
-  padding: 80px 80px 24px;
+  padding: 48px var(--carousel-side-padding) 24px;
 }
 
 .sectionTitle {
@@ -30,19 +33,18 @@
 .carouselViewport {
   flex: 1;
   overflow: hidden;
-  padding: 0 80px;
 }
 
 .carouselTrack {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: var(--card-gap);
   height: 100%;
   will-change: transform;
 }
 
 .card {
-  width: calc(100vw - 100px);
+  width: calc(100vw - var(--carousel-side-padding) - var(--card-peek));
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -154,9 +156,13 @@
 
 
 @media (max-width: 767px) {
-  .header { padding: 48px 24px 16px; }
-  .carouselViewport { padding: 0 24px; }
-  .card { width: calc(100vw - 48px); }
+  .section {
+    --carousel-side-padding: 24px;
+    --card-peek: 36px;
+  }
+
+  .header { padding: 32px var(--carousel-side-padding) 16px; }
+  .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
   .sectionTitle { font-size: 1.5rem; }
 }
