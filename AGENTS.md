@@ -7,6 +7,7 @@
 - Avoid jargon when possible.
 - If a technical term is necessary, define it in one short sentence.
 - When describing a fix, focus on what changed, why it mattered, and what the user should expect now.
+- If the user says `commit and push`, treat that as permission to commit and push all current local changes unless they clearly say otherwise.
 
 ## Running This App
 
