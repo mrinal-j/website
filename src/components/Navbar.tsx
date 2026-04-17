@@ -1,9 +1,32 @@
+import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import styles from './Navbar.module.css'
 
 export function Navbar() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const target = document.getElementById('featured-works')
+      if (!target) {
+        setVisible(false)
+        return
+      }
+      const rect = target.getBoundingClientRect()
+      // Show the nav once the Featured works section's top edge reaches the top of the viewport.
+      setVisible(rect.top <= 0)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${visible ? styles.navVisible : styles.navHidden}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo}>
           <span className={styles.logoIcon}>MJ</span>

@@ -12,6 +12,20 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-light);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+}
+
+.navHidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.navVisible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
 }
 
 

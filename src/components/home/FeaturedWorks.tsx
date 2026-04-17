@@ -5,8 +5,10 @@ import styles from './FeaturedWorks.module.css'
 const DESKTOP_SIDE_PADDING = 80
 const MOBILE_SIDE_PADDING = 24
 const CARD_GAP = 20
-const DESKTOP_CARD_PEEK = 140
+const DESKTOP_CARD_PEEK = 500
 const MOBILE_CARD_PEEK = 36
+const DESKTOP_END_PADDING = 100
+const MOBILE_END_PADDING = 36
 
 const projects = [
   {
@@ -50,9 +52,12 @@ export function FeaturedWorks() {
       const isMobile = window.innerWidth <= 767
       const sidePadding = isMobile ? MOBILE_SIDE_PADDING : DESKTOP_SIDE_PADDING
       const cardPeek = isMobile ? MOBILE_CARD_PEEK : DESKTOP_CARD_PEEK
+      const endPadding = isMobile ? MOBILE_END_PADDING : DESKTOP_END_PADDING
       const cardWidth = window.innerWidth - sidePadding - cardPeek
       const step = cardWidth + CARD_GAP
-      const maxTranslate = (projects.length - 1) * step
+      // Stop scrolling so the last card leaves `endPadding` of space on the right,
+      // rather than the full `cardPeek` width.
+      const maxTranslate = (projects.length - 1) * step - cardPeek + endPadding
       setTranslateX(sidePadding - progress * maxTranslate)
     }
 
@@ -66,10 +71,10 @@ export function FeaturedWorks() {
   }, [])
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section id="featured-works" ref={sectionRef} className={styles.section}>
       <div className={styles.stickyWrapper}>
         <div className={styles.header}>
-          <h2 className={styles.sectionTitle}>Featured works.</h2>
+          <h2 id="featured-works-title" className={styles.sectionTitle}>Featured works.</h2>
         </div>
         <div className={styles.carouselViewport}>
           <div
