@@ -1,25 +1,23 @@
 .section {
-  --carousel-side-padding: 80px;
+  /* Mirrors HowIWork's max-width:1280px + margin:auto + 80px padding pattern.
+     On viewports ≤ 1280px this is 80px (same as before).
+     On wider screens it grows to match the centered container offset. */
+  --carousel-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
   --card-gap: 20px;
   --card-peek: 500px;
+  --card-end-padding: 200px; /* ← space after the last card — edit this */
   background-color: var(--bg-primary);
   width: 100%;
-  height: 300vh;
-  position: relative;
-  scroll-snap-align: start;
-}
-
-.stickyWrapper {
-  position: sticky;
-  top: 60px;
-  height: calc(100vh - 60px);
-  overflow: hidden;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 60px; /* clear the fixed navbar */
+  scroll-snap-align: start;
 }
 
 .header {
   padding: 36px var(--carousel-side-padding) 24px;
+  flex-shrink: 0;
 }
 
 .sectionTitle {
@@ -30,9 +28,53 @@
   color: var(--text-primary);
 }
 
-.carouselViewport {
+/* Wrapper that lets us absolutely-position the arrows */
+.carouselContainer {
   flex: 1;
+  position: relative;
   overflow: hidden;
+  min-height: 0;
+}
+
+.scrollArrow {
+  position: absolute;
+  top: 230px; /* half of the 460px card image height */
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease, background 0.2s ease;
+  z-index: 10;
+}
+
+.scrollArrow:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.carouselViewport {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  /* Offset snap points so the first card aligns to the side padding */
+  scroll-padding-left: var(--carousel-side-padding);
+  padding-left: var(--carousel-side-padding);
+  /* Hide the scrollbar */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carouselViewport::-webkit-scrollbar {
+  display: none;
 }
 
 .carouselTrack {
@@ -40,12 +82,17 @@
   flex-direction: row;
   gap: var(--card-gap);
   height: 100%;
-  will-change: transform;
+}
+
+.trackEndSpacer {
+  flex-shrink: 0;
+  width: var(--card-end-padding);
 }
 
 .card {
   width: calc(100vw - var(--carousel-side-padding) - var(--card-peek));
   flex-shrink: 0;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -133,7 +180,6 @@
   margin: 0;
 }
 
-
 .cardTags {
   display: flex;
   gap: 8px;
@@ -155,7 +201,6 @@
   white-space: nowrap;
 }
 
-
 @media (max-width: 767px) {
   .section {
     --carousel-side-padding: 24px;
@@ -166,4 +211,5 @@
   .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
   .sectionTitle { font-size: 1.5rem; }
+  .scrollArrow { top: 140px; } /* half of the 280px mobile image height */
 }
