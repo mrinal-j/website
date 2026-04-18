@@ -25,7 +25,7 @@ export function Statements() {
   }, [])
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section id="statements" ref={sectionRef} className={styles.section}>
       <div className={styles.content}>
         <p className={styles.text}>
           {words.map((word, i) => (

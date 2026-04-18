@@ -7,13 +7,13 @@ export function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      const target = document.getElementById('featured-works')
+      const target = document.getElementById('statements')
       if (!target) {
         setVisible(false)
         return
       }
       const rect = target.getBoundingClientRect()
-      // Show the nav once the Featured works section's top edge reaches the top of the viewport.
+      // Show the nav once the Statements section's top edge reaches the top of the viewport.
       setVisible(rect.top <= 0)
     }
     onScroll()
