@@ -37,6 +37,13 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" dir="ltr">
       <head>
+        {/* Runs before first paint so the browser doesn't restore scroll on refresh. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if('scrollRestoration' in history){history.scrollRestoration='manual'}var n=performance.getEntriesByType('navigation')[0];if(!n||n.type!=='back_forward'){window.scrollTo(0,0)}}catch(e){}",
+          }}
+        />
         <HeadContent />
       </head>
       <body>

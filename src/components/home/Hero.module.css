@@ -19,11 +19,56 @@
   padding: 0 48px;
 }
 
+/* The orange colour that is revealed once the two black halves slide apart.
+   Change SPLIT_REVEAL_COLOR here to adjust the colour shown during the split. */
+.orangeLayer {
+  position: absolute;
+  inset: 0;
+  background-color: #FFD7BD;
+  z-index: 0;
+}
+
+/* The two black panels that cover the orange layer. When .splitOpen is added,
+   the top panel slides up and the bottom panel slides down, revealing the
+   orange underneath. */
+.splitPanel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: #000;
+  z-index: 2;
+  transition: transform 1100ms cubic-bezier(0.7, 0, 0.25, 1);
+  will-change: transform;
+}
+.splitTop { top: 0; }
+.splitBottom { bottom: 0; }
+.splitOpen.splitTop { transform: translateY(-100%); }
+.splitOpen.splitBottom { transform: translateY(100%); }
+
 .content {
   position: relative;
   width: 100%;
   max-width: 1000px;
   height: 100%;
+  z-index: 3; /* text sits above both the panels and the orange layer */
+  transition: opacity 350ms ease;
+}
+.contentHidden { opacity: 0; }
+
+/* Full-viewport orange cover used for the final cross-fade into the Statements
+   section. It fades from 100% → 0% opacity. */
+.fadeOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: #FF924A;
+  z-index: 9999;
+  pointer-events: none;
+  animation: heroFadeOverlay 500ms ease forwards;
+}
+@keyframes heroFadeOverlay {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 .textBlock {
@@ -38,6 +83,8 @@
   transform: translateY(-50%);
   transition: opacity 0.4s ease;
   will-change: opacity;
+  /* The heading's vertical centre is the anchor — subtitle floats below it
+     and does NOT push the heading up. */
 }
 
 .fadeIn {
@@ -77,7 +124,12 @@
 }
 
 .subtitleContainer {
-  position: relative;
+  /* Sits BELOW the heading without affecting its vertical position,
+     so "I design with empathy for" lines up with "Hi, I'm Mrinal." */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   height: 32px;
   display: flex;
   align-items: center;
@@ -104,7 +156,9 @@
   color: var(--color-orange);
   animation: heroArrowBounce 1.8s ease-in-out infinite;
   transition: opacity 0.3s ease;
+  z-index: 3;
 }
+.scrollArrowHidden { opacity: 0; }
 
 @media (max-width: 767px) {
   .sticky { padding: 0 24px; }
