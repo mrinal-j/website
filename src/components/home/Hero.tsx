@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './Hero.module.css'
+import { MeshGradient, type MeshGradientHandle } from './MeshGradient'
 
 // ─────────────────────────────────────────────────────────────
 // TIMING CONTROLS (all values in milliseconds)
 // Adjust these numbers to speed up or slow down the animation.
 // ─────────────────────────────────────────────────────────────
-const TYPING_SPEED = 60          // delay between each character as it types
+const TYPING_SPEED = 70          // delay between each character as it types
 const BACKSPACE_SPEED = 70       // delay between each character as it erases (both the "Hi" line and subtitles)
 const PAUSE_AFTER_HI = 900       // how long "Hi, I'm Mrinal." stays fully typed before it starts backspacing
 const PAUSE_AFTER_ERASE = 500    // breath after the "Hi" line is fully erased, before "I design…" starts typing
@@ -13,12 +14,22 @@ const PAUSE_BEFORE_SUBTITLES = 250 // pause after "I design with empathy for" fi
 const SUBTITLE_HOLD = 1400       // how long each subtitle stays fully visible before it backspaces
 
 // ── Split + fade transition to Statements ─────────────────────
-const PAUSE_BEFORE_SPLIT = 1200  // how long the final subtitle sits before the black screen starts splitting
+const PAUSE_BEFORE_SPLIT = 1200  // how long the final subtitle sits before the mesh starts splitting
 const TEXT_FADE_DURATION = 350   // how quickly the text fades out just before the split begins
-const SPLIT_DURATION = 1100      // how long the two halves take to slide apart
+const SPLIT_DURATION = 1100      // how long the two halves take to slide apart (keep in sync with Hero.module.css .splitPanel)
 const ORANGE_HOLD = 400          // how long the full orange screen lingers before we cross-fade to Statements
-const FADE_DURATION = 700        // how long the orange takes to fade out revealing the Statements section
+const FADE_DURATION = 700        // how long the orange takes to fade out revealing the Statements section (sync with .fadeOverlay keyframes)
 // ─────────────────────────────────────────────────────────────
+
+// ── Mesh gradient palette (6 colours). Edit any hex to recolour the background. ──
+const MESH_COLORS: [string, string, string, string, string, string] = [
+  '#ffb375',
+  '#ffd8b8',
+  '#ff8e42',
+  '#ffa270',
+  '#ffcda3',
+  '#f98c43',
+]
 
 const HI_TEXT = "Hi, I'm Mrinal."
 const DESIGN_TEXT = 'I design with empathy for'
@@ -39,6 +50,12 @@ export function Hero() {
   const [subtitleTyped, setSubtitleTyped] = useState('')
   const [isErasing, setIsErasing] = useState(false)
   const [transition, setTransition] = useState<TransitionPhase>('idle')
+  const [meshSnapshot, setMeshSnapshot] = useState<string | null>(null)
+  // Separate flag that flips to true AFTER the halves have rendered in their
+  // closed position — gives the browser something to transition FROM.
+  const [halvesOpen, setHalvesOpen] = useState(false)
+
+  const meshRef = useRef<MeshGradientHandle>(null)
 
   const showDesign = phase === 'design-typing' || phase === 'design-done'
   const designDone = phase === 'design-done'
@@ -65,7 +82,6 @@ export function Hero() {
         )
         return () => clearTimeout(t)
       }
-      // Fully erased — take a short breath before typing the next line.
       const t = setTimeout(() => setPhase('design-typing'), PAUSE_AFTER_ERASE)
       return () => clearTimeout(t)
     }
@@ -85,17 +101,14 @@ export function Hero() {
     return () => clearTimeout(t)
   }, [phase, designTyped])
 
-  // Kick off subtitles once the design line finishes typing
   useEffect(() => {
     if (designDone && subtitleIndex === -1) setSubtitleIndex(0)
   }, [designDone, subtitleIndex])
 
-  // Type each subtitle, hold, backspace it, then advance to the next
   useEffect(() => {
     if (subtitleIndex < 0 || subtitleIndex >= subtitles.length) return
     const current = subtitles[subtitleIndex]
 
-    // Typing forward
     if (!isErasing) {
       if (subtitleTyped.length < current.length) {
         const t = setTimeout(
@@ -104,14 +117,11 @@ export function Hero() {
         )
         return () => clearTimeout(t)
       }
-      // Finished typing. If this is the last subtitle, stop here.
       if (subtitleIndex === subtitles.length - 1) return
-      // Otherwise hold, then start erasing.
       const t = setTimeout(() => setIsErasing(true), SUBTITLE_HOLD)
       return () => clearTimeout(t)
     }
 
-    // Erasing (backspace)
     if (subtitleTyped.length > 0) {
       const t = setTimeout(
         () => setSubtitleTyped(subtitleTyped.slice(0, -1)),
@@ -119,7 +129,6 @@ export function Hero() {
       )
       return () => clearTimeout(t)
     }
-    // Fully erased — move to next subtitle.
     setIsErasing(false)
     setSubtitleIndex(subtitleIndex + 1)
   }, [subtitleIndex, subtitleTyped, isErasing])
@@ -131,56 +140,91 @@ export function Hero() {
   const subtitleIsLast =
     subtitleActive && subtitleIndex === subtitles.length - 1
 
-  // Once the last subtitle finishes typing, run the split → orange → fade sequence
+  // Kick off the split transition once the final subtitle finishes typing
   useEffect(() => {
     if (transition !== 'idle') return
     if (!(subtitleIsLast && subtitleCurrentDone)) return
-
-    // 1) hold on the final subtitle
-    const t1 = setTimeout(() => setTransition('textFade'), PAUSE_BEFORE_SPLIT)
-    return () => clearTimeout(t1)
+    const t = setTimeout(() => setTransition('textFade'), PAUSE_BEFORE_SPLIT)
+    return () => clearTimeout(t)
   }, [transition, subtitleIsLast, subtitleCurrentDone])
 
   useEffect(() => {
     if (transition === 'textFade') {
-      // 2) fade text, then split
-      const t = setTimeout(() => setTransition('splitting'), TEXT_FADE_DURATION)
+      const t = setTimeout(() => {
+        // Take a snapshot of the live mesh right as the split starts, so the
+        // two halves that slide apart show the exact same pixels as the live
+        // mesh the user was just watching.
+        const snap = meshRef.current?.snapshot() ?? null
+        setMeshSnapshot(snap)
+        setTransition('splitting')
+      }, TEXT_FADE_DURATION)
       return () => clearTimeout(t)
     }
     if (transition === 'splitting') {
-      // 3) once halves are apart, jump the page down and cross-fade into Statements
+      // First paint the halves in their closed position, then on the NEXT
+      // animation frame flip them to open. Without this the browser has no
+      // "from" state to transition from and the slide never plays.
+      const raf1 = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setHalvesOpen(true))
+      })
       const t = setTimeout(() => {
         document.getElementById('statements')?.scrollIntoView({ behavior: 'auto', block: 'start' })
         setTransition('fading')
       }, SPLIT_DURATION + ORANGE_HOLD)
-      return () => clearTimeout(t)
+      return () => {
+        cancelAnimationFrame(raf1)
+        clearTimeout(t)
+      }
     }
     if (transition === 'fading') {
+      // Start the Statements word-by-word reveal partway through the orange
+      // fade, so the first words appear as the overlay clears.
+      const revealTrigger = setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('statements:reveal'))
+      }, FADE_DURATION * 0.4)
       const t = setTimeout(() => setTransition('done'), FADE_DURATION)
-      return () => clearTimeout(t)
+      return () => {
+        clearTimeout(t)
+        clearTimeout(revealTrigger)
+      }
     }
   }, [transition])
 
-  const isSplitting = transition === 'splitting' || transition === 'fading' || transition === 'done'
   const textHidden = transition !== 'idle'
-  const showOverlay = transition === 'fading' // full-screen overlay that fades out revealing Statements
+  const isSplitting = transition === 'splitting' || transition === 'fading' || transition === 'done'
+  const showOverlay = transition === 'fading'
+
+  // During the split, we show two <div>s with the snapshot image as the
+  // background. Each is clipped to its half and translates away from centre.
+  const halvesStyle = meshSnapshot ? { backgroundImage: `url(${meshSnapshot})` } : undefined
 
   return (
     <div className={styles.container}>
       <div className={styles.sticky}>
-        {/* Orange reveal layer — sits behind the black panels */}
+        {/* Orange reveal layer — sits behind everything */}
         <div className={styles.orangeLayer} aria-hidden="true" />
 
-        {/* Two black panels that cover the orange — when the sequence starts,
-            they slide apart (top up, bottom down), revealing the orange. */}
-        <div
-          className={`${styles.splitPanel} ${styles.splitTop} ${isSplitting ? styles.splitOpen : ''}`}
-          aria-hidden="true"
-        />
-        <div
-          className={`${styles.splitPanel} ${styles.splitBottom} ${isSplitting ? styles.splitOpen : ''}`}
-          aria-hidden="true"
-        />
+        {/* Live mesh gradient (hidden once the split has started, replaced by
+            the two snapshot halves) */}
+        <div className={`${styles.meshLayer} ${isSplitting ? styles.meshLayerHidden : ''}`}>
+          <MeshGradient ref={meshRef} colors={MESH_COLORS} />
+        </div>
+
+        {/* Two halves of the mesh snapshot that slide apart */}
+        {meshSnapshot && (
+          <>
+            <div
+              className={`${styles.meshHalf} ${styles.meshTop} ${halvesOpen ? styles.splitOpen : ''}`}
+              style={halvesStyle}
+              aria-hidden="true"
+            />
+            <div
+              className={`${styles.meshHalf} ${styles.meshBottom} ${halvesOpen ? styles.splitOpen : ''}`}
+              style={halvesStyle}
+              aria-hidden="true"
+            />
+          </>
+        )}
 
         <div className={`${styles.content} ${textHidden ? styles.contentHidden : ''}`}>
           {/* Single headline slot: types "Hi, I'm Mrinal." → backspaces →
@@ -222,8 +266,7 @@ export function Hero() {
       </div>
 
       {/* Full-viewport orange cover that fades away, revealing the Statements
-          section that we've already scrolled to. Covers the seam between the
-          split animation ending and the next section appearing. */}
+          section that we've already scrolled to. */}
       {showOverlay && <div className={styles.fadeOverlay} aria-hidden="true" />}
     </div>
   )

@@ -19,32 +19,50 @@
   padding: 0 48px;
 }
 
-/* The orange colour that is revealed once the two black halves slide apart.
-   Change SPLIT_REVEAL_COLOR here to adjust the colour shown during the split. */
+/* The reveal colour shown behind the mesh once the two halves slide apart.
+   Change this hex to adjust the colour shown during the split. */
 .orangeLayer {
   position: absolute;
   inset: 0;
-  background-color: #FFD7BD;
+  background-color: #FFffff;
   z-index: 0;
 }
 
-/* The two black panels that cover the orange layer. When .splitOpen is added,
-   the top panel slides up and the bottom panel slides down, revealing the
-   orange underneath. */
-.splitPanel {
+/* The live interactive mesh gradient sits above the orange layer.
+   When the split starts we hide this layer and swap in two snapshot halves. */
+.meshLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: opacity 200ms ease;
+}
+.meshLayerHidden { opacity: 0; }
+
+/* Two snapshot halves of the mesh that slide apart.
+   They share the same background-image (a PNG data URL captured from the live
+   mesh at the moment the split triggers), each clipped to one half and with
+   background-position set so the two halves line up seamlessly. */
+.meshHalf {
   position: absolute;
   left: 0;
   right: 0;
   height: 50%;
-  background-color: #000;
   z-index: 2;
+  background-size: 100% 200%;
+  background-repeat: no-repeat;
   transition: transform 1100ms cubic-bezier(0.7, 0, 0.25, 1);
   will-change: transform;
 }
-.splitTop { top: 0; }
-.splitBottom { bottom: 0; }
-.splitOpen.splitTop { transform: translateY(-100%); }
-.splitOpen.splitBottom { transform: translateY(100%); }
+.meshTop {
+  top: 0;
+  background-position: top;
+}
+.meshBottom {
+  bottom: 0;
+  background-position: bottom;
+}
+.splitOpen.meshTop    { transform: translateY(-100%); }
+.splitOpen.meshBottom { transform: translateY(100%); }
 
 .content {
   position: relative;
@@ -53,6 +71,9 @@
   height: 100%;
   z-index: 3; /* text sits above both the panels and the orange layer */
   transition: opacity 350ms ease;
+  /* Let clicks pass through to the mesh gradient canvas behind us so the
+     wallpaper's ripple-on-click interaction still works. */
+  pointer-events: none;
 }
 .contentHidden { opacity: 0; }
 
@@ -113,11 +134,11 @@
 
 .heading {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 200;
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0px;
-  color: #fff;
+  color: #00000;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -143,25 +164,9 @@
   font-size: 20px;
   line-height: 140%;
   letter-spacing: 0px;
-  color: #FF6600;
+  color: #000000;
   margin: 0;
   white-space: nowrap;
   will-change: opacity, transform;
 }
 
-.scrollArrow {
-  position: absolute;
-  bottom: 32px;
-  right: 32px;
-  color: var(--color-orange);
-  animation: heroArrowBounce 1.8s ease-in-out infinite;
-  transition: opacity 0.3s ease;
-  z-index: 3;
-}
-.scrollArrowHidden { opacity: 0; }
-
-@media (max-width: 767px) {
-  .sticky { padding: 0 24px; }
-  .heading { font-size: 16px; }
-  .subtitle { font-size: 16px; }
-}

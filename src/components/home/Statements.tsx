@@ -3,25 +3,38 @@ import styles from './Statements.module.css'
 
 const words = 'I design at the intersection of research, strategy, and impact, focused on problems where good design can help business growth and social impact reinforce each other.'.split(' ')
 
+// How fast the words appear one-by-one when the reveal is triggered.
+// Lower number = faster. 60ms × ~30 words ≈ 1.8s total.
+const WORD_INTERVAL = 140
+
 export function Statements() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [revealCount, setRevealCount] = useState(0)
 
+  // Word-by-word reveal is triggered externally (by the Hero's split-fade
+  // sequence). Until the Hero fires the 'statements:reveal' event, all words
+  // stay hidden — even though the page may have already been scrolled to this
+  // section behind the orange overlay.
   useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect()
-      const viewportHeight = window.innerHeight
-      // Start revealing when section enters viewport, finish when it's centered
-      const progress = Math.max(0, Math.min(1, (viewportHeight - rect.top) / (viewportHeight * 1.2)))
-      setRevealCount(Math.floor(progress * words.length))
+    let interval: ReturnType<typeof setInterval> | null = null
+    const handler = () => {
+      if (interval) clearInterval(interval)
+      setRevealCount(0)
+      let i = 0
+      interval = setInterval(() => {
+        i += 1
+        setRevealCount(i)
+        if (i >= words.length && interval) {
+          clearInterval(interval)
+          interval = null
+        }
+      }, WORD_INTERVAL)
     }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('statements:reveal', handler)
+    return () => {
+      window.removeEventListener('statements:reveal', handler)
+      if (interval) clearInterval(interval)
+    }
   }, [])
 
   return (
