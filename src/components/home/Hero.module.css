@@ -5,6 +5,15 @@
   scroll-snap-align: start;
 }
 
+/* Once the split-to-Statements transition is fully done, remove the Hero's
+   space from the document so there's no blank area above the Statements
+   section. The browser automatically clamps scroll position to the new
+   smaller page height, leaving Statements at the top. */
+.containerCollapsed {
+  height: 0;
+  overflow: hidden;
+}
+
 .sticky {
   position: sticky;
   top: 0;

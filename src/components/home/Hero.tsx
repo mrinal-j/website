@@ -199,7 +199,7 @@ export function Hero() {
   const halvesStyle = meshSnapshot ? { backgroundImage: `url(${meshSnapshot})` } : undefined
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${transition === 'done' ? styles.containerCollapsed : ''}`}>
       <div className={styles.sticky}>
         {/* Orange reveal layer — sits behind everything */}
         <div className={styles.orangeLayer} aria-hidden="true" />
