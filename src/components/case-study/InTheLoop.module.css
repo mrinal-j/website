@@ -18,7 +18,8 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 64px 120px 48px;
+  /* Mirror homepage side padding so the title/desc don't sit flush to the edge. */
+  padding: 64px 80px 48px;
   gap: 80px;
   background-color: var(--bg-primary);
   width: 100%;
@@ -73,6 +74,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0;
   width: 100%;
+  /* Outer side padding so the cells don't sit flush to the viewport edges.
+     Cells stay 1fr so they remain evenly spaced inside this padded area. */
+  padding: 0 80px;
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
@@ -82,8 +86,16 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 40px 48px 48px;
+  padding: 40px 32px 48px;
   border-right: 1px solid var(--border-light);
+}
+
+.metaCell:first-child {
+  padding-left: 0;
+}
+
+.metaCell:last-child {
+  padding-right: 0;
 }
 
 .metaCellLast {
@@ -455,6 +467,8 @@
    ============================================================ */
 @media (max-width: 1199px) {
   .heroHeader { padding: 48px 48px 32px; gap: 40px; }
+  .metaGrid { padding: 0 48px; }
+  .metaCell { padding: 32px 24px 40px; }
   .overview { padding: 64px 48px; }
   .overviewHeading { font-size: 2rem; }
   .highlightContent { left: 80px; width: 50%; }
@@ -468,11 +482,15 @@
 }
 
 @media (max-width: 767px) {
-  .heroHeader { flex-direction: column; padding: 32px 24px 24px; gap: 16px; }
+  .heroHeader { flex-direction: column; padding: 40px 32px 32px; gap: 16px; }
   .heroTitle { flex: none; }
   .heroImage { height: 200px; }
-  .metaGrid { grid-template-columns: 1fr 1fr; }
-  .metaCell { border-bottom: 1px solid var(--border-light); }
+  .metaGrid { grid-template-columns: 1fr 1fr; padding: 0 32px; }
+  .metaCell { padding: 28px 20px 32px; border-bottom: 1px solid var(--border-light); }
+  .metaCell:first-child { padding-left: 0; }
+  .metaCell:last-child { padding-right: 0; }
+  .metaCell:nth-child(odd) { padding-left: 0; }
+  .metaCell:nth-child(even) { padding-right: 0; }
   .metaCellLast { border-bottom: none; }
   .overview { padding: 48px 24px; }
   .overviewGrid { grid-template-columns: 1fr; gap: 24px; }
