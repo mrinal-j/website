@@ -1,5 +1,10 @@
 .page {
   padding-top: 60px; /* navbar height */
+  /* The highlight banner has decorative elements that intentionally sit past
+     the viewport edges (negative left/right, a phone image positioned at
+     left:700px). Clip them here so they never create a horizontal scrollbar. */
+  overflow-x: clip;
+  width: 100%;
 }
 
 /* ============================================================
