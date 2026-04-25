@@ -5,6 +5,9 @@
      left:700px). Clip them here so they never create a horizontal scrollbar. */
   overflow-x: clip;
   width: 100%;
+  /* Same side-padding recipe the home page uses: grows with viewport width
+     past 1280px so content stays aligned with the centered 1280px container. */
+  --page-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
 }
 
 /* ============================================================
@@ -19,7 +22,7 @@
   flex-direction: row;
   align-items: flex-start;
   /* Mirror homepage side padding so the title/desc don't sit flush to the edge. */
-  padding: 64px 80px 48px;
+  padding: 64px var(--page-side-padding) 48px;
   gap: 80px;
   background-color: var(--bg-primary);
   width: 100%;
@@ -125,15 +128,25 @@
    OVERVIEW
    ============================================================ */
 .overview {
-  padding: 96px 120px;
+  /* Tighter bottom padding so the gap between the Overview text and the
+     phone mockup that pops out of the highlight banner below is roughly
+     halved. Side padding uses the page-wide variable so this section
+     aligns with the hero, the metadata grid, and the highlight banner. */
+  padding: 96px var(--page-side-padding) 40px;
   width: 100%;
 }
 
 .overviewGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  padding-top: 48px;
+  /* Stack the heading and the body paragraph in one column on the left so
+     the phone mockup (in the highlight banner below) reads as the right
+     half of this section. */
+  grid-template-columns: 1fr;
+  /* Narrower column so the heading wraps before reaching the phone mockup
+     that now overlaps the right side of this section. */
+  max-width: 620px;
+  gap: 20px;
+  padding-top: 40px;
 }
 
 .overviewHeading {
@@ -148,19 +161,34 @@
 .overviewBody {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1.1rem;
-  line-height: 170%;
+  font-size: 1rem;
+  line-height: 165%;
   letter-spacing: -0.02em;
   color: #666;
+  max-width: 600px;
 }
 
 /* ============================================================
    HIGHLIGHT BANNER
    ============================================================ */
+/* ─────────────────────────────────────────────────────────────
+   HIGHLIGHT BANNER — quick-adjust knobs
+   Edit these three custom properties to tune the section:
+     --hl-bg-height   = how tall the blue band is
+     --hl-pull-up     = how much the whole banner overlaps Overview above
+                        (more negative = banner sits higher on the page)
+     --hl-section-h   = total .highlight section height (controls how far
+                        above the blue box the phone can extend)
+   ───────────────────────────────────────────────────────────── */
 .highlight {
+  --hl-bg-height: 300px;     /* ← blue box height (thinner = smaller band) */
+  --hl-pull-up: -240px;      /* ← negative margin pulling banner up */
+  --hl-section-h: 540px;     /* ← total section height */
+
   position: relative;
   width: 100%;
-  height: 350px;
+  height: var(--hl-section-h);
+  margin-top: var(--hl-pull-up);
   overflow: visible;
 }
 
@@ -169,17 +197,21 @@
   bottom: -10px;
   left: -37px;
   right: -27px;
-  height: 313px;
+  height: var(--hl-bg-height);
   background-color: var(--color-indigo);
   overflow: visible;
 }
 
 .highlightContent {
   position: absolute;
-  top: 0;
-  left: 157px;
+  /* Pin to the blue box so the text stays centred within the coloured area,
+     not the (now taller) parent section. The text starts at the same
+     horizontal position as the Overview text above so the two sections
+     read as a single column. */
+  bottom: -10px;
+  left: var(--page-side-padding);
   width: 45%;
-  height: 100%;
+  height: var(--hl-bg-height);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -200,18 +232,30 @@
 }
 
 .highlightPhone {
+  /* ── Quick-adjust knobs for the phone mockup ──
+     --phone-w        = phone width
+     --phone-h        = phone height (taller than blue box → top pops out)
+     --phone-x        = horizontal offset from left edge of the section */
+  --phone-w: 360px;
+  --phone-h: 520px;
+  --phone-x: 880px;          /* ← move phone right by increasing this */
+
   position: absolute;
   z-index: 1;
-  width: 465px;
-  top: -256px;
-  bottom: 0;
-  left: 700px;
+  width: var(--phone-w);
+  height: var(--phone-h);
+  bottom: -10px;
+  top: auto;
+  left: var(--phone-x);
 }
 
 .highlightPhone img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  /* Hug the bottom of the container so any letterbox space sits ABOVE the
+     image — eliminates the empty gap that was visible below the phone. */
+  object-position: bottom;
 }
 
 /* ============================================================
@@ -466,14 +510,17 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1199px) {
-  .heroHeader { padding: 48px 48px 32px; gap: 40px; }
+  .page { --page-side-padding: 80px; }
+  .heroHeader { padding: 48px var(--page-side-padding) 32px; gap: 40px; }
   .metaGrid { padding: 0 48px; }
   .metaCell { padding: 32px 24px 40px; }
-  .overview { padding: 64px 48px; }
+  .overview { padding: 64px var(--page-side-padding) 32px; }
   .overviewHeading { font-size: 2rem; }
-  .highlightContent { left: 80px; width: 50%; }
+  .highlight { height: 460px; }
+  .highlightBg { height: 320px; }
+  .highlightContent { left: var(--page-side-padding); width: 50%; height: 320px; bottom: -10px; }
   .highlightText { font-size: 2rem; }
-  .highlightPhone { width: 272px; top: -93px; left: 480px; }
+  .highlightPhone { width: 240px; height: 420px; top: auto; bottom: -10px; left: 480px; }
   .dataLeft { padding: 64px 24px 64px 48px; }
   .dataRight { padding: 64px 48px 64px 24px; }
   .hmwSection { padding: 64px 48px; }
@@ -482,17 +529,21 @@
 }
 
 @media (max-width: 767px) {
-  .heroHeader { flex-direction: column; padding: 40px 32px 32px; gap: 16px; }
+  .page { --page-side-padding: 24px; }
+  .heroHeader { flex-direction: column; padding: 40px var(--page-side-padding) 32px; gap: 16px; }
   .heroTitle { flex: none; }
   .heroImage { height: 200px; }
-  .metaGrid { grid-template-columns: 1fr 1fr; padding: 0 32px; }
-  .metaCell { padding: 28px 20px 32px; border-bottom: 1px solid var(--border-light); }
-  .metaCell:first-child { padding-left: 0; }
-  .metaCell:last-child { padding-right: 0; }
-  .metaCell:nth-child(odd) { padding-left: 0; }
-  .metaCell:nth-child(even) { padding-right: 0; }
+  /* Single column so each detail (Role, Skills, Timeline, Team) sizes to its
+     own content — short ones no longer get stretched to match tall ones. */
+  .metaGrid { grid-template-columns: 1fr; padding: 0 var(--page-side-padding); }
+  .metaCell {
+    padding: 24px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .metaCell:last-child { border-bottom: none; }
   .metaCellLast { border-bottom: none; }
-  .overview { padding: 48px 24px; }
+  .overview { padding: 48px var(--page-side-padding) 24px; }
   .overviewGrid { grid-template-columns: 1fr; gap: 24px; }
   .overviewHeading { font-size: 1.6rem; }
   .highlight { height: auto; min-height: 300px; }
