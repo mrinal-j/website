@@ -200,13 +200,15 @@
                          number = narrower box pulled in from both sides) */
   --hl-bg-radius: 16px;
   --hl-bg-color: 203 203 203;
-  --hl-bg-opacity: 1;
+  --hl-bg-opacity: 0.5;
   --hl-bg-inset: 0px;
 
-  /* Horizontal padding inside the text area (between the left edge of the
-     grey box and the start of the phone). Bigger number = more breathing
-     room around the headline. */
-  --hl-text-padding-x: 48px;
+  /* Padding inside the text area. The headline is left-aligned, so:
+       --hl-text-padding-left  = space between the box's left edge and the
+                                 start of the headline (the main knob to tune)
+       --hl-text-padding-right = space between the headline and the phone */
+  --hl-text-padding-left: 40px;
+  --hl-text-padding-right: 48px;
 
   /* Phone position. Defined here (instead of on .highlightPhone) so the
      text container can also read it — that's how the headline knows where
@@ -244,21 +246,21 @@
   left: calc(var(--page-side-padding) + var(--hl-bg-inset));
   width: calc(var(--phone-x) - var(--page-side-padding) - var(--hl-bg-inset));
   height: var(--hl-bg-height);
-  padding: 0 var(--hl-text-padding-x);
+  padding: 0 var(--hl-text-padding-right) 0 var(--hl-text-padding-left);
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   z-index: 2;
 }
 
 .highlightText {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   line-height: 120%;
   color: var(--text-primary);
-  text-align: center;
+  text-align: left;
   max-width: 543px;
 }
 
