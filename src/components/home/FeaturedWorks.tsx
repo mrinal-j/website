@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import styles from './FeaturedWorks.module.css'
 
-const DESKTOP_SIDE_PADDING = 80
-const MOBILE_SIDE_PADDING = 24
 const CARD_GAP = 20
-const DESKTOP_CARD_PEEK = 500
-const MOBILE_CARD_PEEK = 36
-const DESKTOP_END_PADDING = 100
-const MOBILE_END_PADDING = 36
+
+// ── Arrow sizing ──────────────────────────────────────────────
+// Change ARROW_SIZE to make both scroll arrows bigger or smaller.
+const ARROW_SIZE = 48   // circle diameter in px
+const ARROW_ICON = 18   // icon stroke size in px
 
 const projects = [
   {
@@ -35,52 +34,83 @@ const projects = [
 ]
 
 export function FeaturedWorks() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const [translateX, setTranslateX] = useState(DESKTOP_SIDE_PADDING)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
 
   useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
+    const viewport = viewportRef.current
+    if (!viewport) return
 
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect()
-      const sectionHeight = section.offsetHeight
-      const viewportHeight = window.innerHeight
-      const scrolled = Math.max(0, -rect.top)
-      const totalScroll = sectionHeight - viewportHeight
-      const progress = Math.max(0, Math.min(1, scrolled / totalScroll))
-      const isMobile = window.innerWidth <= 767
-      const sidePadding = isMobile ? MOBILE_SIDE_PADDING : DESKTOP_SIDE_PADDING
-      const cardPeek = isMobile ? MOBILE_CARD_PEEK : DESKTOP_CARD_PEEK
-      const endPadding = isMobile ? MOBILE_END_PADDING : DESKTOP_END_PADDING
-      const cardWidth = window.innerWidth - sidePadding - cardPeek
-      const step = cardWidth + CARD_GAP
-      // Stop scrolling so the last card leaves `endPadding` of space on the right,
-      // rather than the full `cardPeek` width.
-      const maxTranslate = (projects.length - 1) * step - cardPeek + endPadding
-      setTranslateX(sidePadding - progress * maxTranslate)
+    const checkScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = viewport
+      setCanScrollLeft(scrollLeft > 8)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 8)
     }
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    checkScroll()
+    viewport.addEventListener('scroll', checkScroll, { passive: true })
+    window.addEventListener('resize', checkScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      viewport.removeEventListener('scroll', checkScroll)
+      window.removeEventListener('resize', checkScroll)
     }
   }, [])
 
+  const scrollCards = (dir: 'left' | 'right') => {
+    const viewport = viewportRef.current
+    const firstCard = trackRef.current?.children[0] as HTMLElement | undefined
+    if (!viewport || !firstCard) return
+    const amount = firstCard.offsetWidth + CARD_GAP
+    viewport.scrollBy({ left: dir === 'right' ? amount : -amount, behavior: 'smooth' })
+  }
+
   return (
-    <section id="featured-works" ref={sectionRef} className={styles.section}>
-      <div className={styles.stickyWrapper}>
-        <div className={styles.header}>
-          <h2 id="featured-works-title" className={styles.sectionTitle}>Featured works.</h2>
-        </div>
-        <div className={styles.carouselViewport}>
-          <div
-            className={styles.carouselTrack}
-            style={{ transform: `translateX(${translateX}px)` }}
-          >
+    <section id="featured-works" className={styles.section}>
+      <div className={styles.header}>
+        <h2 id="featured-works-title" className={styles.sectionTitle}>Featured works.</h2>
+      </div>
+
+      <div className={styles.carouselContainer}>
+        {/* Left scroll arrow — visible once cards have moved past the left edge */}
+        <button
+          className={styles.scrollArrow}
+          style={{
+            left: 24,
+            opacity: canScrollLeft ? 1 : 0,
+            pointerEvents: canScrollLeft ? 'auto' : 'none',
+            width: ARROW_SIZE,
+            height: ARROW_SIZE,
+          }}
+          aria-label="Scroll left"
+          onClick={() => scrollCards('left')}
+        >
+          <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        {/* Right scroll arrow — visible while more cards remain to the right */}
+        <button
+          className={styles.scrollArrow}
+          style={{
+            right: 24,
+            opacity: canScrollRight ? 1 : 0,
+            pointerEvents: canScrollRight ? 'auto' : 'none',
+            width: ARROW_SIZE,
+            height: ARROW_SIZE,
+          }}
+          aria-label="Scroll right"
+          onClick={() => scrollCards('right')}
+        >
+          <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 6 15 12 9 18" />
+          </svg>
+        </button>
+
+        <div ref={viewportRef} className={styles.carouselViewport}>
+          <div ref={trackRef} className={styles.carouselTrack}>
             {projects.map((project) => (
               <Link
                 key={project.title}
@@ -111,6 +141,7 @@ export function FeaturedWorks() {
                 </div>
               </Link>
             ))}
+            <div className={styles.trackEndSpacer} aria-hidden="true" />
           </div>
         </div>
       </div>

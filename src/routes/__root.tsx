@@ -38,6 +38,14 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     <html lang="en" dir="ltr">
       <head>
         <HeadContent />
+        <script
+          // Disable the browser's automatic scroll restoration so every refresh
+          // starts at the top of the page (the hero section).
+          dangerouslySetInnerHTML={{
+            __html:
+              "if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);",
+          }}
+        />
       </head>
       <body>
         {children}

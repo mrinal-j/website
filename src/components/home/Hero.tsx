@@ -10,7 +10,9 @@ const BACKSPACE_SPEED = 70       // delay between each character as a subtitle e
 const PAUSE_AFTER_HI = 900       // how long "Hi, I'm Mrinal." stays before fading out
 const PHASE_FADE = 400           // fade time between the "Hi" line and the "I design with empathy" block
 const PAUSE_BEFORE_SUBTITLES = 250 // pause after "I design with empathy for" finishes typing
-const SUBTITLE_HOLD = 1400       // how long each subtitle stays fully visible before it backspaces
+const SUBTITLE_HOLD = 1000       // how long each subtitle stays fully visible before it backspaces
+const AUTO_SCROLL_DELAY = 2000   // pause after the final subtitle before auto-scrolling
+const AUTO_SCROLL_DURATION = 2200 // how long the scroll to Featured Works takes (higher = slower)
 // ─────────────────────────────────────────────────────────────
 
 const HI_TEXT = "Hi, I'm Mrinal."
@@ -31,6 +33,14 @@ export function Hero() {
   const [isErasing, setIsErasing] = useState(false)
 
   const hiDone = hiTyped.length === HI_TEXT.length
+
+  // On initial load/refresh, always start at the top of the hero.
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
 
   // Type "Hi, I'm Mrinal." then pause
   useEffect(() => {
@@ -99,6 +109,53 @@ export function Hero() {
     setIsErasing(false)
     setSubtitleIndex(subtitleIndex + 1)
   }, [subtitleIndex, subtitleTyped, isErasing])
+
+  // Once the last subtitle is fully typed, auto-scroll to Featured Works.
+  useEffect(() => {
+    if (subtitleIndex !== subtitles.length - 1) return
+    if (subtitleTyped.length !== subtitles[subtitles.length - 1].length) return
+
+    let cancelled = false
+    let rafId: number | null = null
+
+    // If the user starts scrolling themselves, don't override them.
+    const onUserScroll = () => {
+      cancelled = true
+    }
+
+    const startScroll = () => {
+      if (cancelled) return
+      const target = document.getElementById('featured-works')
+      if (!target) return
+      const startY = window.scrollY
+      const endY = startY + target.getBoundingClientRect().top
+      const startTime = performance.now()
+
+      // easeInOutCubic — smooth acceleration in, smooth deceleration out
+      const ease = (t: number) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+      const step = (now: number) => {
+        if (cancelled) return
+        const progress = Math.min(1, (now - startTime) / AUTO_SCROLL_DURATION)
+        window.scrollTo(0, startY + (endY - startY) * ease(progress))
+        if (progress < 1) rafId = requestAnimationFrame(step)
+      }
+      rafId = requestAnimationFrame(step)
+    }
+
+    const delayTimer = setTimeout(startScroll, AUTO_SCROLL_DELAY)
+    window.addEventListener('wheel', onUserScroll, { passive: true, once: true })
+    window.addEventListener('touchstart', onUserScroll, { passive: true, once: true })
+
+    return () => {
+      cancelled = true
+      clearTimeout(delayTimer)
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      window.removeEventListener('wheel', onUserScroll)
+      window.removeEventListener('touchstart', onUserScroll)
+    }
+  }, [subtitleIndex, subtitleTyped])
 
   const subtitleActive =
     subtitleIndex >= 0 && subtitleIndex < subtitles.length
