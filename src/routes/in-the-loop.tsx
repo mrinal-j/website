@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
+import { CountUp } from '~/components/CountUp'
 import styles from '~/components/case-study/InTheLoop.module.css'
 
 export const Route = createFileRoute('/in-the-loop')({
@@ -91,13 +92,13 @@ function InTheLoopPage() {
           <div className={styles.dataLeft}>
             <div className={styles.statBlock}>
               <p className={styles.statLabel}>THE AVERAGE EMPLOYEE SPENDS</p>
-              <p className={styles.statNumber}>90,000</p>
+              <p className={styles.statNumber}><CountUp to={90000} duration={1800} /></p>
               <p className={styles.statUnit}>HOURS</p>
               <p className={styles.statBody}>at work over a lifetime — that's a full decade of your adulthood, gone.</p>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statBlock}>
-              <p className={styles.statNumber}>10</p>
+              <p className={styles.statNumber}><CountUp to={10} duration={1400} /></p>
               <p className={styles.statUnit}>YEARS OF YOUR ADULTHOOD</p>
             </div>
           </div>

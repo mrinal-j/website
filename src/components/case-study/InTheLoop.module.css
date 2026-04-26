@@ -78,8 +78,10 @@
   gap: 0;
   width: 100%;
   /* Outer side padding so the cells don't sit flush to the viewport edges.
-     Cells stay 1fr so they remain evenly spaced inside this padded area. */
-  padding: 0 80px;
+     Cells stay 1fr so they remain evenly spaced inside this padded area.
+     Uses the shared page-side-padding variable so this row aligns with the
+     hero, overview, and every other section on the page. */
+  padding: 0 var(--page-side-padding);
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
@@ -181,9 +183,37 @@
                         above the blue box the phone can extend)
    ───────────────────────────────────────────────────────────── */
 .highlight {
-  --hl-bg-height: 300px;     /* ← blue box height (thinner = smaller band) */
+  --hl-bg-height: 300px;     /* ← box height (unchanged) */
   --hl-pull-up: -240px;      /* ← negative margin pulling banner up */
   --hl-section-h: 540px;     /* ← total section height */
+
+  /* ── Box appearance knobs (edit these to tune the grey box) ──
+     --hl-bg-radius   = corner roundness (try 8–24px)
+     --hl-bg-color    = RGB of the box fill (space-separated, no commas).
+                        Use the design-system grey:
+                          203 203 203  → --border-medium  (#cbcbcb)
+                          235 235 235  → --border-light   (#ebebeb)
+                          138 138 138  → --text-muted     (#8a8a8a)
+     --hl-bg-opacity  = 0 (invisible) → 1 (solid)
+     --hl-bg-inset    = extra inset past the page side padding
+                        (0 = box edges align with the page content; bigger
+                         number = narrower box pulled in from both sides) */
+  --hl-bg-radius: 16px;
+  --hl-bg-color: 203 203 203;
+  --hl-bg-opacity: 1;
+  --hl-bg-inset: 0px;
+
+  /* Horizontal padding inside the text area (between the left edge of the
+     grey box and the start of the phone). Bigger number = more breathing
+     room around the headline. */
+  --hl-text-padding-x: 48px;
+
+  /* Phone position. Defined here (instead of on .highlightPhone) so the
+     text container can also read it — that's how the headline knows where
+     the phone starts and stays centred between the box edge and the phone. */
+  --phone-w: 360px;
+  --phone-h: 520px;
+  --phone-x: 880px;          /* ← move phone right by increasing this */
 
   position: relative;
   width: 100%;
@@ -195,26 +225,30 @@
 .highlightBg {
   position: absolute;
   bottom: -10px;
-  left: -37px;
-  right: -27px;
+  /* Box now sits inside the page padding (no full-bleed overhang). */
+  left: calc(var(--page-side-padding) + var(--hl-bg-inset));
+  right: calc(var(--page-side-padding) + var(--hl-bg-inset));
   height: var(--hl-bg-height);
-  background-color: var(--color-indigo);
+  background-color: rgb(var(--hl-bg-color) / var(--hl-bg-opacity));
+  border-radius: var(--hl-bg-radius);
   overflow: visible;
 }
 
 .highlightContent {
   position: absolute;
-  /* Pin to the blue box so the text stays centred within the coloured area,
-     not the (now taller) parent section. The text starts at the same
-     horizontal position as the Overview text above so the two sections
-     read as a single column. */
+  /* Span from the box's left edge to the phone's left edge so the text
+     can be centred horizontally in that space. Padding inside (controlled
+     by --hl-text-padding-x on .highlight) gives the headline breathing
+     room from the box edge and from the phone. */
   bottom: -10px;
-  left: var(--page-side-padding);
-  width: 45%;
+  left: calc(var(--page-side-padding) + var(--hl-bg-inset));
+  width: calc(var(--phone-x) - var(--page-side-padding) - var(--hl-bg-inset));
   height: var(--hl-bg-height);
+  padding: 0 var(--hl-text-padding-x);
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   z-index: 2;
 }
 
@@ -223,7 +257,8 @@
   font-weight: 700;
   font-size: 2.5rem;
   line-height: 120%;
-  color: #fff;
+  color: var(--text-primary);
+  text-align: center;
   max-width: 543px;
 }
 
@@ -232,14 +267,8 @@
 }
 
 .highlightPhone {
-  /* ── Quick-adjust knobs for the phone mockup ──
-     --phone-w        = phone width
-     --phone-h        = phone height (taller than blue box → top pops out)
-     --phone-x        = horizontal offset from left edge of the section */
-  --phone-w: 360px;
-  --phone-h: 520px;
-  --phone-x: 880px;          /* ← move phone right by increasing this */
-
+  /* Phone size/position knobs are defined on .highlight so .highlightContent
+     can read --phone-x to size the centred text area. */
   position: absolute;
   z-index: 1;
   width: var(--phone-w);
@@ -270,12 +299,12 @@
 
 .dataLeft {
   flex: 1;
-  padding: 80px 40px 80px 120px;
+  padding: 80px 40px 80px var(--page-side-padding);
 }
 
 .dataRight {
   flex: 1;
-  padding: 80px 120px 80px 40px;
+  padding: 80px var(--page-side-padding) 80px 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -376,7 +405,7 @@
    HMW QUESTION
    ============================================================ */
 .hmwSection {
-  padding: 64px 196px;
+  padding: 64px var(--page-side-padding);
   background-color: var(--bg-primary);
 }
 
@@ -417,7 +446,7 @@
 }
 
 .solutionLabelWrap {
-  padding: 40px 120px 0;
+  padding: 40px var(--page-side-padding) 0;
 }
 
 .carousel {
@@ -492,7 +521,7 @@
 }
 
 .concludingQuote {
-  padding: 64px 120px 80px;
+  padding: 64px var(--page-side-padding) 80px;
 }
 
 .concludingQuote p {
@@ -512,7 +541,7 @@
 @media (max-width: 1199px) {
   .page { --page-side-padding: 80px; }
   .heroHeader { padding: 48px var(--page-side-padding) 32px; gap: 40px; }
-  .metaGrid { padding: 0 48px; }
+  .metaGrid { padding: 0 var(--page-side-padding); }
   .metaCell { padding: 32px 24px 40px; }
   .overview { padding: 64px var(--page-side-padding) 32px; }
   .overviewHeading { font-size: 2rem; }
@@ -521,11 +550,11 @@
   .highlightContent { left: var(--page-side-padding); width: 50%; height: 320px; bottom: -10px; }
   .highlightText { font-size: 2rem; }
   .highlightPhone { width: 240px; height: 420px; top: auto; bottom: -10px; left: 480px; }
-  .dataLeft { padding: 64px 24px 64px 48px; }
-  .dataRight { padding: 64px 48px 64px 24px; }
-  .hmwSection { padding: 64px 48px; }
-  .solutionLabelWrap { padding: 40px 48px 0; }
-  .concludingQuote { padding: 48px 48px 64px; }
+  .dataLeft { padding: 64px 24px 64px var(--page-side-padding); }
+  .dataRight { padding: 64px var(--page-side-padding) 64px 24px; }
+  .hmwSection { padding: 64px var(--page-side-padding); }
+  .solutionLabelWrap { padding: 40px var(--page-side-padding) 0; }
+  .concludingQuote { padding: 48px var(--page-side-padding) 64px; }
 }
 
 @media (max-width: 767px) {
@@ -551,14 +580,14 @@
   .highlightText { font-size: 1.5rem; }
   .highlightPhone { position: relative; width: 160px; top: auto; left: auto; margin: 0 auto; }
   .dataSection { flex-direction: column; }
-  .dataLeft { padding: 48px 24px 16px; }
-  .dataRight { padding: 16px 24px 48px; }
-  .hmwSection { padding: 48px 24px; }
+  .dataLeft { padding: 48px var(--page-side-padding) 16px; }
+  .dataRight { padding: 16px var(--page-side-padding) 48px; }
+  .hmwSection { padding: 48px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
-  .solutionLabelWrap { padding: 32px 24px 0; }
+  .solutionLabelWrap { padding: 32px var(--page-side-padding) 0; }
   .carousel { height: 500px; }
   .screenCard { width: 200px; height: 426px; margin-right: 16px; border-radius: 36px; }
   .phoneFrame { width: 200px; height: 426px; border-radius: 36px; }
-  .concludingQuote { padding: 32px 24px 48px; }
+  .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
   .concludingQuote p { font-size: 1.3rem; }
 }
