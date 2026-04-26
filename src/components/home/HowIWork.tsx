@@ -51,12 +51,14 @@ export function HowIWork() {
     ? (activeStep / (steps.length - 1)) * 100
     : 0
 
-  // Auto-scroll the steps container so the latest revealed step is visible
+  // Auto-scroll the steps container so the latest revealed step is visible.
+  // Uses container-scoped scrolling so it NEVER moves the whole window.
   useEffect(() => {
+    const container = scrollRef.current
     const el = stepRefs.current[activeStep]
-    if (el && scrollRef.current) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
+    if (!container || !el) return
+    const offset = el.offsetTop - container.offsetTop
+    container.scrollTo({ top: offset, behavior: 'smooth' })
   }, [activeStep])
 
   return (

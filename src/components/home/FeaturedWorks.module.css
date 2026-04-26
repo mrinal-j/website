@@ -105,12 +105,6 @@
   height: 460px;
   border-radius: 8px;
   overflow: hidden;
-  filter: grayscale(1) brightness(0.82);
-  transition: filter 0.55s ease;
-}
-
-.card:hover .cardImageWrapper {
-  filter: grayscale(0) brightness(1);
 }
 
 .cardImage {
