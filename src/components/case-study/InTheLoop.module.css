@@ -8,6 +8,22 @@
   /* Same side-padding recipe the home page uses: grows with viewport width
      past 1280px so content stays aligned with the centered 1280px container. */
   --page-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
+
+  /* Phone mockup position (overrides may live on .highlight too).
+     --phone-x is the distance from the page's left edge to the phone's
+     left edge — both Overview text and the highlight banner read this so
+     they know where the phone starts. */
+  --phone-w: 360px;
+  --phone-h: 520px;
+  --phone-x: 880px;
+
+  /* ▼▼▼  THE KNOB YOU'RE LOOKING FOR  ▼▼▼
+     Space between the right edge of the text columns and the phone.
+     Smaller number = text extends closer to the phone (less whitespace).
+     Bigger number = more breathing room before the phone.
+     Applies to BOTH the Overview heading/body AND the highlight banner
+     headline, so they stay in sync. */
+  --text-right-gap: 30px;
 }
 
 /* ============================================================
@@ -144,9 +160,9 @@
      the phone mockup (in the highlight banner below) reads as the right
      half of this section. */
   grid-template-columns: 1fr;
-  /* Narrower column so the heading wraps before reaching the phone mockup
-     that now overlaps the right side of this section. */
-  max-width: 620px;
+  /* Right edge of the text column = phone's left edge minus the shared
+     --text-right-gap knob. Adjust the knob on .page to tune. */
+  max-width: calc(var(--phone-x) - var(--page-side-padding) - var(--text-right-gap));
   gap: 20px;
   padding-top: 40px;
 }
@@ -183,8 +199,8 @@
                         above the blue box the phone can extend)
    ───────────────────────────────────────────────────────────── */
 .highlight {
-  --hl-bg-height: 300px;     /* ← box height (unchanged) */
-  --hl-pull-up: -240px;      /* ← negative margin pulling banner up */
+  --hl-bg-height: 240px;     /* ← box height (unchanged) */
+  --hl-pull-up: -300px;      /* ← negative margin pulling banner up */
   --hl-section-h: 540px;     /* ← total section height */
 
   /* ── Box appearance knobs (edit these to tune the grey box) ──
@@ -200,22 +216,13 @@
                          number = narrower box pulled in from both sides) */
   --hl-bg-radius: 16px;
   --hl-bg-color: 203 203 203;
-  --hl-bg-opacity: 0.5;
+  --hl-bg-opacity: 0.3;
   --hl-bg-inset: 0px;
 
-  /* Padding inside the text area. The headline is left-aligned, so:
-       --hl-text-padding-left  = space between the box's left edge and the
-                                 start of the headline (the main knob to tune)
-       --hl-text-padding-right = space between the headline and the phone */
+  /* Left padding inside the text area (space between the box's left edge
+     and the start of the headline). Right padding is controlled by the
+     shared --text-right-gap knob on .page. */
   --hl-text-padding-left: 40px;
-  --hl-text-padding-right: 48px;
-
-  /* Phone position. Defined here (instead of on .highlightPhone) so the
-     text container can also read it — that's how the headline knows where
-     the phone starts and stays centred between the box edge and the phone. */
-  --phone-w: 360px;
-  --phone-h: 520px;
-  --phone-x: 880px;          /* ← move phone right by increasing this */
 
   position: relative;
   width: 100%;
@@ -246,7 +253,7 @@
   left: calc(var(--page-side-padding) + var(--hl-bg-inset));
   width: calc(var(--phone-x) - var(--page-side-padding) - var(--hl-bg-inset));
   height: var(--hl-bg-height);
-  padding: 0 var(--hl-text-padding-right) 0 var(--hl-text-padding-left);
+  padding: 0 var(--text-right-gap) 0 var(--hl-text-padding-left);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -257,11 +264,12 @@
 .highlightText {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 2rem;
   line-height: 120%;
   color: var(--text-primary);
   text-align: left;
-  max-width: 543px;
+  /* No fixed max-width — the container's right padding (driven by
+     --text-right-gap) controls how close the text gets to the phone. */
 }
 
 .highlightText em {
@@ -541,7 +549,12 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1199px) {
-  .page { --page-side-padding: 80px; }
+  .page {
+    --page-side-padding: 80px;
+    --phone-w: 240px;
+    --phone-h: 420px;
+    --phone-x: 480px;
+  }
   .heroHeader { padding: 48px var(--page-side-padding) 32px; gap: 40px; }
   .metaGrid { padding: 0 var(--page-side-padding); }
   .metaCell { padding: 32px 24px 40px; }
@@ -549,9 +562,9 @@
   .overviewHeading { font-size: 2rem; }
   .highlight { height: 460px; }
   .highlightBg { height: 320px; }
-  .highlightContent { left: var(--page-side-padding); width: 50%; height: 320px; bottom: -10px; }
+  .highlightContent { height: 320px; bottom: -10px; }
   .highlightText { font-size: 2rem; }
-  .highlightPhone { width: 240px; height: 420px; top: auto; bottom: -10px; left: 480px; }
+  .highlightPhone { top: auto; bottom: -10px; }
   .dataLeft { padding: 64px 24px 64px var(--page-side-padding); }
   .dataRight { padding: 64px var(--page-side-padding) 64px 24px; }
   .hmwSection { padding: 64px var(--page-side-padding); }
