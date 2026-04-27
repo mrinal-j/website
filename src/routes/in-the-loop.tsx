@@ -135,6 +135,13 @@ function InTheLoopPage() {
           <div className={styles.solutionLabelWrap}>
             <SectionLabel number="04" title="SOLUTION" />
           </div>
+
+          {/* Concluding quote sits above the carousel, left-aligned with the
+              page padding like the rest of the content above. */}
+          <div className={styles.concludingQuote}>
+            <p>A digital platform intentionally designed for professionals seeking flexible accommodations and meaningful connections.</p>
+          </div>
+
           <div className={styles.carousel}>
             <div className={styles.phoneBezels}>
               {/* Phone frame */}
@@ -143,8 +150,10 @@ function InTheLoopPage() {
               </div>
             </div>
             <div className={styles.carouselTrack}>
-              {[3, 5, 4, 1, 2].map((n) => (
-                <div key={n} className={styles.screenCard}>
+              {/* Render the 5-screen sequence twice so the slide animation can
+                  loop seamlessly (jumps back after one full set is scrolled). */}
+              {[3, 5, 4, 1, 2, 3, 5, 4, 1, 2].map((n, i) => (
+                <div key={`${n}-${i}`} className={styles.screenCard}>
                   <img
                     className={styles.screenImg}
                     src={`/images/screen ${String(n).padStart(2, '0')}.png`}
@@ -154,11 +163,6 @@ function InTheLoopPage() {
               ))}
             </div>
             <div className={styles.carouselFade} />
-          </div>
-
-          {/* Concluding quote */}
-          <div className={styles.concludingQuote}>
-            <p>A digital platform intentionally designed for professionals seeking flexible accommodations and meaningful connections.</p>
           </div>
         </section>
       </main>
