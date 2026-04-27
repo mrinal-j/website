@@ -451,7 +451,29 @@
    SOLUTION SECTION (Dark)
    ============================================================ */
 .solutionSection {
-  background-color: #000;
+  /* Single source of truth for the section background. The carousel side
+     fades read this same variable so they always match. */
+  --solution-bg: #fff;
+
+  /* ── Carousel size knobs (edit these to shrink/grow the phone carousel) ──
+     --carousel-phone-w   = width of each phone card and the bezel frame
+     --carousel-phone-h   = height of each phone card and the bezel frame
+     --carousel-card-gap  = horizontal space between cards
+     --carousel-height    = total height of the carousel band (must be
+                            ≥ --carousel-phone-h, ideally a bit more so the
+                            phone has breathing room above/below) */
+  /* iPhone 16 Pro aspect ratio (1 : 2.174) */
+  --carousel-phone-w: 184px;
+  --carousel-phone-h: 400px;
+  --carousel-card-gap:30px;
+  --carousel-height: 470px;
+  /* iPhone 16 Pro display has ~13.7% corner radius; for 184px-wide cards
+     that's ~25px — using 22px so screen content keeps a small safe inset. */
+  --screen-radius: 22px;
+  /* Thickness of the dark phone shell visible around the centre screen. */
+  --phone-bezel: 6px;
+
+  background-color: var(--solution-bg);
   width: 100%;
 }
 
@@ -461,31 +483,41 @@
 
 .carousel {
   position: relative;
-  height: 689px;
+  height: var(--carousel-height);
   overflow: hidden;
 }
 
 .carouselTrack {
   position: absolute;
-  top: 56px;
+  /* Vertically centre the track inside the carousel band. */
+  top: calc((var(--carousel-height) - var(--carousel-phone-h)) / 2);
   left: 50%;
-  height: 553px;
+  height: var(--carousel-phone-h);
   display: flex;
   flex-direction: row;
-  transform: translateX(-1330px);
+  /* Shift the track left so the middle card sits centred behind the bezel frame. */
+  transform: translateX(calc(-2.43 * (var(--carousel-phone-w) + var(--carousel-card-gap))));
   pointer-events: none;
 }
 
 .screenCard {
-  width: 260px;
-  height: 553px;
+  width: var(--carousel-phone-w);
+  height: var(--carousel-phone-h);
   flex-shrink: 0;
-  margin-right: 40px;
-  border-radius: 46px;
+  margin-right: var(--carousel-card-gap);
+  border-radius: var(--screen-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--bg-tertiary);
+}
+
+.screenImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .screenLabel {
@@ -506,32 +538,54 @@
 }
 
 .phoneFrame {
-  width: 260px;
-  height: 553px;
-  border-radius: 46px;
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  /* Phone shell wraps the centre screen card with a dark bezel ring.
+     Uses a thick border (not a fill) so the screen card behind it shows
+     through the inner area. */
+  width: calc(var(--carousel-phone-w) + 2 * var(--phone-bezel));
+  height: calc(var(--carousel-phone-h) + 2 * var(--phone-bezel));
+  border-radius: calc(var(--screen-radius) + var(--phone-bezel));
+  border: var(--phone-bezel) solid #111;
+  box-sizing: border-box;
+  background: transparent;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.35);
   position: relative;
+}
+
+/* Dynamic-island pill near the top of the centre phone. */
+.phoneFrame::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 18px;
+  background: #000;
+  border-radius: 9px;
+  z-index: 2;
 }
 
 .phoneScreen {
   position: absolute;
-  inset: 9px;
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  inset: 0;
+  border-radius: var(--screen-radius);
+  /* Transparent — the underlying screen card shows through this window. */
 }
 
 .carouselFade {
   position: absolute;
   inset: 0;
+  /* Side fades match the section background so the carousel edges blend
+     into whatever colour --solution-bg is set to (no more black halos). */
   background:
-    linear-gradient(to right, #000 0%, transparent 18%),
-    linear-gradient(to left, #000 0%, transparent 18%);
+    linear-gradient(to right, var(--solution-bg) 0%, transparent 18%),
+    linear-gradient(to left, var(--solution-bg) 0%, transparent 18%);
   pointer-events: none;
   z-index: 30;
 }
 
 .concludingQuote {
-  padding: 64px var(--page-side-padding) 80px;
+  padding: 48px var(--page-side-padding) 56px;
 }
 
 .concludingQuote p {
@@ -539,7 +593,7 @@
   font-weight: 600;
   font-size: 2rem;
   line-height: 130%;
-  color: #fff;
+  color: var(--text-primary);
   max-width: 960px;
   text-align: center;
   margin: 0 auto;
@@ -600,9 +654,12 @@
   .hmwSection { padding: 48px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
   .solutionLabelWrap { padding: 32px var(--page-side-padding) 0; }
-  .carousel { height: 500px; }
-  .screenCard { width: 200px; height: 426px; margin-right: 16px; border-radius: 36px; }
-  .phoneFrame { width: 200px; height: 426px; border-radius: 36px; }
+  .solutionSection {
+    --carousel-phone-w: 170px;
+    --carousel-phone-h: 370px;
+    --carousel-card-gap: 16px;
+    --carousel-height: 400px;
+  }
   .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
   .concludingQuote p { font-size: 1.3rem; }
 }

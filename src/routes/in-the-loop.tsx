@@ -133,7 +133,7 @@ function InTheLoopPage() {
         {/* Solution - Phone Carousel */}
         <section className={styles.solutionSection}>
           <div className={styles.solutionLabelWrap}>
-            <SectionLabel number="04" title="SOLUTION" dark />
+            <SectionLabel number="04" title="SOLUTION" />
           </div>
           <div className={styles.carousel}>
             <div className={styles.phoneBezels}>
@@ -143,23 +143,15 @@ function InTheLoopPage() {
               </div>
             </div>
             <div className={styles.carouselTrack}>
-              {['Screen 01', 'Screen 02', 'Screen 03', 'Screen 04', 'Screen 01', 'Screen 02', 'Screen 03', 'Screen 04'].map((label, i) => {
-                const gradients = [
-                  'linear-gradient(160deg, #1a1a3e, #0f3460)',
-                  'linear-gradient(160deg, #1e3a2f, #0d2b40)',
-                  'linear-gradient(160deg, #3a1a2e, #1a0d30)',
-                  'linear-gradient(160deg, #1a2e3a, #0d1f2b)',
-                ]
-                return (
-                  <div
-                    key={`${label}-${i}`}
-                    className={styles.screenCard}
-                    style={{ background: gradients[i % 4] }}
-                  >
-                    <span className={styles.screenLabel}>{label}</span>
-                  </div>
-                )
-              })}
+              {[3, 5, 4, 1, 2].map((n) => (
+                <div key={n} className={styles.screenCard}>
+                  <img
+                    className={styles.screenImg}
+                    src={`/images/screen ${String(n).padStart(2, '0')}.png`}
+                    alt={`In the Loop screen ${n}`}
+                  />
+                </div>
+              ))}
             </div>
             <div className={styles.carouselFade} />
           </div>
