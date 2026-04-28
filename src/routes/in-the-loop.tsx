@@ -165,6 +165,42 @@ function InTheLoopPage() {
             <div className={styles.carouselFade} />
           </div>
         </section>
+
+        {/* What we heard — research findings */}
+        <section className={styles.heardSection}>
+          <div className={styles.heardLabelWrap}>
+            <SectionLabel number="05" title="WHAT WE HEARD" />
+          </div>
+
+          <h2 className={styles.heardHeadline}>
+            They aren&rsquo;t just dissatisfied with their work, but also<br />
+            with how and where they work from.
+          </h2>
+
+          <div className={styles.heardCards}>
+            {[
+              { tone: 'yellowLight', rotate: -7, x: 2,  y: 14, text: '\u201CDifficulty separating work and personal life, particularly as my desk is in my bedroom.\u201D' },
+              { tone: 'indigoBase',  rotate: 5,  x: 16, y: 30, text: '\u201CI enjoyed going into the office, the small social interactions in between your workday.\u201D' },
+              { tone: 'yellowBase',  rotate: -2, x: 27, y: 4,  text: '\u201CDedicated time to connect with coworkers \u2014 shared lunchtimes without interruptions \u2014 so important!\u201D' },
+              { tone: 'indigoLight', rotate: 7,  x: 41, y: 22, text: '\u201CSocial interactions during my workday help me cope with my work stress.\u201D' },
+              { tone: 'yellowDark',  rotate: -5, x: 51, y: 2,  text: '\u201CConfused between the sentiments that come with WFH and working from office.\u201D' },
+              { tone: 'indigoDark',  rotate: 3,  x: 64, y: 26, text: '\u201CCoping with the stress of workload \u2014 walk, take some time away from my work desk, a short exercise, or changing my work environment.\u201D' },
+              { tone: 'yellowBase',  rotate: -4, x: 78, y: 10, text: '\u201CWorking by a beach is my dream scenario.\u201D' },
+            ].map((card, i) => (
+              <div
+                key={i}
+                className={`${styles.heardCard} ${styles[`tone_${card.tone}`]}`}
+                style={{
+                  left: `${card.x}%`,
+                  bottom: `${card.y}%`,
+                  transform: `rotate(${card.rotate}deg)`,
+                }}
+              >
+                <p>{card.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
       <Footer />
     </>

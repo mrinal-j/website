@@ -740,4 +740,81 @@
   }
   .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
   .concludingQuote p { font-size: 1.3rem; }
+  .heardSection { --heard-cards-h: 380px; }
+  .heardLabelWrap { padding: 32px var(--page-side-padding) 0; }
+  .heardHeadline { font-size: 1.6rem; padding: 0 var(--page-side-padding); }
+  .heardCards { padding: 0 var(--page-side-padding); }
+  .heardCard { width: 150px; min-height: 130px; font-size: 0.8rem; padding: 14px; }
 }
+
+/* ============================================================
+   WHAT WE HEARD — research findings with sticky-note collage
+   ============================================================ */
+.heardSection {
+  /* ▼▼▼ KNOBS for the section ▼▼▼
+     --heard-cards-h    = height of the area below the headline that holds
+                          the sticky-note cards (taller = cards spread more) */
+  --heard-cards-h: 460px;
+
+  width: 100%;
+  background-color: var(--bg-primary);
+  padding-bottom: 80px;
+  overflow: hidden;
+}
+
+.heardLabelWrap {
+  padding: 80px var(--page-side-padding) 0;
+}
+
+.heardHeadline {
+  /* Same type style as the SOLUTION section's concluding quote. */
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  text-align: left;
+  /* Wide enough to fit each phrase on a single line; the explicit <br />
+     in the JSX is the only line break. */
+  max-width: none;
+  margin: 0;
+  padding: 48px var(--page-side-padding) 56px;
+}
+
+.heardCards {
+  /* Constrain to the page content area so absolute-positioned cards
+     (left: X%) measure from the inside-padding edge, never spilling
+     into the page side-padding. */
+  position: relative;
+  width: calc(100% - 2 * var(--page-side-padding));
+  height: var(--heard-cards-h);
+  margin: 0 auto;
+}
+
+.heardCard {
+  position: absolute;
+  width: 200px;
+  min-height: 170px;
+  padding: 20px 18px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 145%;
+  color: #1a1a1a;
+  white-space: pre-line;
+  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.18);
+  /* Origin at bottom-left so percentage left/bottom positions feel natural. */
+  transform-origin: center;
+}
+
+.heardCard p {
+  margin: 0;
+}
+
+/* Tone variants — three tones each from --color-yellow (#DED74F) and
+   --color-indigo (#4450EA) so the cards feel like a related family. */
+.tone_yellowLight { background: #ece881; color: #2a280f; }
+.tone_yellowBase  { background: var(--color-yellow); color: #2a280f; }
+.tone_yellowDark  { background: #b8b13a; color: #fff; }
+.tone_indigoLight { background: #c5c9f8; color: #1a1f6b; }
+.tone_indigoBase  { background: var(--color-indigo); color: #fff; }
+.tone_indigoDark  { background: var(--color-indigo-dark); color: #fff; }
