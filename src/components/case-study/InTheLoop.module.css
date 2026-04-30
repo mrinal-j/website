@@ -673,7 +673,6 @@
   font-size: 2rem;
   line-height: 130%;
   color: var(--text-primary);
-  max-width: 960px;
   text-align: left;
 }
 
@@ -740,26 +739,19 @@
   }
   .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
   .concludingQuote p { font-size: 1.3rem; }
-  .heardSection { --heard-cards-h: 380px; }
   .heardLabelWrap { padding: 32px var(--page-side-padding) 0; }
-  .heardHeadline { font-size: 1.6rem; padding: 0 var(--page-side-padding); }
-  .heardCards { padding: 0 var(--page-side-padding); }
-  .heardCard { width: 150px; min-height: 130px; font-size: 0.8rem; padding: 14px; }
+  .heardHeadline { font-size: 1.6rem; padding: 24px var(--page-side-padding) 32px; }
+  .heardCards { gap: 14px; }
+  .heardCard { width: 140px; min-height: 120px; font-size: 0.82rem; padding: 14px 12px; }
 }
 
 /* ============================================================
-   WHAT WE HEARD — research findings with sticky-note collage
+   WHAT WE HEARD — research findings with sticky-note grid
    ============================================================ */
 .heardSection {
-  /* ▼▼▼ KNOBS for the section ▼▼▼
-     --heard-cards-h    = height of the area below the headline that holds
-                          the sticky-note cards (taller = cards spread more) */
-  --heard-cards-h: 460px;
-
   width: 100%;
   background-color: var(--bg-primary);
-  padding-bottom: 80px;
-  overflow: hidden;
+  padding-bottom: 96px;
 }
 
 .heardLabelWrap {
@@ -767,54 +759,136 @@
 }
 
 .heardHeadline {
-  /* Same type style as the SOLUTION section's concluding quote. */
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 2rem;
   line-height: 130%;
   color: var(--text-primary);
   text-align: left;
-  /* Wide enough to fit each phrase on a single line; the explicit <br />
-     in the JSX is the only line break. */
   max-width: none;
   margin: 0;
   padding: 48px var(--page-side-padding) 56px;
 }
 
 .heardCards {
-  /* Constrain to the page content area so absolute-positioned cards
-     (left: X%) measure from the inside-padding edge, never spilling
-     into the page side-padding. */
-  position: relative;
-  width: calc(100% - 2 * var(--page-side-padding));
-  height: var(--heard-cards-h);
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 var(--page-side-padding);
 }
 
 .heardCard {
-  position: absolute;
-  width: 200px;
-  min-height: 170px;
-  padding: 20px 18px;
+  width: 170px;
+  min-height: 150px;
+  padding: 18px 16px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 145%;
+  font-size: 0.92rem;
+  line-height: 150%;
   color: #1a1a1a;
-  white-space: pre-line;
-  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.18);
-  /* Origin at bottom-left so percentage left/bottom positions feel natural. */
-  transform-origin: center;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  box-shadow:
+    1px 2px 4px rgba(0, 0, 0, 0.06),
+    2px 6px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+.heardCard:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+  z-index: 2;
+}
+
+.heardCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 3px 3px;
 }
 
 .heardCard p {
   margin: 0;
 }
 
-/* Tone variants — three tones each from --color-yellow (#DED74F) and
-   --color-indigo (#4450EA) so the cards feel like a related family. */
-.tone_yellowLight { background: #ece881; color: #2a280f; }
-.tone_yellowBase  { background: var(--color-yellow); color: #2a280f; }
-.tone_yellowDark  { background: #b8b13a; color: #fff; }
-.tone_indigoLight { background: #c5c9f8; color: #1a1f6b; }
-.tone_indigoBase  { background: var(--color-indigo); color: #fff; }
-.tone_indigoDark  { background: var(--color-indigo-dark); color: #fff; }
+.tone_yellow {
+  background: #fce868;
+  color: #2a260b;
+}
+
+.tone_pink {
+  background: #f8b4c8;
+  color: #3a1520;
+}
+
+/* ============================================================
+   PROBLEM — stacking cards that pile up on scroll
+   ============================================================ */
+.problemLabelWrap {
+  padding: 80px var(--page-side-padding) 0;
+}
+
+.problemStack {
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.problemCardWrap {
+  height: 70vh;
+}
+
+.problemCardWrap:last-child {
+  height: auto;
+}
+
+.problemCard {
+  position: sticky;
+  top: var(--card-top);
+  background: var(--bg-primary);
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 48px 56px;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  box-shadow:
+    0 4px 20px -6px rgba(0, 0, 0, 0.1),
+    0 12px 40px -12px rgba(0, 0, 0, 0.08);
+}
+
+.problemNumber {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 5rem;
+  line-height: 0.85;
+  flex-shrink: 0;
+}
+
+.problemText {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 140%;
+  color: var(--text-primary);
+  margin: 0;
+  padding-top: 12px;
+}
+
+@media (max-width: 1199px) {
+  .problemCard { padding: 36px 40px; gap: 24px; }
+  .problemNumber { font-size: 4rem; }
+  .problemText { font-size: 1.4rem; }
+}
+
+@media (max-width: 767px) {
+  .problemLabelWrap { padding: 48px var(--page-side-padding) 0; }
+  .problemStack { padding: 24px var(--page-side-padding) 0; }
+  .problemCardWrap { height: 60vh; }
+  .problemCard { padding: 24px 20px; gap: 16px; border-radius: 14px; }
+  .problemNumber { font-size: 3rem; }
+  .problemText { font-size: 1.1rem; padding-top: 6px; }
+}

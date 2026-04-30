@@ -6,6 +6,7 @@ import {
   HeadContent,
   Scripts,
 } from '@tanstack/react-router'
+import { SmoothScroll } from '~/components/SmoothScroll'
 
 import globalsCss from '~/styles/globals.css?url'
 
@@ -28,6 +29,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
+      <SmoothScroll />
       <Outlet />
     </RootDocument>
   )
