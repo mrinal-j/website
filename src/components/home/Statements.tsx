@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './Statements.module.css'
 
 const words =
@@ -29,9 +30,10 @@ export function Statements() {
   const textRef = useRef<HTMLParagraphElement>(null)
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
   const [revealCount, setRevealCount] = useState(0)
-  const [fadeIn, setFadeIn] = useState(0)
+  const { fadeStyle } = useSectionFadeIn(sectionRef)
   const [leftY, setLeftY] = useState(0)
   const [rightY, setRightY] = useState(0)
+  const [visibleImages, setVisibleImages] = useState<Set<number>>(new Set())
 
   useEffect(() => {
     const el = sectionRef.current
@@ -74,9 +76,6 @@ export function Statements() {
     const rect = section.getBoundingClientRect()
     const vh = window.innerHeight
 
-    const fadeProg = Math.min(1, Math.max(0, 1 - rect.top / (vh * 0.5)))
-    setFadeIn(fadeProg)
-
     const visibleHeight = vh - 200
     const leftOverflow = Math.max(0, leftEl.scrollHeight - visibleHeight)
     const rightOverflow = Math.max(0, rightEl.scrollHeight - visibleHeight)
@@ -115,14 +114,12 @@ export function Statements() {
     return () => observer.disconnect()
   }, [])
 
-  const [visibleImages, setVisibleImages] = useState<Set<number>>(new Set())
-
   return (
     <section id="statements" ref={sectionRef} className={styles.section}>
       <div ref={stickyRef} className={styles.sticky}>
         <div
           className={styles.layout}
-          style={{ opacity: fadeIn, transform: `translateY(${(1 - fadeIn) * 30}px)` }}
+          style={fadeStyle}
         >
           <div className={styles.textCol}>
             <p ref={textRef} className={styles.text}>

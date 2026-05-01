@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './Hero.module.css'
 import { MeshGradient } from './MeshGradient'
 
@@ -20,6 +21,7 @@ export function Hero() {
   const [darkOpacity, setDarkOpacity] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const { fadeStyle } = useSectionFadeIn(containerRef)
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 100)
@@ -50,7 +52,7 @@ export function Hero() {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <div className={styles.sticky}>
+      <div className={styles.sticky} style={fadeStyle}>
         <div className={`${styles.meshLayer} ${loaded ? styles.meshLayerVisible : ''}`}>
           <MeshGradient colors={MESH_COLORS} />
         </div>

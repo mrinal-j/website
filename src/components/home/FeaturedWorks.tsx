@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import { SectionLabel } from '~/components/SectionLabel'
+import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './FeaturedWorks.module.css'
 
 const CARD_GAP = 20
@@ -34,6 +36,8 @@ const projects = [
 ]
 
 export function FeaturedWorks() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { fadeStyle } = useSectionFadeIn(sectionRef)
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -67,9 +71,11 @@ export function FeaturedWorks() {
   }
 
   return (
-    <section id="featured-works" className={styles.section}>
+    <section id="featured-works" ref={sectionRef} className={styles.section}>
+      <div className={styles.fadeWrap} style={fadeStyle}>
       <div className={styles.header}>
-        <h2 id="featured-works-title" className={styles.sectionTitle}>Featured works.</h2>
+        <h2 id="featured-works-title" className={styles.srOnly}>Featured works</h2>
+        <SectionLabel title="FEATURED WORKS" />
       </div>
 
       <div className={styles.carouselContainer}>
@@ -144,6 +150,7 @@ export function FeaturedWorks() {
             <div className={styles.trackEndSpacer} aria-hidden="true" />
           </div>
         </div>
+      </div>
       </div>
     </section>
   )

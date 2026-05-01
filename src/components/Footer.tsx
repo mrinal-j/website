@@ -1,13 +1,17 @@
+import { useRef } from 'react'
+import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './Footer.module.css'
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null)
+  const { fadeStyle } = useSectionFadeIn(footerRef)
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <footer className={styles.footer}>
-      <div className={styles.inner}>
+    <footer ref={footerRef} className={styles.footer}>
+      <div className={styles.inner} style={fadeStyle}>
         {/* Main CTA */}
         <div className={styles.ctaSection}>
           <h2 className={styles.ctaHeading}>Building something that matters?</h2>

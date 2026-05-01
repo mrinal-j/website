@@ -25,9 +25,11 @@
 .line {
   flex: 1;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.12);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.14), transparent);
 }
 
 .dark .number { color: rgba(255, 255, 255, 0.25); }
 .dark .title { color: rgba(255, 255, 255, 0.35); }
-.dark .line { background-color: rgba(255, 255, 255, 0.12); }
+.dark .line {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.14), transparent);
+}

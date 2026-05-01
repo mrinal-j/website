@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { SectionLabel } from '~/components/SectionLabel'
+import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './HowIWork.module.css'
 
 const steps = [
@@ -26,6 +28,7 @@ const steps = [
 
 export function HowIWork() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const { fadeStyle } = useSectionFadeIn(sectionRef)
   const scrollRef = useRef<HTMLDivElement>(null)
   const stepRefs = useRef<(HTMLDivElement | null)[]>([])
   const [progress, setProgress] = useState(0)
@@ -63,8 +66,11 @@ export function HowIWork() {
 
   return (
     <section ref={sectionRef} className={styles.section}>
-      <div className={styles.sticky}>
-        <h2 className={styles.title}>How I work?</h2>
+      <div className={styles.sticky} style={fadeStyle}>
+        <h2 className={styles.srOnly}>How I work</h2>
+        <div className={styles.sectionLabelWrap}>
+          <SectionLabel title="HOW I WORK" />
+        </div>
         <div className={styles.layout}>
           {/* Left: stacking steps */}
           <div ref={scrollRef} className={styles.stepsScroll}>

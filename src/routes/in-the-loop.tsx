@@ -109,7 +109,7 @@ function InTheLoopPage() {
 
         {/* Overview */}
         <section className={styles.overview}>
-          <SectionLabel number="01" title="OVERVIEW" />
+          <SectionLabel title="OVERVIEW" />
           <div className={styles.overviewGrid}>
             <h2 className={styles.overviewHeading}>
               In the Loop is a digital platform that reimagines mobility as a tool for growth.
@@ -182,7 +182,7 @@ function InTheLoopPage() {
         {/* Solution - Phone Carousel */}
         <section className={styles.solutionSection}>
           <div className={styles.solutionLabelWrap}>
-            <SectionLabel number="04" title="SOLUTION" />
+            <SectionLabel title="SOLUTION" />
           </div>
 
           {/* Concluding quote sits above the carousel, left-aligned with the
@@ -218,7 +218,7 @@ function InTheLoopPage() {
         {/* What we heard — research findings */}
         <section className={styles.heardSection}>
           <div className={styles.heardLabelWrap}>
-            <SectionLabel number="05" title="WHAT WE HEARD" />
+            <SectionLabel title="WHAT WE HEARD" />
           </div>
 
           <h2 className={styles.heardHeadline}>
