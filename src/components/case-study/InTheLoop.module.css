@@ -513,10 +513,6 @@
   animation: carouselSnap calc(5 * var(--carousel-step)) cubic-bezier(0.7, 0, 0.2, 1) infinite;
 }
 
-/* Pause when the user hovers over the carousel area. */
-.carousel:hover .carouselTrack {
-  animation-play-state: paused;
-}
 
 /* Five segments of 20%. Within each segment: hold for 17.5%, then snap
    over the next 2.5% to the next position. The duplicated 5-card set in
@@ -816,79 +812,228 @@
   margin: 0;
 }
 
-.tone_yellow {
-  background: #fce868;
+.tone_noteYellow {
+  background: #f5f0a0;
   color: #2a260b;
 }
 
-.tone_pink {
-  background: #f8b4c8;
-  color: #3a1520;
+.tone_noteIndigo {
+  background: #c5c9f8;
+  color: #1a1f6b;
 }
 
 /* ============================================================
-   PROBLEM — stacking cards that pile up on scroll
+   TAKEAWAYS + PROBLEM CARDS + OPPORTUNITY QUESTION
    ============================================================ */
-.problemLabelWrap {
-  padding: 80px var(--page-side-padding) 0;
+.takeawayIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  padding: 64px var(--page-side-padding) 0;
+  margin: 0;
 }
 
-.problemStack {
-  padding: 40px var(--page-side-padding) 0;
+.problemRow {
+  display: flex;
+  gap: 24px;
+  padding: 32px var(--page-side-padding) 0;
 }
 
-.problemCardWrap {
-  height: 70vh;
+.opportunityIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  padding: 64px var(--page-side-padding) 0;
+  margin: 0;
 }
 
-.problemCardWrap:last-child {
-  height: auto;
+.opportunityQuestion {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 2.25rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  padding: 20px var(--page-side-padding) 0;
+  margin: 0;
+}
+
+.opportunityQuestion em {
+  font-style: italic;
+}
+
+.capsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 28px var(--page-side-padding) 48px;
+}
+
+.capsule {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--color-indigo);
+  padding: 10px 24px;
+  border-radius: 100px;
+}
+
+/* ============================================================
+   SATISFACTION × FREQUENCY MATRIX
+   ============================================================ */
+.matrixLayout {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding: 0 var(--page-side-padding) 96px;
+}
+
+.matrix {
+  position: relative;
+  width: 520px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+.axisV {
+  position: absolute;
+  top: 32px;
+  bottom: 32px;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.axisH {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.axisLabel {
+  position: absolute;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--bg-primary);
+  padding: 0 8px;
+}
+
+.axisTop { top: 0; left: 50%; transform: translateX(-50%); }
+.axisBottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.axisLeft { top: 50%; left: 0; transform: translateY(-50%); }
+.axisRight { top: 50%; right: 0; transform: translateY(-50%); }
+
+.matrixCapsule {
+  position: absolute;
+  left: var(--mx);
+  top: var(--my);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.82rem;
+  color: #fff;
+  background: var(--color-indigo);
+  padding: 8px 20px;
+  border-radius: 100px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-60px);
+  transition:
+    opacity 0.5s ease var(--m-delay),
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) var(--m-delay);
+}
+
+.matrixCapsuleHighlight {
+  background: #DED74F;
+  color: #1a1a1a;
+}
+
+.matrixRevealed .matrixCapsule {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.matrixInsight {
+  flex: 1;
+}
+
+.matrixInsight p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 170%;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 .problemCard {
-  position: sticky;
-  top: var(--card-top);
+  flex: 1;
   background: var(--bg-primary);
-  border: 2px solid;
+  border: 2px solid #DED74F;
   border-radius: 20px;
-  padding: 48px 56px;
+  padding: 36px 32px;
   display: flex;
-  align-items: flex-start;
-  gap: 28px;
-  box-shadow:
-    0 4px 20px -6px rgba(0, 0, 0, 0.1),
-    0 12px 40px -12px rgba(0, 0, 0, 0.08);
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.problemCardVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .problemNumber {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 5rem;
-  line-height: 0.85;
-  flex-shrink: 0;
+  font-size: 4.5rem;
+  line-height: 0.9;
+  color: #DED74F;
 }
 
 .problemText {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 1.75rem;
-  line-height: 140%;
-  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
   margin: 0;
-  padding-top: 12px;
 }
 
 @media (max-width: 1199px) {
-  .problemCard { padding: 36px 40px; gap: 24px; }
-  .problemNumber { font-size: 4rem; }
-  .problemText { font-size: 1.4rem; }
+  .problemCard { padding: 28px 24px; }
+  .problemNumber { font-size: 3.5rem; }
+  .problemText { font-size: 1rem; }
+  .matrix { width: 420px; }
+  .matrixCapsule { font-size: 0.75rem; padding: 6px 16px; }
+  .matrixLayout { gap: 36px; }
 }
 
 @media (max-width: 767px) {
-  .problemLabelWrap { padding: 48px var(--page-side-padding) 0; }
-  .problemStack { padding: 24px var(--page-side-padding) 0; }
-  .problemCardWrap { height: 60vh; }
-  .problemCard { padding: 24px 20px; gap: 16px; border-radius: 14px; }
+  .takeawayIntro { padding: 40px var(--page-side-padding) 0; font-size: 0.95rem; }
+  .problemRow { flex-direction: column; padding: 20px var(--page-side-padding) 0; gap: 16px; }
+  .problemCard { padding: 24px 20px; border-radius: 14px; }
   .problemNumber { font-size: 3rem; }
-  .problemText { font-size: 1.1rem; padding-top: 6px; }
+  .problemText { font-size: 0.95rem; }
+  .opportunityIntro { padding: 40px var(--page-side-padding) 0; font-size: 0.95rem; }
+  .opportunityQuestion { font-size: 1.6rem; }
+  .capsules { padding: 20px var(--page-side-padding) 32px; gap: 10px; }
+  .capsule { font-size: 0.85rem; padding: 8px 18px; }
+  .matrixLayout { flex-direction: column; gap: 32px; }
+  .matrix { width: 100%; }
+  .matrixCapsule { font-size: 0.7rem; padding: 6px 14px; }
+  .matrixInsight p { font-size: 0.95rem; }
 }

@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useRef } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
@@ -16,6 +17,54 @@ export const Route = createFileRoute('/in-the-loop')({
 })
 
 function InTheLoopPage() {
+  const problemRowRef = useRef<HTMLDivElement>(null)
+  const matrixRef = useRef<HTMLDivElement>(null)
+  const revealedCount = useRef(0)
+  const lastRevealScroll = useRef(0)
+
+  useEffect(() => {
+    const row = problemRowRef.current
+    if (!row) return
+    const cards = row.querySelectorAll<HTMLElement>(`.${styles.problemCard}`)
+    if (!cards.length) return
+
+    const SCROLL_GAP = 150
+
+    const onScroll = () => {
+      if (revealedCount.current >= cards.length) return
+      const rect = row.getBoundingClientRect()
+      if (rect.top >= window.innerHeight * 0.8) return
+
+      const scrollY = window.scrollY
+      if (revealedCount.current === 0 || scrollY - lastRevealScroll.current >= SCROLL_GAP) {
+        cards[revealedCount.current].classList.add(styles.problemCardVisible)
+        lastRevealScroll.current = scrollY
+        revealedCount.current++
+      }
+    }
+
+    const matrixEl = matrixRef.current
+    let matrixRevealed = false
+    const onMatrixScroll = () => {
+      if (matrixRevealed || !matrixEl) return
+      const rect = matrixEl.getBoundingClientRect()
+      if (rect.top < window.innerHeight * 0.7) {
+        matrixEl.classList.add(styles.matrixRevealed)
+        matrixRevealed = true
+      }
+    }
+
+    const combinedScroll = () => {
+      onScroll()
+      onMatrixScroll()
+    }
+
+    window.addEventListener('scroll', combinedScroll, { passive: true })
+    onScroll()
+    onMatrixScroll()
+    return () => window.removeEventListener('scroll', combinedScroll)
+  }, [])
+
   return (
     <>
       <Navbar />
@@ -173,19 +222,18 @@ function InTheLoopPage() {
           </div>
 
           <h2 className={styles.heardHeadline}>
-            They aren&rsquo;t just dissatisfied with their work, but also<br />
-            with how and where they work from.
+            They aren&rsquo;t just dissatisfied with their work, but also with how and where they work from.
           </h2>
 
           <div className={styles.heardCards}>
             {[
-              { tone: 'yellow', rotate: -2, text: '\u201CDifficulty separating work and personal life, particularly as my desk is in my bedroom.\u201D' },
-              { tone: 'pink',   rotate: 1.5, text: '\u201CI enjoyed going into the office, the small social interactions in between your workday.\u201D' },
-              { tone: 'yellow', rotate: -1, text: '\u201CDedicated time to connect with coworkers \u2014 shared lunchtimes without interruptions \u2014 so important!\u201D' },
-              { tone: 'pink',   rotate: 2, text: '\u201CSocial interactions during my workday help me cope with my work stress.\u201D' },
-              { tone: 'pink',   rotate: -1.5, text: '\u201CConfused between the sentiments that come with WFH and working from office.\u201D' },
-              { tone: 'yellow', rotate: 1, text: '\u201CCoping with the stress of workload \u2014 walk, take some time away from my work desk, a short exercise, or changing my work environment.\u201D' },
-              { tone: 'yellow', rotate: -2.5, text: '\u201CWorking by a beach is my dream scenario.\u201D' },
+              { tone: 'noteYellow', rotate: -2, text: '\u201CDifficulty separating work and personal life, particularly as my desk is in my bedroom.\u201D' },
+              { tone: 'noteIndigo', rotate: 1.5, text: '\u201CI enjoyed going into the office, the small social interactions in between your workday.\u201D' },
+              { tone: 'noteYellow', rotate: -1, text: '\u201CDedicated time to connect with coworkers \u2014 shared lunchtimes without interruptions \u2014 so important!\u201D' },
+              { tone: 'noteIndigo', rotate: 2, text: '\u201CSocial interactions during my workday help me cope with my work stress.\u201D' },
+              { tone: 'noteIndigo', rotate: -1.5, text: '\u201CConfused between the sentiments that come with WFH and working from office.\u201D' },
+              { tone: 'noteYellow', rotate: 1, text: '\u201CCoping with the stress of workload \u2014 walk, take some time away from my work desk, a short exercise, or changing my work environment.\u201D' },
+              { tone: 'noteYellow', rotate: -2.5, text: '\u201CWorking by a beach is my dream scenario.\u201D' },
             ].map((card, i) => (
               <div
                 key={i}
@@ -197,31 +245,74 @@ function InTheLoopPage() {
             ))}
           </div>
 
-          {/* Problem cards — stack on scroll */}
-          <div className={styles.problemLabelWrap}>
-            <SectionLabel number="06" title="PROBLEM" />
-          </div>
-          <div className={styles.problemStack}>
+          {/* Takeaways intro + problem cards + opportunity question */}
+          <p className={styles.takeawayIntro}>These conversations helped shape our key takeaways.</p>
+
+          <div className={styles.problemRow} ref={problemRowRef}>
             {[
-              { number: '1', text: 'Monotonous routines suppress creativity and innovation', color: '#DED74F' },
-              { number: '2', text: 'Limited social interaction leads to loneliness and disconnection', color: '#4450EA' },
-              { number: '3', text: 'Systems are built around productivity and not fulfillment', color: '#DED74F' },
+              { number: '1', text: 'Monotonous routines suppress creativity and innovation' },
+              { number: '2', text: 'Limited social interaction leads to loneliness and disconnection' },
+              { number: '3', text: 'Systems are built around productivity and not fulfillment' },
             ].map((item, i) => (
-              <div key={i} className={styles.problemCardWrap}>
-                <div
-                  className={styles.problemCard}
-                  style={{
-                    '--card-top': `${120 + i * 80}px`,
-                    borderColor: item.color,
-                  } as React.CSSProperties}
-                >
-                  <span className={styles.problemNumber} style={{ color: item.color }}>
-                    {item.number}.
-                  </span>
-                  <p className={styles.problemText}>{item.text}</p>
-                </div>
+              <div
+                key={i}
+                className={styles.problemCard}
+              >
+                <span className={styles.problemNumber}>{item.number}.</span>
+                <p className={styles.problemText}>{item.text}</p>
               </div>
             ))}
+          </div>
+
+          <p className={styles.opportunityIntro}>We then asked them the main question.</p>
+          <h3 className={styles.opportunityQuestion}>How do you <em>beat monotony?</em></h3>
+          <div className={styles.capsules}>
+            {['Volunteering', 'Third places', 'Physical activities', 'Drives', 'Cafes', 'Social events', 'Travel', 'Read', 'Hobbies', 'Cooking'].map((label) => (
+              <span key={label} className={styles.capsule}>{label}</span>
+            ))}
+          </div>
+
+          {/* Satisfaction × Frequency matrix */}
+          <div className={styles.matrixLayout}>
+            <div className={styles.matrix} ref={matrixRef}>
+              {/* Axis lines */}
+              <div className={styles.axisV} />
+              <div className={styles.axisH} />
+              {/* Axis labels */}
+              <span className={`${styles.axisLabel} ${styles.axisTop}`}>High satisfaction</span>
+              <span className={`${styles.axisLabel} ${styles.axisBottom}`}>Low satisfaction</span>
+              <span className={`${styles.axisLabel} ${styles.axisLeft}`}>Less frequent</span>
+              <span className={`${styles.axisLabel} ${styles.axisRight}`}>More frequent</span>
+
+              {/* Capsules positioned on the matrix */}
+              {[
+                { label: 'Travel',              x: 6,  y: 10, highlight: true, delay: 0 },
+                { label: 'Physical activities',  x: 55, y: 10, highlight: false, delay: 50 },
+                { label: 'Social events',        x: 53, y: 24, highlight: false, delay: 100 },
+                { label: 'Volunteering',         x: 22, y: 30, highlight: false, delay: 150 },
+                { label: 'Third places',         x: 53, y: 38, highlight: false, delay: 200 },
+                { label: 'Hobbies',              x: 76, y: 38, highlight: false, delay: 250 },
+                { label: 'Read',                 x: 53, y: 56, highlight: false, delay: 300 },
+                { label: 'Drives',               x: 26, y: 60, highlight: false, delay: 350 },
+                { label: 'Cooking',              x: 45, y: 76, highlight: false, delay: 400 },
+                { label: 'Cafes',                x: 64, y: 82, highlight: false, delay: 450 },
+              ].map((item) => (
+                <span
+                  key={item.label}
+                  className={`${styles.matrixCapsule} ${item.highlight ? styles.matrixCapsuleHighlight : ''}`}
+                  style={{
+                    '--mx': `${item.x}%`,
+                    '--my': `${item.y}%`,
+                    '--m-delay': `${item.delay}ms`,
+                  } as React.CSSProperties}
+                >
+                  {item.label}
+                </span>
+              ))}
+            </div>
+            <div className={styles.matrixInsight}>
+              <p>While travel seemed to be the one that gave the highest level of satisfaction, it was less used.</p>
+            </div>
           </div>
         </section>
       </main>
