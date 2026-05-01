@@ -6,6 +6,8 @@ const words =
     ' ',
   )
 
+const HIGHLIGHT_WORDS = new Set([4, 5, 6, 7, 8, 9])
+
 const WORD_INTERVAL = 120
 
 const PLACEHOLDER_IMAGES = [
@@ -101,7 +103,7 @@ export function Statements() {
               {words.map((word, i) => (
                 <span
                   key={`${word}-${i}`}
-                  className={styles.word}
+                  className={`${styles.word} ${HIGHLIGHT_WORDS.has(i) ? styles.highlight : ''}`}
                   style={{
                     opacity: i < revealCount ? 1 : 0.12,
                     transform: i < revealCount ? 'translateY(0)' : 'translateY(8px)',
