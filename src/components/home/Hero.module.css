@@ -1,16 +1,7 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100vh;
-}
-
-/* Once the split-to-Statements transition is fully done, remove the Hero's
-   space from the document so there's no blank area above the Statements
-   section. The browser automatically clamps scroll position to the new
-   smaller page height, leaving Statements at the top. */
-.containerCollapsed {
-  height: 0;
-  overflow: hidden;
+  height: calc(100vh + 48px);
 }
 
 .sticky {
@@ -19,7 +10,7 @@
   z-index: 1;
   width: 100%;
   height: 100vh;
-  background-color: #000;
+  background-color: #fff;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -27,77 +18,41 @@
   padding: 0 48px;
 }
 
-/* The reveal colour shown behind the mesh once the two halves slide apart.
-   Change this hex to adjust the colour shown during the split. */
-.orangeLayer {
-  position: absolute;
-  inset: 0;
-  background-color: #FFffff;
-  z-index: 0;
-}
-
-/* The live interactive mesh gradient sits above the orange layer.
-   When the split starts we hide this layer and swap in two snapshot halves. */
 .meshLayer {
   position: absolute;
   inset: 0;
   z-index: 1;
-  transition: opacity 200ms ease;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-.meshLayerHidden { opacity: 0; }
 
-/* Two snapshot halves of the mesh that slide apart.
-   They share the same background-image (a PNG data URL captured from the live
-   mesh at the moment the split triggers), each clipped to one half and with
-   background-position set so the two halves line up seamlessly. */
-.meshHalf {
+.meshLayerVisible {
+  opacity: 1;
+}
+
+.darkOverlay {
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 50%;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
   z-index: 2;
-  background-size: 100% 200%;
-  background-repeat: no-repeat;
-  transition: transform 1100ms cubic-bezier(0.7, 0, 0.25, 1);
-  will-change: transform;
+  pointer-events: none;
+  will-change: opacity;
 }
-.meshTop {
-  top: 0;
-  background-position: top;
-}
-.meshBottom {
-  bottom: 0;
-  background-position: bottom;
-}
-.splitOpen.meshTop    { transform: translateY(-100%); }
-.splitOpen.meshBottom { transform: translateY(100%); }
 
 .content {
   position: relative;
   width: 100%;
-  max-width: 1000px;
+  max-width: 700px;
   height: 100%;
-  z-index: 3; /* text sits above both the panels and the orange layer */
-  transition: opacity 350ms ease;
-  /* Let clicks pass through to the mesh gradient canvas behind us so the
-     wallpaper's ripple-on-click interaction still works. */
+  z-index: 3;
   pointer-events: none;
+  will-change: opacity;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-.contentHidden { opacity: 0; }
 
-/* Full-viewport orange cover used for the final cross-fade into the Statements
-   section. It fades from 100% → 0% opacity. */
-.fadeOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: #FF924A;
-  z-index: 9999;
-  pointer-events: none;
-  animation: heroFadeOverlay 500ms ease forwards;
-}
-@keyframes heroFadeOverlay {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+.contentVisible {
+  opacity: 1;
 }
 
 .textBlock {
@@ -110,18 +65,6 @@
   align-items: center;
   pointer-events: none;
   transform: translateY(-50%);
-  transition: opacity 0.4s ease;
-  will-change: opacity;
-  /* The heading's vertical centre is the anchor — subtitle floats below it
-     and does NOT push the heading up. */
-}
-
-.fadeIn {
-  opacity: 1;
-}
-
-.fadeOut {
-  opacity: 0;
 }
 
 .caret {
@@ -135,9 +78,7 @@
 }
 
 @keyframes heroCaretBlink {
-  to {
-    opacity: 0;
-  }
+  to { opacity: 0; }
 }
 
 .heading {
@@ -145,36 +86,19 @@
   font-weight: 200;
   font-size: 20px;
   line-height: 140%;
-  letter-spacing: 0px;
-  color: #00000;
+  color: #000;
   margin: 0;
   padding: 0;
   text-align: center;
 }
 
-.subtitleContainer {
-  /* Sits BELOW the heading without affecting its vertical position,
-     so "I design with empathy for" lines up with "Hi, I'm Mrinal." */
+.scrollArrow {
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.subtitle {
-  position: absolute;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 140%;
-  letter-spacing: 0px;
-  color: #000000;
-  margin: 0;
-  white-space: nowrap;
-  will-change: opacity, transform;
+  bottom: 32px;
+  right: 48px;
+  z-index: 3;
+  color: rgba(0, 0, 0, 0.3);
+  animation: heroArrowBounce 2s ease-in-out infinite;
+  transition: opacity 0.3s ease;
 }
 
