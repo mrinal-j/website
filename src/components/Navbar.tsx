@@ -2,14 +2,24 @@ import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import styles from './Navbar.module.css'
 
-export function Navbar() {
-  const [visible, setVisible] = useState(false)
+interface NavbarProps {
+  /** Keep the bar visible at all times (e.g. case study pages). Home omits this and uses scroll past #statements. */
+  alwaysVisible?: boolean
+}
+
+export function Navbar({ alwaysVisible = false }: NavbarProps) {
+  const [visible, setVisible] = useState(alwaysVisible)
 
   useEffect(() => {
+    if (alwaysVisible) {
+      setVisible(true)
+      return
+    }
+
     const onScroll = () => {
       const target = document.getElementById('statements')
       if (!target) {
-        setVisible(false)
+        setVisible(true)
         return
       }
       const rect = target.getBoundingClientRect()
@@ -23,7 +33,7 @@ export function Navbar() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [alwaysVisible])
 
   return (
     <nav className={`${styles.nav} ${visible ? styles.navVisible : styles.navHidden}`}>

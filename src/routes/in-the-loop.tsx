@@ -67,7 +67,7 @@ function InTheLoopPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar alwaysVisible />
       <main className={styles.page}>
         {/* Hero */}
         <section className={styles.hero}>
