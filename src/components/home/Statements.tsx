@@ -68,6 +68,9 @@ export function Statements() {
   }, [])
 
   const onScroll = useCallback(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) {
+      return
+    }
     const section = sectionRef.current
     const leftEl = leftRef.current
     const rightEl = rightRef.current

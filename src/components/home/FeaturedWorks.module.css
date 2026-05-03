@@ -211,6 +211,30 @@
   .section {
     --carousel-side-padding: 24px;
     --card-peek: 36px;
+    height: auto;
+    min-height: 0;
+    padding-top: 40px;
+    padding-bottom: 64px;
+  }
+
+  .fadeWrap {
+    flex: none;
+    height: auto;
+    min-height: 0;
+  }
+
+  .carouselContainer {
+    flex: none;
+    height: auto;
+    min-height: 0;
+  }
+
+  .carouselViewport {
+    height: auto;
+  }
+
+  .carouselTrack {
+    height: auto;
   }
 
   .header { padding: 24px var(--carousel-side-padding) 16px; }

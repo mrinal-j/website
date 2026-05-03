@@ -26,16 +26,30 @@ const steps = [
   },
 ]
 
+/** Match CSS: phones + tablets use full page scroll (no sticky / step clipping). */
+const MOBILE_MQ = '(max-width: 1023px)'
+
 export function HowIWork() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const { fadeStyle } = useSectionFadeIn(sectionRef)
   const scrollRef = useRef<HTMLDivElement>(null)
   const stepRefs = useRef<(HTMLDivElement | null)[]>([])
   const [progress, setProgress] = useState(0)
+  const [mobileLayout, setMobileLayout] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(MOBILE_MQ).matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_MQ)
+    const apply = () => setMobileLayout(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
 
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    if (!section || mobileLayout) return
 
     const handleScroll = () => {
       const rect = section.getBoundingClientRect()
@@ -46,27 +60,70 @@ export function HowIWork() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [mobileLayout])
 
-  const activeStep = Math.min(steps.length - 1, Math.floor(progress * steps.length))
+  const activeStep = mobileLayout
+    ? steps.length - 1
+    : Math.min(steps.length - 1, Math.floor(progress * steps.length))
   const timelineFill = steps.length > 1
     ? (activeStep / (steps.length - 1)) * 100
     : 0
 
-  // Auto-scroll the steps container so the latest revealed step is visible.
-  // Uses container-scoped scrolling so it NEVER moves the whole window.
+  // Auto-scroll the steps list so the active step is fully visible (desktop only).
+  // ResizeObserver + delayed run: .visible animates max-height, so layout height may lag one frame.
   useEffect(() => {
+    if (mobileLayout) return
     const container = scrollRef.current
     const el = stepRefs.current[activeStep]
     if (!container || !el) return
-    const offset = el.offsetTop - container.offsetTop
-    container.scrollTo({ top: offset, behavior: 'smooth' })
-  }, [activeStep])
+
+    const scrollActiveStepIntoView = () => {
+      const c = scrollRef.current
+      const e = stepRefs.current[activeStep]
+      if (!c || !e) return
+      const stepTop = e.offsetTop - c.offsetTop
+      const stepH = e.offsetHeight
+      const viewH = c.clientHeight
+      const maxScroll = Math.max(0, c.scrollHeight - viewH)
+      const bottomPad = 32
+      const stepBottom = stepTop + stepH
+
+      let t = stepTop
+      if (stepH + bottomPad <= viewH) {
+        if (stepBottom + bottomPad > t + viewH) {
+          t = stepBottom + bottomPad - viewH
+        }
+      } else {
+        t = stepTop
+      }
+      t = Math.max(0, Math.min(t, maxScroll))
+      c.scrollTo({ top: t, behavior: 'auto' })
+    }
+
+    const ro = new ResizeObserver(scrollActiveStepIntoView)
+    ro.observe(el)
+    const disconnectId = window.setTimeout(() => ro.disconnect(), 700)
+
+    const id = window.setTimeout(scrollActiveStepIntoView, 560)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(scrollActiveStepIntoView)
+    })
+
+    return () => {
+      ro.disconnect()
+      window.clearTimeout(id)
+      window.clearTimeout(disconnectId)
+    }
+  }, [activeStep, mobileLayout])
 
   return (
     <section ref={sectionRef} className={styles.section}>
-      <div className={styles.sticky} style={fadeStyle}>
+      <div
+        className={styles.sticky}
+        style={mobileLayout ? undefined : fadeStyle}
+      >
         <h2 className={styles.srOnly}>How I work</h2>
         <div className={styles.sectionLabelWrap}>
           <SectionLabel title="HOW I WORK" />
@@ -78,7 +135,7 @@ export function HowIWork() {
               <div
                 key={step.number}
                 ref={(el) => { stepRefs.current[i] = el }}
-                className={`${styles.step} ${i <= activeStep ? styles.visible : ''}`}
+            className={`${styles.step} ${mobileLayout || i <= activeStep ? styles.visible : ''}`}
               >
                 <span className={styles.stepNumber}>{step.number}</span>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
@@ -97,7 +154,7 @@ export function HowIWork() {
             {steps.map((step, i) => (
               <div
                 key={step.number}
-                className={`${styles.timelineDot} ${i <= activeStep ? styles.timelineDotActive : ''}`}
+                className={`${styles.timelineDot} ${mobileLayout || i <= activeStep ? styles.timelineDotActive : ''}`}
                 style={{ top: `${(i / (steps.length - 1)) * 100}%` }}
               />
             ))}

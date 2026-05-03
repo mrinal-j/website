@@ -112,7 +112,11 @@
 }
 
 @media (max-width: 767px) {
-  .section { height: auto; }
+  .section {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 40px;
+  }
   .sticky {
     position: relative;
     height: auto;
@@ -120,8 +124,8 @@
   }
   .layout {
     flex-direction: column;
-    padding: 60px 24px;
-    gap: 48px;
+    padding: 48px 24px 32px;
+    gap: 40px;
     height: auto;
   }
   .textCol {
