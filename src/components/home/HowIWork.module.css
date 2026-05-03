@@ -1,7 +1,7 @@
 .section {
   width: 100%;
-  /* Tall track so the last step can finish its reveal and inner scroll can settle */
-  height: 560vh;
+  /* Tall track: each step gets ~100vh of scroll distance */
+  height: 400vh;
   position: relative;
 }
 
@@ -31,50 +31,38 @@
 }
 
 .sectionLabelWrap {
-  margin-bottom: 32px;
+  margin-bottom: 32;
   flex-shrink: 0;
 }
 
-.layout {
-  display: flex;
-  gap: 48px;
+/* Row that holds text + timeline, vertically centered in remaining space */
+.contentRow {
   flex: 1;
-  min-height: 0; /* critical: allows flex children to shrink below content size */
-  max-width: 75%;
+  display: flex;
+  align-items: center;
+  min-height: 0;
 }
 
-/* Left column: scrollable steps list */
-.stepsScroll {
+/* ── Left: step text ── */
+.stepsArea {
   flex: 1;
-  overflow-y: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding-right: 16px;
-  padding-bottom: 64px; /* slack so the last step + timeline dot aren’t clipped at the bottom */
-  min-width: 0;
-  -webkit-overflow-scrolling: touch;
-}
-
-.stepsScroll::-webkit-scrollbar {
-  display: none;
+  position: relative;
+  min-height: 220px;
 }
 
 .step {
-  max-height: 0;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   opacity: 0;
-  transform: translateY(12px);
-  transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
 }
 
 .step.visible {
-  /* Large enough for long copy + many wrapped lines; avoids clipping before mobile overrides */
-  max-height: 12000px;
+  position: relative;
   opacity: 1;
-  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .stepNumber {
@@ -85,34 +73,37 @@
   color: var(--color-orange);
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .stepTitle {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 130%;
+  font-size: 2.4rem;
+  line-height: 120%;
   color: var(--text-primary);
-  margin: 0 0 6px;
+  margin: 0 0 16px;
 }
 
 .stepBody {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 0.9rem;
-  line-height: 160%;
-  letter-spacing: -0.02em;
-  color: rgba(0, 0, 0, 0.6);
+  font-size: 1rem;
+  line-height: 170%;
+  letter-spacing: -0.01em;
+  color: rgba(0, 0, 0, 0.55);
   margin: 0;
-  padding-bottom: 4px;
+  max-width: 520px;
 }
 
-/* Right column: vertical timeline */
+/* ── Right: vertical timeline ── */
 .timeline {
   position: relative;
   width: 24px;
   flex-shrink: 0;
+  /* Match the height of the step text area */
+  align-self: center;
+  height: 220px;
 }
 
 .timelineTrack {
@@ -153,35 +144,17 @@
   box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.18);
 }
 
+/* ── Tablet/Desktop breakpoints ── */
 @media (min-width: 768px) {
-  .layout {
-    gap: 56px;
-  }
-
-  .stepsScroll {
-    gap: 56px;
-  }
-
   .stepTitle {
-    margin-bottom: 10px;
-  }
-
-  .stepBody {
-    line-height: 165%;
+    font-size: 2.8rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .stepsScroll {
-    gap: 64px;
-  }
-}
-
+/* ── Mobile: plain vertical stack, no sticky ── */
 @media (max-width: 1023px) {
-  /* z-index: clears stacking with Statements (z-index 2). Grid text column uses minmax(0,1fr) so copy cannot grow over the timeline. */
   .section {
     height: auto;
-    /* Room to scroll the last step above the footer / browser UI without feeling cut off */
     padding-bottom: max(120px, min(42vh, 360px), env(safe-area-inset-bottom, 0px));
     overflow: visible;
     position: relative;
@@ -195,7 +168,6 @@
     height: auto;
     min-height: 0;
     max-height: none;
-    /* Extra top space: fixed nav (60px) would otherwise cover the first lines while scrolling */
     padding: max(72px, calc(60px + env(safe-area-inset-top, 0px)))
       max(24px, env(safe-area-inset-right, 0px))
       max(80px, calc(48px + env(safe-area-inset-bottom, 0px)))
@@ -209,50 +181,48 @@
     margin-bottom: 28px;
   }
 
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 16px;
-    gap: 20px;
-    max-width: 100%;
+  .contentRow {
+    display: flex;
     align-items: stretch;
-    overflow: visible;
   }
 
-  .stepsScroll {
+  .stepsArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     gap: 40px;
-    padding-right: 0;
-    padding-bottom: max(48px, env(safe-area-inset-bottom, 0px));
-    overflow: visible;
+    min-height: 0;
     min-width: 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  .timeline {
-    position: relative;
-    z-index: 0;
-    width: 16px;
-    align-self: stretch;
+    padding-right: 36px;
   }
 
   .step,
   .step.visible {
-    max-height: none;
+    position: relative;
     opacity: 1;
     transform: none;
-    overflow: visible;
     transition: none;
+    pointer-events: auto;
   }
 
   .stepTitle {
     font-size: 1.2rem;
     line-height: 1.35;
+    margin-bottom: 6px;
   }
 
   .stepBody {
     font-size: 0.9rem;
     line-height: 168%;
+    max-width: none;
     overflow-wrap: break-word;
+  }
+
+  .timeline {
+    width: 16px;
+    height: auto;
+    align-self: stretch;
+    z-index: 0;
   }
 
   .timelineDot {

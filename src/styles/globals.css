@@ -96,6 +96,11 @@ h1, h2, h3, h4, h5, h6, p, figure {
   margin: 0;
 }
 
+/* Consistent spacing between homepage sections */
+main > * + * {
+  margin-top: 90px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
