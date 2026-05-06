@@ -8,19 +8,17 @@ const words =
   )
 
 const HIGHLIGHT_WORDS = new Set([4, 5, 6, 7, 8, 9])
-const WORD_INTERVAL = 120
 
-// `position` controls which part of the image is visible when it's cropped.
-// Examples: 'center' (default), 'left center', 'right center',
-//           'center top', 'center bottom', '30% 50%', etc.
-// `zoom` scales the image inside the card. 1 = normal, 1.5 = 50% zoomed in, etc.
+// `x` — horizontal position: 0% = left edge, 50% = center, 100% = right edge
+// `y` — vertical position:   0% = top edge,  50% = center, 100% = bottom edge
+// `zoom` — scales the image. 1 = normal, 1.5 = 50% zoomed in, etc.
 const STATEMENT_IMAGES = [
-  { id: 1, src: '/images/statement_1.JPG', position: 'center', zoom: 1 },
-  { id: 4, src: '/images/statement_4.png', position: 'center', zoom: 1 },
-  { id: 3, src: '/images/statement_3.png', position: '45% center', zoom: 1 },
-  { id: 2, src: '/images/statement_2 test.jpg', position: '20% center', zoom: 1.3 },
-  { id: 5, src: '/images/statement_5.jpg', position: '65% center', zoom: 1 },
-  { id: 6, src: '/images/statement_6.png', position: 'center', zoom: 1 },
+  { id: 1, src: '/images/statement_1.JPG', x: '50%', y: '50%', zoom: 1 },
+  { id: 4, src: '/images/statement_4.png', x: '50%', y: '50%', zoom: 1 },
+  { id: 3, src: '/images/statement_3.png', x: '45%', y: '50%', zoom: 1 },
+  { id: 2, src: '/images/statement_2 test.jpg', x: '20%', y: '50%', zoom: 1.3 },
+  { id: 5, src: '/images/statement_5.jpg', x: '65%', y: '50%', zoom: 1 },
+  { id: 6, src: '/images/statement_6.png', x: '50%', y: '100%', zoom: 1.1 },
 ]
 
 const leftCol = STATEMENT_IMAGES.filter((_, i) => i % 2 === 0)
@@ -33,43 +31,10 @@ export function Statements() {
   const rightRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLParagraphElement>(null)
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [revealCount, setRevealCount] = useState(0)
   const { fadeStyle } = useSectionFadeIn(sectionRef)
   const [leftY, setLeftY] = useState(0)
   const [rightY, setRightY] = useState(0)
   const [visibleImages, setVisibleImages] = useState<Set<number>>(new Set())
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    let interval: ReturnType<typeof setInterval> | null = null
-    let started = false
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          started = true
-          let i = 0
-          interval = setInterval(() => {
-            i += 1
-            setRevealCount(i)
-            if (i >= words.length && interval) {
-              clearInterval(interval)
-              interval = null
-            }
-          }, WORD_INTERVAL)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.05 },
-    )
-
-    observer.observe(el)
-    return () => {
-      observer.disconnect()
-      if (interval) clearInterval(interval)
-    }
-  }, [])
 
   const onScroll = useCallback(() => {
     if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) {
@@ -134,10 +99,6 @@ export function Statements() {
                 <span
                   key={`${word}-${i}`}
                   className={`${styles.word} ${HIGHLIGHT_WORDS.has(i) ? styles.highlight : ''}`}
-                  style={{
-                    opacity: i < revealCount ? 1 : 0.12,
-                    transform: i < revealCount ? 'translateY(0)' : 'translateY(8px)',
-                  }}
                 >
                   {word}
                 </span>
@@ -158,7 +119,7 @@ export function Statements() {
                     ref={(el) => { imageRefs.current[idx] = el }}
                     className={`${styles.imageCard} ${visibleImages.has(idx) ? styles.imageCardVisible : ''}`}
                   >
-                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: img.position, transform: `scale(${img.zoom})` }} />
+                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: `${img.x} ${img.y}`, transform: `scale(${img.zoom})` }} />
                   </div>
                 )
               })}
@@ -176,7 +137,7 @@ export function Statements() {
                     ref={(el) => { imageRefs.current[idx] = el }}
                     className={`${styles.imageCard} ${visibleImages.has(idx) ? styles.imageCardVisible : ''}`}
                   >
-                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: img.position, transform: `scale(${img.zoom})` }} />
+                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: `${img.x} ${img.y}`, transform: `scale(${img.zoom})` }} />
                   </div>
                 )
               })}
