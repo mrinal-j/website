@@ -10,17 +10,21 @@ const words =
 const HIGHLIGHT_WORDS = new Set([4, 5, 6, 7, 8, 9])
 const WORD_INTERVAL = 120
 
-const PLACEHOLDER_IMAGES = [
-  { id: 1, color: '#e8e4df' },
-  { id: 2, color: '#d9d2c9' },
-  { id: 3, color: '#c9c1b6' },
-  { id: 4, color: '#e0dbd4' },
-  { id: 5, color: '#d3cdc5' },
-  { id: 6, color: '#ddd8d0' },
+// `position` controls which part of the image is visible when it's cropped.
+// Examples: 'center' (default), 'left center', 'right center',
+//           'center top', 'center bottom', '30% 50%', etc.
+// `zoom` scales the image inside the card. 1 = normal, 1.5 = 50% zoomed in, etc.
+const STATEMENT_IMAGES = [
+  { id: 1, src: '/images/statement_1.JPG', position: 'center', zoom: 1 },
+  { id: 4, src: '/images/statement_4.png', position: 'center', zoom: 1 },
+  { id: 3, src: '/images/statement_3.png', position: '45% center', zoom: 1 },
+  { id: 2, src: '/images/statement_2 test.jpg', position: '20% center', zoom: 1.3 },
+  { id: 5, src: '/images/statement_5.jpg', position: '65% center', zoom: 1 },
+  { id: 6, src: '/images/statement_6.png', position: 'center', zoom: 1 },
 ]
 
-const leftCol = PLACEHOLDER_IMAGES.filter((_, i) => i % 2 === 0)
-const rightCol = PLACEHOLDER_IMAGES.filter((_, i) => i % 2 === 1)
+const leftCol = STATEMENT_IMAGES.filter((_, i) => i % 2 === 0)
+const rightCol = STATEMENT_IMAGES.filter((_, i) => i % 2 === 1)
 
 export function Statements() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -147,15 +151,14 @@ export function Statements() {
               style={{ transform: `translateY(${leftY}px)` }}
             >
               {leftCol.map((img) => {
-                const idx = PLACEHOLDER_IMAGES.indexOf(img)
+                const idx = STATEMENT_IMAGES.indexOf(img)
                 return (
                   <div
                     key={img.id}
                     ref={(el) => { imageRefs.current[idx] = el }}
                     className={`${styles.imageCard} ${visibleImages.has(idx) ? styles.imageCardVisible : ''}`}
-                    style={{ backgroundColor: img.color }}
                   >
-                    <span className={styles.imagePlaceholder}>{img.id}</span>
+                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: img.position, transform: `scale(${img.zoom})` }} />
                   </div>
                 )
               })}
@@ -166,15 +169,14 @@ export function Statements() {
               style={{ transform: `translateY(${rightY}px)` }}
             >
               {rightCol.map((img) => {
-                const idx = PLACEHOLDER_IMAGES.indexOf(img)
+                const idx = STATEMENT_IMAGES.indexOf(img)
                 return (
                   <div
                     key={img.id}
                     ref={(el) => { imageRefs.current[idx] = el }}
                     className={`${styles.imageCard} ${visibleImages.has(idx) ? styles.imageCardVisible : ''}`}
-                    style={{ backgroundColor: img.color }}
                   >
-                    <span className={styles.imagePlaceholder}>{img.id}</span>
+                    <img src={img.src} alt="" className={styles.cardImage} style={{ objectPosition: img.position, transform: `scale(${img.zoom})` }} />
                   </div>
                 )
               })}
