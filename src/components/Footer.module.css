@@ -43,41 +43,48 @@
   color: #fff;
 }
 
-/* CTA section */
-.ctaSection {
+/* Center group: heading above circle */
+.ctaGroup {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 24px;
-  margin-bottom: 40px;
 }
 
 .ctaHeading {
-  font-family: var(--font-body); /* Manrope */
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
   line-height: 170%;
   letter-spacing: -0.01em;
   color: #fff;
-  margin: 0;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+/* Single row: social links | heading+circle | badge — bottom-aligned */
+.mainRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .ctaCircle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;  /* ← edit circle size here (keep width = height) */
-  height: 200px; /* ← edit circle size here */
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background-color: transparent;
-  border: 1px solid #FF6600; /* ← edit stroke colour and thickness here */
+  border: 1px solid #FF6600;
   color: #FF6600;
-  font-family: var(--font-body); /* Manrope */
-  font-size: 1.4rem; /* ← edit circle label font size here */
+  font-family: var(--font-body);
+  font-size: 1.4rem;
   font-weight: 400;
   letter-spacing: -0.01em;
   text-decoration: none;
+  flex-shrink: 0;
   transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -85,14 +92,6 @@
   transform: scale(1.09);
   background-color: #FF6600;
   color: #000;
-}
-
-/* Social links row — icons on left, badge on right */
-.socialRow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .socialLinks {
@@ -178,5 +177,11 @@
 
 @media (max-width: 767px) {
   .footer { padding: 48px 24px 32px; }
-  .ctaCircle { width: 200px; height: 200px; font-size: 1.1rem; }
+  .mainRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .socialLinks { justify-content: center; }
+  .ctaCircle { width: 180px; height: 180px; font-size: 1.1rem; }
 }

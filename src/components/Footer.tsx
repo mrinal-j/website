@@ -12,16 +12,8 @@ export function Footer() {
   return (
     <footer ref={footerRef} className={styles.footer}>
       <div className={styles.inner} style={fadeStyle}>
-        {/* Main CTA */}
-        <div className={styles.ctaSection}>
-          <h2 className={styles.ctaHeading}>Building something that matters?</h2>
-          <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.ctaCircle}>
-            Say hello!
-          </a>
-        </div>
-
-        {/* Social links + available badge on the right */}
-        <div className={styles.socialRow}>
+        {/* Main row: LinkedIn + Behance on left, circle with heading in center, badge on right — bottom-aligned */}
+        <div className={styles.mainRow}>
           <div className={styles.socialLinks}>
             <a
               href="https://www.linkedin.com/in/mrinal-jadhav-157a09197/"
@@ -48,6 +40,13 @@ export function Footer() {
                 </svg>
               </span>
               <span className={styles.socialLabel}>BEHANCE</span>
+            </a>
+          </div>
+
+          <div className={styles.ctaGroup}>
+            <h2 className={styles.ctaHeading}>Building something that matters?</h2>
+            <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.ctaCircle}>
+              Say hello!
             </a>
           </div>
 
