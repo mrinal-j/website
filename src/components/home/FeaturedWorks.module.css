@@ -1,17 +1,23 @@
 .section {
-  /* Mirrors HowIWork's max-width:1280px + margin:auto + 80px padding pattern.
-     On viewports ≤ 1280px this is 80px (same as before).
-     On wider screens it grows to match the centered container offset. */
   --carousel-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
   --card-gap: 20px;
   --card-peek: 500px;
-  --card-end-padding: 200px; /* ← space after the last card — edit this */
+  --card-end-padding: 200px;
+
   background-color: var(--bg-primary);
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   padding-top: 60px;
+}
+
+.fadeWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  will-change: opacity, transform;
 }
 
 .header {
@@ -32,15 +38,6 @@
   border: 0;
 }
 
-.fadeWrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  will-change: opacity, transform;
-}
-
-/* Wrapper that lets us absolutely-position the arrows */
 .carouselContainer {
   flex: 1;
   position: relative;
@@ -50,7 +47,7 @@
 
 .scrollArrow {
   position: absolute;
-  top: 230px; /* half of the 460px card image height */
+  top: 230px;
   transform: translateY(-50%);
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.06);
@@ -76,11 +73,8 @@
   height: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  /* Offset snap points so the first card aligns to the side padding */
-  scroll-padding-left: var(--carousel-side-padding);
+  overscroll-behavior-x: contain;
   padding-left: var(--carousel-side-padding);
-  /* Hide the scrollbar */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -104,7 +98,6 @@
 .card {
   width: calc(100vw - var(--carousel-side-padding) - var(--card-peek));
   flex-shrink: 0;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -240,6 +233,5 @@
   .header { padding: 24px var(--carousel-side-padding) 16px; }
   .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
-  .sectionTitle { font-size: 1.5rem; }
-  .scrollArrow { top: 140px; } /* half of the 280px mobile image height */
+  .scrollArrow { top: 140px; }
 }

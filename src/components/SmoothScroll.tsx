@@ -1,6 +1,14 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 
+// Expose the Lenis instance so other components can pause/resume it
+// (e.g. the horizontal carousel pauses vertical smooth scroll while active).
+declare global {
+  interface Window {
+    __lenis?: Lenis
+  }
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -9,6 +17,8 @@ export function SmoothScroll() {
       touchMultiplier: 1.5,
       syncTouch: true,
     })
+
+    window.__lenis = lenis
 
     function raf(time: number) {
       lenis.raf(time)
@@ -19,6 +29,7 @@ export function SmoothScroll() {
 
     return () => {
       lenis.destroy()
+      delete window.__lenis
     }
   }, [])
 

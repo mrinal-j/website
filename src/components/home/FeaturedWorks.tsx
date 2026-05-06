@@ -5,11 +5,8 @@ import { useSectionFadeIn } from '~/hooks/useSectionFadeIn'
 import styles from './FeaturedWorks.module.css'
 
 const CARD_GAP = 20
-
-// ── Arrow sizing ──────────────────────────────────────────────
-// Change ARROW_SIZE to make both scroll arrows bigger or smaller.
-const ARROW_SIZE = 48   // circle diameter in px
-const ARROW_ICON = 18   // icon stroke size in px
+const ARROW_SIZE = 48
+const ARROW_ICON = 18
 
 const projects = [
   {
@@ -53,12 +50,54 @@ export function FeaturedWorks() {
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 8)
     }
 
+    // We intercept wheel events in the CAPTURE phase on the window so our
+    // handler runs BEFORE Lenis (which also listens on the window). This lets
+    // us block Lenis from processing the vertical component of diagonal
+    // gestures that we want to turn into horizontal carousel movement.
+    let resumeTimer: ReturnType<typeof setTimeout> | null = null
+
+    const handleWheel = (e: WheelEvent) => {
+      // Only act on events whose target is inside our carousel.
+      if (!viewport.contains(e.target as Node)) return
+
+      const absX = Math.abs(e.deltaX)
+      const absY = Math.abs(e.deltaY)
+
+      // Pure vertical gesture → let Lenis scroll the page.
+      if (absY > absX) return
+
+      // Horizontal-dominant gesture → scroll the carousel.
+      const { scrollLeft, scrollWidth, clientWidth } = viewport
+      const atStart = scrollLeft <= 1
+      const atEnd = scrollLeft >= scrollWidth - clientWidth - 1
+      const goingForward = e.deltaX > 0
+
+      // At a boundary scrolling further outward → let the page scroll.
+      if ((goingForward && atEnd) || (!goingForward && atStart)) return
+
+      // Stop Lenis so it doesn't process the vertical component of this
+      // diagonal gesture. We'll resume it shortly after scrolling stops.
+      window.__lenis?.stop()
+      if (resumeTimer) clearTimeout(resumeTimer)
+      resumeTimer = setTimeout(() => window.__lenis?.start(), 150)
+
+      // Block the event from reaching Lenis and the browser's default handler.
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      viewport.scrollBy({ left: e.deltaX })
+    }
+
     checkScroll()
     viewport.addEventListener('scroll', checkScroll, { passive: true })
+    // Capture phase = runs before Lenis's handler on the window.
+    window.addEventListener('wheel', handleWheel, { passive: false, capture: true })
     window.addEventListener('resize', checkScroll)
     return () => {
       viewport.removeEventListener('scroll', checkScroll)
+      window.removeEventListener('wheel', handleWheel, { capture: true })
       window.removeEventListener('resize', checkScroll)
+      if (resumeTimer) clearTimeout(resumeTimer)
+      window.__lenis?.start()
     }
   }, [])
 
@@ -73,84 +112,82 @@ export function FeaturedWorks() {
   return (
     <section id="featured-works" ref={sectionRef} className={styles.section}>
       <div className={styles.fadeWrap} style={fadeStyle}>
-      <div className={styles.header}>
-        <h2 id="featured-works-title" className={styles.srOnly}>Featured works</h2>
-        <SectionLabel title="FEATURED WORKS" />
-      </div>
+        <div className={styles.header}>
+          <h2 id="featured-works-title" className={styles.srOnly}>Featured works</h2>
+          <SectionLabel title="FEATURED WORKS" />
+        </div>
 
-      <div className={styles.carouselContainer}>
-        {/* Left scroll arrow — visible once cards have moved past the left edge */}
-        <button
-          className={styles.scrollArrow}
-          style={{
-            left: 24,
-            opacity: canScrollLeft ? 1 : 0,
-            pointerEvents: canScrollLeft ? 'auto' : 'none',
-            width: ARROW_SIZE,
-            height: ARROW_SIZE,
-          }}
-          aria-label="Scroll left"
-          onClick={() => scrollCards('left')}
-        >
-          <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
+        <div className={styles.carouselContainer}>
+          <button
+            className={styles.scrollArrow}
+            style={{
+              left: 24,
+              opacity: canScrollLeft ? 1 : 0,
+              pointerEvents: canScrollLeft ? 'auto' : 'none',
+              width: ARROW_SIZE,
+              height: ARROW_SIZE,
+            }}
+            aria-label="Scroll left"
+            onClick={() => scrollCards('left')}
+          >
+            <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
 
-        {/* Right scroll arrow — visible while more cards remain to the right */}
-        <button
-          className={styles.scrollArrow}
-          style={{
-            right: 24,
-            opacity: canScrollRight ? 1 : 0,
-            pointerEvents: canScrollRight ? 'auto' : 'none',
-            width: ARROW_SIZE,
-            height: ARROW_SIZE,
-          }}
-          aria-label="Scroll right"
-          onClick={() => scrollCards('right')}
-        >
-          <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 6 15 12 9 18" />
-          </svg>
-        </button>
+          <button
+            className={styles.scrollArrow}
+            style={{
+              right: 24,
+              opacity: canScrollRight ? 1 : 0,
+              pointerEvents: canScrollRight ? 'auto' : 'none',
+              width: ARROW_SIZE,
+              height: ARROW_SIZE,
+            }}
+            aria-label="Scroll right"
+            onClick={() => scrollCards('right')}
+          >
+            <svg width={ARROW_ICON} height={ARROW_ICON} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 6 15 12 9 18" />
+            </svg>
+          </button>
 
-        <div ref={viewportRef} className={styles.carouselViewport}>
-          <div ref={trackRef} className={styles.carouselTrack}>
-            {projects.map((project) => (
-              <Link
-                key={project.title}
-                to={project.slug}
-                className={styles.card}
-              >
-                <div className={styles.cardImageWrapper}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className={styles.cardImage}
-                  />
-                  <div className={styles.cardGradient} />
-                  <div className={styles.cardArrow}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                    </svg>
+          <div ref={viewportRef} className={styles.carouselViewport}>
+            <div ref={trackRef} className={styles.carouselTrack}>
+              {projects.map((project) => (
+                <Link
+                  key={project.title}
+                  to={project.slug}
+                  className={styles.card}
+                >
+                  <div className={styles.cardImageWrapper}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={styles.cardImage}
+                    />
+                    <div className={styles.cardGradient} />
+                    <div className={styles.cardArrow}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                      </svg>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.cardTitle}>{project.title}</h3>
-                  <p className={styles.cardDesc}>{project.description}</p>
-                  <div className={styles.cardTags}>
-                    {project.tags.map((tag) => (
-                      <span key={tag} className={styles.tag}>{tag}</span>
-                    ))}
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>{project.title}</h3>
+                    <p className={styles.cardDesc}>{project.description}</p>
+                    <div className={styles.cardTags}>
+                      {project.tags.map((tag) => (
+                        <span key={tag} className={styles.tag}>{tag}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-            <div className={styles.trackEndSpacer} aria-hidden="true" />
+                </Link>
+              ))}
+              <div className={styles.trackEndSpacer} aria-hidden="true" />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   )
