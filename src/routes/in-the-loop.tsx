@@ -4,6 +4,7 @@ import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
+import { DraggableCardStack } from '~/components/case-study/DraggableCardStack'
 import styles from '~/components/case-study/InTheLoop.module.css'
 
 export const Route = createFileRoute('/in-the-loop')({
@@ -225,25 +226,17 @@ function InTheLoopPage() {
             They aren&rsquo;t just dissatisfied with their work, but also with how and where they work from.
           </h2>
 
-          <div className={styles.heardCards}>
-            {[
-              { tone: 'noteYellow', rotate: -2, text: '\u201CDifficulty separating work and personal life, particularly as my desk is in my bedroom.\u201D' },
-              { tone: 'noteIndigo', rotate: 1.5, text: '\u201CI enjoyed going into the office, the small social interactions in between your workday.\u201D' },
-              { tone: 'noteYellow', rotate: -1, text: '\u201CDedicated time to connect with coworkers \u2014 shared lunchtimes without interruptions \u2014 so important!\u201D' },
-              { tone: 'noteIndigo', rotate: 2, text: '\u201CSocial interactions during my workday help me cope with my work stress.\u201D' },
-              { tone: 'noteIndigo', rotate: -1.5, text: '\u201CConfused between the sentiments that come with WFH and working from office.\u201D' },
-              { tone: 'noteYellow', rotate: 1, text: '\u201CCoping with the stress of workload \u2014 walk, take some time away from my work desk, a short exercise, or changing my work environment.\u201D' },
-              { tone: 'noteYellow', rotate: -2.5, text: '\u201CWorking by a beach is my dream scenario.\u201D' },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className={`${styles.heardCard} ${styles[`tone_${card.tone}`]}`}
-                style={{ transform: `rotate(${card.rotate}deg)` }}
-              >
-                <p>{card.text}</p>
-              </div>
-            ))}
-          </div>
+                    <DraggableCardStack
+            cards={[
+              { tone: 'yellow', text: '“Difficulty separating work and personal life, particularly as my desk is in my bedroom.”' },
+              { tone: 'indigo', text: '“I enjoyed going into the office, the small social interactions in between your workday.”' },
+              { tone: 'yellow', text: '“Dedicated time to connect with coworkers — shared lunchtimes without interruptions — so important!”' },
+              { tone: 'indigo', text: '“Social interactions during my workday help me cope with my work stress.”' },
+              { tone: 'indigo', text: '“Confused between the sentiments that come with WFH and working from office.”' },
+              { tone: 'yellow', text: '“Coping with the stress of workload — walk, take some time away from my work desk, a short exercise, or changing my work environment.”' },
+              { tone: 'yellow', text: '“Working by a beach is my dream scenario.”' },
+            ]}
+          />
 
           {/* Takeaways intro + problem cards + opportunity question */}
           <p className={styles.takeawayIntro}>These conversations helped shape our key takeaways.</p>

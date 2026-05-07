@@ -1,0 +1,103 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 0px;      /* ← space above the cards */
+  padding-bottom: 10px;   /* ← space below the cards */
+  padding-left: var(--page-side-padding, 80px);
+  padding-right: var(--page-side-padding, 80px);
+}
+
+.stack {
+  position: relative;
+  width: 420px;
+  height: 400px;  /* ← total height of the card area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+}
+
+.card {
+  position: absolute;
+  width: 380px;
+  min-height: 300px;
+  border-radius: 16px;
+  padding: 48px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 8px 32px -8px rgba(0, 0, 0, 0.12);
+}
+
+.card.yellow {
+  background: #f5f0a0;
+  color: #2a260b;
+}
+
+.card.indigo {
+  background: #c5c9f8;
+  color: #1a1f6b;
+}
+
+.cardText {
+  font-family: var(--font-body);
+  font-size: 1.35rem;
+  line-height: 160%;
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
+}
+
+.hint {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.hintIcon {
+  font-size: 1.2rem;
+}
+
+.resetBtn {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.resetBtn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 767px) {
+  .stack {
+    width: 300px;
+    height: 400px;
+  }
+
+  .card {
+    width: 280px;
+    min-height: 340px;
+    padding: 36px 24px;
+  }
+
+  .cardText {
+    font-size: 1.1rem;
+  }
+}
