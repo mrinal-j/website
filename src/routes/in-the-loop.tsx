@@ -219,7 +219,7 @@ function InTheLoopPage() {
         {/* What we heard — research findings */}
         <section className={styles.heardSection}>
           <div className={styles.heardLabelWrap}>
-            <SectionLabel title="WHAT WE HEARD" />
+            <SectionLabel title="PROBLEM" />
           </div>
 
           <h2 className={styles.heardHeadline}>
@@ -243,9 +243,9 @@ function InTheLoopPage() {
 
           <div className={styles.problemRow} ref={problemRowRef}>
             {[
-              { number: '1', text: 'Monotonous routines suppress creativity and innovation' },
-              { number: '2', text: 'Limited social interaction leads to loneliness and disconnection' },
-              { number: '3', text: 'Systems are built around productivity and not fulfillment' },
+              { number: '1', text: 'Remote work means freedom to go anywhere but finding places that actually fuel creativity, not just provide WiFi, is still a puzzle' },
+              { number: '2', text: 'Monotonous routines drain energy and kill innovation. There is no variety, no unexpected experiences to break the loop' },
+              { number: '3', text: 'Limited social interaction leaves people isolated, missing the mentors, collaborators, and community that make work meaningful' },
             ].map((item, i) => (
               <div
                 key={i}
@@ -257,55 +257,28 @@ function InTheLoopPage() {
             ))}
           </div>
 
-          <p className={styles.opportunityIntro}>We then asked them the main question.</p>
-          <h3 className={styles.opportunityQuestion}>How do you <em>beat monotony?</em></h3>
-          <div className={styles.capsules}>
-            {['Volunteering', 'Third places', 'Physical activities', 'Drives', 'Cafes', 'Social events', 'Travel', 'Read', 'Hobbies', 'Cooking'].map((label) => (
-              <span key={label} className={styles.capsule}>{label}</span>
-            ))}
+          {/* Existing platforms */}
+          <p className={styles.existingIntro}>Existing platforms treated these as separate problems:</p>
+
+          <div className={styles.platformRow}>
+            <div className={styles.platformCard}>
+              <img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" alt="Airbnb" className={styles.platformLogo} />
+              <p className={styles.platformText}>Solved <em>where</em> to stay</p>
+            </div>
+            <div className={styles.platformCard}>
+              <img src="/images/luma_logo.webp" alt="Luma" className={styles.platformLogo} />
+              <p className={styles.platformText}>Solved <em>what</em> to do</p>
+            </div>
+            <div className={styles.platformCard}>
+              <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-3.svg" alt="LinkedIn" className={styles.platformLogo} />
+              <p className={styles.platformText}>Solved <em>who</em> to connect with</p>
+            </div>
           </div>
 
-          {/* Satisfaction × Frequency matrix */}
-          <div className={styles.matrixLayout}>
-            <div className={styles.matrix} ref={matrixRef}>
-              {/* Axis lines */}
-              <div className={styles.axisV} />
-              <div className={styles.axisH} />
-              {/* Axis labels */}
-              <span className={`${styles.axisLabel} ${styles.axisTop}`}>High satisfaction</span>
-              <span className={`${styles.axisLabel} ${styles.axisBottom}`}>Low satisfaction</span>
-              <span className={`${styles.axisLabel} ${styles.axisLeft}`}>Less frequent</span>
-              <span className={`${styles.axisLabel} ${styles.axisRight}`}>More frequent</span>
-
-              {/* Capsules positioned on the matrix */}
-              {[
-                { label: 'Travel',              x: 6,  y: 10, highlight: true, delay: 0 },
-                { label: 'Physical activities',  x: 55, y: 10, highlight: false, delay: 50 },
-                { label: 'Social events',        x: 53, y: 24, highlight: false, delay: 100 },
-                { label: 'Volunteering',         x: 22, y: 30, highlight: false, delay: 150 },
-                { label: 'Third places',         x: 53, y: 38, highlight: false, delay: 200 },
-                { label: 'Hobbies',              x: 76, y: 38, highlight: false, delay: 250 },
-                { label: 'Read',                 x: 53, y: 56, highlight: false, delay: 300 },
-                { label: 'Drives',               x: 26, y: 60, highlight: false, delay: 350 },
-                { label: 'Cooking',              x: 45, y: 76, highlight: false, delay: 400 },
-                { label: 'Cafes',                x: 64, y: 82, highlight: false, delay: 450 },
-              ].map((item) => (
-                <span
-                  key={item.label}
-                  className={`${styles.matrixCapsule} ${item.highlight ? styles.matrixCapsuleHighlight : ''}`}
-                  style={{
-                    '--mx': `${item.x}%`,
-                    '--my': `${item.y}%`,
-                    '--m-delay': `${item.delay}ms`,
-                  } as React.CSSProperties}
-                >
-                  {item.label}
-                </span>
-              ))}
-            </div>
-            <div className={styles.matrixInsight}>
-              <p>While travel seemed to be the one that gave the highest level of satisfaction, it was less used.</p>
-            </div>
+          {/* Highlight callout */}
+          <div className={styles.connectDotsBox}>
+            <h3 className={styles.connectDotsHeading}>But no one connected the dots.</h3>
+            <p className={styles.connectDotsBody}>Where you go, whom you meet,<br />and where you&rsquo;re trying to grow<br />remained siloed experiences.</p>
           </div>
         </section>
       </main>

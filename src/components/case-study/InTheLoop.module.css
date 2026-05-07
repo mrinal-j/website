@@ -845,6 +845,89 @@
   padding: 32px var(--page-side-padding) 0;
 }
 
+/* ============================================================
+   EXISTING PLATFORMS + CONNECT-THE-DOTS CALLOUT
+   ============================================================ */
+.existingIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  padding: 64px var(--page-side-padding) 0;
+  margin: 0;
+}
+
+.platformRow {
+  display: flex;
+  gap: 32px;
+  padding: 32px var(--page-side-padding) 0;
+}
+
+.platformCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  padding: 36px 24px;
+}
+
+.platformLogo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.platformText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+.platformText em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-indigo);
+}
+
+.connectDotsBox {
+  margin: 48px var(--page-side-padding) 0;
+  padding: 56px 64px;
+  border-radius: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.connectDotsHeading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 120%;
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.connectDotsBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 171%; /* ← adjust this so 3 lines match the heading's height */
+  color: var(--text-secondary);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
 .opportunityIntro {
   font-family: var(--font-body);
   font-weight: 400;
