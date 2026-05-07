@@ -896,14 +896,14 @@
 }
 
 .connectDotsBox {
-  margin: 48px var(--page-side-padding) 0;
+  margin: 24px var(--page-side-padding) 0; /* ← space above the connect-the-dots box */
   padding: 56px 64px;
   border-radius: 16px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   display: flex;
   align-items: flex-start;
-  gap: 48px;
+  gap: 80px; /* ← space between the heading and body text */
 }
 
 .connectDotsHeading {
@@ -921,7 +921,7 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 1.05rem;
-  line-height: 171%; /* ← adjust this so 3 lines match the heading's height */
+  line-height: 165%;
   color: var(--text-secondary);
   margin: 0;
   flex: 1;

@@ -77,7 +77,7 @@ function InTheLoopPage() {
               <h1>In the Loop</h1>
             </div>
             <div className={styles.heroDesc}>
-              <p>A social impact design project exploring how </p>
+              <p>Redefining professional mobility as a tool for community building and intentional growth.</p>
             </div>
           </div>
           <div className={styles.heroImage}>
@@ -277,8 +277,8 @@ function InTheLoopPage() {
 
           {/* Highlight callout */}
           <div className={styles.connectDotsBox}>
-            <h3 className={styles.connectDotsHeading}>But no one connected the dots.</h3>
-            <p className={styles.connectDotsBody}>Where you go, whom you meet,<br />and where you&rsquo;re trying to grow<br />remained siloed experiences.</p>
+            <h3 className={styles.connectDotsHeading}>But nobody<br />connected the dots.</h3>
+            <p className={styles.connectDotsBody}>Where you go, whom you meet, and where you&rsquo;re trying to grow remained siloed experiences. That&rsquo;s the gap In the Loop was designed to fill.</p>
           </div>
         </section>
       </main>
