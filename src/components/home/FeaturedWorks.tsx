@@ -8,13 +8,16 @@ const CARD_GAP = 20
 const ARROW_SIZE = 48
 const ARROW_ICON = 18
 
+// `x` — horizontal crop: 0% = left edge, 50% = center, 100% = right edge
+// `y` — vertical crop:   0% = top edge,  50% = center, 100% = bottom edge
 const projects = [
   {
     slug: '/in-the-loop',
     title: 'In the Loop',
     description: 'Short description of what problem it solved.',
     tags: ['UX Design', 'Research'],
-    image: '/images/iHkx9gYek2TcjPXt4cRuVfh1s.png',
+    image: '/images/in-the-loop cover.png',
+    x: '50%', y: '50%',
   },
   {
     slug: '#',
@@ -22,6 +25,7 @@ const projects = [
     description: 'A design intervention that transforms how voters access, understand, and engage with electoral information.',
     tags: ['Service design', 'Design for civic impact'],
     image: '/images/PN2PjVKa1k8qTqovQptaN279mD4.png',
+    x: '50%', y: '50%',
   },
   {
     slug: '#',
@@ -29,6 +33,7 @@ const projects = [
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
     tags: ['Brand Strategy', 'Retail Experience Design'],
     image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.jpg',
+    x: '50%', y: '50%',
   },
 ]
 
@@ -165,6 +170,7 @@ export function FeaturedWorks() {
                       src={project.image}
                       alt={project.title}
                       className={styles.cardImage}
+                      style={{ objectPosition: `${project.x} ${project.y}` }}
                     />
                     <div className={styles.cardGradient} />
                     <div className={styles.cardArrow}>

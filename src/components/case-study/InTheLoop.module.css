@@ -889,6 +889,14 @@
   margin: 0;
 }
 
+.platformName {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
 .platformText em {
   font-style: italic;
   font-weight: 600;
@@ -1100,6 +1108,118 @@
   margin: 0;
 }
 
+/* ============================================================
+   EXPLORATION SECTION
+   ============================================================ */
+.explorationSection {
+  width: 100%;
+  background-color: var(--bg-primary);
+  padding-bottom: 96px;
+}
+
+.explorationLabelWrap {
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.explorationIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  padding: 48px var(--page-side-padding) 0;
+  margin: 0;
+  max-width: 900px;
+}
+
+.iterationTag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 5px 14px;
+  border-radius: 100px;
+  display: inline-block;
+  margin: 32px 0 0 var(--page-side-padding);
+}
+
+.oooContent {
+  display: flex;
+  gap: 40px;
+  padding: 40px var(--page-side-padding) 0;
+  align-items: flex-start;
+}
+
+.oooLogo {
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oooLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.25); /* ← zoom into the logo. 1 = no zoom, 1.5 = 50% closer, etc. */
+}
+
+.oooDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.oooHeadline {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 140%;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+}
+
+.oooHeadline em {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.oooFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.oooFeatures li {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.featureIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--text-muted); /* ← lighter grey; change to var(--text-secondary) for darker */
+}
+
 @media (max-width: 1199px) {
   .problemCard { padding: 28px 24px; }
   .problemNumber { font-size: 3.5rem; }
@@ -1107,6 +1227,8 @@
   .matrix { width: 420px; }
   .matrixCapsule { font-size: 0.75rem; padding: 6px 16px; }
   .matrixLayout { gap: 36px; }
+  .oooContent { flex-direction: column; gap: 40px; }
+  .oooLogo { width: 220px; height: 220px; }
 }
 
 @media (max-width: 767px) {

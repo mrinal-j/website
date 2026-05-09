@@ -263,14 +263,17 @@ function InTheLoopPage() {
           <div className={styles.platformRow}>
             <div className={styles.platformCard}>
               <img src="https://cdn.worldvectorlogo.com/logos/airbnb-1.svg" alt="Airbnb" className={styles.platformLogo} />
+              <span className={styles.platformName}>Airbnb</span>
               <p className={styles.platformText}>Solved <em>where</em> to stay</p>
             </div>
             <div className={styles.platformCard}>
               <img src="/images/luma_logo.webp" alt="Luma" className={styles.platformLogo} />
+              <span className={styles.platformName}>Luma</span>
               <p className={styles.platformText}>Solved <em>what</em> to do</p>
             </div>
             <div className={styles.platformCard}>
               <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-3.svg" alt="LinkedIn" className={styles.platformLogo} />
+              <span className={styles.platformName}>LinkedIn</span>
               <p className={styles.platformText}>Solved <em>who</em> to connect with</p>
             </div>
           </div>
@@ -279,6 +282,40 @@ function InTheLoopPage() {
           <div className={styles.connectDotsBox}>
             <h3 className={styles.connectDotsHeading}>But nobody<br />connected the dots.</h3>
             <p className={styles.connectDotsBody}>Where you go, whom you meet, and where you&rsquo;re trying to grow remained siloed experiences. That&rsquo;s the gap In the Loop was designed to fill.</p>
+          </div>
+        </section>
+
+        {/* Exploration */}
+        <section className={styles.explorationSection}>
+          <div className={styles.explorationLabelWrap}>
+            <SectionLabel title="EXPLORATION" />
+          </div>
+
+          <div className={styles.iterationTag}>Iteration 1</div>
+
+          <div className={styles.oooContent}>
+            <div className={styles.oooLogo}>
+              <img src="/images/ooo_logo.png" alt="Out of Office logo" />
+            </div>
+            <div className={styles.oooDetails}>
+              <p className={styles.oooHeadline}>
+                Out of Office aims at providing affordable<br /><em>home swaps for working professionals</em>
+              </p>
+              <ul className={styles.oooFeatures}>
+                <li>
+                  <svg className={styles.featureIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M224,115.55V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V160H112v48a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l.11-.11,80-75.48a16,16,0,0,1,21.53,0l.11.11,80,75.48A16,16,0,0,1,224,115.55Z"/></svg>
+                  Seamless home-swapping
+                </li>
+                <li>
+                  <svg className={styles.featureIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M240,64V192a16,16,0,0,1-16,16H32a16,16,0,0,1-16-16V64A8,8,0,0,1,24,56H80V40a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24V56h56A8,8,0,0,1,240,64ZM96,56h64V40a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8Z"/></svg>
+                  Work-friendly spaces
+                </li>
+                <li>
+                  <svg className={styles.featureIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm12,152h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24a28,28,0,0,1,0,56Z"/></svg>
+                  Stay for a fraction of the cost
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
       </main>
