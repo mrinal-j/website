@@ -317,6 +317,58 @@ function InTheLoopPage() {
               </ul>
             </div>
           </div>
+
+          {/* How we tested it */}
+          <h3 className={styles.testedHeading}>How we tested it</h3>
+
+          <div className={styles.testedMethods}>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,49.53,98.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg>
+              16 User interviews
+            </div>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M248,160a8,8,0,0,1-8,8H192v24a8,8,0,0,1-16,0V168H16a8,8,0,0,1,0-16H56V72H24a8,8,0,0,1,0-16H232a8,8,0,0,1,0,16H200v80h40A8,8,0,0,1,248,160ZM72,152h48V72H72Zm64,0h48V72H136Z"/></svg>
+              2 Industry experts
+            </div>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></svg>
+              1 Business mentor
+            </div>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8V208H184v16A8,8,0,0,1,176,224Z"/></svg>
+              App usability testing
+            </div>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.16,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.16-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,74,34.5a8,8,0,0,0-3.93,6L67.43,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.16,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.16,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.16,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.16-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.16,8,8,0,0,0-1.49-7.06ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z"/></svg>
+              Instagram engagement
+            </div>
+          </div>
+
+          {/* What worked / What didn't */}
+          <div className={styles.outcomeRow}>
+            <div className={`${styles.outcomeCard} ${styles.outcomeWorked}`}>
+              <div className={styles.outcomeHeader}>
+                <svg className={styles.outcomeIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21.12l12-96A24,24,0,0,0,234,80.12Z"/></svg>
+                <span>What worked</span>
+              </div>
+              <ul className={styles.outcomeList}>
+                <li>Strong desire for affordable, flexible accommodations</li>
+                <li>Users valued building trust within a professional network</li>
+                <li>Curation toward employee needs resonated strongly</li>
+              </ul>
+            </div>
+            <div className={`${styles.outcomeCard} ${styles.outcomeFailed}`}>
+              <div className={styles.outcomeHeader}>
+                <svg className={styles.outcomeIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M239.82,157.12l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-26.88Z"/></svg>
+                <span>What didn't work</span>
+              </div>
+              <ul className={styles.outcomeList}>
+                <li>Direct swaps created logistical friction users didn't want</li>
+                <li>Narrow audience limited growth potential</li>
+                <li>Swap-only model restricted community building</li>
+              </ul>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
