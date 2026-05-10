@@ -366,8 +366,22 @@ function InTheLoopPage() {
                 <li>Direct swaps created logistical friction users didn't want</li>
                 <li>Narrow audience limited growth potential</li>
                 <li>Swap-only model restricted community building</li>
+                <li>Users arrived with needs that a home-swapping model could not account for</li>
               </ul>
             </div>
+          </div>
+        </section>
+
+        {/* The Pivot */}
+        <section className={styles.pivotSection}>
+          <div className={styles.pivotBox}>
+            <div className={styles.pivotLeft}>
+              <span className={styles.pivotLabel}>THE PIVOT</span>
+              <h2 className={styles.pivotHeading}>From home swapping<br />to intentionally<br />hosted stays.</h2>
+            </div>
+            <p className={styles.pivotBody}>
+              Testing showed users wanted flexibility beyond just direct swaps where scheduling was rigid and use cases were broader. We evolved from a swap model to a <strong>trusted hosted-stay network</strong>, preserving the core values of affordability, community, and professional alignment.
+            </p>
           </div>
         </section>
       </main>

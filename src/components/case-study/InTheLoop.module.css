@@ -1340,6 +1340,64 @@
   color: var(--text-muted);
 }
 
+/* ============================================================
+   THE PIVOT
+   ============================================================ */
+.pivotSection {
+  width: 100%;
+  padding: 0 var(--page-side-padding);
+}
+
+.pivotBox {
+  background: rgba(68, 80, 234, 0.06);
+  border: 1px solid rgba(68, 80, 234, 0.18);
+  border-radius: 16px;
+  padding: 56px 64px;
+  display: flex;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+.pivotLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.pivotLabel {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-indigo);
+}
+
+.pivotHeading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 120%;
+  color: var(--text-primary);
+  margin: 16px 0 0;
+}
+
+.pivotBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  padding-top: calc(0.75rem * 1.4 + 16px); /* label height + heading margin-top, aligns with heading */
+}
+
+.pivotBody strong {
+  color: var(--color-indigo);
+  font-weight: 600;
+}
+
 @media (max-width: 1199px) {
   .problemCard { padding: 28px 24px; }
   .problemNumber { font-size: 3.5rem; }
