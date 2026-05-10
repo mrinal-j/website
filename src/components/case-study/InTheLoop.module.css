@@ -1398,6 +1398,96 @@
   font-weight: 600;
 }
 
+/* ============================================================
+   PROTOTYPE TESTING
+   ============================================================ */
+.protoSection {
+  width: 100%;
+  background-color: var(--bg-primary);
+  padding-bottom: 96px;
+}
+
+.protoLabelWrap {
+  padding: 136px var(--page-side-padding) 0; /* matches exploration gap: 96px section-bottom + 40px label-top */
+}
+
+.protoSubheading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  padding: 48px var(--page-side-padding) 0;
+  margin: 0;
+}
+
+.fixRow {
+  display: flex;
+  gap: 0;
+  padding: 28px var(--page-side-padding) 0;
+}
+
+.fixCard {
+  flex: 1;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-right: 1px solid var(--border-light);
+}
+
+.fixCard:first-child {
+  padding-left: 0;
+}
+
+.fixCard:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.fixNumber {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-indigo);
+  opacity: 0.6;
+}
+
+.fixProblem {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.fixAction {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 160%;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.fixActionTag {
+  display: block;
+  width: fit-content;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-indigo);
+  background: transparent;
+  border: 2px solid var(--color-indigo);
+  border-radius: 100px;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+
 @media (max-width: 1199px) {
   .problemCard { padding: 28px 24px; }
   .problemNumber { font-size: 3.5rem; }
@@ -1424,5 +1514,8 @@
   .matrixCapsule { font-size: 0.7rem; padding: 6px 14px; }
   .matrixInsight p { font-size: 0.95rem; }
   .outcomeRow { flex-direction: column; gap: 16px; }
+  .fixRow { flex-direction: column; }
+  .fixCard { border-right: none; border-bottom: 1px solid var(--border-light); padding-left: 0; padding-right: 0; }
+  .fixCard:last-child { border-bottom: none; }
   .outcomeCard { padding: 32px 24px; }
 }

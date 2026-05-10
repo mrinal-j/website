@@ -384,6 +384,46 @@ function InTheLoopPage() {
             </p>
           </div>
         </section>
+
+        {/* Prototype Testing */}
+        <section className={styles.protoSection}>
+          <div className={styles.protoLabelWrap}>
+            <SectionLabel title="PROTOTYPE TESTING" />
+          </div>
+
+          <h3 className={styles.protoSubheading}>How we tested</h3>
+
+          <div className={styles.testedMethods}>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M239.43,133l-32-80A8,8,0,0,0,200,48H136V16a8,8,0,0,0-16,0V48H56a8,8,0,0,0-7.43,5l-32,80A8,8,0,0,0,16,136a56,56,0,0,0,112,0,8,8,0,0,0-.57-3L99.18,64H120V200H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16H136V64h20.82l-28.25,69A8,8,0,0,0,128,136a56,56,0,0,0,112,0,8,8,0,0,0-.57-3ZM72,176a40.07,40.07,0,0,1-39.2-32h78.4A40.07,40.07,0,0,1,72,176ZM37.57,128,72,41.74,106.43,128Zm146.86,0L219,41.74,253.43,128Z"/></svg>
+              A/B testing
+            </div>
+            <div className={styles.methodPill}>
+              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M200,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24Zm0,192H56V40H200ZM76,80A12,12,0,1,1,88,92,12,12,0,0,1,76,80Zm0,48a12,12,0,1,1,12,12A12,12,0,0,1,76,128Zm0,48a12,12,0,1,1,12,12A12,12,0,0,1,76,176Zm36-96h72a8,8,0,0,0,0-16H112a8,8,0,0,0,0,16Zm72,32H112a8,8,0,0,0,0,16h72a8,8,0,0,0,0-16Zm0,48H112a8,8,0,0,0,0,16h72a8,8,0,0,0,0-16Z"/></svg>
+              End-to-end usability testing
+            </div>
+          </div>
+
+          <h3 className={styles.protoSubheading}>What we fixed</h3>
+
+          <div className={styles.fixRow}>
+            <div className={styles.fixCard}>
+              <span className={styles.fixNumber}>01</span>
+              <p className={styles.fixProblem}>Users didn't know what the platform offered before being asked to complete onboarding.</p>
+              <p className={styles.fixAction}><span className={styles.fixActionTag}>Action</span> Frontload the value proposition before any sign-up questions.</p>
+            </div>
+            <div className={styles.fixCard}>
+              <span className={styles.fixNumber}>02</span>
+              <p className={styles.fixProblem}>Users expected to reach a host's full profile directly from the listing, and not a toggle.</p>
+              <p className={styles.fixAction}><span className={styles.fixActionTag}>Action</span> Direct link from listing card to full host profile.</p>
+            </div>
+            <div className={styles.fixCard}>
+              <span className={styles.fixNumber}>03</span>
+              <p className={styles.fixProblem}>Local recommendations were invisible when buried inside the host profile.</p>
+              <p className={styles.fixAction}><span className={styles.fixActionTag}>Action</span> Surfaced as a persistent card earlier in the flow.</p>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
