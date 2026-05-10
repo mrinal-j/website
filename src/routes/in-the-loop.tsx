@@ -183,7 +183,7 @@ function InTheLoopPage() {
         {/* Solution - Phone Carousel */}
         <section className={styles.solutionSection}>
           <div className={styles.solutionLabelWrap}>
-            <SectionLabel title="SOLUTION" />
+            <SectionLabel title="WHAT WE BUILT" />
           </div>
 
           {/* Concluding quote sits above the carousel, left-aligned with the
@@ -395,7 +395,7 @@ function InTheLoopPage() {
 
           <div className={styles.testedMethods}>
             <div className={styles.methodPill}>
-              <svg className={styles.methodIcon} viewBox="0 0 256 256" fill="currentColor"><path d="M239.43,133l-32-80A8,8,0,0,0,200,48H136V16a8,8,0,0,0-16,0V48H56a8,8,0,0,0-7.43,5l-32,80A8,8,0,0,0,16,136a56,56,0,0,0,112,0,8,8,0,0,0-.57-3L99.18,64H120V200H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16H136V64h20.82l-28.25,69A8,8,0,0,0,128,136a56,56,0,0,0,112,0,8,8,0,0,0-.57-3ZM72,176a40.07,40.07,0,0,1-39.2-32h78.4A40.07,40.07,0,0,1,72,176ZM37.57,128,72,41.74,106.43,128Zm146.86,0L219,41.74,253.43,128Z"/></svg>
+              <svg className={styles.methodIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><polyline points="4 7 12 3 20 7"/><path d="M4 7l-2 8a5 5 0 0 0 8 0L8 7"/><path d="M16 7l-2 8a5 5 0 0 0 8 0l-2-8"/><line x1="2" y1="21" x2="22" y2="21"/></svg>
               A/B testing
             </div>
             <div className={styles.methodPill}>
@@ -422,6 +422,34 @@ function InTheLoopPage() {
               <p className={styles.fixProblem}>Local recommendations were invisible when buried inside the host profile.</p>
               <p className={styles.fixAction}><span className={styles.fixActionTag}>Action</span> Surfaced as a persistent card earlier in the flow.</p>
             </div>
+          </div>
+        </section>
+
+        {/* Solution */}
+        <section className={styles.solSection}>
+          <div className={styles.solLabelWrap}>
+            <SectionLabel title="SOLUTION" />
+          </div>
+
+          <div className={styles.solHeader}>
+            <div className={styles.solLogoWrap}>
+              <img src="/images/itl_logo.png" alt="In the Loop" className={styles.solLogo} />
+            </div>
+            <div className={styles.solTagline}>
+              <h2 className={styles.solTaglineText}>A platform connecting professionals through<br />intentional, hosted stays — built on trust,<br />shared values, and community.</h2>
+            </div>
+          </div>
+
+          <div className={styles.solCards}>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div key={n} className={styles.solCard}>
+                <img
+                  src={`/images/solution_${n}.png`}
+                  alt={`Solution value ${n}`}
+                  className={styles.solCardImg}
+                />
+              </div>
+            ))}
           </div>
         </section>
       </main>
