@@ -451,6 +451,39 @@ function InTheLoopPage() {
               </div>
             ))}
           </div>
+
+          <p className={styles.stayIntro}>Beyond rigid booking models, In the Loop offers stay types that match<br />how professionals actually move.</p>
+
+          <div className={styles.stayRow}>
+            <div className={styles.stayCard}>
+              <div className={styles.stayIconWrap}>
+                <img src="/images/Synchronized.png" alt="Synchronized" className={styles.stayIcon} />
+              </div>
+              <h4 className={styles.stayTitle}>Synchronized</h4>
+              <p className={styles.stayDesc}>A synchronized stay is between two members traveling to each others home at the same time</p>
+            </div>
+            <div className={styles.stayCard}>
+              <div className={styles.stayIconWrap}>
+                <img src="/images/Flexible.png" alt="Flexible" className={styles.stayIcon} />
+              </div>
+              <h4 className={styles.stayTitle}>Flexible</h4>
+              <p className={styles.stayDesc}>A flexible stay is between two members traveling to each other's home at different times</p>
+            </div>
+            <div className={styles.stayCard}>
+              <div className={styles.stayIconWrap}>
+                <img src="/images/One-Way.png" alt="One-Way" className={styles.stayIcon} />
+              </div>
+              <h4 className={styles.stayTitle}>One-Way</h4>
+              <p className={styles.stayDesc}>A one-way stay is where only one member travels to another's home and has a full house to use</p>
+            </div>
+            <div className={styles.stayCard}>
+              <div className={styles.stayIconWrap}>
+                <img src="/images/Shared.png" alt="Shared" className={styles.stayIcon} />
+              </div>
+              <h4 className={styles.stayTitle}>Shared</h4>
+              <p className={styles.stayDesc}>A shared stay is where a member travels to another's home while that member is still there</p>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
