@@ -1605,6 +1605,158 @@
   margin: 0;
 }
 
+/* ============================================================
+   KEY FEATURES — phone mockup showcase
+   ============================================================ */
+.featuresSection {
+  width: 100%;
+  background: #000;
+  padding: 120px 0;
+}
+
+.featureBlock {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  padding: 0 var(--page-side-padding);
+}
+
+.featureText {
+  flex: 1;
+  max-width: 520px;
+}
+
+.featureIconImg {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 32px;
+}
+
+.featureHeading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 130%;
+  color: #fff;
+  margin: 0;
+}
+
+.featureHighlight {
+  background: rgba(222, 215, 79, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+/* Phone mockup — realistic iPhone style */
+.phoneContainer {
+  flex-shrink: 0;
+}
+
+.phoneMockup {
+  position: relative;
+  width: 280px;
+  height: 572px;
+  border-radius: 44px;
+  background: #1a1a1a;
+  overflow: hidden;
+  /* Outer shell: titanium-like edge + inset screen bezel */
+  border: 3px solid #444;
+  box-shadow:
+    /* outer glow */
+    0 0 80px rgba(255, 255, 255, 0.06),
+    /* edge highlight */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    /* depth shadow */
+    0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Top area: status bar + dynamic island */
+.phoneNotch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background: #000;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneDynamicIsland {
+  width: 72px;
+  height: 22px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+
+/* Screen viewport */
+.featPhoneScreen {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  bottom: 68px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.phoneScreenImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+.phoneScreen1 {
+  animation: screen1Scroll 12s ease-in-out infinite;
+}
+
+/* Bottom nav bar */
+.phoneNavBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  z-index: 8;
+  background: #fff;
+  border-top: 1px solid #e5e5e5;
+}
+
+.phoneNavBarImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Home indicator bar */
+.phoneHomeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: #ccc;
+  border-radius: 4px;
+  z-index: 12;
+}
+
+/* Animation: slow vertical scroll loop */
+@keyframes screen1Scroll {
+  0%, 10% { transform: translateY(0); }
+  40%, 60% { transform: translateY(-45%); }
+  90%, 100% { transform: translateY(0); }
+}
+
 @media (max-width: 1199px) {
   .problemCard { padding: 28px 24px; }
   .problemNumber { font-size: 3.5rem; }
@@ -1619,6 +1771,8 @@
   .solCards { gap: 16px; }
   .stayRow { flex-wrap: wrap; }
   .stayCard { flex: 1 1 calc(50% - 20px); }
+  .featureBlock { gap: 48px; }
+  .featureHeading { font-size: 1.85rem; }
 }
 
 @media (max-width: 767px) {
@@ -1647,4 +1801,7 @@
   .solCard { flex: 1 1 calc(50% - 12px); min-width: 140px; }
   .stayRow { flex-direction: column; }
   .stayCard { flex: 1 1 100%; }
+  .featureBlock { flex-direction: column; gap: 48px; align-items: flex-start; }
+  .featureHeading { font-size: 1.5rem; }
+  .phoneMockup { width: 240px; height: 490px; border-radius: 38px; }
 }

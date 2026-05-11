@@ -194,7 +194,6 @@ function InTheLoopPage() {
 
           <div className={styles.carousel}>
             <div className={styles.phoneBezels}>
-              {/* Phone frame */}
               <div className={styles.phoneFrame}>
                 <div className={styles.phoneScreen} />
               </div>
@@ -482,6 +481,44 @@ function InTheLoopPage() {
               </div>
               <h4 className={styles.stayTitle}>Shared</h4>
               <p className={styles.stayDesc}>A shared stay is where a member travels to another's home while that member is still there</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Key Features */}
+        <section className={styles.featuresSection}>
+          <div className={styles.featureBlock}>
+            <div className={styles.featureText}>
+              <img src="/images/curated picks_icon.png" alt="" className={styles.featureIconImg} />
+              <h2 className={styles.featureHeading}>
+                <span className={styles.featureHighlight}>Curated picks</span> — stays and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
+              </h2>
+            </div>
+            <div className={styles.phoneContainer}>
+              <div className={styles.phoneMockup}>
+                {/* Notch / Dynamic Island */}
+                <div className={styles.phoneNotch}>
+                  <div className={styles.phoneDynamicIsland} />
+                </div>
+                {/* Screen content */}
+                <div className={styles.featPhoneScreen}>
+                  <img
+                    src="/images/curated picks_1_screen.png"
+                    alt="Discover screen"
+                    className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
+                  />
+                </div>
+                {/* Bottom nav bar */}
+                <div className={styles.phoneNavBar}>
+                  <img
+                    src="/images/curated picks_bottom nav bar_screen.png"
+                    alt="Navigation"
+                    className={styles.phoneNavBarImg}
+                  />
+                </div>
+                {/* Home indicator */}
+                <div className={styles.phoneHomeIndicator} />
+              </div>
             </div>
           </div>
         </section>
