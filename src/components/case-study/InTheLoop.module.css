@@ -1493,8 +1493,8 @@
    ============================================================ */
 .solSection {
   width: 100%;
-  background-color: var(--bg-primary);
-  padding-bottom: 96px;
+  background-color: #000;
+  padding-bottom: 80px;
 }
 
 .solLabelWrap {
@@ -1525,7 +1525,7 @@
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 140%;
-  color: var(--text-primary);
+  color: #fff;
   margin: 0;
 }
 
@@ -1552,7 +1552,7 @@
   font-weight: 400;
   font-size: 1rem;
   line-height: 165%;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   padding: 80px var(--page-side-padding) 0;
   margin: 0;
 }
@@ -1571,6 +1571,11 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.stayCard:last-child {
+  border-right: none;
 }
 
 .stayIconWrap {
@@ -1611,19 +1616,30 @@
 .featuresSection {
   width: 100%;
   background: #000;
-  padding: 120px 0;
+  padding: 10px 0;
+}
+
+.featuresIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 165%;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 var(--page-side-padding);
+  margin: 0 0 64px;
 }
 
 .featureBlock {
   display: flex;
   align-items: center;
-  gap: 80px;
+  /* ← Gap between text and phone mockup. Adjust this value. */
+  gap: 180px;
   padding: 0 var(--page-side-padding);
 }
 
 .featureText {
   flex: 1;
-  max-width: 520px;
+  max-width: 620px;
 }
 
 .featureIconImg {
@@ -1644,10 +1660,7 @@
 }
 
 .featureHighlight {
-  background: rgba(222, 215, 79, 0.3);
-  padding: 2px 8px;
-  border-radius: 4px;
-  color: #fff;
+  color: #DED74F;
 }
 
 /* Phone mockup — realistic iPhone style */
@@ -1658,52 +1671,32 @@
 .phoneMockup {
   position: relative;
   width: 280px;
-  height: 572px;
-  border-radius: 44px;
-  background: #1a1a1a;
-  overflow: hidden;
-  /* Outer shell: titanium-like edge + inset screen bezel */
-  border: 3px solid #444;
-  box-shadow:
-    /* outer glow */
-    0 0 80px rgba(255, 255, 255, 0.06),
-    /* edge highlight */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    /* depth shadow */
-    0 20px 60px rgba(0, 0, 0, 0.6);
+  /* Match iPhone 16 Pro PNG aspect ratio: 450 x 920 */
+  aspect-ratio: 450 / 920;
 }
 
-/* Top area: status bar + dynamic island */
-.phoneNotch {
+/* The PNG frame sits on top of everything */
+.phoneFrameImg {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 44px;
-  background: #000;
+  width: 100%;
+  height: 100%;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none;
 }
 
-.phoneDynamicIsland {
-  width: 72px;
-  height: 22px;
-  background: #1a1a1a;
-  border-radius: 20px;
-  margin-top: 4px;
-}
-
-/* Screen viewport */
 .featPhoneScreen {
   position: absolute;
-  top: 44px;
-  left: 0;
-  right: 0;
-  bottom: 68px;
+  /* ← Adjust these to position screen inside the phone frame */
+  top: calc(2% + 4px);   /* ← top offset */
+  left: calc(2.8% + 4px);  /* ← left offset */
+  right: calc(2.8% + 4px); /* ← right offset */
+  bottom: 2%;
   overflow: hidden;
-  background: #f5f5f5;
+  border-radius: 20px 20px 36px 36px;
+  z-index: 2;
+  background: #ffffff;
 }
 
 .phoneScreenImg {
@@ -1718,16 +1711,16 @@
   animation: screen1Scroll 12s ease-in-out infinite;
 }
 
-/* Bottom nav bar */
+/* Bottom nav bar — positioned as sibling between screen & frame */
 .phoneNavBar {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 68px;
-  z-index: 8;
+  bottom: 2%;
+  left: calc(2.8% + 4px);
+  right: calc(2.8% + 4px);
+  z-index: 5;
   background: #fff;
-  border-top: 1px solid #e5e5e5;
+  border-radius: 0 0 36px 36px;
+  overflow: hidden;
 }
 
 .phoneNavBarImg {
@@ -1739,15 +1732,7 @@
 
 /* Home indicator bar */
 .phoneHomeIndicator {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: #ccc;
-  border-radius: 4px;
-  z-index: 12;
+  display: none; /* handled by the PNG frame */
 }
 
 /* Animation: slow vertical scroll loop */
@@ -1803,5 +1788,5 @@
   .stayCard { flex: 1 1 100%; }
   .featureBlock { flex-direction: column; gap: 48px; align-items: flex-start; }
   .featureHeading { font-size: 1.5rem; }
-  .phoneMockup { width: 240px; height: 490px; border-radius: 38px; }
+  .phoneMockup { width: 240px; }
 }

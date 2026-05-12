@@ -427,12 +427,12 @@ function InTheLoopPage() {
         {/* Solution */}
         <section className={styles.solSection}>
           <div className={styles.solLabelWrap}>
-            <SectionLabel title="SOLUTION" />
+            <SectionLabel title="SOLUTION" dark />
           </div>
 
           <div className={styles.solHeader}>
             <div className={styles.solLogoWrap}>
-              <img src="/images/itl_logo.png" alt="In the Loop" className={styles.solLogo} />
+              <img src="/images/itl_logo_white.png" alt="In the Loop" className={styles.solLogo} />
             </div>
             <div className={styles.solTagline}>
               <h2 className={styles.solTaglineText}>A platform connecting professionals through<br />intentional, hosted stays — built on trust,<br />shared values, and community.</h2>
@@ -487,20 +487,17 @@ function InTheLoopPage() {
 
         {/* Key Features */}
         <section className={styles.featuresSection}>
+          <p className={styles.featuresIntro}>Core features designed to help you discover your perfect work-and-travel experience.</p>
           <div className={styles.featureBlock}>
             <div className={styles.featureText}>
               <img src="/images/curated picks_icon.png" alt="" className={styles.featureIconImg} />
               <h2 className={styles.featureHeading}>
-                <span className={styles.featureHighlight}>Curated picks</span> — stays and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
+                <span className={styles.featureHighlight}>Curated stays</span> and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
               </h2>
             </div>
             <div className={styles.phoneContainer}>
               <div className={styles.phoneMockup}>
-                {/* Notch / Dynamic Island */}
-                <div className={styles.phoneNotch}>
-                  <div className={styles.phoneDynamicIsland} />
-                </div>
-                {/* Screen content */}
+                {/* Screen content (behind the frame) */}
                 <div className={styles.featPhoneScreen}>
                   <img
                     src="/images/curated picks_1_screen.png"
@@ -508,7 +505,7 @@ function InTheLoopPage() {
                     className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
                   />
                 </div>
-                {/* Bottom nav bar */}
+                {/* Bottom nav bar — sits between screen and frame */}
                 <div className={styles.phoneNavBar}>
                   <img
                     src="/images/curated picks_bottom nav bar_screen.png"
@@ -516,8 +513,12 @@ function InTheLoopPage() {
                     className={styles.phoneNavBarImg}
                   />
                 </div>
-                {/* Home indicator */}
-                <div className={styles.phoneHomeIndicator} />
+                {/* Phone frame overlay */}
+                <img
+                  src="/images/iPhone 16 pro.png"
+                  alt=""
+                  className={styles.phoneFrameImg}
+                />
               </div>
             </div>
           </div>
