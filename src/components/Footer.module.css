@@ -1,5 +1,5 @@
 .footer {
-  background-color: #000;
+  background-color: var(--bg-secondary);
   border-radius: 48px 48px 0 0;
   margin-top: -48px;
   position: relative;
@@ -40,7 +40,7 @@
   font-size: 0.88rem;
   line-height: 150%;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 /* Center group: heading above circle */
@@ -56,7 +56,7 @@
   font-size: 1rem;
   line-height: 170%;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: var(--text-primary);
   margin: 0 0 20px;
   text-align: center;
 }
@@ -91,7 +91,7 @@
 .ctaCircle:hover {
   transform: scale(1.09);
   background-color: #FF6600;
-  color: #000;
+  color: #fff;
 }
 
 .socialLinks {
@@ -107,7 +107,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #fff;
+  color: var(--text-primary);
   transition: color 0.2s ease;
 }
 
@@ -123,7 +123,7 @@
   width: 60px;
   height: 60px;
   border-radius: 14px;
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +141,7 @@
 /* Footer bar */
 .footerBar {
   margin-top: 52px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 24px;
   display: flex;
   justify-content: space-between;
@@ -154,16 +154,16 @@
   font-weight: 400;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .scrollTopBtn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
   background: transparent;
-  color: #fff;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
