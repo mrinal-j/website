@@ -743,6 +743,32 @@
   .heardHeadline { font-size: 1.6rem; padding: 24px var(--page-side-padding) 32px; }
   .heardCards { gap: 14px; }
   .heardCard { width: 140px; min-height: 120px; font-size: 0.82rem; padding: 14px 12px; }
+
+  /* 1. Hero subheading — body text size */
+  .heroDesc p { font-size: 1rem; }
+
+  /* 2. Overview — remove max-width so text doesn't overlap.
+        Highlight banner flows normally on mobile (no pull-up). */
+  .overviewGrid { max-width: 100%; }
+
+  /* 3. Grey box "But nobody..." — stack vertically */
+  .connectDotsBox { flex-direction: column; gap: 16px; padding: 28px 24px; }
+  .connectDotsHeading { font-size: 1.5rem; }
+
+  /* 4. "How we tested it" capsules — stack vertically, text width */
+  .testedMethods { flex-direction: column; }
+  .methodPill { align-self: flex-start; }
+
+  /* 5. Pivot box — stack vertically */
+  .pivotBox { flex-direction: column; gap: 16px; padding: 28px 24px; }
+  .pivotHeading { font-size: 1.5rem; }
+  .pivotBody { padding-top: 0; }
+
+  /* 6. Prototype testing capsules — same as #4, uses .testedMethods */
+
+  /* 7. Solution section cards — stack vertically, same width */
+  .solCards { flex-direction: column; }
+  .solCard { flex: 1 1 100%; }
 }
 
 /* ============================================================
@@ -1800,8 +1826,8 @@
   .solHeader { flex-direction: column; align-items: flex-start; gap: 24px; }
   .solLogoWrap { width: 80px; height: 80px; }
   .solTaglineText { font-size: 1.25rem; }
-  .solCards { flex-wrap: wrap; gap: 12px; }
-  .solCard { flex: 1 1 calc(50% - 12px); min-width: 140px; }
+  .solCards { flex-direction: column; }
+  .solCard { flex: 1 1 100%; }
   .stayRow { flex-direction: column; }
   .stayCard { flex: 1 1 100%; }
   .featureBlock { flex-direction: column; gap: 48px; align-items: flex-start; }
