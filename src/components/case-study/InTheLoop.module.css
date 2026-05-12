@@ -1613,10 +1613,31 @@
 /* ============================================================
    KEY FEATURES — phone mockup showcase
    ============================================================ */
+/* Tall wrapper that gives scroll distance for the sticky section */
+.featuresScrollWrap {
+  background: #000;
+  /* Height = viewport + extra scroll room for the phone to scroll through */
+  height: 250vh;
+  position: relative;
+}
+
+/* Intro text wrapper — scrolls normally before the sticky section */
+.featuresIntroBg {
+  background: #000;
+  padding: 20px 0 64px;
+}
+
 .featuresSection {
   width: 100%;
   background: #000;
   padding: 10px 0;
+  /* Sticky: stays centered in the viewport while you scroll the wrapper */
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .featuresIntro {
@@ -1626,7 +1647,7 @@
   line-height: 165%;
   color: rgba(255, 255, 255, 0.5);
   padding: 0 var(--page-side-padding);
-  margin: 0 0 64px;
+  margin: 0;
 }
 
 .featureBlock {
@@ -1689,7 +1710,7 @@
 .featPhoneScreen {
   position: absolute;
   /* ← Adjust these to position screen inside the phone frame */
-  top: calc(2% + 4px);   /* ← top offset */
+  top: calc(2% + 5px);   /* ← top offset */
   left: calc(2.8% + 4px);  /* ← left offset */
   right: calc(2.8% + 4px); /* ← right offset */
   bottom: 2%;
@@ -1708,7 +1729,9 @@
 }
 
 .phoneScreen1 {
-  animation: screen1Scroll 12s ease-in-out infinite;
+  /* scroll-linked: translateY set by JS based on section scroll progress */
+  will-change: transform;
+  transition: transform 0.1s linear;
 }
 
 /* Bottom nav bar — positioned as sibling between screen & frame */
@@ -1735,12 +1758,7 @@
   display: none; /* handled by the PNG frame */
 }
 
-/* Animation: slow vertical scroll loop */
-@keyframes screen1Scroll {
-  0%, 10% { transform: translateY(0); }
-  40%, 60% { transform: translateY(-45%); }
-  90%, 100% { transform: translateY(0); }
-}
+/* (auto-scroll keyframes removed — scroll-linked via JS) */
 
 @media (max-width: 1199px) {
   .problemCard { padding: 28px 24px; }

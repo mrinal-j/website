@@ -22,6 +22,8 @@ function InTheLoopPage() {
   const matrixRef = useRef<HTMLDivElement>(null)
   const revealedCount = useRef(0)
   const lastRevealScroll = useRef(0)
+  const featuresSectionRef = useRef<HTMLElement>(null)
+  const phoneScreenImgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
     const row = problemRowRef.current
@@ -55,14 +57,31 @@ function InTheLoopPage() {
       }
     }
 
+    const onPhoneScroll = () => {
+      const wrap = featuresSectionRef.current
+      const img = phoneScreenImgRef.current
+      if (!wrap || !img) return
+      const rect = wrap.getBoundingClientRect()
+      const viewH = window.innerHeight
+      // progress 0→1 based on how far through the tall wrapper we've scrolled
+      // starts when wrapper top hits viewport top, ends when wrapper bottom leaves
+      const scrollable = rect.height - viewH
+      if (scrollable <= 0) return
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
+      // translate the screen image up by progress * 45%
+      img.style.transform = `translateY(${-progress * 45}%)`
+    }
+
     const combinedScroll = () => {
       onScroll()
       onMatrixScroll()
+      onPhoneScroll()
     }
 
     window.addEventListener('scroll', combinedScroll, { passive: true })
     onScroll()
     onMatrixScroll()
+    onPhoneScroll()
     return () => window.removeEventListener('scroll', combinedScroll)
   }, [])
 
@@ -485,44 +504,50 @@ function InTheLoopPage() {
           </div>
         </section>
 
-        {/* Key Features */}
-        <section className={styles.featuresSection}>
+        {/* Key Features — intro text scrolls normally */}
+        <div className={styles.featuresIntroBg}>
           <p className={styles.featuresIntro}>Core features designed to help you discover your perfect work-and-travel experience.</p>
-          <div className={styles.featureBlock}>
-            <div className={styles.featureText}>
-              <img src="/images/curated picks_icon.png" alt="" className={styles.featureIconImg} />
-              <h2 className={styles.featureHeading}>
-                <span className={styles.featureHighlight}>Curated stays</span> and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
-              </h2>
-            </div>
-            <div className={styles.phoneContainer}>
-              <div className={styles.phoneMockup}>
-                {/* Screen content (behind the frame) */}
-                <div className={styles.featPhoneScreen}>
+        </div>
+        {/* Tall scroll wrapper — sticky section starts here */}
+        <div className={styles.featuresScrollWrap} ref={featuresSectionRef}>
+          <section className={styles.featuresSection}>
+            <div className={styles.featureBlock}>
+              <div className={styles.featureText}>
+                <img src="/images/curated picks_icon.png" alt="" className={styles.featureIconImg} />
+                <h2 className={styles.featureHeading}>
+                  <span className={styles.featureHighlight}>Curated stays</span> and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
+                </h2>
+              </div>
+              <div className={styles.phoneContainer}>
+                <div className={styles.phoneMockup}>
+                  {/* Screen content (behind the frame) */}
+                  <div className={styles.featPhoneScreen}>
+                    <img
+                      ref={phoneScreenImgRef}
+                      src="/images/curated picks_1_screen.png"
+                      alt="Discover screen"
+                      className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
+                    />
+                  </div>
+                  {/* Bottom nav bar — sits between screen and frame */}
+                  <div className={styles.phoneNavBar}>
+                    <img
+                      src="/images/curated picks_bottom nav bar_screen.png"
+                      alt="Navigation"
+                      className={styles.phoneNavBarImg}
+                    />
+                  </div>
+                  {/* Phone frame overlay */}
                   <img
-                    src="/images/curated picks_1_screen.png"
-                    alt="Discover screen"
-                    className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
+                    src="/images/iPhone 16 pro.png"
+                    alt=""
+                    className={styles.phoneFrameImg}
                   />
                 </div>
-                {/* Bottom nav bar — sits between screen and frame */}
-                <div className={styles.phoneNavBar}>
-                  <img
-                    src="/images/curated picks_bottom nav bar_screen.png"
-                    alt="Navigation"
-                    className={styles.phoneNavBarImg}
-                  />
-                </div>
-                {/* Phone frame overlay */}
-                <img
-                  src="/images/iPhone 16 pro.png"
-                  alt=""
-                  className={styles.phoneFrameImg}
-                />
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
       <Footer />
     </>
