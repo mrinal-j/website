@@ -718,13 +718,41 @@
   }
   .metaCell:last-child { border-bottom: none; }
   .metaCellLast { border-bottom: none; }
-  .overview { padding: 48px var(--page-side-padding) 24px; }
-  .overviewGrid { grid-template-columns: 1fr; gap: 24px; }
+  .overview { padding: 48px var(--page-side-padding) 40px; }
+  .overviewGrid { grid-template-columns: 1fr; gap: 40px; }
   .overviewHeading { font-size: 1.6rem; }
-  .highlight { height: auto; min-height: 300px; }
-  .highlightContent { position: relative; left: auto; width: 100%; padding: 32px 24px; }
+  .highlight {
+    height: auto;
+    min-height: auto;
+    margin-top: 0;
+    /* On mobile, make the highlight a normal flow container with the grey background */
+    background-color: rgb(var(--hl-bg-color) / var(--hl-bg-opacity));
+    border-radius: var(--hl-bg-radius);
+    margin-left: var(--page-side-padding);
+    margin-right: var(--page-side-padding);
+    overflow: visible;
+  }
+  /* Hide the separate bg element — the section itself is the grey box now */
+  .highlightBg { display: none; }
+  .highlightContent {
+    position: relative;
+    left: auto;
+    width: 100%;
+    height: auto;
+    padding: 32px 24px 16px;
+    bottom: auto;
+  }
   .highlightText { font-size: 1.5rem; }
-  .highlightPhone { position: relative; width: 160px; top: auto; left: auto; margin: 0 auto; }
+  .highlightPhone {
+    position: relative;
+    width: 160px;
+    height: auto;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    margin: 0 auto;
+    padding-bottom: 0px;
+  }
   .dataSection { flex-direction: column; }
   .dataLeft { padding: 48px var(--page-side-padding) 16px; }
   .dataRight { padding: 16px var(--page-side-padding) 48px; }
