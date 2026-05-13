@@ -1870,7 +1870,8 @@
   .solCards { flex-direction: column; }
   .solCard { flex: 1 1 100%; }
   .stayRow { flex-direction: column; }
-  .stayCard { flex: 1 1 100%; }
+  .stayCard { flex: 1 1 100%; border-right: none; border-left: 1px solid rgba(255, 255, 255, 0.12); }
+  .stayCard:last-child { border-left: 1px solid rgba(255, 255, 255, 0.12); }
   .featureBlock { flex-direction: column; gap: 48px; align-items: flex-start; }
   .featureHeading { font-size: 1.5rem; }
   .phoneMockup { width: 240px; }
