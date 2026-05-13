@@ -720,11 +720,12 @@
   .metaCellLast { border-bottom: none; }
   .overview { padding: 48px var(--page-side-padding) 40px; }
   .overviewGrid { grid-template-columns: 1fr; gap: 40px; }
-  .overviewHeading { font-size: 1.6rem; }
+  .overviewHeading { font-size: 1.5rem; }
   .highlight {
     height: auto;
     min-height: auto;
     margin-top: 0;
+    width: auto;
     /* On mobile, make the highlight a normal flow container with the grey background */
     background-color: rgb(var(--hl-bg-color) / var(--hl-bg-opacity));
     border-radius: var(--hl-bg-radius);
@@ -742,7 +743,7 @@
     padding: 32px 24px 16px;
     bottom: auto;
   }
-  .highlightText { font-size: 1.5rem; }
+  .highlightText { font-size: 1.5rem; text-align: center; }
   .highlightPhone {
     position: relative;
     width: 160px;
@@ -766,9 +767,9 @@
     --carousel-height: 400px;
   }
   .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
-  .concludingQuote p { font-size: 1.3rem; }
+  .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
   .heardLabelWrap { padding: 32px var(--page-side-padding) 0; }
-  .heardHeadline { font-size: 1.6rem; padding: 24px var(--page-side-padding) 32px; }
+  .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px var(--page-side-padding) 32px; }
   .heardCards { gap: 14px; }
   .heardCard { width: 140px; min-height: 120px; font-size: 0.82rem; padding: 14px 12px; }
 
@@ -1861,4 +1862,9 @@
   .featureBlock { flex-direction: column; gap: 48px; align-items: flex-start; }
   .featureHeading { font-size: 1.5rem; }
   .phoneMockup { width: 240px; }
+  .connectDotsHeading { font-size: 1.5rem; }
+  .pivotHeading { font-size: 1.5rem; }
+  .heardHeadline { font-size: 1.5rem; font-weight: 700; }
+  .oooHeadline { font-size: 1.5rem; font-weight: 700; }
+  .solTaglineText { font-size: 1.5rem; }
 }
