@@ -978,7 +978,7 @@
   border: 1px solid var(--border-light);
   display: flex;
   align-items: flex-start;
-  gap: 80px; /* ← space between the heading and body text */
+  gap: 10px; /* ← space between the heading and body text */
 }
 
 .connectDotsHeading {
@@ -1422,7 +1422,7 @@
   padding: 56px 64px;
   display: flex;
   align-items: flex-start;
-  gap: 80px;
+  gap: 10px;
 }
 
 .pivotLeft {
@@ -1880,6 +1880,12 @@
   .oooHeadline { font-size: 1.5rem; font-weight: 700; }
   .solTaglineText { font-size: 1.5rem; }
   .existingIntro { font-size: 1rem; }
+  .platformRow { gap: 8px; }
+  .platformCard { padding: 24px 8px; gap: 12px; }
+  .connectDotsBox { padding: 32px 24px 24px; }
+  .pivotBox { padding: 32px 24px 24px; }
+  .pivotHeading { margin-top: 12px; }
+  .pivotBody { padding-top: 0; }
   .connectDotsBody { font-size: 1rem; }
   .explorationIntro { font-size: 1rem; }
   .pivotBody { font-size: 1rem; }
