@@ -755,12 +755,12 @@
     padding-bottom: 0px;
   }
   .dataSection { flex-direction: column; }
-  .dataLeft { padding: 48px var(--page-side-padding) 16px; }
-  .dataRight { padding: 16px var(--page-side-padding) 48px; }
-  .hmwSection { padding: 48px var(--page-side-padding); }
+  .dataLeft { padding: 40px var(--page-side-padding) 16px; }
+  .dataRight { padding: 16px var(--page-side-padding) 40px; }
+  .hmwSection { padding: 40px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
   .hmwText { font-size: 1rem; }
-  .solutionLabelWrap { padding: 32px var(--page-side-padding) 0; }
+  .solutionLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .solutionSection {
     --carousel-phone-w: 170px;
     --carousel-phone-h: 370px;
@@ -778,9 +778,9 @@
   .phoneBezels {
     left: calc(50% + 5px);
   }
-  .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
+  .concludingQuote { padding: 40px var(--page-side-padding) 40px; }
   .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
-  .heardLabelWrap { padding: 32px var(--page-side-padding) 0; }
+  .heardLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px var(--page-side-padding) 32px; }
   .heardCards { gap: 14px; }
   .heardCard { width: 140px; min-height: 120px; font-size: 0.82rem; padding: 14px 12px; }
@@ -1879,10 +1879,17 @@
   .heardHeadline { font-size: 1.5rem; font-weight: 700; }
   .oooHeadline { font-size: 1.5rem; font-weight: 700; }
   .solTaglineText { font-size: 1.5rem; }
-  .existingIntro { font-size: 1rem; }
+  .existingIntro { font-size: 1rem; padding: 40px var(--page-side-padding) 0; }
   .platformRow { gap: 8px; }
   .platformCard { padding: 24px 8px; gap: 12px; }
   .connectDotsBox { padding: 32px 24px 24px; }
+  .heardSection { padding-bottom: 40px; }
+  .explorationSection { padding-bottom: 40px; }
+  .explorationLabelWrap { padding: 40px var(--page-side-padding) 0; }
+  .protoSection { padding-bottom: 40px; }
+  .protoLabelWrap { padding: 60px var(--page-side-padding) 0; }
+  .solSection { padding-bottom: 40px; }
+  .solLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .pivotBox { padding: 32px 24px 24px; }
   .pivotHeading { margin-top: 12px; }
   .pivotBody { padding-top: 0; }
