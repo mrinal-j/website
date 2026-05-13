@@ -767,6 +767,17 @@
     --carousel-card-gap: 16px;
     --carousel-height: 400px;
   }
+  .carousel {
+    width: 100%;
+    overflow: visible;
+    overflow-x: clip;
+  }
+  /* Nudge the phone frame to align with the center card —
+     the snap multiplier (2.43) is tuned for desktop sizes,
+     so mobile needs a small correction. */
+  .phoneBezels {
+    left: calc(50% + 5px);
+  }
   .concludingQuote { padding: 32px var(--page-side-padding) 48px; }
   .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
   .heardLabelWrap { padding: 32px var(--page-side-padding) 0; }
