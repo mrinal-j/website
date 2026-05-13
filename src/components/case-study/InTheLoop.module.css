@@ -759,6 +759,7 @@
   .dataRight { padding: 16px var(--page-side-padding) 48px; }
   .hmwSection { padding: 48px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
+  .hmwText { font-size: 1rem; }
   .solutionLabelWrap { padding: 32px var(--page-side-padding) 0; }
   .solutionSection {
     --carousel-phone-w: 170px;
@@ -1834,19 +1835,19 @@
 }
 
 @media (max-width: 767px) {
-  .takeawayIntro { padding: 40px var(--page-side-padding) 0; font-size: 0.95rem; }
+  .takeawayIntro { padding: 40px var(--page-side-padding) 0; font-size: 1rem; }
   .problemRow { flex-direction: column; padding: 20px var(--page-side-padding) 0; gap: 16px; }
   .problemCard { padding: 24px 20px; border-radius: 14px; }
   .problemNumber { font-size: 3rem; }
-  .problemText { font-size: 0.95rem; }
-  .opportunityIntro { padding: 40px var(--page-side-padding) 0; font-size: 0.95rem; }
+  .problemText { font-size: 1rem; }
+  .opportunityIntro { padding: 40px var(--page-side-padding) 0; font-size: 1rem; }
   .opportunityQuestion { font-size: 1.6rem; }
   .capsules { padding: 20px var(--page-side-padding) 32px; gap: 10px; }
   .capsule { font-size: 0.85rem; padding: 8px 18px; }
   .matrixLayout { flex-direction: column; gap: 32px; }
   .matrix { width: 100%; }
   .matrixCapsule { font-size: 0.7rem; padding: 6px 14px; }
-  .matrixInsight p { font-size: 0.95rem; }
+  .matrixInsight p { font-size: 1rem; }
   .outcomeRow { flex-direction: column; gap: 16px; }
   .fixRow { flex-direction: column; }
   .fixCard { border-right: none; border-bottom: 1px solid var(--border-light); padding-left: 0; padding-right: 0; }
@@ -1867,4 +1868,8 @@
   .heardHeadline { font-size: 1.5rem; font-weight: 700; }
   .oooHeadline { font-size: 1.5rem; font-weight: 700; }
   .solTaglineText { font-size: 1.5rem; }
+  .existingIntro { font-size: 1rem; }
+  .connectDotsBody { font-size: 1rem; }
+  .explorationIntro { font-size: 1rem; }
+  .pivotBody { font-size: 1rem; }
 }
