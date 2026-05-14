@@ -243,7 +243,7 @@ function InTheLoopPage() {
           {/* Concluding quote sits above the carousel, left-aligned with the
               page padding like the rest of the content above. */}
           <div className={styles.concludingQuote}>
-            <p>A digital platform intentionally designed for professionals seeking flexible accommodations and meaningful connections.</p>
+            <p>A digital platform intentionally designed for professionals<br />seeking flexible accommodations and meaningful connections.</p>
           </div>
 
           <div className={styles.carousel}>
@@ -276,7 +276,7 @@ function InTheLoopPage() {
           </div>
 
           <h2 className={styles.heardHeadline}>
-            They aren&rsquo;t just dissatisfied with their work, but also with how and where they work from.
+            They aren&rsquo;t just dissatisfied with their work, but also<br />with how and where they work from.
           </h2>
 
                     <DraggableCardStack
@@ -706,7 +706,7 @@ function InTheLoopPage() {
 
         {/* Impact */}
         <section className={styles.impactSection}>
-          <SectionLabel title="IMPACT" />
+          <SectionLabel title="IMPACT" dark />
           <h2 className={styles.impactHeadline}>
             At its core, In the Loop is not just about travel. It is about movement with meaning.
           </h2>
