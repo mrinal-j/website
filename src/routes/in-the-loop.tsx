@@ -26,6 +26,10 @@ function InTheLoopPage() {
   const phoneScreenImgRef = useRef<HTMLImageElement>(null)
   const features2Ref = useRef<HTMLElement>(null)
   const phoneScreen2ImgRef = useRef<HTMLImageElement>(null)
+  const features3Ref = useRef<HTMLDivElement>(null)
+  const phoneScreen3aRef = useRef<HTMLImageElement>(null)
+  const phoneScreen3bRef = useRef<HTMLImageElement>(null)
+  const screen3Swapped = useRef(false)
 
   useEffect(() => {
     const row = problemRowRef.current
@@ -86,11 +90,34 @@ function InTheLoopPage() {
       img.style.transform = `translateY(${-progress * 45}%)`
     }
 
+    const onPhoneSwap3 = () => {
+      const wrap = features3Ref.current
+      const imgA = phoneScreen3aRef.current
+      const imgB = phoneScreen3bRef.current
+      if (!wrap || !imgA || !imgB) return
+      const rect = wrap.getBoundingClientRect()
+      const viewH = window.innerHeight
+      const scrollable = rect.height - viewH
+      if (scrollable <= 0) return
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
+
+      if (progress > 0.35 && !screen3Swapped.current) {
+        screen3Swapped.current = true
+        imgA.classList.add(styles.phoneScreenHidden)
+        imgB.classList.remove(styles.phoneScreenHidden)
+      } else if (progress <= 0.2 && screen3Swapped.current) {
+        screen3Swapped.current = false
+        imgB.classList.add(styles.phoneScreenHidden)
+        imgA.classList.remove(styles.phoneScreenHidden)
+      }
+    }
+
     const combinedScroll = () => {
       onScroll()
       onMatrixScroll()
       onPhoneScroll()
       onPhoneScroll2()
+      onPhoneSwap3()
     }
 
     window.addEventListener('scroll', combinedScroll, { passive: true })
@@ -98,6 +125,7 @@ function InTheLoopPage() {
     onMatrixScroll()
     onPhoneScroll()
     onPhoneScroll2()
+    onPhoneSwap3()
     return () => window.removeEventListener('scroll', combinedScroll)
   }, [])
 
@@ -594,6 +622,49 @@ function InTheLoopPage() {
                     />
                   </div>
                   {/* Phone frame overlay */}
+                  <img
+                    src="/images/iPhone 16 pro.png"
+                    alt=""
+                    className={styles.phoneFrameImg}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        {/* Feature 3 — Looped In */}
+        <div className={styles.featuresScrollWrap} ref={features3Ref}>
+          <section className={styles.featuresSection}>
+            <div className={styles.featureBlock}>
+              <div className={styles.featureText}>
+                <img src="/images/looped in_icon.png" alt="" className={styles.featureIconImg} />
+                <h2 className={styles.featureHeading}>
+                  The journey doesn&rsquo;t end when your stay does. <span className={styles.featureHighlight}>Stay connected with your hosts and fellow professionals.</span>
+                </h2>
+              </div>
+              <div className={styles.phoneContainer}>
+                <div className={styles.phoneMockup}>
+                  <div className={styles.featPhoneScreen}>
+                    <img
+                      ref={phoneScreen3aRef}
+                      src="/images/looped_1_screen.png"
+                      alt="Looped in screen 1"
+                      className={`${styles.phoneScreenImg} ${styles.phoneScreenSwap}`}
+                    />
+                    <img
+                      ref={phoneScreen3bRef}
+                      src="/images/looped_2_screen.png"
+                      alt="Looped in screen 2"
+                      className={`${styles.phoneScreenImg} ${styles.phoneScreenSwap} ${styles.phoneScreenHidden}`}
+                    />
+                  </div>
+                  <div className={styles.phoneNavBar}>
+                    <img
+                      src="/images/curated picks_bottom nav bar_screen.png"
+                      alt="Navigation"
+                      className={styles.phoneNavBarImg}
+                    />
+                  </div>
                   <img
                     src="/images/iPhone 16 pro.png"
                     alt=""

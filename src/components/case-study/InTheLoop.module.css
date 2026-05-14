@@ -1801,6 +1801,18 @@
   transition: transform 0.1s linear;
 }
 
+/* Swap-style screens: two images stacked, crossfade via opacity.
+   Screen B sits behind screen A; hiding A reveals B. */
+.phoneScreenSwap {
+  will-change: opacity;
+  transition: opacity 0.45s ease;
+  opacity: 1;
+}
+
+.phoneScreenHidden {
+  opacity: 0 !important;
+}
+
 /* Bottom nav bar — positioned as sibling between screen & frame */
 .phoneNavBar {
   position: absolute;
