@@ -8,11 +8,20 @@
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.6);
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  --nav-border: rgba(0, 0, 0, 0.08);
+  --nav-text: var(--text-primary);
+  background-color: var(--nav-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+  border-bottom: 1px solid var(--nav-border);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s, background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.navDark {
+  --nav-bg: rgba(0, 0, 0, 0.6);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-text: #fff;
 }
 
 .navHidden {
@@ -43,7 +52,8 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--nav-text);
+  transition: color 0.35s ease;
 }
 
 .logoIcon {
@@ -72,9 +82,9 @@
   font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: var(--text-primary);
+  color: var(--nav-text);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.35s ease;
 }
 
 .navLink:hover {
@@ -84,15 +94,16 @@
 .divider {
   width: 1px;
   height: 18px;
-  background-color: var(--text-primary);
+  background-color: var(--nav-text);
+  transition: background-color 0.35s ease;
 }
 
 .iconLink {
-  color: var(--text-primary);
+  color: var(--nav-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+  transition: color 0.35s ease;
 }
 
 .iconLink:hover {

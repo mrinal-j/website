@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import styles from './Navbar.module.css'
 
@@ -7,11 +7,32 @@ interface NavbarProps {
   alwaysVisible?: boolean
 }
 
+function isDarkBackground(el: Element): boolean {
+  const bg = getComputedStyle(el).backgroundColor
+  const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d*\.?\d+))?\)/)
+  if (!match) return false
+  const r = Number(match[1]), g = Number(match[2]), b = Number(match[3])
+  const a = match[4] !== undefined ? Number(match[4]) : 1
+  if (a < 0.5) return false
+  return (r + g + b) / 3 < 80
+}
+
 export function Navbar({ alwaysVisible = false }: NavbarProps) {
   const [visible, setVisible] = useState(alwaysVisible)
   const [footerVisible, setFooterVisible] = useState(false)
+  const [dark, setDark] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    let darkSections: Element[] = []
+
+    const findDarkSections = () => {
+      darkSections = []
+      document.querySelectorAll('section, [class*="ScrollWrap"], [class*="Section"], [class*="Intro"]').forEach(el => {
+        if (isDarkBackground(el)) darkSections.push(el)
+      })
+    }
+
     const onScroll = () => {
       if (!alwaysVisible) {
         const target = document.getElementById('statements')
@@ -27,7 +48,22 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
         const footerRect = footer.getBoundingClientRect()
         setFooterVisible(footerRect.top < window.innerHeight)
       }
+
+      if (navRef.current) {
+        const navBottom = navRef.current.getBoundingClientRect().bottom
+        let onDark = false
+        for (const sec of darkSections) {
+          const rect = sec.getBoundingClientRect()
+          if (rect.top < navBottom && rect.bottom > 0) {
+            onDark = true
+            break
+          }
+        }
+        setDark(onDark)
+      }
     }
+
+    setTimeout(findDarkSections, 200)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
@@ -38,15 +74,14 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
   }, [alwaysVisible])
 
   return (
-    <nav className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden}`}>
+    <nav ref={navRef} className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden} ${dark ? styles.navDark : ''}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo}>
           <img src="/images/nav-icon.png" alt="Mrinal Jadhav" className={styles.logoIcon} />
           <span className={styles.logoText}>Mrinal Jadhav</span>
         </Link>
         <div className={styles.links}>
-          <Link to="/" className={styles.navLink}>Work</Link>
-          <Link to="/" className={styles.navLink} hash="about">About</Link>
+          <Link to="/" className={styles.navLink} hash="featured-works">Work</Link>
           <Link to="/" className={styles.navLink}>Play</Link>
           <span className={styles.divider} />
           <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.iconLink} aria-label="Email" target="_blank" rel="noopener noreferrer">
