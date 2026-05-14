@@ -352,7 +352,7 @@ function InTheLoopPage() {
             </div>
             <div className={styles.oooDetails}>
               <p className={styles.oooHeadline}>
-                Out of Office aims at providing affordable<br /><em>home swaps for working professionals</em>
+                Out of Office aims at providing affordable<br /><span className={styles.oooHighlight}>home swaps for working professionals</span>
               </p>
               <ul className={styles.oooFeatures}>
                 <li>

@@ -669,9 +669,9 @@
 
 .concludingQuote p {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 2rem;
-  line-height: 130%;
+  line-height: 120%;
   color: var(--text-primary);
   text-align: left;
 }
@@ -827,9 +827,9 @@
 
 .heardHeadline {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 2rem;
-  line-height: 130%;
+  line-height: 120%;
   color: var(--text-primary);
   text-align: left;
   max-width: none;
@@ -1238,15 +1238,15 @@
 
 .oooHeadline {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
-  line-height: 140%;
+  line-height: 120%;
   color: var(--text-primary);
   margin: 0 0 24px;
 }
 
-.oooHeadline em {
-  font-style: italic;
+.oooHighlight {
+  color: #017166;
   font-weight: 700;
 }
 
@@ -1581,7 +1581,7 @@
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1.75rem;
-  line-height: 140%;
+  line-height: 120%;
   color: #fff;
   margin: 0;
 }
