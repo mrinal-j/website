@@ -9,22 +9,24 @@ interface NavbarProps {
 
 export function Navbar({ alwaysVisible = false }: NavbarProps) {
   const [visible, setVisible] = useState(alwaysVisible)
+  const [footerVisible, setFooterVisible] = useState(false)
 
   useEffect(() => {
-    if (alwaysVisible) {
-      setVisible(true)
-      return
-    }
-
     const onScroll = () => {
-      const target = document.getElementById('statements')
-      if (!target) {
-        setVisible(true)
-        return
+      if (!alwaysVisible) {
+        const target = document.getElementById('statements')
+        if (!target) {
+          setVisible(true)
+        } else {
+          setVisible(target.getBoundingClientRect().top <= 0)
+        }
       }
-      const rect = target.getBoundingClientRect()
-      // Show the nav once the Statements section's top edge reaches the top of the viewport.
-      setVisible(rect.top <= 0)
+
+      const footer = document.querySelector('footer')
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect()
+        setFooterVisible(footerRect.top < window.innerHeight)
+      }
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -36,7 +38,7 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
   }, [alwaysVisible])
 
   return (
-    <nav className={`${styles.nav} ${visible ? styles.navVisible : styles.navHidden}`}>
+    <nav className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo}>
           <img src="/images/nav-icon.png" alt="Mrinal Jadhav" className={styles.logoIcon} />

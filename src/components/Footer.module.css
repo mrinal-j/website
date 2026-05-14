@@ -130,6 +130,27 @@
   transition: border-color 0.2s ease;
 }
 
+.socialIconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.socialIconLink:hover {
+  opacity: 1;
+  color: var(--color-orange);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .socialLabel {
   font-family: var(--font-body);
   font-size: 0.75rem;
