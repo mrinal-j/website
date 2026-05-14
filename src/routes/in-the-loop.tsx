@@ -18,10 +18,7 @@ export const Route = createFileRoute('/in-the-loop')({
 })
 
 function InTheLoopPage() {
-  const problemRowRef = useRef<HTMLDivElement>(null)
   const matrixRef = useRef<HTMLDivElement>(null)
-  const revealedCount = useRef(0)
-  const lastRevealScroll = useRef(0)
   const featuresSectionRef = useRef<HTMLElement>(null)
   const phoneScreenImgRef = useRef<HTMLImageElement>(null)
   const features2Ref = useRef<HTMLElement>(null)
@@ -34,26 +31,6 @@ function InTheLoopPage() {
   const phoneScreen4ImgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
-    const row = problemRowRef.current
-    if (!row) return
-    const cards = row.querySelectorAll<HTMLElement>(`.${styles.problemCard}`)
-    if (!cards.length) return
-
-    const SCROLL_GAP = 150
-
-    const onScroll = () => {
-      if (revealedCount.current >= cards.length) return
-      const rect = row.getBoundingClientRect()
-      if (rect.top >= window.innerHeight * 0.8) return
-
-      const scrollY = window.scrollY
-      if (revealedCount.current === 0 || scrollY - lastRevealScroll.current >= SCROLL_GAP) {
-        cards[revealedCount.current].classList.add(styles.problemCardVisible)
-        lastRevealScroll.current = scrollY
-        revealedCount.current++
-      }
-    }
-
     const matrixEl = matrixRef.current
     let matrixRevealed = false
     const onMatrixScroll = () => {
@@ -127,7 +104,6 @@ function InTheLoopPage() {
     }
 
     const combinedScroll = () => {
-      onScroll()
       onMatrixScroll()
       onPhoneScroll()
       onPhoneScroll2()
@@ -136,7 +112,6 @@ function InTheLoopPage() {
     }
 
     window.addEventListener('scroll', combinedScroll, { passive: true })
-    onScroll()
     onMatrixScroll()
     onPhoneScroll()
     onPhoneScroll2()
@@ -319,7 +294,7 @@ function InTheLoopPage() {
           {/* Takeaways intro + problem cards + opportunity question */}
           <p className={styles.takeawayIntro}>These conversations helped shape our key takeaways.</p>
 
-          <div className={styles.problemRow} ref={problemRowRef}>
+          <div className={styles.problemRow}>
             {[
               { number: '1', text: 'Remote work means freedom to go anywhere but finding places that actually fuel creativity, not just provide WiFi, is still a puzzle' },
               { number: '2', text: 'Monotonous routines drain energy and kill innovation. There is no variety, no unexpected experiences to break the loop' },

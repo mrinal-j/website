@@ -1146,16 +1146,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-}
-
-.problemCardVisible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .problemNumber {
