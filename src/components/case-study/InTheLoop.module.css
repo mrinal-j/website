@@ -676,6 +676,94 @@
   text-align: left;
 }
 
+.impactSection {
+  padding: 80px var(--page-side-padding) 80px;
+  background-color: #000;
+  color: #fff;
+}
+
+.impactHeadline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 120%;
+  color: #fff;
+  margin: 32px 0 20px;
+  max-width: 720px;
+}
+
+.impactBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 170%;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  max-width: none;
+  white-space: nowrap;
+}
+
+.impactPillars {
+  display: flex;
+  gap: 40px;
+  margin-top: 56px;
+}
+
+.impactPillar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.impactIconPlaceholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+}
+
+.impactPillarTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 120%;
+  color: #fff;
+  margin: 0 0 12px;
+}
+
+.impactPillarBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 170%;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+}
+
+.impactGreen {
+  color: #D0D029;
+  font-weight: 700;
+}
+
+.impactClosing {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 120%;
+  color: #fff;
+  margin: 64px 0 0;
+  max-width: 800px;
+}
+
+.impactClosingHighlight {
+  color: #D0D029;
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -780,6 +868,11 @@
   }
   .concludingQuote { padding: 40px var(--page-side-padding) 40px; }
   .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
+  .impactSection { padding: 40px var(--page-side-padding) 40px; }
+  .impactHeadline { font-size: 1.5rem; }
+  .impactBody { white-space: normal; }
+  .impactPillars { flex-direction: column; gap: 32px; margin-top: 40px; }
+  .impactClosing { font-size: 1.5rem; margin-top: 48px; }
   .heardLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px var(--page-side-padding) 32px; }
   .heardCards { gap: 14px; }
