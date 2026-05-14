@@ -18,9 +18,8 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: 'stylesheet', href: globalsCss },
-      { rel: 'icon', href: '/icons/default-favicon-light.v1.png', media: '(prefers-color-scheme: light)' },
-      { rel: 'icon', href: '/icons/default-favicon-dark.v1.png', media: '(prefers-color-scheme: dark)' },
-      { rel: 'apple-touch-icon', href: '/icons/default-touch-icon.v3.png' },
+      { rel: 'icon', href: '/images/Favicon.png' },
+      { rel: 'apple-touch-icon', href: '/images/Favicon.png' },
     ],
   }),
   component: RootComponent,
