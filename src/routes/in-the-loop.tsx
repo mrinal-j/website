@@ -30,6 +30,8 @@ function InTheLoopPage() {
   const phoneScreen3aRef = useRef<HTMLImageElement>(null)
   const phoneScreen3bRef = useRef<HTMLImageElement>(null)
   const screen3Swapped = useRef(false)
+  const features4Ref = useRef<HTMLElement>(null)
+  const phoneScreen4ImgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
     const row = problemRowRef.current
@@ -112,12 +114,25 @@ function InTheLoopPage() {
       }
     }
 
+    const onPhoneScroll4 = () => {
+      const wrap = features4Ref.current
+      const img = phoneScreen4ImgRef.current
+      if (!wrap || !img) return
+      const rect = wrap.getBoundingClientRect()
+      const viewH = window.innerHeight
+      const scrollable = rect.height - viewH
+      if (scrollable <= 0) return
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
+      img.style.transform = `translateY(${-progress * 45}%)`
+    }
+
     const combinedScroll = () => {
       onScroll()
       onMatrixScroll()
       onPhoneScroll()
       onPhoneScroll2()
       onPhoneSwap3()
+      onPhoneScroll4()
     }
 
     window.addEventListener('scroll', combinedScroll, { passive: true })
@@ -126,6 +141,7 @@ function InTheLoopPage() {
     onPhoneScroll()
     onPhoneScroll2()
     onPhoneSwap3()
+    onPhoneScroll4()
     return () => window.removeEventListener('scroll', combinedScroll)
   }, [])
 
@@ -656,6 +672,43 @@ function InTheLoopPage() {
                       src="/images/looped_2_screen.png"
                       alt="Looped in screen 2"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreenSwap} ${styles.phoneScreenHidden}`}
+                    />
+                  </div>
+                  <div className={styles.phoneNavBar}>
+                    <img
+                      src="/images/curated picks_bottom nav bar_screen.png"
+                      alt="Navigation"
+                      className={styles.phoneNavBarImg}
+                    />
+                  </div>
+                  <img
+                    src="/images/iPhone 16 pro.png"
+                    alt=""
+                    className={styles.phoneFrameImg}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        {/* Feature 4 — Community */}
+        <div className={styles.featuresScrollWrap} ref={features4Ref}>
+          <section className={styles.featuresSection}>
+            <div className={styles.featureBlock}>
+              <div className={styles.featureText}>
+                <img src="/images/community_icon.png" alt="" className={styles.featureIconImg} />
+                <h2 className={styles.featureHeading}>
+                  Unlock genuine, <span className={styles.featureHighlight}>community-driven recommendations</span> from fellow professional.
+                </h2>
+              </div>
+              <div className={styles.phoneContainer}>
+                <div className={styles.phoneMockup}>
+                  <div className={styles.featPhoneScreen}>
+                    <img
+                      ref={phoneScreen4ImgRef}
+                      src="/images/community_screen.png"
+                      alt="Community screen"
+                      className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
                     />
                   </div>
                   <div className={styles.phoneNavBar}>
