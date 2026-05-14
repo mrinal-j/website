@@ -236,4 +236,5 @@
   .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
   .scrollArrow { top: 140px; }
+  .trackEndSpacer { width: 4px; }
 }
