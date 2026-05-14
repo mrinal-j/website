@@ -15,25 +15,25 @@ const projects = [
     slug: '/in-the-loop',
     title: 'In the Loop',
     description: 'Short description of what problem it solved.',
-    tags: ['UX Design', 'Research'],
+    tags: ['Human-Centered Design', 'Brand Strategy', 'Systems Thinking', 'Product Design', 'Visual Design', 'Adobe CC', 'Figma'],
     image: '/images/in-the-loop cover.png',
     x: '50%', y: '50%',
   },
   {
-    slug: '#',
+    slug: 'https://www.mrinaljadhav.com/know-your-vote',
     title: 'Know your Vote',
     description: 'A design intervention that transforms how voters access, understand, and engage with electoral information.',
-    tags: ['Service design', 'Design for civic impact'],
+    tags: ['Design for Impact', 'Service Design', 'Service Blueprint', 'Design Strategy', 'Figma', 'Prototyping', 'Digital Design', 'Print Design'],
     image: '/images/PN2PjVKa1k8qTqovQptaN279mD4.png',
-    x: '50%', y: '50%',
+    x: '50%', y: '68%',
   },
   {
-    slug: '#',
+    slug: 'https://www.mrinaljadhav.com/housing-works',
     title: 'Reimaging Housing Works, New York',
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
-    tags: ['Brand Strategy', 'Retail Experience Design'],
+    tags: ['Brand Strategy', 'Retail Experience Design', 'Customer Experience (CX)', 'Design for Social Impact', 'Design Strategy', 'Storytelling'],
     image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.jpg',
-    x: '50%', y: '50%',
+    x: '100%', y: '50%',
   },
 ]
 
@@ -159,10 +159,14 @@ export function FeaturedWorks() {
 
           <div ref={viewportRef} className={styles.carouselViewport}>
             <div ref={trackRef} className={styles.carouselTrack}>
-              {projects.map((project) => (
-                <Link
+              {projects.map((project) => {
+                const isExternal = project.slug.startsWith('http')
+                const CardWrapper = isExternal
+                  ? (props: any) => <a href={project.slug} target="_blank" rel="noopener noreferrer" {...props} />
+                  : (props: any) => <Link to={project.slug} {...props} />
+                return (
+                <CardWrapper
                   key={project.title}
-                  to={project.slug}
                   className={styles.card}
                 >
                   <div className={styles.cardImageWrapper}>
@@ -188,8 +192,9 @@ export function FeaturedWorks() {
                       ))}
                     </div>
                   </div>
-                </Link>
-              ))}
+                </CardWrapper>
+                )
+              })}
               <div className={styles.trackEndSpacer} aria-hidden="true" />
             </div>
           </div>
