@@ -3,7 +3,6 @@ import { Navbar } from '~/components/Navbar'
 import { Hero } from '~/components/home/Hero'
 import { FeaturedWorks } from '~/components/home/FeaturedWorks'
 import { Statements } from '~/components/home/Statements'
-import { HowIWork } from '~/components/home/HowIWork'
 import { Footer } from '~/components/Footer'
 
 export const Route = createFileRoute('/')({
@@ -24,7 +23,6 @@ function HomePage() {
         <Hero />
         <Statements />
         <FeaturedWorks />
-        <HowIWork />
       </main>
       <Footer />
     </>
