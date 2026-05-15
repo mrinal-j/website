@@ -758,6 +758,25 @@ function InTheLoopPage() {
             So if we&rsquo;re going to spend 90,000 hours of our lives working, <span className={styles.impactClosingHighlight}>why not make them the most meaningful and engaging?</span>
           </h2>
         </section>
+
+        {/* Reflections */}
+        <section className={styles.reflectionsSection}>
+          <SectionLabel title="REFLECTIONS" dark />
+          <div className={styles.reflectionsContent}>
+            <div className={styles.reflectionItem}>
+              <h3 className={styles.reflectionSubheading}>The pivot</h3>
+              <p className={styles.reflectionBody}>
+                The biggest moment in this project was not a design decision; <strong>it was the pivot.</strong> We had built Out of Office from the ground up: brand language, voice, target market, service model. It felt solid. <strong>But when we put it in front of users, the logistical friction of direct home-swapping was a dealbreaker, and more importantly, we had missed the deeper problem entirely.</strong> Working professionals were not just looking for a place to stay. <strong>They were looking for genuine connection. A network that moved with them.</strong> That distinction only became clear through concept testing. <strong>The feedback from our 19 stakeholders</strong> did not just refine the product, it <strong>fundamentally redirected it. Without that phase, we would have built the wrong thing with full conviction.</strong>
+              </p>
+            </div>
+            <div className={styles.reflectionItem}>
+              <h3 className={styles.reflectionSubheading}>What I would do differently</h3>
+              <p className={styles.reflectionBody}>
+                <strong>We moved quickly into brand language for Out of Office because we believed in the concept.</strong> Looking back, <strong>I would have pushed to test the concept&rsquo;s validity first,</strong> belief is not validation. <strong>Concept testing earlier would have given us the same pivot with significantly less time and resources spent getting there.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

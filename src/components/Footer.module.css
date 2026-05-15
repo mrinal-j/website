@@ -155,6 +155,10 @@
   margin-right: 0;
 }
 
+.homeIconMobile {
+  display: none;
+}
+
 .socialLabel {
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -207,12 +211,10 @@
     align-items: center;
     gap: 32px;
   }
-  .badgeRow {
-    display: contents;
-  }
-  .homeIcon { order: -2; }
   .ctaGroup { order: -1; }
   .socialLinks { order: 10; justify-content: center; }
-  .badge { order: 10; }
+  .badgeRow { order: 10; justify-content: center; }
+  .homeIconMobile { display: flex; }
+  .homeIcon { display: none; }
   .ctaCircle { width: 180px; height: 180px; font-size: 1.1rem; }
 }

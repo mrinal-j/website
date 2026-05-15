@@ -764,6 +764,46 @@
   color: #D0D029;
 }
 
+.reflectionsSection {
+  padding: 80px var(--page-side-padding) 278px;
+  background-color: #000;
+}
+
+.reflectionsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-top: 40px;
+}
+
+.reflectionItem {
+  border-left: 3px solid #D0D029;
+  padding-left: 28px;
+}
+
+.reflectionSubheading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 120%;
+  color: #fff;
+  margin: 0 0 16px;
+}
+
+.reflectionBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 170%;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  max-width: 720px;
+}
+
+.reflectionBody strong {
+  font-weight: 700;
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -873,6 +913,7 @@
   .impactBody { white-space: normal; }
   .impactPillars { flex-direction: column; gap: 32px; margin-top: 40px; }
   .impactClosing { font-size: 1.5rem; margin-top: 48px; }
+  .reflectionsSection { padding: 40px var(--page-side-padding) 128px; }
   .heardLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px var(--page-side-padding) 32px; }
   .heardCards { gap: 14px; }
