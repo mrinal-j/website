@@ -286,7 +286,7 @@ function InTheLoopPage() {
               { tone: 'yellow', text: '“Dedicated time to connect with coworkers — shared lunchtimes without interruptions — so important!”' },
               { tone: 'indigo', text: '“Social interactions during my workday help me cope with my work stress.”' },
               { tone: 'indigo', text: '“Confused between the sentiments that come with WFH and working from office.”' },
-              { tone: 'yellow', text: '“Coping with the stress of workload — walk, take some time away from my work desk, a short exercise, or changing my work environment.”' },
+              { tone: 'yellow', text: '”I cope with work stress by walking, taking time away from my desk, doing a short exercise, or changing my work environment.”' },
               { tone: 'yellow', text: '“Working by a beach is my dream scenario.”' },
             ]}
           />
@@ -345,6 +345,9 @@ function InTheLoopPage() {
           </div>
 
           <div className={styles.iterationTag}>Iteration 1</div>
+          <p className={styles.iterationIntro}>
+            Before building In the Loop, we tested an earlier concept called Out of Office, which shaped everything that came after.
+          </p>
 
           <div className={styles.oooContent}>
             <div className={styles.oooLogo}>
@@ -716,37 +719,21 @@ function InTheLoopPage() {
 
           <div className={styles.impactPillars}>
             <div className={styles.impactPillar}>
-              <div className={styles.impactIconPlaceholder}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-              </div>
+              <img src="/images/individual.png" alt="Individual" className={styles.impactIconImg} />
               <h3 className={styles.impactPillarTitle}>Individual</h3>
               <p className={styles.impactPillarBody}>
                 At the <span className={styles.impactGreen}>individual</span> level, it helps people combat burnout by breaking routine.
               </p>
             </div>
             <div className={styles.impactPillar}>
-              <div className={styles.impactIconPlaceholder}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                </svg>
-              </div>
+              <img src="/images/organization.png" alt="Organization" className={styles.impactIconImgLg} />
               <h3 className={styles.impactPillarTitle}>Organization</h3>
               <p className={styles.impactPillarBody}>
                 For <span className={styles.impactGreen}>organizations</span>, it is not just a perk, it is a strategic edge. Employees return with fresh ideas, new energy, and stronger engagement.
               </p>
             </div>
             <div className={styles.impactPillar}>
-              <div className={styles.impactIconPlaceholder}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M2 12h20" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-              </div>
+              <img src="/images/society.png" alt="Society" className={styles.impactIconImgLg} />
               <h3 className={styles.impactPillarTitle}>Society</h3>
               <p className={styles.impactPillarBody}>
                 And at a <span className={styles.impactGreen}>societal</span> level, it helps build tight-knit communities that are rooted in shared values.

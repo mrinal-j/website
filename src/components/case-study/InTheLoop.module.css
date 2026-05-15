@@ -673,7 +673,7 @@
   font-size: 2rem;
   line-height: 120%;
   color: var(--text-primary);
-  text-align: left;
+  text-align: center;
 }
 
 .impactSection {
@@ -706,7 +706,7 @@
 .impactPillars {
   display: flex;
   gap: 40px;
-  margin-top: 56px;
+  margin: 56px 0;
 }
 
 .impactPillar {
@@ -715,16 +715,19 @@
   flex-direction: column;
 }
 
-.impactIconPlaceholder {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.5);
+.impactIconImg {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
   margin-bottom: 20px;
+}
+
+.impactIconImgLg {
+  width: 66px;
+  height: 66px;
+  object-fit: contain;
+  margin-top: -2px;
+  margin-bottom: 12px;
 }
 
 .impactPillarTitle {
@@ -965,7 +968,7 @@
   font-size: 2rem;
   line-height: 120%;
   color: var(--text-primary);
-  text-align: left;
+  text-align: center;
   max-width: none;
   margin: 0;
   padding: 48px var(--page-side-padding) 6px; /* ← last value is space below the headline */
@@ -1336,6 +1339,16 @@
   border-radius: 100px;
   display: inline-block;
   margin: 32px 0 0 var(--page-side-padding);
+}
+
+.iterationIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 170%;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 16px 0 0 var(--page-side-padding);
+  max-width: 600px;
 }
 
 .oooContent {
