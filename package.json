@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "bun install --frozen-lockfile && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
