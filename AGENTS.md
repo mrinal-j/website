@@ -9,6 +9,12 @@
 - When describing a fix, focus on what changed, why it mattered, and what the user should expect now.
 - If the user says `commit and push`, treat that as permission to commit and push all current local changes unless they clearly say otherwise.
 
+## Git Workflow
+
+- Always work directly on the `main` branch.
+- Never create new branches or worktrees.
+- There is only one editor on this project, so branching is unnecessary and makes things harder to follow.
+
 ## Running This App
 
 - This project uses Bun and Vite.
