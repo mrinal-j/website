@@ -13,12 +13,12 @@ const HIGHLIGHT_WORDS = new Set([4, 5, 6, 7, 8, 9])
 // `y` — vertical position:   0% = top edge,  50% = center, 100% = bottom edge
 // `zoom` — scales the image. 1 = normal, 1.5 = 50% zoomed in, etc.
 const STATEMENT_IMAGES = [
-  { id: 1, src: '/images/statement_1.JPG', x: '50%', y: '50%', zoom: 1 },
-  { id: 4, src: '/images/statement_4.png', x: '50%', y: '50%', zoom: 1 },
-  { id: 3, src: '/images/statement_3.png', x: '45%', y: '50%', zoom: 1 },
-  { id: 2, src: '/images/statement_2 test.jpg', x: '20%', y: '50%', zoom: 1.3 },
-  { id: 5, src: '/images/statement_5.jpg', x: '65%', y: '50%', zoom: 1 },
-  { id: 6, src: '/images/statement_6.png', x: '50%', y: '100%', zoom: 1.1 },
+  { id: 1, src: '/images/statement_1.webp', x: '50%', y: '50%', zoom: 1 },
+  { id: 4, src: '/images/statement_4.webp', x: '50%', y: '50%', zoom: 1 },
+  { id: 3, src: '/images/statement_3.webp', x: '45%', y: '50%', zoom: 1 },
+  { id: 2, src: '/images/statement_2 test.webp', x: '20%', y: '50%', zoom: 1.3 },
+  { id: 5, src: '/images/statement_5.webp', x: '65%', y: '50%', zoom: 1 },
+  { id: 6, src: '/images/statement_6.webp', x: '50%', y: '100%', zoom: 1.1 },
 ]
 
 const leftCol = STATEMENT_IMAGES.filter((_, i) => i % 2 === 0)

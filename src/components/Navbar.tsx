@@ -77,12 +77,12 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
     <nav ref={navRef} className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden} ${dark ? styles.navDark : ''}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo}>
-          <img src="/images/nav-icon.png" alt="Mrinal Jadhav" className={styles.logoIcon} />
+          <img src="/images/nav-icon.webp" alt="Mrinal Jadhav" className={styles.logoIcon} />
           <span className={styles.logoText}>Mrinal Jadhav</span>
         </Link>
         <div className={styles.links}>
           <Link to="/" className={styles.navLink} hash="featured-works">Work</Link>
-          <Link to="/" className={styles.navLink}>Play</Link>
+          <a href="https://www.behance.net/mrinaljadhav" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Play</a>
           <span className={styles.divider} />
           <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.iconLink} aria-label="Email" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

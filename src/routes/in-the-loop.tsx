@@ -136,7 +136,7 @@ function InTheLoopPage() {
           </div>
           <div className={styles.heroImage}>
             <img
-              src="/images/iHkx9gYek2TcjPXt4cRuVfh1s.png"
+              src="/images/iHkx9gYek2TcjPXt4cRuVfh1s.webp"
               alt="In the Loop"
             />
           </div>
@@ -150,7 +150,7 @@ function InTheLoopPage() {
           </div>
           <div className={styles.metaCell}>
             <span className={styles.metaLabel}>Skills / Tools</span>
-            <span className={styles.metaValue}>Human-Centered Design, Product Design, Visual Design, Adobe Illustrator, Figma, FigJam</span>
+            <span className={styles.metaValue}>UX Research, Service Design, Brand Strategy, Systems Thinking, Product Design, Adobe CC, Figma</span>
           </div>
           <div className={styles.metaCell}>
             <span className={styles.metaLabel}>Timeline</span>
@@ -185,7 +185,7 @@ function InTheLoopPage() {
           </div>
           <div className={styles.highlightPhone}>
             <img
-              src="/images/Y59EHpZcLy1JTfVrOPKD2YbnoE.png"
+              src="/images/Y59EHpZcLy1JTfVrOPKD2YbnoE.webp"
               alt="In the Loop app mockup"
             />
           </div>
@@ -259,7 +259,7 @@ function InTheLoopPage() {
                 <div key={`${n}-${i}`} className={styles.screenCard}>
                   <img
                     className={styles.screenImg}
-                    src={`/images/screen ${String(n).padStart(2, '0')}.png`}
+                    src={`/images/screen ${String(n).padStart(2, '0')}.webp`}
                     alt={`In the Loop screen ${n}`}
                   />
                 </div>
@@ -351,7 +351,7 @@ function InTheLoopPage() {
 
           <div className={styles.oooContent}>
             <div className={styles.oooLogo}>
-              <img src="/images/ooo_logo.png" alt="Out of Office logo" />
+              <img src="/images/ooo_logo.webp" alt="Out of Office logo" />
             </div>
             <div className={styles.oooDetails}>
               <p className={styles.oooHeadline}>
@@ -489,7 +489,7 @@ function InTheLoopPage() {
 
           <div className={styles.solHeader}>
             <div className={styles.solLogoWrap}>
-              <img src="/images/itl_logo_white.png" alt="In the Loop" className={styles.solLogo} />
+              <img src="/images/itl_logo_white.webp" alt="In the Loop" className={styles.solLogo} />
             </div>
             <div className={styles.solTagline}>
               <h2 className={styles.solTaglineText}>A platform connecting professionals through<br />intentional, hosted stays — built on trust,<br />shared values, and community.</h2>
@@ -500,7 +500,7 @@ function InTheLoopPage() {
             {[1, 2, 3, 4, 5].map((n) => (
               <div key={n} className={styles.solCard}>
                 <img
-                  src={`/images/solution_${n}.png`}
+                  src={`/images/solution_${n}.webp`}
                   alt={`Solution value ${n}`}
                   className={styles.solCardImg}
                 />
@@ -513,28 +513,28 @@ function InTheLoopPage() {
           <div className={styles.stayRow}>
             <div className={styles.stayCard}>
               <div className={styles.stayIconWrap}>
-                <img src="/images/Synchronized.png" alt="Synchronized" className={styles.stayIcon} />
+                <img src="/images/Synchronized.webp" alt="Synchronized" className={styles.stayIcon} />
               </div>
               <h4 className={styles.stayTitle}>Synchronized</h4>
               <p className={styles.stayDesc}>A synchronized stay is between two members traveling to each others home at the same time</p>
             </div>
             <div className={styles.stayCard}>
               <div className={styles.stayIconWrap}>
-                <img src="/images/Flexible.png" alt="Flexible" className={styles.stayIcon} />
+                <img src="/images/Flexible.webp" alt="Flexible" className={styles.stayIcon} />
               </div>
               <h4 className={styles.stayTitle}>Flexible</h4>
               <p className={styles.stayDesc}>A flexible stay is between two members traveling to each other's home at different times</p>
             </div>
             <div className={styles.stayCard}>
               <div className={styles.stayIconWrap}>
-                <img src="/images/One-Way.png" alt="One-Way" className={styles.stayIcon} />
+                <img src="/images/One-Way.webp" alt="One-Way" className={styles.stayIcon} />
               </div>
               <h4 className={styles.stayTitle}>One-Way</h4>
               <p className={styles.stayDesc}>A one-way stay is where only one member travels to another's home and has a full house to use</p>
             </div>
             <div className={styles.stayCard}>
               <div className={styles.stayIconWrap}>
-                <img src="/images/Shared.png" alt="Shared" className={styles.stayIcon} />
+                <img src="/images/Shared.webp" alt="Shared" className={styles.stayIcon} />
               </div>
               <h4 className={styles.stayTitle}>Shared</h4>
               <p className={styles.stayDesc}>A shared stay is where a member travels to another's home while that member is still there</p>
@@ -551,7 +551,7 @@ function InTheLoopPage() {
           <section className={styles.featuresSection}>
             <div className={styles.featureBlock}>
               <div className={styles.featureText}>
-                <img src="/images/curated picks_icon.png" alt="" className={styles.featureIconImg} />
+                <img src="/images/curated picks_icon.webp" alt="" className={styles.featureIconImg} />
                 <h2 className={styles.featureHeading}>
                   <span className={styles.featureHighlight}>Curated stays</span> and people matched to your professional background, goals, and industry. As your career shifts, so do your picks.
                 </h2>
@@ -562,7 +562,7 @@ function InTheLoopPage() {
                   <div className={styles.featPhoneScreen}>
                     <img
                       ref={phoneScreenImgRef}
-                      src="/images/curated picks_1_screen.png"
+                      src="/images/curated picks_1_screen.webp"
                       alt="Discover screen"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
                     />
@@ -570,14 +570,14 @@ function InTheLoopPage() {
                   {/* Bottom nav bar — sits between screen and frame */}
                   <div className={styles.phoneNavBar}>
                     <img
-                      src="/images/curated picks_bottom nav bar_screen.png"
+                      src="/images/curated picks_bottom nav bar_screen.webp"
                       alt="Navigation"
                       className={styles.phoneNavBarImg}
                     />
                   </div>
                   {/* Phone frame overlay */}
                   <img
-                    src="/images/iPhone 16 pro.png"
+                    src="/images/iPhone 16 pro.webp"
                     alt=""
                     className={styles.phoneFrameImg}
                   />
@@ -591,7 +591,7 @@ function InTheLoopPage() {
           <section className={styles.featuresSection}>
             <div className={styles.featureBlock}>
               <div className={styles.featureText}>
-                <img src="/images/engage w: host_icon.png" alt="" className={styles.featureIconImg} />
+                <img src="/images/engage w: host_icon.webp" alt="" className={styles.featureIconImg} />
                 <h2 className={styles.featureHeading}>
                   Go beyond just booking a stay and <span className={styles.featureHighlight}>engage with the working professionals who host you.</span>
                 </h2>
@@ -602,7 +602,7 @@ function InTheLoopPage() {
                   <div className={styles.featPhoneScreen}>
                     <img
                       ref={phoneScreen2ImgRef}
-                      src="/images/engaged_new_screen.png"
+                      src="/images/engaged_new_screen.webp"
                       alt="Engage screen"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
                     />
@@ -610,14 +610,14 @@ function InTheLoopPage() {
                   {/* Bottom nav bar — sits between screen and frame */}
                   <div className={styles.phoneNavBar}>
                     <img
-                      src="/images/curated picks_bottom nav bar_screen.png"
+                      src="/images/curated picks_bottom nav bar_screen.webp"
                       alt="Navigation"
                       className={styles.phoneNavBarImg}
                     />
                   </div>
                   {/* Phone frame overlay */}
                   <img
-                    src="/images/iPhone 16 pro.png"
+                    src="/images/iPhone 16 pro.webp"
                     alt=""
                     className={styles.phoneFrameImg}
                   />
@@ -631,7 +631,7 @@ function InTheLoopPage() {
           <section className={styles.featuresSection}>
             <div className={styles.featureBlock}>
               <div className={styles.featureText}>
-                <img src="/images/looped in_icon.png" alt="" className={styles.featureIconImg} />
+                <img src="/images/looped in_icon.webp" alt="" className={styles.featureIconImg} />
                 <h2 className={styles.featureHeading}>
                   The journey doesn&rsquo;t end when your stay does. <span className={styles.featureHighlight}>Stay connected with your hosts and fellow professionals.</span>
                 </h2>
@@ -641,26 +641,26 @@ function InTheLoopPage() {
                   <div className={styles.featPhoneScreen}>
                     <img
                       ref={phoneScreen3aRef}
-                      src="/images/looped_1_screen.png"
+                      src="/images/looped_1_screen.webp"
                       alt="Looped in screen 1"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreenSwap}`}
                     />
                     <img
                       ref={phoneScreen3bRef}
-                      src="/images/looped_2_screen.png"
+                      src="/images/looped_2_screen.webp"
                       alt="Looped in screen 2"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreenSwap} ${styles.phoneScreenHidden}`}
                     />
                   </div>
                   <div className={styles.phoneNavBar}>
                     <img
-                      src="/images/curated picks_bottom nav bar_screen.png"
+                      src="/images/curated picks_bottom nav bar_screen.webp"
                       alt="Navigation"
                       className={styles.phoneNavBarImg}
                     />
                   </div>
                   <img
-                    src="/images/iPhone 16 pro.png"
+                    src="/images/iPhone 16 pro.webp"
                     alt=""
                     className={styles.phoneFrameImg}
                   />
@@ -674,7 +674,7 @@ function InTheLoopPage() {
           <section className={styles.featuresSection}>
             <div className={styles.featureBlock}>
               <div className={styles.featureText}>
-                <img src="/images/community_icon.png" alt="" className={styles.featureIconImg} />
+                <img src="/images/community_icon.webp" alt="" className={styles.featureIconImg} />
                 <h2 className={styles.featureHeading}>
                   Unlock genuine, <span className={styles.featureHighlight}>community-driven recommendations</span> from fellow professional.
                 </h2>
@@ -684,20 +684,20 @@ function InTheLoopPage() {
                   <div className={styles.featPhoneScreen}>
                     <img
                       ref={phoneScreen4ImgRef}
-                      src="/images/community_screen.png"
+                      src="/images/community_screen.webp"
                       alt="Community screen"
                       className={`${styles.phoneScreenImg} ${styles.phoneScreen1}`}
                     />
                   </div>
                   <div className={styles.phoneNavBar}>
                     <img
-                      src="/images/curated picks_bottom nav bar_screen.png"
+                      src="/images/curated picks_bottom nav bar_screen.webp"
                       alt="Navigation"
                       className={styles.phoneNavBarImg}
                     />
                   </div>
                   <img
-                    src="/images/iPhone 16 pro.png"
+                    src="/images/iPhone 16 pro.webp"
                     alt=""
                     className={styles.phoneFrameImg}
                   />
@@ -719,21 +719,21 @@ function InTheLoopPage() {
 
           <div className={styles.impactPillars}>
             <div className={styles.impactPillar}>
-              <img src="/images/individual.png" alt="Individual" className={styles.impactIconImg} />
+              <img src="/images/individual.webp" alt="Individual" className={styles.impactIconImg} />
               <h3 className={styles.impactPillarTitle}>Individual</h3>
               <p className={styles.impactPillarBody}>
                 At the <span className={styles.impactGreen}>individual</span> level, it helps people combat burnout by breaking routine.
               </p>
             </div>
             <div className={styles.impactPillar}>
-              <img src="/images/organization.png" alt="Organization" className={styles.impactIconImgLg} />
+              <img src="/images/organization.webp" alt="Organization" className={styles.impactIconImgLg} />
               <h3 className={styles.impactPillarTitle}>Organization</h3>
               <p className={styles.impactPillarBody}>
                 For <span className={styles.impactGreen}>organizations</span>, it is not just a perk, it is a strategic edge. Employees return with fresh ideas, new energy, and stronger engagement.
               </p>
             </div>
             <div className={styles.impactPillar}>
-              <img src="/images/society.png" alt="Society" className={styles.impactIconImgLg} />
+              <img src="/images/society.webp" alt="Society" className={styles.impactIconImgLg} />
               <h3 className={styles.impactPillarTitle}>Society</h3>
               <p className={styles.impactPillarBody}>
                 And at a <span className={styles.impactGreen}>societal</span> level, it helps build tight-knit communities that are rooted in shared values.

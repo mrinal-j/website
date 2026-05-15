@@ -15,8 +15,8 @@ const projects = [
     slug: '/in-the-loop',
     title: 'In the Loop',
     description: 'Short description of what problem it solved.',
-    tags: ['Human-Centered Design', 'Brand Strategy', 'Systems Thinking', 'Product Design', 'Visual Design', 'Adobe CC', 'Figma'],
-    image: '/images/in-the-loop cover.png',
+    tags: ['UX Research', 'Service Design', 'Brand Strategy', 'Systems Thinking', 'Product Design', 'Adobe CC', 'Figma'],
+    image: '/images/in-the-loop cover.webp',
     x: '50%', y: '50%',
   },
   {
@@ -24,7 +24,7 @@ const projects = [
     title: 'Know your Vote',
     description: 'A design intervention that transforms how voters access, understand, and engage with electoral information.',
     tags: ['Design for Impact', 'Service Design', 'Service Blueprint', 'Design Strategy', 'Figma', 'Prototyping', 'Digital Design', 'Print Design'],
-    image: '/images/PN2PjVKa1k8qTqovQptaN279mD4.png',
+    image: '/images/PN2PjVKa1k8qTqovQptaN279mD4.webp',
     x: '50%', y: '68%',
   },
   {
@@ -32,7 +32,7 @@ const projects = [
     title: 'Reimaging Housing Works, New York',
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
     tags: ['Brand Strategy', 'Retail Experience Design', 'Customer Experience (CX)', 'Design for Social Impact', 'Design Strategy', 'Storytelling'],
-    image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.jpg',
+    image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.webp',
     x: '100%', y: '50%',
   },
 ]
