@@ -82,6 +82,11 @@
   to { opacity: 0; }
 }
 
+@keyframes heroArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
 .heading {
   font-family: var(--font-sans);
   font-weight: 200;
@@ -98,7 +103,7 @@
   bottom: 32px;
   right: 48px;
   z-index: 3;
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.5);
   animation: heroArrowBounce 2s ease-in-out infinite;
   transition: opacity 0.3s ease;
 }

@@ -77,16 +77,16 @@ export function Hero() {
 
         <div className={styles.scrollArrow} style={{ opacity: done ? 1 - darkOpacity : 0 }}>
           <svg
-            width="10"
-            height="16"
-            viewBox="0 0 16 24"
+            width="18"
+            height="11"
+            viewBox="0 0 22 14"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.5"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="M8 4v16M2 14l6 6 6-6" />
+            <path d="M2 2l9 10 9-10" />
           </svg>
         </div>
       </div>
