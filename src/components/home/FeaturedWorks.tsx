@@ -14,7 +14,7 @@ const projects = [
   {
     slug: '/in-the-loop',
     title: 'In the Loop',
-    description: 'Short description of what problem it solved.',
+    description: 'Redefining professional mobility as a tool for community building and intentional growth.',
     tags: ['UX Research', 'Service Design', 'Brand Strategy', 'Systems Thinking', 'Product Design', 'Adobe CC', 'Figma'],
     image: '/images/in-the-loop cover.webp',
     x: '50%', y: '50%',
