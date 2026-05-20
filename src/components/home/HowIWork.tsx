@@ -32,9 +32,7 @@ export function HowIWork() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const { fadeStyle } = useSectionFadeIn(sectionRef)
   const [activeStep, setActiveStep] = useState(0)
-  const [mobileLayout, setMobileLayout] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia(MOBILE_MQ).matches,
-  )
+  const [mobileLayout, setMobileLayout] = useState(false)
 
   useEffect(() => {
     const mq = window.matchMedia(MOBILE_MQ)

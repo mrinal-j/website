@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.meshLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.meshLayerVisible {
+  opacity: 1;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.2s;
+  pointer-events: none;
+}
+
+.contentVisible {
+  opacity: 1;
+}
+
+.scrollArrow {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  z-index: 3;
+  color: rgba(0, 0, 0, 0.45);
+  animation: heroArrowBounce 2s ease-in-out infinite;
+}
+
+@keyframes heroArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding: 0 24px;
+  }
+
+  .scrollArrow {
+    right: 24px;
+    bottom: 24px;
+  }
+}
