@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MeshGradient } from '~/components/home/MeshGradient'
+import { AboutBinder } from './AboutBinder'
 import styles from './AboutHero.module.css'
 
 const MESH_COLORS: [string, string, string, string, string, string] = [
@@ -25,25 +26,10 @@ export function AboutHero() {
         <MeshGradient colors={MESH_COLORS} />
       </div>
 
-      <div className={`${styles.content} ${loaded ? styles.contentVisible : ''}`}>
-        {/* content slot — add text/bio here */}
+      <div className={`${styles.binderLayer} ${loaded ? styles.binderLayerVisible : ''}`}>
+        <AboutBinder />
       </div>
 
-      <div className={styles.scrollArrow}>
-        <svg
-          width="18"
-          height="11"
-          viewBox="0 0 22 14"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M2 2l9 10 9-10" />
-        </svg>
-      </div>
     </div>
   )
 }

@@ -1,0 +1,256 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  padding: clamp(88px, 11.5vh, 116px) clamp(48px, 5vw, 80px) clamp(48px, 6.5vh, 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Outer binder — maintains 16:9 ── */
+.binderOuter {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, calc((100vh - clamp(180px, 24vh, 256px)) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+/* ── Tab bar ── */
+.tabBar {
+  flex: 0 0 9%;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(3px, 0.35vw, 5px);
+  /* no horizontal padding — tabs flush with card edges */
+}
+
+.tab {
+  flex: 1;
+  min-width: 0;
+  /* Inactive tabs sit lower — appear "behind" the active one */
+  height: 72%;
+  padding: 0 clamp(6px, 0.9vw, 14px);
+  border-radius: 8px 8px 0 0;
+  border: 1.5px solid rgba(195, 178, 155, 0.35);
+  border-bottom: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: clamp(6.5px, 0.58vw, 9px);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.38);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: height 0.2s ease, color 0.2s ease, background-color 0.15s ease;
+  position: relative;
+  /* subtle inner highlight */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.tab:hover:not(.tabActive) {
+  height: 82%;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.tabActive {
+  height: 100% !important;
+  background: #faf8f4 !important;
+  color: rgba(0, 0, 0, 0.72) !important;
+  border-color: rgba(195, 178, 155, 0.35) !important;
+  /* Connect seamlessly to the card body */
+  border-bottom: 1.5px solid #faf8f4;
+  margin-bottom: -1.5px;
+  z-index: 3;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── Card wrap — holds the card + page-depth layers ── */
+.cardWrap {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+/* Page depth layers — offset behind the card to suggest physical thickness */
+.pageLayer1 {
+  position: absolute;
+  inset: 0;
+  transform: translate(5px, 7px);
+  background: #f3ede4;
+  border-radius: 0 0 16px 16px;
+  border: 1.5px solid rgba(195, 178, 155, 0.22);
+  z-index: 1;
+}
+
+.pageLayer2 {
+  position: absolute;
+  inset: 0;
+  transform: translate(10px, 13px);
+  background: #ede6dc;
+  border-radius: 0 0 16px 16px;
+  border: 1.5px solid rgba(195, 178, 155, 0.16);
+  z-index: 0;
+}
+
+/* ── The actual card ── */
+.card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background: #faf8f4;
+  border-radius: 0 0 16px 16px;
+  border: 1.5px solid rgba(195, 178, 155, 0.35);
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 6px 18px rgba(0, 0, 0, 0.09),
+    0 18px 48px rgba(0, 0, 0, 0.1),
+    0 40px 80px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Card content body ── */
+.body {
+  width: 100%;
+  height: 100%;
+  padding: clamp(18px, 3.8%, 48px) clamp(24px, 5%, 60px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography ── */
+.tabHeading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(18px, 2.8vw, 40px);
+  line-height: 1.12;
+  color: var(--text-primary);
+  margin: 0 0 clamp(10px, 1.4vw, 20px);
+}
+
+.tabBody {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.9vw, 14px);
+  line-height: 1.72;
+  color: rgba(0, 0, 0, 0.52);
+  margin: 0 0 clamp(6px, 0.75vw, 12px);
+  max-width: 62ch;
+}
+
+/* ── How I Work steps ── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 1vw, 14px);
+  margin-top: clamp(4px, 0.5vw, 8px);
+}
+
+.step {
+  display: flex;
+  gap: clamp(10px, 1.3vw, 18px);
+  align-items: flex-start;
+}
+
+.stepNum {
+  font-family: var(--font-body);
+  font-size: clamp(7.5px, 0.65vw, 10px);
+  font-weight: 700;
+  color: var(--color-orange);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 0.2em;
+  flex-shrink: 0;
+  width: clamp(14px, 1.6vw, 22px);
+}
+
+.stepTitle {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(10px, 1vw, 15px);
+  color: var(--text-primary);
+  margin: 0 0 clamp(2px, 0.28vw, 4px);
+}
+
+.stepDesc {
+  font-family: var(--font-body);
+  font-size: clamp(8.5px, 0.78vw, 12px);
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+/* ── Tool stack ── */
+.toolGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(10px, 1.4vw, 20px);
+  margin-top: clamp(4px, 0.5vw, 8px);
+}
+
+.toolCategory {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 0.35vw, 5px);
+}
+
+.toolCategoryLabel {
+  font-family: var(--font-body);
+  font-size: clamp(7.5px, 0.62vw, 9.5px);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin: 0;
+}
+
+.toolList {
+  font-family: var(--font-body);
+  font-size: clamp(9px, 0.82vw, 13px);
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.58);
+  margin: 0;
+}
+
+/* ── Outside of work ── */
+.interestList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 1vw, 14px);
+  margin-top: clamp(4px, 0.5vw, 8px);
+  list-style: none;
+  padding: 0;
+}
+
+.interestItem {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.9vw, 14px);
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.interestItem strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .wrapper {
+    padding: 80px 20px 24px;
+    align-items: flex-start;
+  }
+
+  .binderOuter {
+    width: 100%;
+    aspect-ratio: auto;
+    height: calc(100vh - 116px);
+  }
+}
