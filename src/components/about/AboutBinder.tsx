@@ -107,43 +107,76 @@ function OutsideContent() {
 
 const CONTENT = [AboutMeContent, HowIWorkContent, ToolStackContent, OutsideContent]
 
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 3.5L5 6.5L8 3.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function AboutBinder() {
-  const [active, setActive] = useState(0)
-  const Content = CONTENT[active]
+  // null = all tabs minimized (default)
+  const [active, setActive] = useState<number | null>(null)
+  const Content = active !== null ? CONTENT[active] : null
+
+  const toggle = (i: number) => {
+    setActive(prev => (prev === i ? null : i))
+  }
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.binderOuter}>
 
-        {/* Tab bar — sits above card, tabs grow taller when active */}
-        <div className={styles.tabBar}>
-          {TABS.map((tab, i) => (
-            <button
-              key={tab.id}
-              className={`${styles.tab} ${i === active ? styles.tabActive : ''}`}
-              style={{
-                backgroundColor: i === active ? CARD_BG : tab.color,
-              }}
-              onClick={() => setActive(i)}
-              aria-label={tab.label}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Card with physical depth layers behind it */}
-        <div className={styles.cardWrap}>
-          <div className={styles.pageLayer2} aria-hidden="true" />
-          <div className={styles.pageLayer1} aria-hidden="true" />
-          <div className={styles.card}>
+      {/* Content panel — opens in the space above the tab stack */}
+      <div className={`${styles.contentArea} ${active !== null ? styles.contentOpen : ''}`}>
+        {Content && (
+          <div
+            className={styles.card}
+            style={{ backgroundColor: TABS[active!].color }}
+          >
             <div className={styles.body}>
               <Content />
             </div>
           </div>
-        </div>
-
+        )}
       </div>
+
+      {/* Tab stack — pinned to the bottom edge, full viewport width */}
+      <div className={styles.tabStack}>
+        {TABS.map((tab, i) => {
+          const isOpen = i === active
+          return (
+            <button
+              key={tab.id}
+              className={`${styles.tab} ${isOpen ? styles.tabActive : ''}`}
+              style={{ backgroundColor: tab.color }}
+              onClick={(e) => {
+                toggle(i)
+                ;(e.currentTarget as HTMLButtonElement).blur()
+              }}
+              aria-expanded={isOpen}
+              aria-label={tab.label}
+            >
+              <span className={styles.tabLabel}>{tab.label}</span>
+              <Chevron open={isOpen} />
+            </button>
+          )
+        })}
+      </div>
+
     </div>
   )
 }

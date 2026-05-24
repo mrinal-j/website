@@ -1,147 +1,150 @@
+/* ── Wrapper: edge-to-edge, full viewport ── */
 .wrapper {
   position: absolute;
   inset: 0;
-  padding: clamp(88px, 11.5vh, 116px) clamp(48px, 5vw, 80px) clamp(48px, 6.5vh, 76px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* ── Outer binder — maintains 16:9 ── */
-.binderOuter {
-  pointer-events: auto;
   display: flex;
   flex-direction: column;
-  width: min(100%, calc((100vh - clamp(180px, 24vh, 256px)) * 16 / 9));
-  aspect-ratio: 16 / 9;
-  position: relative;
+  justify-content: flex-end;
+  /* clear the navbar at top, no padding sides/bottom */
+  padding-top: clamp(72px, 9vh, 100px);
+  z-index: 2;
 }
 
-/* ── Tab bar ── */
-.tabBar {
-  flex: 0 0 9%;
+/* ── Content panel area — fills space above the tab stack ── */
+.contentArea {
+  flex: 1;
+  width: 100%;
   display: flex;
-  align-items: flex-end;
-  gap: clamp(3px, 0.35vw, 5px);
-  /* no horizontal padding — tabs flush with card edges */
+  align-items: stretch;
+  justify-content: stretch;
+  padding: clamp(20px, 3vh, 40px) clamp(20px, 3vw, 48px) 0;
+  min-height: 0;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 20px 0 0;
+  border: 1.5px solid rgba(195, 178, 155, 0.35);
+  border-bottom: none;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 -1px 3px rgba(0, 0, 0, 0.04),
+    0 -6px 18px rgba(0, 0, 0, 0.06),
+    0 -18px 48px rgba(0, 0, 0, 0.08);
+  animation: cardRise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  padding: clamp(28px, 4vh, 56px) clamp(28px, 5vw, 72px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Tab stack — pinned to bottom edge ── */
+.tabStack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .tab {
-  flex: 1;
-  min-width: 0;
-  /* Inactive tabs sit lower — appear "behind" the active one */
-  height: 72%;
-  padding: 0 clamp(6px, 0.9vw, 14px);
-  border-radius: 8px 8px 0 0;
+  width: 100%;
+  height: clamp(54px, 7vh, 72px);
+  padding: 0 clamp(20px, 3vw, 40px);
+  border-radius: 18px 18px 0 0;
   border: 1.5px solid rgba(195, 178, 155, 0.35);
   border-bottom: none;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: clamp(6.5px, 0.58vw, 9px);
+  font-size: clamp(10px, 0.85vw, 13px);
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.38);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: height 0.2s ease, color 0.2s ease, background-color 0.15s ease;
+  color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 1vw, 14px);
+  transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+  /* Slight overlap so consecutive tabs nest like file folders */
+  margin-bottom: -10px;
+  /* subtle inner highlight at top */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 -2px 4px rgba(0, 0, 0, 0.04);
   position: relative;
-  /* subtle inner highlight */
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
+/* Stack order: first tab in DOM is on top of the cascade */
+.tab:nth-child(1) { z-index: 4; }
+.tab:nth-child(2) { z-index: 3; }
+.tab:nth-child(3) { z-index: 2; }
+.tab:nth-child(4) { z-index: 1; margin-bottom: 0; }
+
 .tab:hover:not(.tabActive) {
-  height: 82%;
-  color: rgba(0, 0, 0, 0.52);
+  color: rgba(0, 0, 0, 0.72);
+  transform: translateY(-3px);
 }
 
 .tabActive {
-  height: 100% !important;
-  background: #faf8f4 !important;
-  color: rgba(0, 0, 0, 0.72) !important;
-  border-color: rgba(195, 178, 155, 0.35) !important;
-  /* Connect seamlessly to the card body */
-  border-bottom: 1.5px solid #faf8f4;
-  margin-bottom: -1.5px;
-  z-index: 3;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-/* ── Card wrap — holds the card + page-depth layers ── */
-.cardWrap {
-  flex: 1;
-  position: relative;
-  min-height: 0;
-}
-
-/* Page depth layers — offset behind the card to suggest physical thickness */
-.pageLayer1 {
-  position: absolute;
-  inset: 0;
-  transform: translate(5px, 7px);
-  background: #f3ede4;
-  border-radius: 0 0 16px 16px;
-  border: 1.5px solid rgba(195, 178, 155, 0.22);
-  z-index: 1;
-}
-
-.pageLayer2 {
-  position: absolute;
-  inset: 0;
-  transform: translate(10px, 13px);
-  background: #ede6dc;
-  border-radius: 0 0 16px 16px;
-  border: 1.5px solid rgba(195, 178, 155, 0.16);
-  z-index: 0;
-}
-
-/* ── The actual card ── */
-.card {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background: #faf8f4;
-  border-radius: 0 0 16px 16px;
-  border: 1.5px solid rgba(195, 178, 155, 0.35);
-  overflow: hidden;
+  color: rgba(0, 0, 0, 0.82);
+  z-index: 10 !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 6px 18px rgba(0, 0, 0, 0.09),
-    0 18px 48px rgba(0, 0, 0, 0.1),
-    0 40px 80px rgba(0, 0, 0, 0.07);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 -4px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Card content body ── */
-.body {
-  width: 100%;
-  height: 100%;
-  padding: clamp(18px, 3.8%, 48px) clamp(24px, 5%, 60px);
+.tabLabel {
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
-/* ── Typography ── */
+.chevron {
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: transform 0.22s ease, opacity 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+  opacity: 0.85;
+}
+
+/* ── Typography inside the open card ── */
 .tabHeading {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: clamp(18px, 2.8vw, 40px);
+  font-size: clamp(22px, 3vw, 44px);
   line-height: 1.12;
   color: var(--text-primary);
-  margin: 0 0 clamp(10px, 1.4vw, 20px);
+  margin: 0 0 clamp(14px, 1.6vw, 24px);
 }
 
 .tabBody {
   font-family: var(--font-body);
-  font-size: clamp(10px, 0.9vw, 14px);
+  font-size: clamp(12px, 1vw, 16px);
   line-height: 1.72;
-  color: rgba(0, 0, 0, 0.52);
-  margin: 0 0 clamp(6px, 0.75vw, 12px);
+  color: rgba(0, 0, 0, 0.62);
+  margin: 0 0 clamp(8px, 0.9vw, 14px);
   max-width: 62ch;
 }
 
@@ -149,41 +152,41 @@
 .steps {
   display: flex;
   flex-direction: column;
-  gap: clamp(7px, 1vw, 14px);
-  margin-top: clamp(4px, 0.5vw, 8px);
+  gap: clamp(10px, 1.2vw, 18px);
+  margin-top: clamp(6px, 0.7vw, 10px);
 }
 
 .step {
   display: flex;
-  gap: clamp(10px, 1.3vw, 18px);
+  gap: clamp(12px, 1.5vw, 22px);
   align-items: flex-start;
 }
 
 .stepNum {
   font-family: var(--font-body);
-  font-size: clamp(7.5px, 0.65vw, 10px);
+  font-size: clamp(9px, 0.75vw, 12px);
   font-weight: 700;
   color: var(--color-orange);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-top: 0.2em;
   flex-shrink: 0;
-  width: clamp(14px, 1.6vw, 22px);
+  width: clamp(18px, 2vw, 26px);
 }
 
 .stepTitle {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: clamp(10px, 1vw, 15px);
+  font-size: clamp(13px, 1.1vw, 17px);
   color: var(--text-primary);
-  margin: 0 0 clamp(2px, 0.28vw, 4px);
+  margin: 0 0 clamp(3px, 0.3vw, 5px);
 }
 
 .stepDesc {
   font-family: var(--font-body);
-  font-size: clamp(8.5px, 0.78vw, 12px);
+  font-size: clamp(11px, 0.9vw, 14px);
   line-height: 1.65;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.58);
   margin: 0;
 }
 
@@ -191,19 +194,19 @@
 .toolGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(10px, 1.4vw, 20px);
-  margin-top: clamp(4px, 0.5vw, 8px);
+  gap: clamp(14px, 1.8vw, 28px);
+  margin-top: clamp(6px, 0.7vw, 10px);
 }
 
 .toolCategory {
   display: flex;
   flex-direction: column;
-  gap: clamp(3px, 0.35vw, 5px);
+  gap: clamp(4px, 0.4vw, 6px);
 }
 
 .toolCategoryLabel {
   font-family: var(--font-body);
-  font-size: clamp(7.5px, 0.62vw, 9.5px);
+  font-size: clamp(10px, 0.75vw, 12px);
   font-weight: 700;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -213,9 +216,9 @@
 
 .toolList {
   font-family: var(--font-body);
-  font-size: clamp(9px, 0.82vw, 13px);
+  font-size: clamp(11px, 0.95vw, 15px);
   line-height: 1.7;
-  color: rgba(0, 0, 0, 0.58);
+  color: rgba(0, 0, 0, 0.65);
   margin: 0;
 }
 
@@ -223,17 +226,17 @@
 .interestList {
   display: flex;
   flex-direction: column;
-  gap: clamp(7px, 1vw, 14px);
-  margin-top: clamp(4px, 0.5vw, 8px);
+  gap: clamp(10px, 1.2vw, 18px);
+  margin-top: clamp(6px, 0.7vw, 10px);
   list-style: none;
   padding: 0;
 }
 
 .interestItem {
   font-family: var(--font-body);
-  font-size: clamp(10px, 0.9vw, 14px);
+  font-size: clamp(12px, 1vw, 16px);
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.55);
+  color: rgba(0, 0, 0, 0.62);
 }
 
 .interestItem strong {
@@ -244,13 +247,20 @@
 /* ── Mobile ── */
 @media (max-width: 767px) {
   .wrapper {
-    padding: 80px 20px 24px;
-    align-items: flex-start;
+    padding-top: 72px;
   }
-
-  .binderOuter {
-    width: 100%;
-    aspect-ratio: auto;
-    height: calc(100vh - 116px);
+  .contentArea {
+    padding: 16px 12px 0;
+  }
+  .body {
+    padding: 22px 22px;
+  }
+  .tab {
+    height: 52px;
+    font-size: 10px;
+    padding: 0 18px;
+  }
+  .tabHeading {
+    font-size: 22px;
   }
 }
