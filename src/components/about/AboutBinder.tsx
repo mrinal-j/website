@@ -42,66 +42,63 @@ const TOOLS = [
 
 function AboutMeContent() {
   return (
-    <>
-      <h2 className={styles.tabHeading}>About me</h2>
-      <p className={styles.tabBody}>
-        I'm Mrinal — a designer working at the intersection of research, strategy, and real-world impact.
-        I turn complex problems into clear, human experiences: from service blueprints to visual systems.
-      </p>
-      <p className={styles.tabBody}>
-        With a background spanning UX research, service design, and communications strategy,
-        I'm most energised when design has stakes — when it genuinely changes how people experience the world around them.
-      </p>
-    </>
+    <div className={styles.aboutLayout}>
+      <img
+        src="/images/about_image.webp"
+        alt="Mrinal on the Brooklyn Bridge"
+        className={styles.aboutPhoto}
+      />
+      <div className={styles.aboutText}>
+        <p className={styles.tabBody}>
+          I'm Mrinal — a designer working at the intersection of research, strategy, and real-world impact.
+          I turn complex problems into clear, human experiences: from service blueprints to visual systems.
+        </p>
+        <p className={styles.tabBody}>
+          With a background spanning UX research, service design, and communications strategy,
+          I'm most energised when design has stakes — when it genuinely changes how people experience the world around them.
+        </p>
+      </div>
+    </div>
   )
 }
 
 function HowIWorkContent() {
   return (
-    <>
-      <h2 className={styles.tabHeading}>How I work</h2>
-      <div className={styles.steps}>
-        {HOW_I_WORK.map(s => (
-          <div key={s.number} className={styles.step}>
-            <span className={styles.stepNum}>{s.number}</span>
-            <div>
-              <p className={styles.stepTitle}>{s.title}</p>
-              <p className={styles.stepDesc}>{s.body}</p>
-            </div>
+    <div className={styles.steps}>
+      {HOW_I_WORK.map(s => (
+        <div key={s.number} className={styles.step}>
+          <span className={styles.stepNum}>{s.number}</span>
+          <div>
+            <p className={styles.stepTitle}>{s.title}</p>
+            <p className={styles.stepDesc}>{s.body}</p>
           </div>
-        ))}
-      </div>
-    </>
+        </div>
+      ))}
+    </div>
   )
 }
 
 function ToolStackContent() {
   return (
-    <>
-      <h2 className={styles.tabHeading}>Tool stack</h2>
-      <div className={styles.toolGrid}>
-        {TOOLS.map(t => (
-          <div key={t.category} className={styles.toolCategory}>
-            <p className={styles.toolCategoryLabel}>{t.category}</p>
-            <p className={styles.toolList}>{t.list}</p>
-          </div>
-        ))}
-      </div>
-    </>
+    <div className={styles.toolGrid}>
+      {TOOLS.map(t => (
+        <div key={t.category} className={styles.toolCategory}>
+          <p className={styles.toolCategoryLabel}>{t.category}</p>
+          <p className={styles.toolList}>{t.list}</p>
+        </div>
+      ))}
+    </div>
   )
 }
 
 function OutsideContent() {
   return (
-    <>
-      <h2 className={styles.tabHeading}>Outside of work</h2>
-      <ul className={styles.interestList}>
-        <li className={styles.interestItem}><strong>Reading</strong> — mostly non-fiction, design theory, and the occasional novel that takes over my week.</li>
-        <li className={styles.interestItem}><strong>Making things</strong> — ceramics, illustration, anything that lets my hands do the thinking.</li>
-        <li className={styles.interestItem}><strong>Staying curious</strong> — I'll pick up a new skill, take a class, or dive into a topic just because it interests me.</li>
-        <li className={styles.interestItem}><strong>Good food, good company</strong> — strong opinions about coffee and even stronger ones about where to eat.</li>
-      </ul>
-    </>
+    <ul className={styles.interestList}>
+      <li className={styles.interestItem}><strong>Reading</strong> — mostly non-fiction, design theory, and the occasional novel that takes over my week.</li>
+      <li className={styles.interestItem}><strong>Making things</strong> — ceramics, illustration, anything that lets my hands do the thinking.</li>
+      <li className={styles.interestItem}><strong>Staying curious</strong> — I'll pick up a new skill, take a class, or dive into a topic just because it interests me.</li>
+      <li className={styles.interestItem}><strong>Good food, good company</strong> — strong opinions about coffee and even stronger ones about where to eat.</li>
+    </ul>
   )
 }
 
