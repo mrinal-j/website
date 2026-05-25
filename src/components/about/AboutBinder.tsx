@@ -104,20 +104,13 @@ function OutsideContent() {
 
 const CONTENT = [AboutMeContent, HowIWorkContent, ToolStackContent, OutsideContent]
 
-function Chevron({ open }: { open: boolean }) {
-  // Closed → points up (hint "click to open upward").
-  // Open   → points down (hint "click to close back down").
+function CloseIcon() {
+  // Up-arrow inside a circle — clicking sends the open tab back to the right.
   return (
-    <svg
-      className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
       <path
-        d="M2 6.5L5 3.5L8 6.5"
+        d="M7 12.5L11 8.5L15 12.5"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -140,36 +133,41 @@ export function AboutBinder() {
   return (
     <div className={styles.wrapper}>
 
-      {/* Tab stack — pinned to the bottom edge, full viewport width.
-          Each tab is absolutely positioned by its index, so when one expands,
-          it grows upward from its slot without disturbing the others. */}
+      {/* Close button — top-left, only visible when something is open */}
+      {active !== null && (
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={() => setActive(null)}
+          style={{ color: TABS[active].text }}
+          aria-label="Close panel"
+        >
+          <CloseIcon />
+        </button>
+      )}
+
+      {/* Tab stack — vertical strips along the right edge.
+          Clicking a strip expands it leftward to fill the panel area. */}
       <div className={styles.tabStack}>
         {TABS.map((tab, i) => {
           const isOpen = i === active
           const TabContent = CONTENT[i]
-          const bumpStyle = {
-            left: `${tab.bumpLeft}%`,
-            width: `${tab.bumpWidth}%`,
-            backgroundColor: tab.fill,
-            color: tab.text,
-          }
           return (
             <div
               key={tab.id}
               className={`${styles.tab} ${isOpen ? styles.tabActive : ''}`}
               style={{ ['--fill' as never]: tab.fill, color: tab.text }}
             >
-              {/* The fully-filled bar (grows upward when active) */}
+              {/* The fully-filled strip background */}
               <span className={styles.tabBaseline} aria-hidden="true" />
               {/* Content panel — only visible when this tab is active */}
               <div className={styles.tabContent} aria-hidden={!isOpen}>
                 <TabContent />
               </div>
-              {/* The protruding bump that carries the label — the clickable trigger */}
+              {/* The rotated label on the left edge — also the clickable trigger */}
               <button
                 type="button"
-                className={styles.tabBump}
-                style={bumpStyle}
+                className={styles.tabLabel}
                 onClick={(e) => {
                   toggle(i)
                   ;(e.currentTarget as HTMLButtonElement).blur()
@@ -177,8 +175,7 @@ export function AboutBinder() {
                 aria-expanded={isOpen}
                 aria-label={tab.label}
               >
-                <span className={styles.tabLabel}>{tab.label}</span>
-                <Chevron open={isOpen} />
+                {tab.label}
               </button>
             </div>
           )
