@@ -9,6 +9,9 @@ export const Route = createFileRoute('/about')({
     meta: [
       { title: 'About — Mrinal Jadhav' },
       { name: 'description', content: 'Learn more about Mrinal Jadhav — designer at the intersection of research, strategy, and impact.' },
+      // Hide this page from search engines while it's still being built.
+      // Remove this line when ready to launch.
+      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: AboutPage,
