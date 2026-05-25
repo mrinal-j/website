@@ -14,6 +14,7 @@ export default defineConfig({
         enabled: true,
         crawlLinks: true,
         autoSubfolderIndex: true,
+        filter: (page) => !page.path.endsWith('.pdf'),
       },
     }),
   ],
