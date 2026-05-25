@@ -20,7 +20,7 @@ const projects = [
     x: '50%', y: '50%',
   },
   {
-    slug: 'https://www.mrinaljadhav.com/know-your-vote',
+    slug: 'https://legacy.mrinaljadhav.com/know-your-vote',
     title: 'Know your Vote',
     description: 'A design intervention that transforms how voters access, understand, and engage with electoral information.',
     tags: ['Design for Impact', 'Service Design', 'Service Blueprint', 'Design Strategy', 'Figma', 'Prototyping', 'Digital Design', 'Print Design'],
@@ -28,7 +28,7 @@ const projects = [
     x: '50%', y: '68%',
   },
   {
-    slug: 'https://www.mrinaljadhav.com/housing-works',
+    slug: 'https://legacy.mrinaljadhav.com/housing-works',
     title: 'Reimaging Housing Works, New York',
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
     tags: ['Brand Strategy', 'Retail Experience Design', 'Customer Experience (CX)', 'Design for Social Impact', 'Design Strategy', 'Storytelling'],
