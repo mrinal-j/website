@@ -2,113 +2,101 @@
 .wrapper {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  /* clear the navbar at top, no padding sides/bottom */
-  padding-top: clamp(72px, 9vh, 100px);
   z-index: 2;
+  --tab-h: clamp(46px, 6vh, 64px);   /* tab base height */
+  --nav-h: clamp(72px, 9vh, 100px);  /* navbar clearance */
 }
 
-/* ── Content panel area — fills space above the tab stack ── */
-.contentArea {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  padding: clamp(20px, 3vh, 40px) clamp(20px, 3vw, 48px) 0;
-  min-height: 0;
-}
-
-.card {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px 20px 0 0;
-  border: 1.5px solid rgba(195, 178, 155, 0.35);
-  border-bottom: none;
-  overflow: hidden;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 -1px 3px rgba(0, 0, 0, 0.04),
-    0 -6px 18px rgba(0, 0, 0, 0.06),
-    0 -18px 48px rgba(0, 0, 0, 0.08);
-  animation: cardRise 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@keyframes cardRise {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.body {
-  width: 100%;
-  height: 100%;
-  padding: clamp(28px, 4vh, 56px) clamp(28px, 5vw, 72px);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── Tab stack — pinned to bottom edge ── */
+/* ── Tab stack — anchored to bottom of viewport, full width ──
+   Tabs are absolutely positioned by slot, so an expanding tab grows
+   upward without pushing siblings down. */
 .tabStack {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* tall enough to contain a fully expanded tab */
+  height: 100%;
+  pointer-events: none;
 }
 
+/* Each tab — absolutely positioned at its slot, anchored bottom. */
 .tab {
-  width: 100%;
-  height: clamp(54px, 7vh, 72px);
-  padding: 0 clamp(20px, 3vw, 40px);
-  border-radius: 18px 18px 0 0;
-  border: 1.5px solid rgba(195, 178, 155, 0.35);
-  border-bottom: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--tab-h);
+  padding: 0;
+  border: none;
+  background: transparent;
   cursor: pointer;
   font-family: var(--font-body);
   font-size: clamp(10px, 0.85vw, 13px);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  transition:
+    height 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    bottom 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.2s ease;
+  /* don't clip the bump that protrudes above the tab */
+  overflow: visible;
+}
+
+/* Slot positions — first tab is at the top of the stack, last at the bottom. */
+.tab:nth-child(1) { bottom: calc(3 * var(--tab-h)); z-index: 1; }
+.tab:nth-child(2) { bottom: calc(2 * var(--tab-h)); z-index: 2; }
+.tab:nth-child(3) { bottom: calc(1 * var(--tab-h)); z-index: 3; }
+.tab:nth-child(4) { bottom: 0;                      z-index: 4; }
+
+.tab:hover:not(.tabActive) .tabBump,
+.tab:hover:not(.tabActive) .tabBaseline {
+  filter: brightness(1.06);
+}
+
+/* Active: the tab grows upward from its slot to fill the viewport above.
+   --active-offset adds breathing room so the bump clears the navbar. */
+.tab.tabActive { overflow: visible; --active-offset: clamp(36px, 5vh, 56px); }
+.tab.tabActive:nth-child(1) { height: calc(100vh - var(--nav-h) - var(--active-offset) - 3 * var(--tab-h)) !important; }
+.tab.tabActive:nth-child(2) { height: calc(100vh - var(--nav-h) - var(--active-offset) - 2 * var(--tab-h)) !important; }
+.tab.tabActive:nth-child(3) { height: calc(100vh - var(--nav-h) - var(--active-offset) - 1 * var(--tab-h)) !important; }
+.tab.tabActive:nth-child(4) { height: calc(100vh - var(--nav-h) - var(--active-offset))                    !important; }
+
+/* The fully-filled bar — sized to the tab. Grows with the tab when active. */
+.tabBaseline {
+  position: absolute;
+  inset: 0;
+  background: var(--fill);
+  pointer-events: none;
+}
+
+/* The protruding bump — at the TOP of the tab, narrow + rounded. */
+.tabBump {
+  position: absolute;
+  top: clamp(-26px, -3vh, -22px); /* protrudes upward */
+  height: calc(var(--tab-h) + clamp(22px, 3vh, 26px));
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  border-radius: 22px 22px 0 0;
+  padding: clamp(8px, 1.1vh, 14px) clamp(16px, 2vw, 28px) 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: center;
   gap: clamp(8px, 1vw, 14px);
-  transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
-  /* Slight overlap so consecutive tabs nest like file folders */
-  margin-bottom: -10px;
-  /* subtle inner highlight at top */
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 -2px 4px rgba(0, 0, 0, 0.04);
-  position: relative;
-}
-
-/* Stack order: first tab in DOM is on top of the cascade */
-.tab:nth-child(1) { z-index: 4; }
-.tab:nth-child(2) { z-index: 3; }
-.tab:nth-child(3) { z-index: 2; }
-.tab:nth-child(4) { z-index: 1; margin-bottom: 0; }
-
-.tab:hover:not(.tabActive) {
-  color: rgba(0, 0, 0, 0.72);
-  transform: translateY(-3px);
-}
-
-.tabActive {
-  color: rgba(0, 0, 0, 0.82);
-  z-index: 10 !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 -4px 12px rgba(0, 0, 0, 0.06);
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 -2px 6px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  overflow: hidden;
+  /* Bump stays anchored to top of its tab — when the tab grows upward,
+     the bump rides up with it because top is relative to tab top. */
 }
 
 .tabLabel {
@@ -120,22 +108,49 @@
 
 .chevron {
   flex-shrink: 0;
-  opacity: 0.55;
+  opacity: 0.7;
   transition: transform 0.22s ease, opacity 0.2s ease;
 }
 
 .chevronOpen {
   transform: rotate(180deg);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
-/* ── Typography inside the open card ── */
+/* ── Content panel inside each tab — only visible when that tab is active ── */
+.tabContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  /* Leave room for the bump at the top */
+  padding: clamp(48px, 6vh, 80px) clamp(28px, 5vw, 72px) clamp(28px, 4vh, 56px);
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: normal;
+  transition: opacity 0.32s ease 0.1s;
+}
+
+.tabActive .tabContent {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Typography inside the open tab ──
+   Text colour comes from each palette via the inline color on .tab */
 .tabHeading {
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: clamp(22px, 3vw, 44px);
   line-height: 1.12;
-  color: var(--text-primary);
+  color: inherit;
   margin: 0 0 clamp(14px, 1.6vw, 24px);
 }
 
@@ -143,7 +158,8 @@
   font-family: var(--font-body);
   font-size: clamp(12px, 1vw, 16px);
   line-height: 1.72;
-  color: rgba(0, 0, 0, 0.62);
+  color: inherit;
+  opacity: 0.85;
   margin: 0 0 clamp(8px, 0.9vw, 14px);
   max-width: 62ch;
 }
@@ -166,7 +182,8 @@
   font-family: var(--font-body);
   font-size: clamp(9px, 0.75vw, 12px);
   font-weight: 700;
-  color: var(--color-orange);
+  color: inherit;
+  opacity: 0.55;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-top: 0.2em;
@@ -178,7 +195,7 @@
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: clamp(13px, 1.1vw, 17px);
-  color: var(--text-primary);
+  color: inherit;
   margin: 0 0 clamp(3px, 0.3vw, 5px);
 }
 
@@ -186,7 +203,8 @@
   font-family: var(--font-body);
   font-size: clamp(11px, 0.9vw, 14px);
   line-height: 1.65;
-  color: rgba(0, 0, 0, 0.58);
+  color: inherit;
+  opacity: 0.78;
   margin: 0;
 }
 
@@ -210,7 +228,8 @@
   font-weight: 700;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: inherit;
+  opacity: 0.6;
   margin: 0;
 }
 
@@ -218,7 +237,8 @@
   font-family: var(--font-body);
   font-size: clamp(11px, 0.95vw, 15px);
   line-height: 1.7;
-  color: rgba(0, 0, 0, 0.65);
+  color: inherit;
+  opacity: 0.88;
   margin: 0;
 }
 
@@ -236,29 +256,34 @@
   font-family: var(--font-body);
   font-size: clamp(12px, 1vw, 16px);
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.62);
+  color: inherit;
+  opacity: 0.85;
 }
 
 .interestItem strong {
-  color: var(--text-primary);
+  color: inherit;
+  opacity: 1;
   font-weight: 700;
 }
 
 /* ── Mobile ── */
 @media (max-width: 767px) {
-  .wrapper {
-    padding-top: 72px;
-  }
-  .contentArea {
-    padding: 16px 12px 0;
-  }
-  .body {
-    padding: 22px 22px;
-  }
   .tab {
-    height: 52px;
+    height: 50px;
     font-size: 10px;
-    padding: 0 18px;
+  }
+  .tab:nth-child(1) { bottom: 150px; }
+  .tab:nth-child(2) { bottom: 100px; }
+  .tab:nth-child(3) { bottom: 50px; }
+  .tab:nth-child(4) { bottom: 0; }
+  .tabActive {
+    height: calc(100vh - 72px);
+  }
+  .tabBump {
+    height: 70px;
+  }
+  .tabContent {
+    padding: 70px 22px 22px;
   }
   .tabHeading {
     font-size: 22px;

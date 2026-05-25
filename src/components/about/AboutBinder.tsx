@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import styles from './AboutBinder.module.css'
 
-const CARD_BG = '#faf8f4'
-
+// Each tab is a protruding "bump" at the top of its row.
+// bumpLeft / bumpWidth are %s — staggered so the bumps cascade like file folders.
 const TABS = [
-  { id: 'about',   label: 'About me',        color: CARD_BG },
-  { id: 'work',    label: 'How I work',       color: '#ede9f6' },
-  { id: 'tools',   label: 'Tool stack',       color: '#f5efd6' },
-  { id: 'outside', label: 'Outside of work',  color: '#ddeee8' },
+  { id: 'about',   label: 'About me',       fill: '#013533', text: '#DFC797', bumpLeft: 22, bumpWidth: 28 }, // Green   / Cream
+  { id: 'work',    label: 'How I work',      fill: '#F7DEC0', text: '#282627', bumpLeft: 50, bumpWidth: 30 }, // Cream   / Black
+  { id: 'tools',   label: 'Tool stack',      fill: '#5D372A', text: '#E9641B', bumpLeft: 14, bumpWidth: 30 }, // Bistre  / Orange
+  { id: 'outside', label: 'Outside of work', fill: '#FED176', text: '#2F3B3F', bumpLeft: 56, bumpWidth: 32 }, // Yellow  / Blue Black
 ]
 
 const HOW_I_WORK = [
@@ -108,6 +108,8 @@ function OutsideContent() {
 const CONTENT = [AboutMeContent, HowIWorkContent, ToolStackContent, OutsideContent]
 
 function Chevron({ open }: { open: boolean }) {
+  // Closed → points up (hint "click to open upward").
+  // Open   → points down (hint "click to close back down").
   return (
     <svg
       className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
@@ -118,7 +120,7 @@ function Chevron({ open }: { open: boolean }) {
       aria-hidden="true"
     >
       <path
-        d="M2 3.5L5 6.5L8 3.5"
+        d="M2 6.5L5 3.5L8 6.5"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -137,42 +139,51 @@ export function AboutBinder() {
     setActive(prev => (prev === i ? null : i))
   }
 
+  void Content
   return (
     <div className={styles.wrapper}>
 
-      {/* Content panel — opens in the space above the tab stack */}
-      <div className={`${styles.contentArea} ${active !== null ? styles.contentOpen : ''}`}>
-        {Content && (
-          <div
-            className={styles.card}
-            style={{ backgroundColor: TABS[active!].color }}
-          >
-            <div className={styles.body}>
-              <Content />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Tab stack — pinned to the bottom edge, full viewport width */}
+      {/* Tab stack — pinned to the bottom edge, full viewport width.
+          Each tab is absolutely positioned by its index, so when one expands,
+          it grows upward from its slot without disturbing the others. */}
       <div className={styles.tabStack}>
         {TABS.map((tab, i) => {
           const isOpen = i === active
+          const TabContent = CONTENT[i]
+          const bumpStyle = {
+            left: `${tab.bumpLeft}%`,
+            width: `${tab.bumpWidth}%`,
+            backgroundColor: tab.fill,
+            color: tab.text,
+          }
           return (
-            <button
+            <div
               key={tab.id}
               className={`${styles.tab} ${isOpen ? styles.tabActive : ''}`}
-              style={{ backgroundColor: tab.color }}
-              onClick={(e) => {
-                toggle(i)
-                ;(e.currentTarget as HTMLButtonElement).blur()
-              }}
-              aria-expanded={isOpen}
-              aria-label={tab.label}
+              style={{ ['--fill' as never]: tab.fill, color: tab.text }}
             >
-              <span className={styles.tabLabel}>{tab.label}</span>
-              <Chevron open={isOpen} />
-            </button>
+              {/* The fully-filled bar (grows upward when active) */}
+              <span className={styles.tabBaseline} aria-hidden="true" />
+              {/* Content panel — only visible when this tab is active */}
+              <div className={styles.tabContent} aria-hidden={!isOpen}>
+                <TabContent />
+              </div>
+              {/* The protruding bump that carries the label — the clickable trigger */}
+              <button
+                type="button"
+                className={styles.tabBump}
+                style={bumpStyle}
+                onClick={(e) => {
+                  toggle(i)
+                  ;(e.currentTarget as HTMLButtonElement).blur()
+                }}
+                aria-expanded={isOpen}
+                aria-label={tab.label}
+              >
+                <span className={styles.tabLabel}>{tab.label}</span>
+                <Chevron open={isOpen} />
+              </button>
+            </div>
           )
         })}
       </div>
