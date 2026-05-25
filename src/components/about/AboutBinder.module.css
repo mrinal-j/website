@@ -42,6 +42,11 @@
     filter 0.2s ease;
   /* don't clip the bump that protrudes above the tab */
   overflow: visible;
+  /* Subtle shadow behind each tab — drop-shadow follows the combined
+     baseline + bump silhouette, so the whole tab reads as one piece. */
+  filter:
+    drop-shadow(0 -3px 6px rgba(0, 0, 0, 0.06))
+    drop-shadow(0 6px 14px rgba(0, 0, 0, 0.08));
 }
 
 /* Slot positions — first tab is at the top of the stack, last at the bottom. */
@@ -90,9 +95,8 @@
   align-items: flex-start;
   justify-content: center;
   gap: clamp(8px, 1vw, 14px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 -2px 6px rgba(0, 0, 0, 0.06);
+  /* No separate shadow — the parent .tab's drop-shadow covers the
+     whole baseline+bump silhouette so the tab reads as one piece. */
   white-space: nowrap;
   overflow: hidden;
   /* Bump stays anchored to top of its tab — when the tab grows upward,
