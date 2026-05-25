@@ -82,6 +82,7 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
         </Link>
         <div className={styles.links}>
           <Link to="/" className={styles.navLink} hash="featured-works">Work</Link>
+          <a href="https://legacy.mrinaljadhav.com/about#anchors-lr44wn3y" target="_blank" rel="noopener noreferrer" className={styles.navLink}>About</a>
           <a href="https://www.behance.net/mrinaljadhav" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Play</a>
           <span className={styles.divider} />
           <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.iconLink} aria-label="Email" target="_blank" rel="noopener noreferrer">
