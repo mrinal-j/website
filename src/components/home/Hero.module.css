@@ -88,8 +88,8 @@
 }
 
 .heading {
-  font-family: var(--font-sans);
-  font-weight: 200;
+  font-family: var(--font-body);
+  font-weight: 400;
   font-size: 20px;
   line-height: 140%;
   color: #000;
