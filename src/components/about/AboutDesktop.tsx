@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react'
+import {
+  EditableImage,
+  EditableProvider,
+  EditableText,
+} from '~/components/editable/Editable'
+import { EditPanel } from '~/components/editable/EditPanel'
 import styles from './AboutDesktop.module.css'
 
 const INTRO_TEXT =
   "I'm Mrinal, a designer and strategist. I work across research, strategy and design on problems that matter, where design can genuinely change how people think, act, and experience the world around them."
 const TYPING_SPEED = 22
+
+/** Locked-in default sizes for the photo frame. */
+const IMAGE_DEFAULTS = { width: 310, height: 397, radius: 10, posX: 50, posY: 70 }
+/** Locked-in default sizes for the intro text box. */
+const TEXT_DEFAULTS = { fontSize: 15, width: 311, height: 40 }
 
 /** Desktop-style "shortcut" icons scattered around the screen. */
 const ICONS: {
@@ -61,43 +72,10 @@ const CAPSULES: { label: string; pos: [number, number] }[] = [
   { label: 'xx', pos: [60, 52] },
 ]
 
-/** Default sizes for the photo frame and intro text. */
-const DEFAULT_SIZING = {
-  imageWidth: 310,
-  imageHeight: 397,
-  radius: 10,
-  posX: 50,
-  posY: 70,
-  textSize: 15,
-  textWidth: 311,
-  textHeight: 40,
-}
-const SIZING_KEY = 'aboutSizing'
-
 export function AboutDesktop() {
   const [typed, setTyped] = useState('')
   const [done, setDone] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const [sizing, setSizing] = useState(DEFAULT_SIZING)
-
-  // Load any saved sizes from a previous session.
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(SIZING_KEY)
-      if (saved) setSizing({ ...DEFAULT_SIZING, ...JSON.parse(saved) })
-    } catch {
-      /* ignore */
-    }
-  }, [])
-
-  // Remember sizes between refreshes.
-  useEffect(() => {
-    try {
-      localStorage.setItem(SIZING_KEY, JSON.stringify(sizing))
-    } catch {
-      /* ignore */
-    }
-  }, [sizing])
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 300)
@@ -117,136 +95,53 @@ export function AboutDesktop() {
   }, [typed, loaded])
 
   return (
-    <section className={styles.screen}>
-      <div className={styles.center}>
-        <img
-          src="/images/about_image.webp"
-          alt="Mrinal Jadhav"
-          className={styles.aboutImage}
-          style={{
-            width: sizing.imageWidth,
-            height: sizing.imageHeight,
-            maxWidth: 'none',
-            borderRadius: sizing.radius,
-            objectPosition: `${sizing.posX}% ${sizing.posY}%`,
-          }}
-          loading="eager"
-        />
-        <p
-          className={styles.intro}
-          style={{
-            fontSize: sizing.textSize,
-            width: sizing.textWidth,
-            maxWidth: '100%',
-            height: sizing.textHeight,
-          }}
-        >
-          {typed}
-          {!done && <span className={styles.caret} aria-hidden="true" />}
-        </p>
-      </div>
+    <EditableProvider>
+      <section className={styles.screen}>
+        <div className={styles.center}>
+          <EditableImage
+            id="about-photo"
+            label="About photo"
+            src="/images/about_image.webp"
+            alt="Mrinal Jadhav"
+            className={styles.aboutImage}
+            defaults={IMAGE_DEFAULTS}
+          />
+          <EditableText
+            id="about-intro"
+            label="Intro text"
+            className={styles.intro}
+            defaults={TEXT_DEFAULTS}
+          >
+            {typed}
+            {!done && <span className={styles.caret} aria-hidden="true" />}
+          </EditableText>
+        </div>
 
-      {ICONS.map(item => (
-        <button
-          key={item.label}
-          type="button"
-          className={styles.item}
-          style={{ left: `${item.pos[0]}%`, top: `${item.pos[1]}%` }}
-        >
-          <span className={styles.itemIcon}>{item.icon}</span>
-          <span className={styles.itemLabel}>{item.label}</span>
-        </button>
-      ))}
+        {ICONS.map(item => (
+          <button
+            key={item.label}
+            type="button"
+            className={styles.item}
+            style={{ left: `${item.pos[0]}%`, top: `${item.pos[1]}%` }}
+          >
+            <span className={styles.itemIcon}>{item.icon}</span>
+            <span className={styles.itemLabel}>{item.label}</span>
+          </button>
+        ))}
 
-      {CAPSULES.map((cap, i) => (
-        <button
-          key={i}
-          type="button"
-          className={styles.capsule}
-          style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
-        >
-          {cap.label}
-        </button>
-      ))}
+        {CAPSULES.map((cap, i) => (
+          <button
+            key={i}
+            type="button"
+            className={styles.capsule}
+            style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
+          >
+            {cap.label}
+          </button>
+        ))}
 
-      {import.meta.env.DEV && (
-        <SizingControls sizing={sizing} setSizing={setSizing} />
-      )}
-    </section>
-  )
-}
-
-/** Dev-only panel to live-tweak the photo frame and text sizes. */
-function SizingControls({
-  sizing,
-  setSizing,
-}: {
-  sizing: typeof DEFAULT_SIZING
-  setSizing: React.Dispatch<React.SetStateAction<typeof DEFAULT_SIZING>>
-}) {
-  const set = (key: keyof typeof DEFAULT_SIZING) => (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => setSizing(s => ({ ...s, [key]: Number(e.target.value) }))
-
-  return (
-    <div className={styles.controls}>
-      <div className={styles.controlsTitle}>Size controls (only you see this)</div>
-
-      <label className={styles.control}>
-        <span>Frame width</span>
-        <input type="range" min={120} max={520} value={sizing.imageWidth} onChange={set('imageWidth')} />
-        <b>{sizing.imageWidth}px</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Frame height</span>
-        <input type="range" min={120} max={640} value={sizing.imageHeight} onChange={set('imageHeight')} />
-        <b>{sizing.imageHeight}px</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Frame roundness</span>
-        <input type="range" min={0} max={48} value={sizing.radius} onChange={set('radius')} />
-        <b>{sizing.radius}px</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Move photo ←→</span>
-        <input type="range" min={0} max={100} value={sizing.posX} onChange={set('posX')} />
-        <b>{sizing.posX}%</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Move photo ↑↓</span>
-        <input type="range" min={0} max={100} value={sizing.posY} onChange={set('posY')} />
-        <b>{sizing.posY}%</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Text size</span>
-        <input type="range" min={12} max={28} value={sizing.textSize} onChange={set('textSize')} />
-        <b>{sizing.textSize}px</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Text box width</span>
-        <input type="range" min={200} max={680} value={sizing.textWidth} onChange={set('textWidth')} />
-        <b>{sizing.textWidth}px</b>
-      </label>
-
-      <label className={styles.control}>
-        <span>Text box height</span>
-        <input type="range" min={40} max={320} value={sizing.textHeight} onChange={set('textHeight')} />
-        <b>{sizing.textHeight}px</b>
-      </label>
-
-      <button
-        type="button"
-        className={styles.controlsReset}
-        onClick={() => setSizing(DEFAULT_SIZING)}
-      >
-        Reset to default
-      </button>
-    </div>
+        {import.meta.env.DEV && <EditPanel />}
+      </section>
+    </EditableProvider>
   )
 }
