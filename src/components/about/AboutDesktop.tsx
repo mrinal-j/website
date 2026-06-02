@@ -21,14 +21,11 @@ const ICONS: {
   label: string
   /** Center position as percentages of the screen, [left, top]. */
   pos: [number, number]
-  /** Scattered position for narrow / mobile screens, [left, top]. */
-  mobilePos: [number, number]
   icon: React.ReactNode
 }[] = [
   {
     label: 'Professional Experience',
     pos: [22, 44],
-    mobilePos: [25, 20],
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
         <path d="M9 2a2 2 0 0 0-2 2v2H3a1 1 0 0 0-1 1v3h20V7a1 1 0 0 0-1-1h-4V4a2 2 0 0 0-2-2H9Zm0 2h6v2H9V4Z" />
@@ -39,7 +36,6 @@ const ICONS: {
   {
     label: 'How I Work',
     pos: [80, 40],
-    mobilePos: [76, 18],
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
         <path d="M16.9 2.1a2.1 2.1 0 0 1 3 0l2 2a2.1 2.1 0 0 1 0 3l-1.4 1.4-5-5L16.9 2.1ZM14 4.5l5 5L8.3 20.2a2 2 0 0 1-.9.5l-4.2 1.1a.8.8 0 0 1-1-1l1.1-4.2a2 2 0 0 1 .5-.9L14 4.5Z" />
@@ -49,7 +45,6 @@ const ICONS: {
   {
     label: 'Gallery',
     pos: [16, 72],
-    mobilePos: [24, 85],
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" fillRule="evenodd">
         <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm1.2 2.2v2h2v-2zm0 3.8v2h2V9zm0 3.8v2h2v-2zm0 3.8v2h2v-2zm11.6-11.4v2h2v-2zm0 3.8v2h2V9zm0 3.8v2h2v-2zm0 3.8v2h2v-2zM9 5.6h6v5H9zm0 7.8h6v5H9z" />
@@ -59,7 +54,6 @@ const ICONS: {
   {
     label: 'Tool Stack',
     pos: [70, 74],
-    mobilePos: [75, 88],
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
         <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
@@ -69,17 +63,17 @@ const ICONS: {
 ]
 
 /**
- * Floating frosted-glass skill capsules, scattered over the photo.
- * Positions are percentages of the photo box, so they stay on the photo
- * at every screen size.
+ * Frosted-glass skill capsules scattered around the photo frame. Positions
+ * are percentages of the frame box, so edge values let a capsule spill
+ * slightly over the photo for an organic, random look.
  */
 const CAPSULES: { label: string; pos: [number, number] }[] = [
-  { label: 'UX Research', pos: [34, 10] },
-  { label: 'Service Design', pos: [72, 22] },
-  { label: 'Brand Strategy', pos: [16, 40] },
-  { label: 'Visual Design', pos: [80, 55] },
-  { label: 'Product Design', pos: [30, 74] },
-  { label: 'Design Strategy', pos: [70, 88] },
+  { label: 'UX Research', pos: [24, 6] },
+  { label: 'Service Design', pos: [84, 18] },
+  { label: 'Brand Strategy', pos: [6, 42] },
+  { label: 'Visual Design', pos: [94, 50] },
+  { label: 'Product Design', pos: [22, 60] },
+  { label: 'Design Strategy', pos: [80, 63] },
 ]
 
 export function AboutDesktop() {
@@ -108,59 +102,73 @@ export function AboutDesktop() {
     <EditableProvider>
       <section className={styles.screen}>
         <div className={styles.center}>
-          <div className={styles.photoWrap}>
-            <EditableImage
-              id="about-photo"
-              label="About photo"
-              src="/images/about_image.webp"
-              alt="Mrinal Jadhav"
-              className={styles.aboutImage}
-              defaults={IMAGE_DEFAULTS}
-            />
-            {CAPSULES.map(cap => (
-              <button
-                key={cap.label}
-                type="button"
-                className={styles.capsule}
-                style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
+          <div className={styles.frameCard}>
+            <div className={styles.photoWrap}>
+              <EditableImage
+                id="about-photo"
+                label="About photo"
+                src="/images/about_image.webp"
+                alt="Mrinal Jadhav"
+                className={styles.aboutImage}
+                defaults={IMAGE_DEFAULTS}
+              />
+              <span className={styles.statusPill} aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
+                  <path d="M12 2l2.4 6.5L21 11l-6.6 2.5L12 20l-2.4-6.5L3 11l6.6-2.5z" />
+                </svg>
+                Designer &amp; Strategist
+              </span>
+            </div>
+
+            <div className={styles.captionBar}>
+              <EditableText
+                id="about-intro"
+                label="Intro text"
+                className={styles.intro}
+                defaults={TEXT_DEFAULTS}
               >
-                {cap.label}
-              </button>
-            ))}
+                {typed}
+                {!done && <span className={styles.caret} aria-hidden="true" />}
+              </EditableText>
+            </div>
+
+            <div className={styles.capsuleRail}>
+              {CAPSULES.map(cap => (
+                <button
+                  key={cap.label}
+                  type="button"
+                  className={styles.capsule}
+                  style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
+                >
+                  {cap.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <EditableText
-            id="about-intro"
-            label="Intro text"
-            className={styles.intro}
-            defaults={TEXT_DEFAULTS}
-          >
-            {typed}
-            {!done && <span className={styles.caret} aria-hidden="true" />}
-          </EditableText>
         </div>
 
-        {ICONS.map(item => (
-          <button
-            key={item.label}
-            type="button"
-            className={styles.item}
-            style={
-              {
-                '--x': `${item.pos[0]}%`,
-                '--y': `${item.pos[1]}%`,
-                '--mx': `${item.mobilePos[0]}%`,
-                '--my': `${item.mobilePos[1]}%`,
-              } as React.CSSProperties
-            }
-          >
-            <span className={styles.tile} aria-hidden="true">
-              <span className={styles.solidBox} />
-              <span className={styles.glassBox} />
-              <span className={styles.itemIcon}>{item.icon}</span>
-            </span>
-            <span className={styles.itemLabel}>{item.label}</span>
-          </button>
-        ))}
+        <div className={styles.iconLayer}>
+          {ICONS.map(item => (
+            <button
+              key={item.label}
+              type="button"
+              className={styles.item}
+              style={
+                {
+                  '--x': `${item.pos[0]}%`,
+                  '--y': `${item.pos[1]}%`,
+                } as React.CSSProperties
+              }
+            >
+              <span className={styles.tile} aria-hidden="true">
+                <span className={styles.solidBox} />
+                <span className={styles.glassBox} />
+                <span className={styles.itemIcon}>{item.icon}</span>
+              </span>
+              <span className={styles.itemLabel}>{item.label}</span>
+            </button>
+          ))}
+        </div>
 
         {import.meta.env.DEV && <EditPanel />}
       </section>

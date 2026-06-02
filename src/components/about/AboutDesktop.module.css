@@ -23,10 +23,32 @@
   text-align: center;
 }
 
-/* Wraps the photo so the skill capsules can be positioned over it. */
+/* Frosted-glass frame that holds the photo, caption bar and capsules. */
+.frameCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  /* Hug the photo (310px) + padding so the caption wraps inside the frame
+     instead of stretching it to the text's natural width. */
+  width: 338px;
+  padding: 14px;
+  background-color: rgba(255, 102, 0, 0.16);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  box-shadow: 0 28px 70px rgba(255, 102, 0, 0.22);
+}
+
+/* Wraps the photo so the status pill can sit over it; rounds the corners. */
 .photoWrap {
   position: relative;
   flex-shrink: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .aboutImage {
@@ -34,18 +56,52 @@
   width: 100%;
   max-width: 220px;
   height: auto;
-  border-radius: 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   object-fit: cover;
+}
+
+/* Little status pill in the top-left corner of the photo. */
+.statusPill {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  background-color: rgba(255, 102, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Frosted "prompt" bar at the bottom of the frame, holding the intro text. */
+.captionBar {
+  display: flex;
+  padding: 13px 16px;
+  background-color: rgba(255, 250, 245, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 18px;
 }
 
 .intro {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 17px;
+  font-size: 14px;
   line-height: 150%;
-  color: #000;
+  color: #2a2320;
   margin: 0;
+  text-align: left;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .caret {
@@ -60,6 +116,12 @@
 
 @keyframes aboutCaretBlink {
   to { opacity: 0; }
+}
+
+/* On desktop the wrapper is invisible so the icons position freely; on
+   mobile it becomes a flex row (see media query). */
+.iconLayer {
+  display: contents;
 }
 
 /* Desktop-style shortcut icons */
@@ -150,11 +212,19 @@
   text-align: center;
 }
 
-/* Floating capsule buttons (placeholders) */
+/* Overlay layer matching the frame, so capsules anchor to the frame box. */
+.capsuleRail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Frosted-glass skill capsules scattered around the photo frame. */
 .capsule {
   position: absolute;
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: 4;
+  pointer-events: auto;
   background-color: rgba(255, 102, 0, 0.42);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -176,21 +246,71 @@
   transform: translate(-50%, calc(-50% - 2px));
 }
 
-/* On smaller screens keep the scattered desktop layout, but use the
-   mobile positions for the icons and a smaller photo so nothing collides. */
+/* On smaller screens the framed card is too tall to scatter things around,
+   so the page flows top-to-bottom: frame (with capsules stacked below the
+   text), then the shortcut icons in a centred row. */
 @media (max-width: 900px) {
-  /* Shrink the centred photo so the scattered icons have room above
-     and below it. */
-  .aboutImage {
-    width: 200px !important;
-    height: 257px !important;
+  .screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    min-height: 100vh;
+    padding: 120px 16px 64px;
+    overflow: visible;
   }
-  /* Icons jump to their mobile scatter positions. */
+  .center {
+    position: static;
+    transform: none;
+    width: auto;
+    max-width: none;
+    padding: 0;
+  }
+  .frameCard {
+    width: min(360px, 90vw);
+  }
+  .aboutImage {
+    width: 100% !important;
+    height: 320px !important;
+    object-fit: cover;
+  }
+  /* Capsules wrap into a centred row that stacks below the text box. */
+  .capsuleRail {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 2px;
+    pointer-events: auto;
+  }
+  .capsule {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none;
+    padding: 7px 14px;
+    font-size: 0.72rem;
+  }
+  .capsule:hover {
+    transform: translateY(-2px);
+  }
+  /* Shortcut icons flow into a centred wrapped row below the frame. */
+  .iconLayer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 28px;
+  }
   .item {
-    left: var(--mx);
-    top: var(--my);
-    width: 110px;
-    gap: 10px;
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 130px;
+  }
+  .item:hover {
+    transform: translateY(-4px);
   }
   .tile {
     width: 56px;
@@ -204,10 +324,5 @@
   }
   .itemLabel {
     font-size: 0.8rem;
-  }
-  /* Smaller capsules so they sit nicely over the smaller mobile photo. */
-  .capsule {
-    padding: 7px 14px;
-    font-size: 0.72rem;
   }
 }
