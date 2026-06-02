@@ -23,7 +23,14 @@
   text-align: center;
 }
 
+/* Wraps the photo so the skill capsules can be positioned over it. */
+.photoWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
 .aboutImage {
+  display: block;
   width: 100%;
   max-width: 220px;
   height: auto;
@@ -58,6 +65,8 @@
 /* Desktop-style shortcut icons */
 .item {
   position: absolute;
+  left: var(--x);
+  top: var(--y);
   transform: translate(-50%, -50%);
   z-index: 3;
   display: flex;
@@ -74,13 +83,62 @@
 
 .item:hover {
   color: var(--color-orange);
-  transform: translate(-50%, calc(-50% - 3px));
+  transform: translate(-50%, calc(-50% - 4px));
+}
+
+/* Layered icon tile: solid orange square + frosted glass square */
+.tile {
+  position: relative;
+  width: 62px;
+  height: 62px;
+}
+
+.solidBox,
+.glassBox {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+}
+
+/* Solid colour square, sitting behind, top-left */
+.solidBox {
+  top: 0;
+  left: 0;
+  background-color: var(--color-orange);
+  transition: transform 0.3s ease;
+}
+
+/* Frosted glass square, in front, bottom-right */
+.glassBox {
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 102, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.25);
+  transition: transform 0.3s ease;
 }
 
 .itemIcon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* On hover, slide the two squares slightly apart for depth */
+.item:hover .solidBox {
+  transform: translate(-3px, -3px);
+}
+
+.item:hover .glassBox {
+  transform: translate(3px, 3px);
 }
 
 .itemLabel {
@@ -97,56 +155,59 @@
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 3;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  padding: 10px 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 10px 22px;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 400;
-  color: #000;
+  font-weight: 500;
+  color: #1a1a1a;
   white-space: nowrap;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 .capsule:hover {
-  color: var(--color-orange);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
   transform: translate(-50%, calc(-50% - 2px));
 }
 
-/* Stack everything on smaller screens */
+/* On smaller screens keep the scattered desktop layout, but use the
+   mobile positions for the icons and a smaller photo so nothing collides. */
 @media (max-width: 900px) {
-  .screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    min-height: auto;
-    padding: 120px 20px 64px;
+  /* Shrink the centred photo so the scattered icons have room above
+     and below it. */
+  .aboutImage {
+    width: 200px !important;
+    height: 257px !important;
   }
-  .center {
-    position: static;
-    transform: none;
-    margin-bottom: 8px;
-  }
-  .item,
-  .capsule {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-  }
-  .item:hover {
-    transform: translateY(-3px) !important;
-  }
-  .capsule:hover {
-    transform: translateY(-2px) !important;
-  }
+  /* Icons jump to their mobile scatter positions. */
   .item {
-    flex-direction: row;
-    width: auto;
+    left: var(--mx);
+    top: var(--my);
+    width: 110px;
     gap: 10px;
+  }
+  .tile {
+    width: 56px;
+    height: 56px;
+  }
+  .solidBox,
+  .glassBox,
+  .itemIcon {
+    width: 46px;
+    height: 46px;
+  }
+  .itemLabel {
+    font-size: 0.8rem;
+  }
+  /* Smaller capsules so they sit nicely over the smaller mobile photo. */
+  .capsule {
+    padding: 7px 14px;
+    font-size: 0.72rem;
   }
 }

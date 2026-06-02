@@ -21,55 +21,65 @@ const ICONS: {
   label: string
   /** Center position as percentages of the screen, [left, top]. */
   pos: [number, number]
+  /** Scattered position for narrow / mobile screens, [left, top]. */
+  mobilePos: [number, number]
   icon: React.ReactNode
 }[] = [
   {
     label: 'Professional Experience',
     pos: [22, 44],
+    mobilePos: [25, 20],
     icon: (
-      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+        <path d="M9 2a2 2 0 0 0-2 2v2H3a1 1 0 0 0-1 1v3h20V7a1 1 0 0 0-1-1h-4V4a2 2 0 0 0-2-2H9Zm0 2h6v2H9V4Z" />
+        <path d="M13 12v1h-2v-1H2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-7h-9Z" />
       </svg>
     ),
   },
   {
     label: 'How I Work',
     pos: [80, 40],
+    mobilePos: [76, 18],
     icon: (
-      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 20h9" />
-        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+        <path d="M16.9 2.1a2.1 2.1 0 0 1 3 0l2 2a2.1 2.1 0 0 1 0 3l-1.4 1.4-5-5L16.9 2.1ZM14 4.5l5 5L8.3 20.2a2 2 0 0 1-.9.5l-4.2 1.1a.8.8 0 0 1-1-1l1.1-4.2a2 2 0 0 1 .5-.9L14 4.5Z" />
       </svg>
     ),
   },
   {
     label: 'Gallery',
     pos: [16, 72],
+    mobilePos: [24, 85],
     icon: (
-      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="18" rx="2" />
-        <path d="M7 3v18M17 3v18M2 9h5M2 15h5M17 9h5M17 15h5" />
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" fillRule="evenodd">
+        <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm1.2 2.2v2h2v-2zm0 3.8v2h2V9zm0 3.8v2h2v-2zm0 3.8v2h2v-2zm11.6-11.4v2h2v-2zm0 3.8v2h2V9zm0 3.8v2h2v-2zm0 3.8v2h2v-2zM9 5.6h6v5H9zm0 7.8h6v5H9z" />
       </svg>
     ),
   },
   {
     label: 'Tool Stack',
     pos: [70, 74],
+    mobilePos: [75, 88],
     icon: (
-      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18l3 3 6.4-6.3a4 4 0 0 0 5.3-5.4l-2.8 2.8-2.1-2.1 2.9-2.7Z" />
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
       </svg>
     ),
   },
 ]
 
-/** Floating capsule buttons. Placeholder text for now. */
+/**
+ * Floating frosted-glass skill capsules, scattered over the photo.
+ * Positions are percentages of the photo box, so they stay on the photo
+ * at every screen size.
+ */
 const CAPSULES: { label: string; pos: [number, number] }[] = [
-  { label: 'xx', pos: [33, 30] },
-  { label: 'xx', pos: [58, 30] },
-  { label: 'xx', pos: [67, 42] },
-  { label: 'xx', pos: [60, 52] },
+  { label: 'UX Research', pos: [34, 10] },
+  { label: 'Service Design', pos: [72, 22] },
+  { label: 'Brand Strategy', pos: [16, 40] },
+  { label: 'Visual Design', pos: [80, 55] },
+  { label: 'Product Design', pos: [30, 74] },
+  { label: 'Design Strategy', pos: [70, 88] },
 ]
 
 export function AboutDesktop() {
@@ -98,14 +108,26 @@ export function AboutDesktop() {
     <EditableProvider>
       <section className={styles.screen}>
         <div className={styles.center}>
-          <EditableImage
-            id="about-photo"
-            label="About photo"
-            src="/images/about_image.webp"
-            alt="Mrinal Jadhav"
-            className={styles.aboutImage}
-            defaults={IMAGE_DEFAULTS}
-          />
+          <div className={styles.photoWrap}>
+            <EditableImage
+              id="about-photo"
+              label="About photo"
+              src="/images/about_image.webp"
+              alt="Mrinal Jadhav"
+              className={styles.aboutImage}
+              defaults={IMAGE_DEFAULTS}
+            />
+            {CAPSULES.map(cap => (
+              <button
+                key={cap.label}
+                type="button"
+                className={styles.capsule}
+                style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
+              >
+                {cap.label}
+              </button>
+            ))}
+          </div>
           <EditableText
             id="about-intro"
             label="Intro text"
@@ -122,21 +144,21 @@ export function AboutDesktop() {
             key={item.label}
             type="button"
             className={styles.item}
-            style={{ left: `${item.pos[0]}%`, top: `${item.pos[1]}%` }}
+            style={
+              {
+                '--x': `${item.pos[0]}%`,
+                '--y': `${item.pos[1]}%`,
+                '--mx': `${item.mobilePos[0]}%`,
+                '--my': `${item.mobilePos[1]}%`,
+              } as React.CSSProperties
+            }
           >
-            <span className={styles.itemIcon}>{item.icon}</span>
+            <span className={styles.tile} aria-hidden="true">
+              <span className={styles.solidBox} />
+              <span className={styles.glassBox} />
+              <span className={styles.itemIcon}>{item.icon}</span>
+            </span>
             <span className={styles.itemLabel}>{item.label}</span>
-          </button>
-        ))}
-
-        {CAPSULES.map((cap, i) => (
-          <button
-            key={i}
-            type="button"
-            className={styles.capsule}
-            style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
-          >
-            {cap.label}
           </button>
         ))}
 

@@ -9,6 +9,7 @@ import styles from './EditPanel.module.css'
 export function EditPanel() {
   const { items, store, setValue, reset } = useEditableContext()
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [collapsed, setCollapsed] = useState(false)
 
   // Default to the first registered element.
   useEffect(() => {
@@ -21,9 +22,32 @@ export function EditPanel() {
   const vals = store[item.id] ?? item.defaults
   const sliders = SCHEMA[item.type]
 
+  // Collapsed: just a small pill in the corner that brings the panel back.
+  if (collapsed) {
+    return (
+      <button
+        type="button"
+        className={styles.reopen}
+        onClick={() => setCollapsed(false)}
+      >
+        Size controls
+      </button>
+    )
+  }
+
   return (
     <div className={styles.panel}>
-      <div className={styles.title}>Size controls (only you see this)</div>
+      <div className={styles.header}>
+        <span className={styles.title}>Size controls (only you see this)</span>
+        <button
+          type="button"
+          className={styles.collapse}
+          onClick={() => setCollapsed(true)}
+          aria-label="Hide size controls"
+        >
+          ✕
+        </button>
+      </div>
 
       <label className={styles.picker}>
         <span>Editing</span>
