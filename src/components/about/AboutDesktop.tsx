@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   EditableImage,
   EditableProvider,
@@ -78,8 +78,83 @@ const CAPSULES: { label: string; pos: [number, number] }[] = [
 
 export function AboutDesktop() {
   const [typed, setTyped] = useState('')
-  const [done, setDone] = useState(false)
   const [loaded, setLoaded] = useState(false)
+
+  // Capsule + icon positions live in state so they can be dragged around in
+  // dev to test placement. Capsules are positioned relative to the frame;
+  // icons relative to the whole screen.
+  const [capPos, setCapPos] = useState<[number, number][]>(() =>
+    CAPSULES.map(c => c.pos),
+  )
+  const [iconPos, setIconPos] = useState<[number, number][]>(() =>
+    ICONS.map(i => i.pos),
+  )
+  const screenRef = useRef<HTMLElement>(null)
+  const frameRef = useRef<HTMLDivElement>(null)
+  const dragCap = useRef<number | null>(null)
+  const dragIcon = useRef<number | null>(null)
+
+  // Dev-only: drag a capsule or icon to reposition it, then log the pasteable
+  // coordinates to the console on release.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return
+    const pctOf = (rect: DOMRect, e: PointerEvent): [number, number] => [
+      Math.round(((e.clientX - rect.left) / rect.width) * 100),
+      Math.round(((e.clientY - rect.top) / rect.height) * 100),
+    ]
+    const onMove = (e: PointerEvent) => {
+      if (dragCap.current != null) {
+        const idx = dragCap.current
+        const f = frameRef.current?.getBoundingClientRect()
+        if (!f) return
+        const pos = pctOf(f, e)
+        setCapPos(prev => prev.map((p, i) => (i === idx ? pos : p)))
+      } else if (dragIcon.current != null) {
+        const idx = dragIcon.current
+        const s = screenRef.current?.getBoundingClientRect()
+        if (!s) return
+        const pos = pctOf(s, e)
+        setIconPos(prev => prev.map((p, i) => (i === idx ? pos : p)))
+      }
+    }
+    const onUp = () => {
+      if (dragCap.current != null) {
+        dragCap.current = null
+        setCapPos(prev => {
+          console.log(
+            'Capsule positions:\n' +
+              prev
+                .map(
+                  (p, i) =>
+                    `  { label: '${CAPSULES[i].label}', pos: [${p[0]}, ${p[1]}] },`,
+                )
+                .join('\n'),
+          )
+          return prev
+        })
+      }
+      if (dragIcon.current != null) {
+        dragIcon.current = null
+        setIconPos(prev => {
+          console.log(
+            'Icon positions:\n' +
+              prev
+                .map(
+                  (p, i) => `  ${ICONS[i].label}: pos: [${p[0]}, ${p[1]}]`,
+                )
+                .join('\n'),
+          )
+          return prev
+        })
+      }
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', onUp)
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+    }
+  }, [])
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 300)
@@ -95,14 +170,13 @@ export function AboutDesktop() {
       )
       return () => clearTimeout(t)
     }
-    setDone(true)
   }, [typed, loaded])
 
   return (
     <EditableProvider>
-      <section className={styles.screen}>
+      <section className={styles.screen} ref={screenRef}>
         <div className={styles.center}>
-          <div className={styles.frameCard}>
+          <div className={styles.frameCard} ref={frameRef}>
             <div className={styles.photoWrap}>
               <EditableImage
                 id="about-photo"
@@ -112,12 +186,6 @@ export function AboutDesktop() {
                 className={styles.aboutImage}
                 defaults={IMAGE_DEFAULTS}
               />
-              <span className={styles.statusPill} aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff">
-                  <path d="M12 2l2.4 6.5L21 11l-6.6 2.5L12 20l-2.4-6.5L3 11l6.6-2.5z" />
-                </svg>
-                Designer &amp; Strategist
-              </span>
             </div>
 
             <div className={styles.captionBar}>
@@ -127,18 +195,32 @@ export function AboutDesktop() {
                 className={styles.intro}
                 defaults={TEXT_DEFAULTS}
               >
-                {typed}
-                {!done && <span className={styles.caret} aria-hidden="true" />}
+                {/* Invisible full text reserves the final height so the box
+                    doesn't grow (and shove the photo) while typing. */}
+                <span className={styles.introSizer} aria-hidden="true">
+                  {INTRO_TEXT}
+                </span>
+                <span className={styles.introTyped}>
+                  {typed}
+                  <span className={styles.caret} aria-hidden="true" />
+                </span>
               </EditableText>
             </div>
 
             <div className={styles.capsuleRail}>
-              {CAPSULES.map(cap => (
+              {CAPSULES.map((cap, i) => (
                 <button
                   key={cap.label}
                   type="button"
                   className={styles.capsule}
-                  style={{ left: `${cap.pos[0]}%`, top: `${cap.pos[1]}%` }}
+                  style={{ left: `${capPos[i][0]}%`, top: `${capPos[i][1]}%` }}
+                  onPointerDown={
+                    import.meta.env.DEV
+                      ? () => {
+                          dragCap.current = i
+                        }
+                      : undefined
+                  }
                 >
                   {cap.label}
                 </button>
@@ -148,16 +230,18 @@ export function AboutDesktop() {
         </div>
 
         <div className={styles.iconLayer}>
-          {ICONS.map(item => (
+          {ICONS.map((item, i) => (
             <button
               key={item.label}
               type="button"
               className={styles.item}
-              style={
-                {
-                  '--x': `${item.pos[0]}%`,
-                  '--y': `${item.pos[1]}%`,
-                } as React.CSSProperties
+              style={{ left: `${iconPos[i][0]}%`, top: `${iconPos[i][1]}%` }}
+              onPointerDown={
+                import.meta.env.DEV
+                  ? () => {
+                      dragIcon.current = i
+                    }
+                  : undefined
               }
             >
               <span className={styles.tile} aria-hidden="true">

@@ -35,8 +35,8 @@
   width: 338px;
   padding: 14px;
   background-color: rgba(255, 102, 0, 0.16);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 30px;
   box-shadow: 0 28px 70px rgba(255, 102, 0, 0.22);
@@ -59,28 +59,6 @@
   object-fit: cover;
 }
 
-/* Little status pill in the top-left corner of the photo. */
-.statusPill {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
-  background-color: rgba(255, 102, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 999px;
-  font-family: var(--font-body);
-  font-size: 0.74rem;
-  font-weight: 500;
-  line-height: 1;
-  color: #fff;
-  white-space: nowrap;
-}
-
 /* Frosted "prompt" bar at the bottom of the frame, holding the intro text. */
 .captionBar {
   display: flex;
@@ -93,6 +71,7 @@
 }
 
 .intro {
+  position: relative;
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 14px;
@@ -102,6 +81,19 @@
   text-align: left;
   width: 100% !important;
   height: auto !important;
+}
+
+/* Invisible copy of the full text; reserves the final box height so the
+   frame never grows while the typewriter runs. */
+.introSizer {
+  display: block;
+  visibility: hidden;
+}
+
+/* The actual typed text, overlaid on top of the reserved space. */
+.introTyped {
+  position: absolute;
+  inset: 0;
 }
 
 .caret {
@@ -124,11 +116,9 @@
   display: contents;
 }
 
-/* Desktop-style shortcut icons */
+/* Desktop-style shortcut icons (left/top set inline from state) */
 .item {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
   transform: translate(-50%, -50%);
   z-index: 3;
   display: flex;
@@ -274,12 +264,12 @@
     height: 320px !important;
     object-fit: cover;
   }
-  /* Capsules wrap into a centred row that stacks below the text box. */
+  /* Capsules stack below the text box in two equal columns that fill the
+     frame's width (no left/right gaps). */
   .capsuleRail {
     position: static;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-top: 2px;
     pointer-events: auto;
@@ -289,8 +279,10 @@
     top: auto !important;
     left: auto !important;
     transform: none;
-    padding: 7px 14px;
+    width: 100%;
+    padding: 8px 14px;
     font-size: 0.72rem;
+    text-align: center;
   }
   .capsule:hover {
     transform: translateY(-2px);
@@ -304,8 +296,8 @@
   }
   .item {
     position: static;
-    left: auto;
-    top: auto;
+    left: auto !important;
+    top: auto !important;
     transform: none;
     width: 130px;
   }
