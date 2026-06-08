@@ -35,6 +35,14 @@ const projects = [
     image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.webp',
     x: '100%', y: '50%',
   },
+  {
+    slug: 'https://legacy.mrinaljadhav.com/kaaro',
+    title: 'Kaaro',
+    description: 'Branding, strategy and product design for a handcrafted jewelry brand.',
+    tags: ['Brand Identity', 'Brand Strategy', 'Market Research', 'Logo Design', 'Jewelry Design', 'Photography'],
+    image: '/images/kaaro.webp',
+    x: '50%', y: '50%',
+  },
 ]
 
 export function FeaturedWorks() {
