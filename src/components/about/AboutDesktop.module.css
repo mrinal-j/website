@@ -4,317 +4,118 @@
   min-height: 100vh;
   background-color: #fff;
   overflow: hidden;
-}
-
-/* Centered image + intro text */
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  max-width: 720px;
-  padding: 0 24px;
-  text-align: center;
-}
-
-/* Frosted-glass frame that holds the photo, caption bar and capsules. */
-.frameCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex-shrink: 0;
-  /* Hug the photo (310px) + padding so the caption wraps inside the frame
-     instead of stretching it to the text's natural width. */
-  width: 338px;
-  padding: 14px;
-  background-color: rgba(255, 102, 0, 0.16);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 30px;
-  box-shadow: 0 28px 70px rgba(255, 102, 0, 0.22);
-}
-
-/* Wraps the photo so the status pill can sit over it; rounds the corners. */
-.photoWrap {
-  position: relative;
-  flex-shrink: 0;
-  border-radius: 18px;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.aboutImage {
-  display: block;
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Frosted "prompt" bar at the bottom of the frame, holding the intro text. */
-.captionBar {
-  display: flex;
-  padding: 13px 16px;
-  background-color: rgba(255, 250, 245, 0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 18px;
-}
-
-.intro {
-  position: relative;
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 150%;
-  color: #2a2320;
-  margin: 0;
-  text-align: left;
-  width: 100% !important;
-  height: auto !important;
-}
-
-/* Invisible copy of the full text; reserves the final box height so the
-   frame never grows while the typewriter runs. */
-.introSizer {
-  display: block;
-  visibility: hidden;
-}
-
-/* The actual typed text, overlaid on top of the reserved space. */
-.introTyped {
-  position: absolute;
-  inset: 0;
-}
-
-.caret {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: currentColor;
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: aboutCaretBlink 1s steps(2) infinite;
-}
-
-@keyframes aboutCaretBlink {
-  to { opacity: 0; }
-}
-
-/* On desktop the wrapper is invisible so the icons position freely; on
-   mobile it becomes a flex row (see media query). */
-.iconLayer {
-  display: contents;
-}
-
-/* Desktop-style shortcut icons (left/top set inline from state) */
-.item {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 130px;
-  padding: 8px;
-  background: none;
-  border: none;
-  color: #000;
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.item:hover {
-  color: var(--color-orange);
-  transform: translate(-50%, calc(-50% - 4px));
-}
-
-/* Layered icon tile: solid orange square + frosted glass square */
-.tile {
-  position: relative;
-  width: 62px;
-  height: 62px;
-}
-
-.solidBox,
-.glassBox {
-  position: absolute;
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-}
-
-/* Solid colour square, sitting behind, top-left */
-.solidBox {
-  top: 0;
-  left: 0;
-  background-color: var(--color-orange);
-  transition: transform 0.3s ease;
-}
-
-/* Frosted glass square, in front, bottom-right */
-.glassBox {
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 102, 0, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.25);
-  transition: transform 0.3s ease;
-}
-
-.itemIcon {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 52px;
-  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 120px 48px 80px;
 }
 
-/* On hover, slide the two squares slightly apart for depth */
-.item:hover .solidBox {
-  transform: translate(-3px, -3px);
+/*
+ * Editorial headline layout:
+ *   Hi,
+ *   I'm  [photo]  Mrinal!
+ *               body text
+ * The photo spans all three rows so it overlaps the headline, with "I'm"
+ * and "Mrinal!" sharing a line and the body text tucked under "Mrinal!".
+ */
+.stage {
+  display: grid;
+  grid-template-areas:
+    'hi   photo  .'
+    'im   photo  name'
+    '.    photo  body';
+  grid-template-columns: auto auto minmax(280px, 360px);
+  grid-template-rows: auto auto auto;
+  column-gap: 36px;
+  row-gap: 6px;
+  align-items: center;
+  width: 100%;
+  max-width: 1120px;
 }
 
-.item:hover .glassBox {
-  transform: translate(3px, 3px);
-}
-
-.itemLabel {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  text-align: center;
-}
-
-/* Overlay layer matching the frame, so capsules anchor to the frame box. */
-.capsuleRail {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-/* Frosted-glass skill capsules scattered around the photo frame. */
-.capsule {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 4;
-  pointer-events: auto;
-  background-color: rgba(255, 102, 0, 0.42);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(255, 102, 0, 0.28);
-  padding: 10px 22px;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #fff;
+/* Big display words */
+.word {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--color-orange);
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
   white-space: nowrap;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
-.capsule:hover {
-  background-color: rgba(255, 102, 0, 0.58);
-  box-shadow: 0 10px 28px rgba(255, 102, 0, 0.36);
-  transform: translate(-50%, calc(-50% - 2px));
+.hi {
+  grid-area: hi;
+  align-self: end;
+  justify-self: start;
 }
 
-/* On smaller screens the framed card is too tall to scatter things around,
-   so the page flows top-to-bottom: frame (with capsules stacked below the
-   text), then the shortcut icons in a centred row. */
+.im {
+  grid-area: im;
+  align-self: center;
+  justify-self: start;
+}
+
+.name {
+  grid-area: name;
+  align-self: center;
+  justify-self: start;
+}
+
+.photo {
+  grid-area: photo;
+  display: block;
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  align-self: center;
+  justify-self: center;
+}
+
+.body {
+  grid-area: body;
+  align-self: start;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1a1a1a;
+}
+
+/* Stack everything on smaller screens */
 @media (max-width: 900px) {
   .screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    min-height: 100vh;
-    padding: 120px 16px 64px;
-    overflow: visible;
+    padding: 120px 24px 64px;
   }
-  .center {
-    position: static;
-    transform: none;
-    width: auto;
-    max-width: none;
-    padding: 0;
-  }
-  .frameCard {
-    width: min(360px, 90vw);
-  }
-  .aboutImage {
-    width: 100% !important;
-    height: 320px !important;
-    object-fit: cover;
-  }
-  /* Capsules stack below the text box in two equal columns that fill the
-     frame's width (no left/right gaps). */
-  .capsuleRail {
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 2px;
-    pointer-events: auto;
-  }
-  .capsule {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none;
-    width: 100%;
-    padding: 8px 14px;
-    font-size: 0.72rem;
+  .stage {
+    grid-template-areas:
+      'hi'
+      'im'
+      'name'
+      'photo'
+      'body';
+    grid-template-columns: minmax(0, 360px);
+    justify-content: center;
+    justify-items: center;
+    row-gap: 4px;
     text-align: center;
   }
-  .capsule:hover {
-    transform: translateY(-2px);
+  .word {
+    font-size: clamp(3rem, 16vw, 5rem);
+    white-space: normal;
   }
-  /* Shortcut icons flow into a centred wrapped row below the frame. */
-  .iconLayer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px 28px;
+  .hi,
+  .im,
+  .name {
+    justify-self: center;
+    align-self: auto;
   }
-  .item {
-    position: static;
-    left: auto !important;
-    top: auto !important;
-    transform: none;
-    width: 130px;
+  .photo {
+    margin: 20px 0;
   }
-  .item:hover {
-    transform: translateY(-4px);
-  }
-  .tile {
-    width: 56px;
-    height: 56px;
-  }
-  .solidBox,
-  .glassBox,
-  .itemIcon {
-    width: 46px;
-    height: 46px;
-  }
-  .itemLabel {
-    font-size: 0.8rem;
+  .body {
+    text-align: center;
   }
 }
