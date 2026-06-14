@@ -26,10 +26,42 @@ function KaaroPage() {
   // under the navbar as one group, so they stay stacked with no gap while the
   // tall photo pans through the frame. Once the image reaches its end, the
   // whole group releases and the page scrolls normally again.
+  const mainRef = useRef<HTMLElement>(null)
   const bannerWrapRef = useRef<HTMLDivElement>(null)
   const bannerStickyRef = useRef<HTMLDivElement>(null)
   const bannerFrameRef = useRef<HTMLDivElement>(null)
   const bannerImgRef = useRef<HTMLImageElement>(null)
+
+  // Scroll-triggered reveal: each top-level section fades and rises as it
+  // enters the viewport. The banner is a <div> (not a <section>), so it keeps
+  // its own pin-and-pan behavior and is skipped here.
+  useEffect(() => {
+    const main = mainRef.current
+    if (!main) return
+    const sections = Array.from(
+      main.querySelectorAll(':scope > section'),
+    ) as HTMLElement[]
+
+    // Respect users who prefer reduced motion — just show everything.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      sections.forEach((el) => el.classList.add(k.revealVisible))
+      return
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(k.revealVisible)
+            io.unobserve(entry.target) // reveal once, then stop watching
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -8% 0px' },
+    )
+    sections.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
 
   useEffect(() => {
     const wrap = bannerWrapRef.current
@@ -83,7 +115,7 @@ function KaaroPage() {
   return (
     <>
       <Navbar alwaysVisible />
-      <main className={`${s.page} ${k.kaaro}`}>
+      <main ref={mainRef} className={`${s.page} ${k.kaaro} ${k.revealRoot}`}>
         {/* Hero */}
         <section className={s.hero}>
           <div className={s.heroHeader}>
@@ -149,9 +181,6 @@ function KaaroPage() {
 
         {/* Brand statement */}
         <section className={k.statement}>
-          <h2 className={k.statementText}>
-            Handcrafted, tasteful, and designed to last.
-          </h2>
           <p className={k.statementLede}>
             Founded in 2020 by two design students, Kaaro was shaped end to end:
             naming, identity, product, packaging and the social presence that built a community.
