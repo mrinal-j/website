@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useRef } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
@@ -21,6 +22,64 @@ export const Route = createFileRoute('/kaaro')({
 })
 
 function KaaroPage() {
+  // Banner "pin and pan": the image frame AND the grey info box pin together
+  // under the navbar as one group, so they stay stacked with no gap while the
+  // tall photo pans through the frame. Once the image reaches its end, the
+  // whole group releases and the page scrolls normally again.
+  const bannerWrapRef = useRef<HTMLDivElement>(null)
+  const bannerStickyRef = useRef<HTMLDivElement>(null)
+  const bannerFrameRef = useRef<HTMLDivElement>(null)
+  const bannerImgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const wrap = bannerWrapRef.current
+    const sticky = bannerStickyRef.current
+    const frame = bannerFrameRef.current
+    const img = bannerImgRef.current
+    if (!wrap || !sticky || !frame || !img) return
+
+    const NAV = 60 // fixed navbar height the group pins beneath
+    let maxTravel = 0
+
+    const onScroll = () => {
+      if (maxTravel <= 0) {
+        img.style.transform = 'translateY(0)'
+        return
+      }
+      const top = wrap.getBoundingClientRect().top
+      const progress = Math.min(1, Math.max(0, (NAV - top) / maxTravel))
+      img.style.transform = `translateY(${-progress * maxTravel}px)`
+    }
+
+    const measure = () => {
+      // Clear any inline height so we read the CSS-defined band height first.
+      frame.style.height = ''
+      const cssFrameH = frame.offsetHeight
+      const imgH = img.offsetHeight
+      // Never let the frame be taller than the image (avoids empty space when
+      // the photo is short, e.g. on narrow screens).
+      const frameH = Math.min(cssFrameH, imgH)
+      frame.style.height = `${frameH}px`
+      maxTravel = Math.max(0, imgH - frameH)
+      // Wrapper = pinned group height + the panning distance. The extra space
+      // is the scroll the pin consumes, and it sits BELOW the whole group so
+      // the image and info box never separate.
+      wrap.style.height = `${sticky.offsetHeight + maxTravel}px`
+      onScroll()
+    }
+
+    if (img.complete) measure()
+    else img.addEventListener('load', measure)
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', measure)
+    return () => {
+      img.removeEventListener('load', measure)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', measure)
+    }
+  }, [])
+
   return (
     <>
       <Navbar alwaysVisible />
@@ -35,52 +94,68 @@ function KaaroPage() {
               <p>Branding, strategy and product design for a handcrafted jewelry brand.</p>
             </div>
           </div>
-          <div className={s.heroImage}>
-            <img src="/images/kaaro_banner.JPG" alt="Kaaro handcrafted jewelry" />
-          </div>
         </section>
 
-        {/* Metadata Grid */}
-        <section className={s.metaGrid}>
-          <div className={s.metaCell}>
-            <span className={s.metaLabel}>Role</span>
-            <span className={s.metaValue}>Co-founder,{'\n'}Brand & Product Design</span>
+        {/* Banner + metadata — pin together as one group while the photo pans */}
+        <div className={k.bannerScrollWrap} ref={bannerWrapRef}>
+          <div className={k.bannerSticky} ref={bannerStickyRef}>
+            <div className={k.bannerFrame} ref={bannerFrameRef}>
+              <img
+                ref={bannerImgRef}
+                className={k.bannerImg}
+                src="/images/kaaro_banner.JPG"
+                alt="Kaaro handcrafted jewelry"
+              />
+            </div>
+
+            {/* Metadata Grid */}
+            <section className={s.metaGrid}>
+              <div className={s.metaCell}>
+                <span className={s.metaLabel}>Role</span>
+                <span className={s.metaValue}>Co-founder,{'\n'}Brand & Product Design</span>
+              </div>
+              <div className={s.metaCell}>
+                <span className={s.metaLabel}>Skills / Tools</span>
+                <span className={s.metaValue}>Brand Identity, Brand Strategy, Market Research, Logo Design, Jewelry Design, Photography, Adobe CC</span>
+              </div>
+              <div className={s.metaCell}>
+                <span className={s.metaLabel}>Timeline</span>
+                <span className={s.metaValue}>2 years{'\n'}(founded 2020)</span>
+              </div>
+              <div className={`${s.metaCell} ${s.metaCellLast}`}>
+                <span className={s.metaLabel}>Team</span>
+                <span className={s.metaValue}>2 co-founders —{'\n'}Mrinal Jadhav & Richa Premkumar</span>
+              </div>
+            </section>
           </div>
-          <div className={s.metaCell}>
-            <span className={s.metaLabel}>Skills / Tools</span>
-            <span className={s.metaValue}>Brand Identity, Brand Strategy, Market Research, Logo Design, Jewelry Design, Photography, Adobe CC</span>
-          </div>
-          <div className={s.metaCell}>
-            <span className={s.metaLabel}>Timeline</span>
-            <span className={s.metaValue}>2 years{'\n'}(founded 2020)</span>
-          </div>
-          <div className={`${s.metaCell} ${s.metaCellLast}`}>
-            <span className={s.metaLabel}>Team</span>
-            <span className={s.metaValue}>2 co-founders —{'\n'}Mrinal Jadhav & Richa Premkumar</span>
-          </div>
-        </section>
+        </div>
 
         {/* Overview */}
-        <section className={s.overview}>
-          <SectionLabel title="OVERVIEW" />
-          <div className={s.overviewGrid}>
-            <h2 className={s.overviewHeading}>
-              Kaaro is a handcrafted jewelry brand that blends modern and traditional elements.
-            </h2>
-            <p className={s.overviewBody}>
-              Created by two NIFT Bengaluru students, Kaaro offers unique, affordable, and versatile
-              accessories — handcrafted pieces designed to fill a gap in the market for urban Indian
-              consumers across diverse, everyday settings.
-            </p>
+        <section className={k.overviewSection}>
+          <div className={k.overviewLabelWrap}>
+            <SectionLabel title="OVERVIEW" />
           </div>
+          <figure className={k.overviewFigure}>
+            <img
+              className={k.overviewImg}
+              src="/images/kaaro_headline.png"
+              alt="A model wearing Kaaro jewelry in a garden"
+            />
+            <figcaption className={k.overviewCaption}>
+              Accessories that are handcrafted,<br />tasteful, and designed to last.
+            </figcaption>
+          </figure>
         </section>
 
         {/* Brand statement */}
         <section className={k.statement}>
           <h2 className={k.statementText}>
-            Accessories that seamlessly blend <em>modern</em> and <em>traditional</em> elements —
-            handcrafted, tasteful, and made to last.
+            Handcrafted, tasteful, and designed to last.
           </h2>
+          <p className={k.statementLede}>
+            Founded in 2020 by two design students, Kaaro was shaped end to end:
+            naming, identity, product, packaging and the social presence that built a community.
+          </p>
         </section>
 
         {/* Challenges */}
