@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /kaaro
+Disallow: /about

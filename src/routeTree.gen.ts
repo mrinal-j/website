@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as KaaroRouteImport } from './routes/kaaro'
 import { Route as InTheLoopRouteImport } from './routes/in-the-loop'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const KaaroRoute = KaaroRouteImport.update({
+  id: '/kaaro',
+  path: '/kaaro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InTheLoopRoute = InTheLoopRouteImport.update({
   id: '/in-the-loop',
   path: '/in-the-loop',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/kaaro': typeof KaaroRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/kaaro': typeof KaaroRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/kaaro': typeof KaaroRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/in-the-loop'
+  fullPaths: '/' | '/about' | '/in-the-loop' | '/kaaro'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/in-the-loop'
-  id: '__root__' | '/' | '/about' | '/in-the-loop'
+  to: '/' | '/about' | '/in-the-loop' | '/kaaro'
+  id: '__root__' | '/' | '/about' | '/in-the-loop' | '/kaaro'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   InTheLoopRoute: typeof InTheLoopRoute
+  KaaroRoute: typeof KaaroRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/kaaro': {
+      id: '/kaaro'
+      path: '/kaaro'
+      fullPath: '/kaaro'
+      preLoaderRoute: typeof KaaroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/in-the-loop': {
       id: '/in-the-loop'
       path: '/in-the-loop'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   InTheLoopRoute: InTheLoopRoute,
+  KaaroRoute: KaaroRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

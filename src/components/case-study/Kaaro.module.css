@@ -1,0 +1,347 @@
+/* ============================================================
+   KAARO — case-study-specific sections
+   These build on the shared layout in InTheLoop.module.css
+   (hero, metadata grid, overview, dark results section) and
+   add the pieces unique to Kaaro: challenges, brand values,
+   visual identity, colour palette, and brand strategy.
+
+   Brand accents:
+     --kaaro-teal: deep enso green   (#0F4747)
+     --kaaro-gold: warm metallic gold (#C9B866)
+   ============================================================ */
+.kaaro {
+  --kaaro-teal: #0F4747;
+  --kaaro-gold: #C9B866;
+  --kaaro-cream: #FFFFF1;
+}
+
+/* ---- Centered brand statement (sits below the overview) ---- */
+.statement {
+  padding: 64px var(--page-side-padding) 72px;
+  background-color: var(--bg-primary);
+}
+
+.statementText {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.statementText em {
+  font-style: normal;
+  color: var(--kaaro-teal);
+}
+
+/* ============================================================
+   CHALLENGES
+   ============================================================ */
+.section {
+  width: 100%;
+  background-color: var(--bg-primary);
+}
+
+.sectionLabelWrap {
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.sectionIntro {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  padding: 32px var(--page-side-padding) 0;
+  margin: 0;
+  max-width: 760px;
+}
+
+.challengeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.challengeCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.challengeNum {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--kaaro-teal);
+  letter-spacing: 0.04em;
+}
+
+.challengeText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ============================================================
+   BRAND VALUES — capsule pills
+   ============================================================ */
+.valuesSection {
+  padding-bottom: 16px;
+}
+
+.valueCapsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 36px var(--page-side-padding) 0;
+}
+
+.valueCapsule {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--kaaro-cream);
+  background: var(--kaaro-teal);
+  padding: 10px 24px;
+  border-radius: 100px;
+}
+
+/* ---- Target market line ---- */
+.targetRow {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 48px var(--page-side-padding) 0;
+}
+
+.targetLabel {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.targetValue {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 130%;
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   VISUAL IDENTITY — logo + meaning
+   ============================================================ */
+.visualContent {
+  display: flex;
+  gap: 48px;
+  padding: 40px var(--page-side-padding) 0;
+  align-items: center;
+}
+
+.visualLogo {
+  flex-shrink: 0;
+  width: 220px;
+  height: 220px;
+  border-radius: 16px;
+  background: var(--kaaro-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border: 1px solid var(--border-light);
+}
+
+.visualLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.visualText {
+  flex: 1;
+  min-width: 0;
+}
+
+.visualHeadline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+}
+
+.visualBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 170%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ============================================================
+   COLOUR PALETTE
+   ============================================================ */
+.paletteRow {
+  display: flex;
+  gap: 20px;
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.swatch {
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.swatchColor {
+  height: 160px;
+  width: 100%;
+}
+
+.swatchHex {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+}
+
+/* ============================================================
+   BRAND STRATEGY
+   ============================================================ */
+.strategyRow {
+  display: flex;
+  gap: 0;
+  padding: 40px var(--page-side-padding) 0;
+}
+
+.strategyCard {
+  flex: 1;
+  padding: 8px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-right: 1px solid var(--border-light);
+}
+
+.strategyCard:first-child {
+  padding-left: 0;
+}
+
+.strategyCard:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.strategyNum {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--kaaro-gold);
+}
+
+.strategyTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  margin: 4px 0 0;
+}
+
+.strategyDesc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ============================================================
+   RESULTS — dark stats band
+   ============================================================ */
+.resultsStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin: 48px 0 0;
+}
+
+.resultStat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.resultNum {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 3.25rem;
+  line-height: 1;
+  color: var(--kaaro-gold);
+}
+
+.resultLabel {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1199px) {
+  .challengeGrid { grid-template-columns: repeat(2, 1fr); }
+  .visualLogo { width: 180px; height: 180px; }
+  .resultsStats { grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
+}
+
+@media (max-width: 767px) {
+  .statementText { font-size: 1.5rem; }
+  .challengeGrid { grid-template-columns: 1fr; padding: 28px var(--page-side-padding) 0; }
+  .valueCapsules { padding: 28px var(--page-side-padding) 0; }
+  .targetValue { font-size: 1.25rem; }
+  .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
+  .visualLogo { width: 160px; height: 160px; }
+  .visualHeadline { font-size: 1.5rem; }
+  .paletteRow { flex-direction: column; }
+  .swatchColor { height: 120px; }
+  .strategyRow { flex-direction: column; }
+  .strategyCard {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding: 24px 0;
+  }
+  .strategyCard:last-child { border-bottom: none; }
+  .resultsStats { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+  .resultNum { font-size: 2.5rem; }
+}
