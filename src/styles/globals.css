@@ -101,6 +101,32 @@ main > * + * {
   margin-top: 20px;
 }
 
+/* ============================================================
+   Scroll-triggered reveal — fade & rise top-level <section>s as
+   they enter the viewport. Add the `reveal-root` class to the
+   container and drive it with the useScrollReveal hook, which adds
+   `is-revealed` to each section once it scrolls into view.
+   ============================================================ */
+.reveal-root > section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-root > section.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-root > section {
+    transition: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -5,6 +5,7 @@ import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
 import { DraggableCardStack } from '~/components/case-study/DraggableCardStack'
+import { useScrollReveal } from '~/hooks/useScrollReveal'
 import styles from '~/components/case-study/InTheLoop.module.css'
 
 export const Route = createFileRoute('/in-the-loop')({
@@ -18,6 +19,8 @@ export const Route = createFileRoute('/in-the-loop')({
 })
 
 function InTheLoopPage() {
+  const mainRef = useRef<HTMLElement>(null)
+  useScrollReveal(mainRef)
   const matrixRef = useRef<HTMLDivElement>(null)
   const featuresSectionRef = useRef<HTMLElement>(null)
   const phoneScreenImgRef = useRef<HTMLImageElement>(null)
@@ -123,7 +126,7 @@ function InTheLoopPage() {
   return (
     <>
       <Navbar alwaysVisible />
-      <main className={styles.page}>
+      <main ref={mainRef} className={`${styles.page} reveal-root`}>
         {/* Hero */}
         <section className={styles.hero}>
           <div className={styles.heroHeader}>

@@ -4,6 +4,7 @@ import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
+import { useScrollReveal } from '~/hooks/useScrollReveal'
 import s from '~/components/case-study/InTheLoop.module.css'
 import k from '~/components/case-study/Kaaro.module.css'
 
@@ -34,34 +35,8 @@ function KaaroPage() {
 
   // Scroll-triggered reveal: each top-level section fades and rises as it
   // enters the viewport. The banner is a <div> (not a <section>), so it keeps
-  // its own pin-and-pan behavior and is skipped here.
-  useEffect(() => {
-    const main = mainRef.current
-    if (!main) return
-    const sections = Array.from(
-      main.querySelectorAll(':scope > section'),
-    ) as HTMLElement[]
-
-    // Respect users who prefer reduced motion — just show everything.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      sections.forEach((el) => el.classList.add(k.revealVisible))
-      return
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(k.revealVisible)
-            io.unobserve(entry.target) // reveal once, then stop watching
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -8% 0px' },
-    )
-    sections.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-  }, [])
+  // its own pin-and-pan behavior and is skipped.
+  useScrollReveal(mainRef)
 
   useEffect(() => {
     const wrap = bannerWrapRef.current
@@ -115,7 +90,7 @@ function KaaroPage() {
   return (
     <>
       <Navbar alwaysVisible />
-      <main ref={mainRef} className={`${s.page} ${k.kaaro} ${k.revealRoot}`}>
+      <main ref={mainRef} className={`${s.page} ${k.kaaro} reveal-root`}>
         {/* Hero */}
         <section className={s.hero}>
           <div className={s.heroHeader}>

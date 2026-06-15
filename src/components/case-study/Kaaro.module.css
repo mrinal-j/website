@@ -16,31 +16,6 @@
 }
 
 /* ============================================================
-   SCROLL REVEAL — fade-and-rise as each top-level section enters
-   the viewport. The banner group is a <div>, so it is not matched
-   here and keeps its own pin-and-pan motion.
-   ============================================================ */
-.revealRoot > section {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.7s ease,
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
-}
-
-.revealRoot > section.revealVisible {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .revealRoot > section {
-    transition: none;
-  }
-}
-
-/* ============================================================
    BANNER — pin & pan
    The wrapper gives the scroll distance; the frame sticks under the
    navbar while the tall photo pans through it (translateY driven by
