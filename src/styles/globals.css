@@ -127,6 +127,44 @@ main > * + * {
   }
 }
 
+/* ------------------------------------------------------------
+   Finer variant: reveals the individual blocks INSIDE each
+   section (headings, rows, cards, images) so the page reveals
+   piece-by-piece. Direct-child <div>s (e.g. pinned/sticky scroll
+   blocks) fade only — no transform — so their sticky behaviour
+   keeps working.
+   ------------------------------------------------------------ */
+.reveal-fine > section > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-fine > section > .is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-fine > div {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  will-change: opacity;
+}
+
+.reveal-fine > div.is-revealed {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fine > section > *,
+  .reveal-fine > div {
+    transition: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

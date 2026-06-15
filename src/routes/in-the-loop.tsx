@@ -8,6 +8,11 @@ import { DraggableCardStack } from '~/components/case-study/DraggableCardStack'
 import { useScrollReveal } from '~/hooks/useScrollReveal'
 import styles from '~/components/case-study/InTheLoop.module.css'
 
+// Reveal the individual blocks inside each section (rise + fade), plus the
+// pinned phone "Key Features" wrappers (fade only). Module-level constant so the
+// array reference stays stable across renders.
+const REVEAL_SELECTORS = [':scope > section > *', ':scope > div']
+
 export const Route = createFileRoute('/in-the-loop')({
   head: () => ({
     meta: [
@@ -20,7 +25,7 @@ export const Route = createFileRoute('/in-the-loop')({
 
 function InTheLoopPage() {
   const mainRef = useRef<HTMLElement>(null)
-  useScrollReveal(mainRef)
+  useScrollReveal(mainRef, { selectors: REVEAL_SELECTORS, stagger: 70 })
   const matrixRef = useRef<HTMLDivElement>(null)
   const featuresSectionRef = useRef<HTMLElement>(null)
   const phoneScreenImgRef = useRef<HTMLImageElement>(null)
@@ -126,7 +131,7 @@ function InTheLoopPage() {
   return (
     <>
       <Navbar alwaysVisible />
-      <main ref={mainRef} className={`${styles.page} reveal-root`}>
+      <main ref={mainRef} className={`${styles.page} reveal-fine`}>
         {/* Hero */}
         <section className={styles.hero}>
           <div className={styles.heroHeader}>
