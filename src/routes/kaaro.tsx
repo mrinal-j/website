@@ -157,8 +157,10 @@ function KaaroPage() {
         {/* Brand statement */}
         <section className={k.statement}>
           <p className={k.statementLede}>
-            Founded in 2020 by two design students, Kaaro was shaped end to end:
-            naming, identity, product, packaging and the social presence that built a community.
+            Founded in 2020, Kaaro creates unique, affordable and versatile accessories
+            that blend modern and traditional elements for Urban Indian women. It was
+            shaped end to end: naming, identity, product, packaging and the social
+            presence that built a community.
           </p>
         </section>
 
@@ -167,22 +169,82 @@ function KaaroPage() {
           <div className={k.sectionLabelWrap}>
             <SectionLabel title="CHALLENGES" />
           </div>
-          <p className={k.sectionIntro}>
-            Launching a small jewelry brand meant standing out in a crowded, fast-moving market.
+          <p className={`${k.sectionIntro} ${k.sectionIntroWide}`}>
+            The Instagram small-business boom during COVID flooded the market with
+            handmade jewelry.
+            <br />
+            To survive, Kaaro focused on fixing three main things:
           </p>
           <div className={k.challengeGrid}>
             {[
-              'Market saturation limiting distinctiveness',
-              'Rapidly evolving fashion trends',
-              'A crowded Instagram small-business marketplace',
-              'Authenticity concerns amid a flood of small businesses',
-              'Social media visibility obstacles',
-            ].map((text, i) => (
-              <div key={i} className={k.challengeCard}>
-                <span className={k.challengeNum}>{String(i + 1).padStart(2, '0')}</span>
-                <p className={k.challengeText}>{text}</p>
-              </div>
-            ))}
+              // imgPos moves the visible part of each photo up or down:
+              // '50% 0%' shows the TOP of the photo, '50% 100%' the BOTTOM,
+              // '50% 50%' the middle. Only change the SECOND number.
+              {
+                title: 'Distinction',
+                desc: 'In a saturated feed of similar products, the brand needed an identity that was instantly its own, not another minimalist label.',
+                img: '/images/kaaro_01.png',
+                imgPos: '50% 30%',
+                flip: false,
+              },
+              {
+                title: 'Authenticity',
+                desc: 'With thousands of small businesses launching at once, buyers were skeptical. Kaaro had to prove genuine story and craft and build trust.',
+                img: '/images/kaaro_02.jpg',
+                imgPos: '50% 50%',
+                flip: true, // middle card: image on top, icon + number at the bottom
+              },
+              {
+                title: 'Visibility',
+                desc: 'Growth of the brand depended on a strategic, creative presence both online and offline, building a community of customers.',
+                img: '/images/kaaro_03.png',
+                imgPos: '50% 60%',
+                flip: false,
+              },
+            ].map((item, i) => {
+              const iconRow = (
+                <div className={k.challengeTop}>
+                  <img
+                    className={k.challengeIcon}
+                    src="/images/kaaro_gingko.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span className={k.challengeNum}>{String(i + 1).padStart(2, '0')}</span>
+                </div>
+              )
+              const photo = (
+                <img
+                  className={`${k.challengeImg} ${item.flip ? '' : k.challengeImgBottom}`}
+                  src={item.img}
+                  style={{ objectPosition: item.imgPos }}
+                  alt=""
+                  aria-hidden="true"
+                />
+              )
+              // The coloured text block gets its own curved edge where it
+              // meets the photo (bottom corners normally, top corners when
+              // the card is flipped).
+              const body = item.flip ? (
+                <div className={`${k.challengeBody} ${k.challengeBodyFlip}`}>
+                  <h4 className={k.challengeTitle}>{item.title}</h4>
+                  <p className={k.challengeText}>{item.desc}</p>
+                  {iconRow}
+                </div>
+              ) : (
+                <div className={k.challengeBody}>
+                  {iconRow}
+                  <h4 className={k.challengeTitle}>{item.title}</h4>
+                  <p className={k.challengeText}>{item.desc}</p>
+                </div>
+              )
+              return (
+                <div key={i} className={k.challengeCard}>
+                  {item.flip ? photo : body}
+                  {item.flip ? body : photo}
+                </div>
+              )
+            })}
           </div>
         </section>
 

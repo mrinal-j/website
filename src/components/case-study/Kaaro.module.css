@@ -163,38 +163,121 @@
   max-width: 760px;
 }
 
+/* Wider variant for longer intros that should wrap in two lines, not three. */
+.sectionIntroWide {
+  max-width: 1160px;
+}
+
 .challengeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
   padding: 40px var(--page-side-padding) 0;
 }
 
+/* Card: rounded corners all around (images clip to them too), a coloured
+   text block with its own curved edge where it meets the photo, and the
+   photo bleeding edge-to-edge. The middle card flips: photo on top,
+   icon row at the bottom of the text block. */
 .challengeCard {
-  background: var(--bg-secondary);
+  background: var(--kaaro-cream); /* #FFFFF1 */
   border: 1px solid var(--border-light);
-  border-radius: 16px;
-  padding: 28px 26px;
+  border-radius: 18px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  overflow: hidden;
+}
+
+/* Coloured text block. It stretches to fill the space above the photo
+   (so the photo sits at the card's bottom), then overlaps it by 18px
+   with rounded bottom corners — giving the curved seam. */
+.challengeBody {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  background: var(--kaaro-cream);
+  border-radius: 0 0 18px 18px;
+  margin-bottom: -18px;
+  padding: 22px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Flipped (middle) card: the text block sits below the photo, so the
+   curved seam moves to its top corners; it fills the remaining height
+   with the icon row pushed to the bottom. */
+.challengeBodyFlip {
+  border-radius: 18px 18px 0 0;
+  margin-bottom: 0;
+  margin-top: -18px;
+  padding-bottom: 22px;
+  flex: 1;
+}
+
+.challengeBodyFlip .challengeTop {
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: 16px;
+}
+
+/* Ginkgo mark on the left, number vertically centered to it on the right */
+.challengeTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.challengeIcon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .challengeNum {
   font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.35rem;
   color: var(--kaaro-teal);
   letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.challengeTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  color: var(--kaaro-teal);
+  margin: 0;
 }
 
 .challengeText {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 160%;
   color: var(--text-secondary);
   margin: 0;
+}
+
+/* Card photo — the card has no padding, so the photo is naturally
+   edge-to-edge. The text block's curve overlaps it by 18px. */
+.challengeImg {
+  display: block;
+  width: 100%;
+  height: 280px; /* card length extension, all given to the photo */
+  object-fit: cover;
+  /* Nudge the visible crop up/down per card with object-position if needed,
+     e.g. object-position: 50% 30%; (default is 50% 50%). */
+}
+
+/* Standard card: the stretched text block above already pushes the photo
+   to the card's bottom edge, so no extra spacing is needed here. */
+.challengeImgBottom {
+  margin-top: 0;
 }
 
 /* ============================================================
