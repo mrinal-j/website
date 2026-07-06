@@ -248,22 +248,44 @@ function KaaroPage() {
           </div>
         </section>
 
-        {/* Brand Values + Target Market */}
-        <section className={`${k.section} ${k.valuesSection}`} style={{ paddingTop: 64 }}>
+        {/* Target Market — text left, looping photo-album stack right */}
+        <section className={k.section} style={{ paddingTop: 64 }}>
           <div className={k.sectionLabelWrap}>
-            <SectionLabel title="BRAND VALUES" />
+            <SectionLabel title="TARGET MARKET" />
           </div>
-          <p className={k.sectionIntro}>
-            Six principles guide every piece, every photo, and every interaction.
-          </p>
-          <div className={k.valueCapsules}>
-            {['Handcrafted', 'Simplicity', 'Tastefulness', 'Affordability', 'Indo-western elements', 'Elegance'].map((v) => (
-              <span key={v} className={k.valueCapsule}>{v}</span>
-            ))}
+          <div className={k.targetContent}>
+            <p className={k.targetText}>
+              We anchored every decision in a clear audience: those who appreciate
+              craft and design but expect it to stay affordable and wearable. That
+              focus kept the brand from chasing trends and pushed it toward
+              versatile pieces with genuine longevity.
+            </p>
+            <div className={k.albumStack} aria-hidden="true">
+              {/* ?v=3 makes browsers re-download the updated files instead of
+                  using an old cached copy — bump the number if they change again */}
+              <img className={`${k.albumPhoto} ${k.albumPhoto1}`} src="/images/kaaro_target 01.png?v=3" alt="" />
+              <img className={`${k.albumPhoto} ${k.albumPhoto2}`} src="/images/kaaro_target 02.png?v=3" alt="" />
+              <img className={`${k.albumPhoto} ${k.albumPhoto3}`} src="/images/kaaro_target 03.png?v=3" alt="" />
+            </div>
           </div>
-          <div className={k.targetRow}>
-            <span className={k.targetLabel}>Target Market</span>
-            <span className={k.targetValue}>Urban Indian women, ages 18+</span>
+        </section>
+
+        {/* Brand Language & Visual Identity — bento grid.
+            Hovering one tile dims all the others. */}
+        <section className={k.section} style={{ paddingTop: 64 }}>
+          <div className={k.sectionLabelWrap}>
+            <SectionLabel title="BRAND LANGUAGE AND VISUAL IDENTITY" />
+          </div>
+          <div className={k.bentoGrid}>
+            <img className={`${k.bentoImg} ${k.bentoLogo}`} src="/images/Card 1.1 (1×2).png" alt="Kaaro logo card" />
+            <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 3.1 (1×2).png" alt="Jewelry chains flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoGrey}`} src="/images/Card 5.1 (1×2).png" alt="Monochrome jewelry flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoInsta}`} src="/images/Card 2.2 (1×3).png" alt="Instagram post of models in the garden" />
+            <img className={`${k.bentoImg} ${k.bentoTote}`} src="/images/Card 3.1 (1×2)-1.png" alt="Kaaro tote bag" />
+            <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 2.3 (2×3).png" alt="Picnic styling with flowers" />
+            <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3)-1.png" alt="Palm-leaf packaging" />
+            <img className={`${k.bentoImg} ${k.bentoGlass}`} src="/images/Card 2.3 (2×3)-2.png" alt="Glassware still life" />
+            <img className={`${k.bentoImg} ${k.bentoPalette}`} src="/images/Card 5.2 (3×2).png" alt="Kaaro colour palette" />
           </div>
         </section>
 

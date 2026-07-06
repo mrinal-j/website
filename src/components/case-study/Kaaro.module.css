@@ -281,54 +281,132 @@
 }
 
 /* ============================================================
-   BRAND VALUES — capsule pills
+   TARGET MARKET — text left, looping photo-album stack right
    ============================================================ */
-.valuesSection {
-  padding-bottom: 16px;
-}
-
-.valueCapsules {
+.targetContent {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 36px var(--page-side-padding) 0;
+  align-items: center; /* text vertically centered to the album */
+  gap: 56px;
+  padding: 40px var(--page-side-padding) 0;
 }
 
-.valueCapsule {
+.targetText {
+  flex: 1;
+  max-width: 480px;
   font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--kaaro-cream);
-  background: var(--kaaro-teal);
-  padding: 10px 24px;
-  border-radius: 100px;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 170%;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
-/* ---- Target market line ---- */
-.targetRow {
-  display: flex;
-  align-items: baseline;
+/* The album area. Photos are absolutely positioned inside it and fade in
+   one on top of the other, hold, then the whole stack clears and loops. */
+.albumStack {
+  position: relative;
+  flex: 1;
+  max-width: 560px;
+  height: 580px; /* tall enough for the biggest photo — nothing clips */
+}
+
+/* Each photo keeps its natural proportions — nothing is cropped. */
+.albumPhoto {
+  position: absolute;
+  width: 62%;
+  height: auto;
+  opacity: 0;
+  animation-duration: 8s;
+  animation-timing-function: step-end; /* photos snap in/out — no fading */
+  animation-iteration-count: infinite;
+}
+
+/* Per-photo placement — tweak top / left / rotate to taste. */
+.albumPhoto1 {
+  top: 2%;
+  left: 2%;
+  rotate: -5deg;
+  animation-name: albumP1;
+}
+
+.albumPhoto2 {
+  top: 10%;
+  left: 32%;
+  rotate: 3.5deg;
+  animation-name: albumP2;
+}
+
+.albumPhoto3 {
+  top: 24%;
+  left: 15%;
+  rotate: -1.5deg;
+  animation-name: albumP3;
+}
+
+/* 8s cycle: photos snap in ~1.4s apart (no fade), the full stack holds a
+   few seconds, everything disappears together, short empty beat, loop. */
+@keyframes albumP1 {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+@keyframes albumP2 {
+  0% { opacity: 0; }
+  22% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+@keyframes albumP3 {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+/* If the visitor prefers less motion, show the finished stack instead. */
+@media (prefers-reduced-motion: reduce) {
+  .albumPhoto {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   BRAND LANGUAGE & VISUAL IDENTITY — bento grid
+   Column/row proportions follow the reference: three stacked tiles
+   on the left, two tall tiles (insta, glass), and a wide palette
+   strip bottom-right.
+   ============================================================ */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr 1fr 0.67fr;
+  grid-template-rows: 190px 200px 220px;
+  grid-template-areas:
+    'logo  insta picnic  glass'
+    'chain insta pack    glass'
+    'grey  tote  palette palette';
   gap: 16px;
-  flex-wrap: wrap;
-  padding: 48px var(--page-side-padding) 0;
+  padding: 40px var(--page-side-padding) 0;
 }
 
-.targetLabel {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+/* Every tile: cover its cell, with the site's usual image border. */
+.bentoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
 }
 
-.targetValue {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 130%;
-  color: var(--text-primary);
-}
+.bentoLogo { grid-area: logo; }
+.bentoChain { grid-area: chain; }
+.bentoGrey { grid-area: grey; }
+.bentoInsta { grid-area: insta; }
+.bentoTote { grid-area: tote; }
+.bentoPicnic { grid-area: picnic; }
+.bentoPack { grid-area: pack; }
+.bentoGlass { grid-area: glass; }
+.bentoPalette { grid-area: palette; }
 
 /* ============================================================
    VISUAL IDENTITY — logo + meaning
@@ -513,8 +591,23 @@
 @media (max-width: 767px) {
   .statementText { font-size: 1.5rem; }
   .challengeGrid { grid-template-columns: 1fr; padding: 28px var(--page-side-padding) 0; }
-  .valueCapsules { padding: 28px var(--page-side-padding) 0; }
-  .targetValue { font-size: 1.25rem; }
+  .targetContent { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .targetText { max-width: none; }
+  .albumStack { max-width: none; width: 100%; height: 500px; }
+  /* Bento reflows into two columns on small screens. */
+  .bentoGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 150px) 120px;
+    grid-template-areas:
+      'logo   insta'
+      'chain  insta'
+      'picnic glass'
+      'pack   glass'
+      'grey   tote'
+      'palette palette';
+    gap: 12px;
+    padding-top: 28px;
+  }
   .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
   .visualLogo { width: 160px; height: 160px; }
   .visualHeadline { font-size: 1.5rem; }
