@@ -14,12 +14,15 @@
   --page-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
 
   /* Phone mockup position (overrides may live on .highlight too).
-     --phone-x is the distance from the page's left edge to the phone's
+     --phone-x is the distance from the viewport's left edge to the phone's
      left edge — both Overview text and the highlight banner read this so
-     they know where the phone starts. */
+     they know where the phone starts. It's anchored to the content area
+     (side padding + fixed offset) rather than a fixed viewport distance,
+     so the phone travels with the centered content on wide monitors
+     instead of drifting into the text column. */
   --phone-w: 360px;
   --phone-h: 520px;
-  --phone-x: 880px;
+  --phone-x: calc(var(--page-side-padding) + 800px);
 
   /* ▼▼▼  THE KNOB YOU'RE LOOKING FOR  ▼▼▼
      Space between the right edge of the text columns and the phone.

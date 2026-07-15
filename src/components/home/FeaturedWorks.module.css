@@ -1,12 +1,9 @@
 .section {
-  --carousel-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
+  --grid-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
   --card-gap: 20px;
-  --card-peek: 500px;
-  --card-end-padding: 200px;
 
   background-color: var(--bg-primary);
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   padding-top: 60px;
@@ -14,16 +11,14 @@
 }
 
 .fadeWrap {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
   will-change: opacity, transform;
 }
 
 .header {
   position: relative;
-  padding: 36px var(--carousel-side-padding) 24px;
+  padding: 36px var(--grid-side-padding) 24px;
   flex-shrink: 0;
 }
 
@@ -39,66 +34,14 @@
   border: 0;
 }
 
-.carouselContainer {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  min-height: 0;
-}
-
-.scrollArrow {
-  position: absolute;
-  top: 230px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: opacity 0.3s ease, background 0.2s ease;
-  z-index: 10;
-}
-
-.scrollArrow:hover {
-  background: rgba(0, 0, 0, 0.12);
-  color: rgba(0, 0, 0, 0.9);
-}
-
-.carouselViewport {
-  width: 100%;
-  height: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  padding-left: var(--carousel-side-padding);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.carouselViewport::-webkit-scrollbar {
-  display: none;
-}
-
-.carouselTrack {
-  display: flex;
-  flex-direction: row;
-  gap: var(--card-gap);
-  height: 100%;
-}
-
-.trackEndSpacer {
-  flex-shrink: 0;
-  width: var(--card-end-padding);
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px var(--card-gap);
+  padding: 0 var(--grid-side-padding);
 }
 
 .card {
-  width: calc(100vw - var(--carousel-side-padding) - var(--card-peek));
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -192,8 +135,9 @@
   font-size: 11px;
   font-weight: 600;
   color: rgba(0,0,0,0.65);
-  background-color: rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   padding: 4px 12px;
   border-radius: 20px;
   letter-spacing: 0.04em;
@@ -203,38 +147,18 @@
 
 @media (max-width: 767px) {
   .section {
-    --carousel-side-padding: 24px;
-    --card-peek: 36px;
-    height: auto;
-    min-height: 0;
+    --grid-side-padding: 24px;
     padding-top: 40px;
     padding-bottom: 64px;
     margin-bottom: 88px;
   }
 
-  .fadeWrap {
-    flex: none;
-    height: auto;
-    min-height: 0;
+  .header { padding: 24px var(--grid-side-padding) 16px; }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .carouselContainer {
-    flex: none;
-    height: auto;
-    min-height: 0;
-  }
-
-  .carouselViewport {
-    height: auto;
-  }
-
-  .carouselTrack {
-    height: auto;
-  }
-
-  .header { padding: 24px var(--carousel-side-padding) 16px; }
-  .card { width: calc(100vw - var(--carousel-side-padding) - var(--card-peek)); }
   .cardImageWrapper { height: 280px; }
-  .scrollArrow { top: 140px; }
-  .trackEndSpacer { width: 4px; }
 }
