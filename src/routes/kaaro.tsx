@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
@@ -28,6 +28,8 @@ function KaaroPage() {
   // tall photo pans through the frame. Once the image reaches its end, the
   // whole group releases and the page scrolls normally again.
   const mainRef = useRef<HTMLElement>(null)
+  // Brand strategy accordion: which of the three panels is expanded.
+  const [openStrategy, setOpenStrategy] = useState(0)
   const bannerWrapRef = useRef<HTMLDivElement>(null)
   const bannerStickyRef = useRef<HTMLDivElement>(null)
   const bannerFrameRef = useRef<HTMLDivElement>(null)
@@ -110,7 +112,7 @@ function KaaroPage() {
               <img
                 ref={bannerImgRef}
                 className={k.bannerImg}
-                src="/images/kaaro_banner.JPG"
+                src="/images/kaaro_banner.webp"
                 alt="Kaaro handcrafted jewelry"
               />
             </div>
@@ -145,7 +147,7 @@ function KaaroPage() {
           <figure className={k.overviewFigure}>
             <img
               className={k.overviewImg}
-              src="/images/kaaro_headline.png"
+              src="/images/kaaro_headline.webp"
               alt="A model wearing Kaaro jewelry in a garden"
             />
             <figcaption className={k.overviewCaption}>
@@ -183,21 +185,21 @@ function KaaroPage() {
               {
                 title: 'Distinction',
                 desc: 'In a saturated feed of similar products, the brand needed an identity that was instantly its own, not another minimalist label.',
-                img: '/images/kaaro_01.png',
+                img: '/images/kaaro_01.webp',
                 imgPos: '50% 30%',
                 flip: false,
               },
               {
                 title: 'Authenticity',
                 desc: 'With thousands of small businesses launching at once, buyers were skeptical. Kaaro had to prove genuine story and craft and build trust.',
-                img: '/images/kaaro_02.jpg',
+                img: '/images/kaaro_02.webp',
                 imgPos: '50% 50%',
                 flip: true, // middle card: image on top, icon + number at the bottom
               },
               {
                 title: 'Visibility',
                 desc: 'Growth of the brand depended on a strategic, creative presence both online and offline, building a community of customers.',
-                img: '/images/kaaro_03.png',
+                img: '/images/kaaro_03.webp',
                 imgPos: '50% 60%',
                 flip: false,
               },
@@ -206,7 +208,7 @@ function KaaroPage() {
                 <div className={k.challengeTop}>
                   <img
                     className={k.challengeIcon}
-                    src="/images/kaaro_gingko.png"
+                    src="/images/kaaro_gingko.webp"
                     alt=""
                     aria-hidden="true"
                   />
@@ -263,67 +265,48 @@ function KaaroPage() {
             <div className={k.albumStack} aria-hidden="true">
               {/* ?v=3 makes browsers re-download the updated files instead of
                   using an old cached copy — bump the number if they change again */}
-              <img className={`${k.albumPhoto} ${k.albumPhoto1}`} src="/images/kaaro_target 01.png?v=3" alt="" />
-              <img className={`${k.albumPhoto} ${k.albumPhoto2}`} src="/images/kaaro_target 02.png?v=3" alt="" />
-              <img className={`${k.albumPhoto} ${k.albumPhoto3}`} src="/images/kaaro_target 03.png?v=3" alt="" />
+              <img className={`${k.albumPhoto} ${k.albumPhoto1}`} src="/images/kaaro_target 01.webp?v=3" alt="" />
+              <img className={`${k.albumPhoto} ${k.albumPhoto2}`} src="/images/kaaro_target 02.webp?v=3" alt="" />
+              <img className={`${k.albumPhoto} ${k.albumPhoto3}`} src="/images/kaaro_target 03.webp?v=3" alt="" />
             </div>
           </div>
         </section>
 
-        {/* Brand Language & Visual Identity — bento grid.
-            Hovering one tile dims all the others. */}
+        {/* Brand Language & Visual Identity — logo + meaning, then bento grid.
+            Hovering one bento tile dims all the others. */}
         <section className={k.section} style={{ paddingTop: 64 }}>
           <div className={k.sectionLabelWrap}>
             <SectionLabel title="BRAND LANGUAGE AND VISUAL IDENTITY" />
           </div>
-          <div className={k.bentoGrid}>
-            <img className={`${k.bentoImg} ${k.bentoLogo}`} src="/images/Card 1.1 (1×2).png" alt="Kaaro logo card" />
-            <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 3.1 (1×2).png" alt="Jewelry chains flatlay" />
-            <img className={`${k.bentoImg} ${k.bentoGrey}`} src="/images/Card 5.1 (1×2).png" alt="Monochrome jewelry flatlay" />
-            <img className={`${k.bentoImg} ${k.bentoInsta}`} src="/images/Card 2.2 (1×3).png" alt="Instagram post of models in the garden" />
-            <img className={`${k.bentoImg} ${k.bentoTote}`} src="/images/Card 3.1 (1×2)-1.png" alt="Kaaro tote bag" />
-            <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 2.3 (2×3).png" alt="Picnic styling with flowers" />
-            <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3)-1.png" alt="Palm-leaf packaging" />
-            <img className={`${k.bentoImg} ${k.bentoGlass}`} src="/images/Card 2.3 (2×3)-2.png" alt="Glassware still life" />
-            <img className={`${k.bentoImg} ${k.bentoPalette}`} src="/images/Card 5.2 (3×2).png" alt="Kaaro colour palette" />
-          </div>
-        </section>
-
-        {/* Visual Identity */}
-        <section className={k.section} style={{ paddingTop: 64, paddingBottom: 8 }}>
-          <div className={k.sectionLabelWrap}>
-            <SectionLabel title="VISUAL IDENTITY" />
-          </div>
           <div className={k.visualContent}>
-            <div className={k.visualLogo}>
-              <img src="/images/kaaro_logo.png" alt="Kaaro logo" />
-            </div>
             <div className={k.visualText}>
-              <h3 className={k.visualHeadline}>A logo rooted in meaning</h3>
               <p className={k.visualBody}>
-                The mark pairs the Japanese <strong>enso</strong> — symbolizing enlightenment, strength,
-                and the universe's continuous cycle — with <strong>ginkgo leaves</strong>, which stand
-                for resilience and longevity. Together they capture Kaaro's belief that jewelry should
-                be both timeless and personal.
+                The logo mark pairs the Japanese <strong>enso</strong>, symbolizing enlightenment,
+                strength, and the universe's continuous cycle, with <strong>ginkgo leaves</strong>,
+                which stand for resilience and longevity. Together they capture Kaaro's belief that
+                jewelry should be both timeless and personal.
               </p>
             </div>
           </div>
-
-          {/* Colour palette */}
-          <div className={k.sectionLabelWrap} style={{ paddingTop: 56 }}>
-            <SectionLabel title="COLOUR PALETTE" />
-          </div>
-          <div className={k.paletteRow}>
-            {[
-              { hex: '#0F4747' },
-              { hex: '#C9B866' },
-              { hex: '#FFFFF1' },
-            ].map((c) => (
-              <div key={c.hex} className={k.swatch}>
-                <div className={k.swatchColor} style={{ background: c.hex }} />
-                <span className={k.swatchHex}>{c.hex}</span>
-              </div>
+          <div className={k.valueTagRow}>
+            {['Tasteful', 'Simple', 'Elegant', 'Affordable'].map((word) => (
+              <span key={word} className={k.valueTag}>{word}</span>
             ))}
+          </div>
+          <div className={k.bentoGrid}>
+            <img className={`${k.bentoImg} ${k.bentoLogo}`} src="/images/Card 1.1 (1×2).webp" alt="Kaaro logo card" />
+            <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 3.1 (1×2).webp" alt="Jewelry chains flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoGrey}`} src="/images/Card 5.1 (1×2).webp" alt="Monochrome jewelry flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoInsta}`} src="/images/Card 2.2 (1×3).webp" alt="Instagram post of models in the garden" />
+            <img className={`${k.bentoImg} ${k.bentoTote}`} src="/images/Card 3.1 (1×2)-1.webp" alt="Kaaro tote bag" />
+            <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 2.3 (2×3).webp" alt="Picnic styling with flowers" />
+            <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3)-1.webp" alt="Palm-leaf packaging" />
+            <img className={`${k.bentoImg} ${k.bentoGlass}`} src="/images/Card 2.3 (2×3)-2.webp" alt="Glassware still life" />
+            <div className={k.bentoPalette} role="img" aria-label="Kaaro colour palette">
+              <div style={{ background: 'var(--kaaro-teal)' }} />
+              <div style={{ background: 'var(--kaaro-gold)' }} />
+              <div style={{ background: '#1E1E1E' }} />
+            </div>
           </div>
         </section>
 
@@ -333,21 +316,56 @@ function KaaroPage() {
             <SectionLabel title="BRAND STRATEGY" />
           </div>
           <p className={k.sectionIntro}>
-            Four moves to build distinctiveness, trust, and community.
+            Rather than compete on price or volume, Kaaro built differentiation into
+            how it designed, packaged, sold and partnered.
           </p>
-          <div className={k.strategyRow}>
+          {/* Expanding panels: the open panel shows its content and media,
+              the other two collapse into numbered strips. Click to switch.
+              To add media to a panel, put file paths in its `media` array —
+              images ('/images/foo.png') or videos ('/images/foo.mp4') both
+              work. While `media` is empty, dashed placeholder boxes show. */}
+          <div className={k.strategyAccordion}>
             {[
-              { title: 'Innovative Branding', desc: 'Creative packaging and consistent design innovation that makes Kaaro instantly recognizable.' },
-              { title: 'Sustainable Packaging', desc: 'Eco-conscious options such as palm-leaf packaging that reflect the brand’s values.' },
-              { title: 'Engagement', desc: 'Instagram and Facebook content, pop-ups, and flea markets to meet customers where they are.' },
-              { title: 'Collaborations', desc: 'Partnerships with influencers, artists, photographers, and lifestyle brands to widen reach.' },
-            ].map((item, i) => (
-              <div key={i} className={k.strategyCard}>
-                <span className={k.strategyNum}>{String(i + 1).padStart(2, '0')}</span>
-                <h4 className={k.strategyTitle}>{item.title}</h4>
-                <p className={k.strategyDesc}>{item.desc}</p>
-              </div>
-            ))}
+              { label: 'Innovate', title: 'Design & packaging', desc: <>Used sustainable palm-leaf packaging and a steady stream of fresh design collections, keeping the brand feeling distinct. Our design collections ranged from traditional Indian designs, featuring motifs and <em>jhumkas</em>, to more minimal and simplistic designs, catering to all needs.</>, media: ['/images/packaging_01.webp', '/images/packaging_02.webp'] },
+              { label: 'Engage', title: 'Community, on & offline', desc: <>Fostered strong engagement with the audience online through Instagram, and offline through pop-ups. This encouraged customer interaction, helped gather feedback, and involved the audience in the brand's journey. This connection enhanced loyalty and differentiated Kaaro from competitors.</>, media: ['/images/engagement_01.webp', '/images/engagement_02.webp'] },
+              { label: 'Amplify', title: 'Collaborations', desc: <>Explored collaborations with influencers, artists, photographers, or other fashion brands that aligned with Kaaro's values. This amplified the brand's visibility and brought in new audiences while reinforcing its unique identity.</>, media: ['/images/collaboration_01.webp', '/images/collaboration_02.webp'] },
+            ].map((item, i) => {
+              const open = openStrategy === i
+              return (
+                <div
+                  key={i}
+                  className={`${k.strategyPanel} ${k[`strategyPanel${i + 1}`]} ${open ? k.strategyPanelOpen : ''}`}
+                  onClick={() => setOpenStrategy(i)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOpenStrategy(i) }}
+                  aria-expanded={open}
+                >
+                  <div className={k.strategyContent} aria-hidden={!open}>
+                    <span className={k.strategyLabel}>{item.label}</span>
+                    <h4 className={k.strategyTitle}>{item.title}</h4>
+                    <p className={k.strategyDesc}>{item.desc}</p>
+                    <div className={k.strategyMedia}>
+                      {item.media.length > 0 ? (
+                        item.media.map((src) =>
+                          src.endsWith('.mp4') || src.endsWith('.webm') ? (
+                            <video key={src} className={k.strategyMediaItem} src={src} autoPlay muted loop playsInline />
+                          ) : (
+                            <img key={src} className={k.strategyMediaItem} src={src} alt="" />
+                          ),
+                        )
+                      ) : (
+                        <>
+                          <div className={k.strategyMediaPlaceholder}>Image / video</div>
+                          <div className={k.strategyMediaPlaceholder}>Image / video</div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <span className={k.strategyPanelNum}>{i + 1}</span>
+                </div>
+              )
+            })}
           </div>
         </section>
 

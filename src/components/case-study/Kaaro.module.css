@@ -160,12 +160,15 @@
   color: var(--text-secondary);
   padding: 32px var(--page-side-padding) 0;
   margin: 0;
-  max-width: 760px;
+  /* max-width includes the side padding (border-box), so it must grow with
+     it — a fixed 760px collapses to a sliver on wide monitors where the
+     side padding alone exceeds it. 600px = the actual text width. */
+  max-width: calc(600px + 2 * var(--page-side-padding));
 }
 
 /* Wider variant for longer intros that should wrap in two lines, not three. */
 .sectionIntroWide {
-  max-width: 1160px;
+  max-width: calc(1000px + 2 * var(--page-side-padding));
 }
 
 .challengeGrid {
@@ -371,6 +374,25 @@
   }
 }
 
+/* Brand keyword capsules shown above the bento grid. */
+.valueTagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 32px var(--page-side-padding) 0;
+}
+
+.valueTag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--kaaro-cream);
+  background: var(--kaaro-teal);
+  padding: 8px 20px;
+  border-radius: 999px;
+}
+
 /* ============================================================
    BRAND LANGUAGE & VISUAL IDENTITY — bento grid
    Column/row proportions follow the reference: three stacked tiles
@@ -382,9 +404,9 @@
   grid-template-columns: 0.9fr 1fr 1fr 0.67fr;
   grid-template-rows: 190px 200px 220px;
   grid-template-areas:
-    'logo  insta picnic  glass'
-    'chain insta pack    glass'
-    'grey  tote  palette palette';
+    'logo   insta palette palette'
+    'chain  insta pack    glass'
+    'picnic tote  grey    glass';
   gap: 16px;
   padding: 40px var(--page-side-padding) 0;
 }
@@ -406,7 +428,15 @@
 .bentoPicnic { grid-area: picnic; }
 .bentoPack { grid-area: pack; }
 .bentoGlass { grid-area: glass; }
-.bentoPalette { grid-area: palette; }
+/* Palette tile: three equal vertical colour blocks filling the cell. */
+.bentoPalette {
+  grid-area: palette;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+}
 
 /* ============================================================
    VISUAL IDENTITY — logo + meaning
@@ -418,38 +448,9 @@
   align-items: center;
 }
 
-.visualLogo {
-  flex-shrink: 0;
-  width: 220px;
-  height: 220px;
-  border-radius: 16px;
-  background: var(--kaaro-cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-  border: 1px solid var(--border-light);
-}
-
-.visualLogo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
 .visualText {
   flex: 1;
   min-width: 0;
-}
-
-.visualHeadline {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 130%;
-  color: var(--text-primary);
-  margin: 0 0 16px;
 }
 
 .visualBody {
@@ -462,89 +463,157 @@
 }
 
 /* ============================================================
-   COLOUR PALETTE
+   BRAND STRATEGY — expanding numbered panels (accordion)
+   One panel is open (content + media), the others collapse into
+   numbered strips. Click a strip to open it.
    ============================================================ */
-.paletteRow {
+.strategyAccordion {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   padding: 40px var(--page-side-padding) 0;
+  height: 720px;
 }
 
-.swatch {
+.strategyPanel {
+  position: relative;
   flex: 1;
-  border-radius: 16px;
-  overflow: hidden;
+  min-width: 0;
+  border-radius: 24px;
   border: 1px solid var(--border-light);
+  overflow: hidden;
+  cursor: pointer;
+  /* Number size/colour + per-panel text colours are set by the colour
+     variants below via these custom properties. */
+  padding: 36px 36px 92px;
+  transition: flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Panel colour variants — 1 cream, 2 teal, 3 gold. */
+.strategyPanel1 {
+  background: var(--kaaro-cream);
+  --panel-title: var(--text-primary);
+  --panel-body: var(--text-secondary);
+  --panel-num: var(--kaaro-teal);
+  --panel-dash: rgba(0, 0, 0, 0.25);
+}
+
+.strategyPanel2 {
+  background: var(--kaaro-teal);
+  border: none;
+  --panel-title: #ffffff;
+  --panel-body: rgba(255, 255, 255, 0.75);
+  --panel-num: var(--kaaro-gold);
+  --panel-dash: rgba(255, 255, 255, 0.4);
+}
+
+.strategyPanel3 {
+  background: var(--kaaro-gold);
+  border: none;
+  --panel-title: #1e1e1e;
+  --panel-body: rgba(30, 30, 30, 0.75);
+  --panel-num: #fffff1;
+  --panel-dash: rgba(30, 30, 30, 0.35);
+}
+
+/* The AMPLIFY eyebrow reads better in the brand green on gold. */
+.strategyPanel3 .strategyLabel {
+  color: var(--kaaro-teal);
+}
+
+.strategyPanelOpen {
+  flex: 5;
+  cursor: default;
+}
+
+/* Content is capped at a readable width but never wider than the panel's
+   padded interior, so media boxes get the same breathing room on the
+   right as on the left instead of touching the panel edge. */
+.strategyContent {
+  width: min(680px, 100%);
+  height: 100%;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
-.swatchColor {
-  height: 160px;
-  width: 100%;
+.strategyPanelOpen .strategyContent {
+  opacity: 1;
+  transition: opacity 0.35s ease 0.25s;
 }
 
-.swatchHex {
+/* Small eyebrow label above each strategy title (INNOVATE / ENGAGE / AMPLIFY). */
+.strategyLabel {
   font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
-  padding: 16px 20px;
-  background: var(--bg-secondary);
-}
-
-/* ============================================================
-   BRAND STRATEGY
-   ============================================================ */
-.strategyRow {
-  display: flex;
-  gap: 0;
-  padding: 40px var(--page-side-padding) 0;
-}
-
-.strategyCard {
-  flex: 1;
-  padding: 8px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border-right: 1px solid var(--border-light);
-}
-
-.strategyCard:first-child {
-  padding-left: 0;
-}
-
-.strategyCard:last-child {
-  border-right: none;
-  padding-right: 0;
-}
-
-.strategyNum {
-  font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 0.75rem;
   line-height: 1;
-  color: var(--kaaro-gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--panel-num);
 }
 
 .strategyTitle {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   line-height: 130%;
-  color: var(--text-primary);
-  margin: 4px 0 0;
+  color: var(--panel-title);
+  margin: 12px 0 0;
 }
 
 .strategyDesc {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 0.95rem;
-  line-height: 160%;
-  color: var(--text-secondary);
-  margin: 0;
+  font-size: 0.98rem;
+  line-height: 165%;
+  color: var(--panel-body);
+  margin: 10px 0 0;
+  max-width: 560px;
+}
+
+/* Media area fills the space under the text. Swap the placeholders for
+   real images/videos by filling the panel's `media` array in kaaro.tsx. */
+.strategyMedia {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.strategyMediaItem {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.strategyMediaPlaceholder {
+  flex: 1;
+  border: 1.5px dashed var(--panel-dash);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--panel-body);
+}
+
+/* Big number pinned to the bottom of every panel. */
+.strategyPanelNum {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 3.25rem;
+  line-height: 1;
+  color: var(--panel-num);
 }
 
 /* ============================================================
@@ -584,7 +653,6 @@
    ============================================================ */
 @media (max-width: 1199px) {
   .challengeGrid { grid-template-columns: repeat(2, 1fr); }
-  .visualLogo { width: 180px; height: 180px; }
   .resultsStats { grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
 }
 
@@ -597,29 +665,24 @@
   /* Bento reflows into two columns on small screens. */
   .bentoGrid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(5, 150px) 120px;
+    grid-template-rows: 150px 150px 120px 150px 150px 150px;
     grid-template-areas:
       'logo   insta'
       'chain  insta'
-      'picnic glass'
+      'palette palette'
+      'grey   glass'
       'pack   glass'
-      'grey   tote'
-      'palette palette';
+      'picnic tote';
     gap: 12px;
     padding-top: 28px;
   }
   .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
-  .visualLogo { width: 160px; height: 160px; }
-  .visualHeadline { font-size: 1.5rem; }
-  .paletteRow { flex-direction: column; }
-  .swatchColor { height: 120px; }
-  .strategyRow { flex-direction: column; }
-  .strategyCard {
-    border-right: none;
-    border-bottom: 1px solid var(--border-light);
-    padding: 24px 0;
-  }
-  .strategyCard:last-child { border-bottom: none; }
+  /* Accordion becomes a vertical stack with every panel open. */
+  .strategyAccordion { flex-direction: column; height: auto; gap: 12px; }
+  .strategyPanel { flex: none; padding: 24px 24px 72px; }
+  .strategyContent { width: 100%; opacity: 1; }
+  .strategyMedia { flex-direction: column; min-height: 320px; }
+  .strategyPanelNum { font-size: 2.5rem; bottom: 20px; right: 24px; }
   .resultsStats { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .resultNum { font-size: 2.5rem; }
 }
