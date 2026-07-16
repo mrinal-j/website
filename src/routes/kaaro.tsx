@@ -446,7 +446,7 @@ function KaaroPage() {
           </div>
 
           <h2 className={s.impactClosing} style={{ marginTop: 56 }}>
-            Beyond the numbers, Kaaro built <span className={s.impactClosingHighlight}>lasting brand visibility and customer loyalty</span> — one handcrafted piece at a time.
+            Beyond the numbers, Kaaro built <span className={s.impactClosingHighlight}>lasting brand visibility and customer loyalty</span>, one handcrafted piece at a time.
           </h2>
 
           {/* Customer reviews — screenshot cards scrolling inside a rounded
