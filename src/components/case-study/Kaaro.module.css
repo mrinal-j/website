@@ -423,8 +423,11 @@
 .bentoLogo { grid-area: logo; }
 .bentoChain { grid-area: chain; }
 .bentoGrey { grid-area: grey; }
-.bentoInsta { grid-area: insta; }
-.bentoTote { grid-area: tote; }
+/* The px offsets nudge which part of the photo is visible in the tile:
+   minus = photo shifts up/left, plus = shifts down/right. */
+.bentoInsta { grid-area: insta; object-position: 50% calc(50% + 5px); }
+.bentoTote { grid-area: tote; object-position: 50% calc(50% - 15px); }
+.bentoChain { object-position: calc(50% - 10px) calc(50% - 10px); }
 .bentoPicnic { grid-area: picnic; }
 .bentoPack { grid-area: pack; }
 .bentoGlass { grid-area: glass; }
@@ -460,6 +463,9 @@
   line-height: 170%;
   color: var(--text-secondary);
   margin: 0;
+  /* Cap the measure at ~3/4 of the content width — full-width lines make
+     the reader's eyes travel too far. */
+  max-width: 840px;
 }
 
 /* ============================================================
@@ -582,12 +588,39 @@
   margin-top: 28px;
 }
 
-.strategyMediaItem {
+/* Clipping box: rounds the corners and hides any zoom/nudge overflow. */
+.strategyMediaBox {
   flex: 1;
   min-width: 0;
   height: 100%;
-  object-fit: cover;
   border-radius: 16px;
+  overflow: hidden;
+}
+
+.strategyMediaFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Per-image framing nudges (same px logic as the bento tiles). */
+/* engagement_01: slight zoom, framed 3px lower. The clipping box hides
+   the zoom overflow. */
+.strategyPanel2 .strategyMediaBox:first-child .strategyMediaFill {
+  transform: scale(1.06);
+  object-position: 50% calc(50% + 3px);
+}
+
+/* collaboration_01: the artwork sits ~98px right of the file's centre, so
+   shift the image 24px left (at display scale) to visually centre it. */
+.strategyPanel3 .strategyMediaBox:first-child .strategyMediaFill {
+  object-position: calc(50% - 24px) 50%;
+}
+
+/* engagement_new: show the photo from its top edge. */
+.strategyPanel3 .strategyMediaBox:last-child .strategyMediaFill {
+  object-position: 50% 0;
 }
 
 .strategyMediaPlaceholder {
@@ -614,6 +647,163 @@
   font-size: 3.25rem;
   line-height: 1;
   color: var(--panel-num);
+}
+
+/* ============================================================
+   RESULTS — stats band (brand green on Kaaro)
+   ============================================================ */
+/* Overrides the shared black impact section with Kaaro's teal, and swaps
+   the in-the-loop yellow highlight for the brand gold. The large bottom
+   padding mirrors in-the-loop's final section, giving the same breathing
+   room between the last content and the footer. */
+.impactGreen {
+  background-color: var(--kaaro-teal);
+  padding-bottom: 278px;
+}
+
+.impactGreen [class*='impactClosingHighlight'] {
+  color: var(--kaaro-gold);
+}
+
+/* Narrative paragraph between the section label and the stats. */
+.impactBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 175%;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 40px 0 0;
+  max-width: 800px;
+}
+
+/* ============================================================
+   CUSTOMER REVIEWS — screenshot cards inside a rounded frame
+   that sits within the content grid; the backdrop pans with a
+   parallax effect as the cards scroll.
+   ============================================================ */
+/* Lives inside the green impact section, which supplies the side padding
+   and the bottom gap before the footer. */
+.reviews {
+  padding: 64px 0 0;
+  width: 100%;
+}
+
+.reviewsFrame {
+  position: relative;
+  height: 560px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+/* 15% black scrim over the backdrop so the review cards pop. Sits above
+   the photo but below the scrolling cards and arrows. */
+.reviewsFrame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Backdrop is wider than the frame; JS pans it across the spare width. */
+.reviewsBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 115%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Horizontal scroller laid over the photo (above the scrim). */
+.reviewsTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.reviewsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+/* margin:auto centres the row when it fits, and scrolls when it doesn't. */
+.reviewsRow {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  margin: auto;
+  padding: 0 48px;
+}
+
+.reviewImg {
+  flex: 0 0 auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+/* Instagram CTA pill centred under the reviews, on the green band. */
+.instaCtaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 56px;
+}
+
+.instaCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 28px;
+  border: 1px solid var(--kaaro-gold);
+  border-radius: 999px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.instaCta:hover {
+  background: var(--kaaro-gold);
+  color: #1e1e1e;
+}
+
+/* Round arrow buttons floating over the photo — frosted-glass look
+   matching the navbar pill. */
+.reviewsArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /* Same recipe as the navbar pill (its variables are scoped to the nav,
+     so the values are copied here). */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease, background 0.2s ease;
+  z-index: 5;
+}
+
+.reviewsArrow:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 /* ============================================================
@@ -677,6 +867,10 @@
     padding-top: 28px;
   }
   .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
+  .reviewsFrame { height: 440px; }
+  .reviewsRow { gap: 20px; padding: 0 24px; }
+  .impactGreen { padding-bottom: 128px; }
+
   /* Accordion becomes a vertical stack with every panel open. */
   .strategyAccordion { flex-direction: column; height: auto; gap: 12px; }
   .strategyPanel { flex: none; padding: 24px 24px 72px; }

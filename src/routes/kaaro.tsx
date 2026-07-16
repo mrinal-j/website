@@ -30,6 +30,42 @@ function KaaroPage() {
   const mainRef = useRef<HTMLElement>(null)
   // Brand strategy accordion: which of the three panels is expanded.
   const [openStrategy, setOpenStrategy] = useState(0)
+  // Customer reviews: horizontal scroller with arrows + a parallax backdrop
+  // (the background photo drifts slower than the review cards).
+  const reviewsTrackRef = useRef<HTMLDivElement>(null)
+  const reviewsBgRef = useRef<HTMLImageElement>(null)
+  const [reviewScroll, setReviewScroll] = useState({ left: false, right: true })
+
+  useEffect(() => {
+    const track = reviewsTrackRef.current
+    const bg = reviewsBgRef.current
+    if (!track || !bg) return
+    const update = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = track
+      setReviewScroll({
+        left: scrollLeft > 8,
+        right: scrollLeft < scrollWidth - clientWidth - 8,
+      })
+      // Parallax: pan the (oversized) backdrop across its spare width as the
+      // cards scroll from start to end.
+      const maxScroll = scrollWidth - clientWidth
+      const spare = bg.offsetWidth - clientWidth
+      if (maxScroll > 0 && spare > 0) {
+        bg.style.transform = `translateX(${-(scrollLeft / maxScroll) * spare}px)`
+      }
+    }
+    update()
+    track.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      track.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
+  const scrollReviews = (dir: 'left' | 'right') => {
+    reviewsTrackRef.current?.scrollBy({ left: dir === 'right' ? 320 : -320, behavior: 'smooth' })
+  }
   const bannerWrapRef = useRef<HTMLDivElement>(null)
   const bannerStickyRef = useRef<HTMLDivElement>(null)
   const bannerFrameRef = useRef<HTMLDivElement>(null)
@@ -172,8 +208,8 @@ function KaaroPage() {
             <SectionLabel title="CHALLENGES" />
           </div>
           <p className={`${k.sectionIntro} ${k.sectionIntroWide}`}>
-            The Instagram small-business boom during COVID flooded the market with
-            handmade jewelry.
+            The Instagram small-business boom during the COVID-19 pandemic flooded
+            the market with handmade jewelry.
             <br />
             To survive, Kaaro focused on fixing three main things:
           </p>
@@ -295,12 +331,12 @@ function KaaroPage() {
           </div>
           <div className={k.bentoGrid}>
             <img className={`${k.bentoImg} ${k.bentoLogo}`} src="/images/Card 1.1 (1×2).webp" alt="Kaaro logo card" />
-            <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 3.1 (1×2).webp" alt="Jewelry chains flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 2.3 (2×3)-1.webp" alt="Palm-leaf packaging" />
             <img className={`${k.bentoImg} ${k.bentoGrey}`} src="/images/Card 5.1 (1×2).webp" alt="Monochrome jewelry flatlay" />
             <img className={`${k.bentoImg} ${k.bentoInsta}`} src="/images/Card 2.2 (1×3).webp" alt="Instagram post of models in the garden" />
             <img className={`${k.bentoImg} ${k.bentoTote}`} src="/images/Card 3.1 (1×2)-1.webp" alt="Kaaro tote bag" />
-            <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 2.3 (2×3).webp" alt="Picnic styling with flowers" />
-            <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3)-1.webp" alt="Palm-leaf packaging" />
+            <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 3.1 (1×2).webp" alt="Jewelry chains flatlay" />
+            <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3).webp" alt="Picnic styling with flowers" />
             <img className={`${k.bentoImg} ${k.bentoGlass}`} src="/images/Card 2.3 (2×3)-2.webp" alt="Glassware still life" />
             <div className={k.bentoPalette} role="img" aria-label="Kaaro colour palette">
               <div style={{ background: 'var(--kaaro-teal)' }} />
@@ -316,7 +352,7 @@ function KaaroPage() {
             <SectionLabel title="BRAND STRATEGY" />
           </div>
           <p className={k.sectionIntro}>
-            Rather than compete on price or volume, Kaaro built differentiation into
+            Rather than competing on price and volume, Kaaro built differentiation into
             how it designed, packaged, sold and partnered.
           </p>
           {/* Expanding panels: the open panel shows its content and media,
@@ -326,9 +362,9 @@ function KaaroPage() {
               work. While `media` is empty, dashed placeholder boxes show. */}
           <div className={k.strategyAccordion}>
             {[
-              { label: 'Innovate', title: 'Design & packaging', desc: <>Used sustainable palm-leaf packaging and a steady stream of fresh design collections, keeping the brand feeling distinct. Our design collections ranged from traditional Indian designs, featuring motifs and <em>jhumkas</em>, to more minimal and simplistic designs, catering to all needs.</>, media: ['/images/packaging_01.webp', '/images/packaging_02.webp'] },
+              { label: 'Innovate', title: 'Design & packaging', desc: <>Used sustainable palm-leaf packaging and a steady stream of fresh design collections, keeping the brand feeling distinct. Our design collections ranged from traditional Indian designs, featuring motifs and <em>jhumkas</em>, to more minimal and simplistic designs, catering to all needs.</>, media: ['/images/packaging_01.webp', '/images/designs.webp'] },
               { label: 'Engage', title: 'Community, on & offline', desc: <>Fostered strong engagement with the audience online through Instagram, and offline through pop-ups. This encouraged customer interaction, helped gather feedback, and involved the audience in the brand's journey. This connection enhanced loyalty and differentiated Kaaro from competitors.</>, media: ['/images/engagement_01.webp', '/images/engagement_02.webp'] },
-              { label: 'Amplify', title: 'Collaborations', desc: <>Explored collaborations with influencers, artists, photographers, or other fashion brands that aligned with Kaaro's values. This amplified the brand's visibility and brought in new audiences while reinforcing its unique identity.</>, media: ['/images/collaboration_01.webp', '/images/collaboration_02.webp'] },
+              { label: 'Amplify', title: 'Collaborations', desc: <>Explored collaborations with influencers, artists, photographers, or other fashion brands that aligned with Kaaro's values. This amplified the brand's visibility and brought in new audiences while reinforcing its unique identity.</>, media: ['/images/collaboration_01.webp', '/images/engagement_new.webp'] },
             ].map((item, i) => {
               const open = openStrategy === i
               return (
@@ -347,13 +383,18 @@ function KaaroPage() {
                     <p className={k.strategyDesc}>{item.desc}</p>
                     <div className={k.strategyMedia}>
                       {item.media.length > 0 ? (
-                        item.media.map((src) =>
-                          src.endsWith('.mp4') || src.endsWith('.webm') ? (
-                            <video key={src} className={k.strategyMediaItem} src={src} autoPlay muted loop playsInline />
-                          ) : (
-                            <img key={src} className={k.strategyMediaItem} src={src} alt="" />
-                          ),
-                        )
+                        // Each image/video sits inside a clipping box so it can
+                        // be zoomed/nudged without spilling over its rounded
+                        // corners or the gap between items.
+                        item.media.map((src) => (
+                          <div key={src} className={k.strategyMediaBox}>
+                            {src.endsWith('.mp4') || src.endsWith('.webm') ? (
+                              <video className={k.strategyMediaFill} src={src} autoPlay muted loop playsInline />
+                            ) : (
+                              <img className={k.strategyMediaFill} src={src} alt="" />
+                            )}
+                          </div>
+                        ))
                       ) : (
                         <>
                           <div className={k.strategyMediaPlaceholder}>Image / video</div>
@@ -369,12 +410,21 @@ function KaaroPage() {
           </div>
         </section>
 
-        {/* Results & Impact (dark) */}
-        <section className={s.impactSection}>
+        {/* Results & Impact (brand green) */}
+        <section className={`${s.impactSection} ${k.impactGreen}`}>
           <SectionLabel title="RESULTS & IMPACT" dark />
-          <h2 className={s.impactHeadline}>
-            From a two-person idea to a brand loved across India.
-          </h2>
+
+          <p className={k.impactBody}>
+            Over the course of 2 years, Kaaro witnessed a notable increase in brand
+            visibility, engagement on social media platforms, and a growing community
+            of loyal customers. Collaborations with multiple brands and artists
+            resulted in expanded reach and heightened credibility. The brand's
+            commitment to authenticity and uniqueness not only withstood market
+            challenges but has also contributed to a positive impact on customer
+            perception and brand loyalty. Kaaro's strategic approaches translated
+            into tangible results, solidifying its position in the competitive
+            jewelry and accessory market.
+          </p>
 
           <div className={k.resultsStats}>
             <div className={k.resultStat}>
@@ -398,6 +448,84 @@ function KaaroPage() {
           <h2 className={s.impactClosing} style={{ marginTop: 56 }}>
             Beyond the numbers, Kaaro built <span className={s.impactClosingHighlight}>lasting brand visibility and customer loyalty</span> — one handcrafted piece at a time.
           </h2>
+
+          {/* Customer reviews — screenshot cards scrolling inside a rounded
+              frame that lives within the green results band. The backdrop
+              photo pans slower than the cards (parallax). Every card renders
+              at the SAME scale (natural width × 0.75) so the text inside each
+              screenshot reads at a consistent size. */}
+          <div className={k.reviews} aria-label="Customer reviews">
+          <div className={k.reviewsFrame}>
+            <img ref={reviewsBgRef} className={k.reviewsBg} src="/images/collaboration_02.webp" alt="" aria-hidden="true" />
+
+            <button
+              className={k.reviewsArrow}
+              style={{ left: 24, opacity: reviewScroll.left ? 1 : 0, pointerEvents: reviewScroll.left ? 'auto' : 'none' }}
+              aria-label="Scroll reviews left"
+              onClick={() => scrollReviews('left')}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              className={k.reviewsArrow}
+              style={{ right: 24, opacity: reviewScroll.right ? 1 : 0, pointerEvents: reviewScroll.right ? 'auto' : 'none' }}
+              aria-label="Scroll reviews right"
+              onClick={() => scrollReviews('right')}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 6 15 12 9 18" />
+              </svg>
+            </button>
+
+            <div className={k.reviewsTrack} ref={reviewsTrackRef}>
+              <div className={k.reviewsRow}>
+                {[
+                  { src: 'reviews_01.webp', w: 413 },
+                  { src: 'reviews_02.webp', w: 477 },
+                  { src: 'reviews_03.webp', w: 658 },
+                  { src: 'reviews_04.webp', w: 547 },
+                  { src: 'reviews_05.webp', w: 550 },
+                  { src: 'reviews_06.webp', w: 250 },
+                  { src: 'reviews_07.webp', w: 169 },
+                  { src: 'reviews_08.webp', w: 665 },
+                  { src: 'reviews_09.webp', w: 260 },
+                  { src: 'reviews_010.webp', w: 345 },
+                  { src: 'reviews_11.webp', w: 411 },
+                  { src: 'reviews_12.webp', w: 449 },
+                  { src: 'reviews_13.webp', w: 665 },
+                  { src: 'reviews_14.webp', w: 414 },
+                ].map((r) => (
+                  <img
+                    key={r.src}
+                    className={k.reviewImg}
+                    src={`/images/${r.src}`}
+                    alt="Customer review"
+                    style={{ width: Math.round(r.w * 0.75) }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          </div>
+
+          {/* Instagram CTA — closes the page with a link to the live brand. */}
+          <div className={k.instaCtaWrap}>
+            <a
+              className={k.instaCta}
+              href="https://www.instagram.com/kaaro._/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              View Kaaro on Instagram
+            </a>
+          </div>
         </section>
       </main>
       <Footer />
