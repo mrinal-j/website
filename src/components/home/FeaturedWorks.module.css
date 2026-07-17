@@ -58,15 +58,25 @@
 
 .cardImage {
   position: absolute;
-  inset: 0px;
-  width: calc(100% + 32px);
-  height: calc(100% + 32px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.55s ease;
+  transition: transform 0.55s ease, opacity 0.5s ease;
 }
 
 .card:hover .cardImage {
-  transform: scale(1.02);
+  transform: scale(1.04);
+}
+
+/* Cross-fade image (In the Loop, Kaaro): stacked on top, hidden until the
+   card is hovered. */
+.cardImageHover {
+  opacity: 0;
+}
+
+.card:hover .cardImageHover {
+  opacity: 1;
 }
 
 .cardGradient {
@@ -112,6 +122,14 @@
   font-size: 1.5rem;
   line-height: 130%;
   margin: 0 0 6px;
+  transition: color 0.25s ease;
+}
+
+/* Title turns orange when the pointer is over the card's image or the
+   title itself. (.cardContent is the next sibling of .cardImageWrapper.) */
+.cardImageWrapper:hover + .cardContent .cardTitle,
+.cardTitle:hover {
+  color: var(--color-orange);
 }
 
 .cardDesc {
