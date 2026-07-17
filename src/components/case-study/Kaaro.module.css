@@ -411,11 +411,14 @@
   padding: 40px var(--page-side-padding) 0;
 }
 
-/* Every tile: cover its cell, with the site's usual image border. */
+/* Every tile: cover its cell, with the site's usual image border. The cream
+   background fills any transparent areas in the card graphics (the logo and
+   tote cards have transparent corners) so they don't read as white gaps. */
 .bentoImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background: var(--kaaro-cream);
   border: 1px solid var(--border-light);
   border-radius: 16px;
 }
@@ -612,10 +615,13 @@
   object-position: 50% calc(50% + 3px);
 }
 
-/* collaboration_01: the artwork sits ~98px right of the file's centre, so
-   shift the image 24px left (at display scale) to visually centre it. */
+/* collaboration_01: the logo artwork is small and centred on a big cream
+   background. Zoom in so the artwork fills the frame; nudge left a touch to
+   re-centre the off-centre artwork. (Mobile zooms this back out — see the
+   media query below.) */
 .strategyPanel3 .strategyMediaBox:first-child .strategyMediaFill {
-  object-position: calc(50% - 24px) 50%;
+  object-position: calc(50% - 14px) 50%;
+  transform: scale(1.7);
 }
 
 /* engagement_new: show the photo from its top edge. */
@@ -851,7 +857,10 @@
   .challengeGrid { grid-template-columns: 1fr; padding: 28px var(--page-side-padding) 0; }
   .targetContent { flex-direction: column; align-items: flex-start; gap: 8px; }
   .targetText { max-width: none; }
-  .albumStack { max-width: none; width: 100%; height: 500px; }
+  /* flex:none so the explicit height actually applies (flex:1 in a column
+     was collapsing the container to 0, letting the absolute photos spill
+     into the next section). margin-bottom keeps a gap before it. */
+  .albumStack { flex: none; max-width: none; width: 100%; height: 360px; margin-bottom: 16px; }
   /* Bento reflows into two columns on small screens. */
   .bentoGrid {
     grid-template-columns: 1fr 1fr;
@@ -867,6 +876,9 @@
     padding-top: 28px;
   }
   .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
+  /* Value keywords in an even 2×2 grid so "Elegant" sits beside "Affordable". */
+  .valueTagRow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .valueTag { text-align: center; }
   .reviewsFrame { height: 440px; }
   .reviewsRow { gap: 20px; padding: 0 24px; }
   .impactGreen { padding-bottom: 128px; }
@@ -875,8 +887,23 @@
   .strategyAccordion { flex-direction: column; height: auto; gap: 12px; }
   .strategyPanel { flex: none; padding: 24px 24px 72px; }
   .strategyContent { width: 100%; opacity: 1; }
-  .strategyMedia { flex-direction: column; min-height: 320px; }
+  /* Two media images side by side at a fixed, consistent height so every
+     panel's card is the same length (not stretched by the text). */
+  .strategyMedia { flex-direction: row; min-height: 0; margin-top: 20px; }
+  .strategyMediaBox { height: 200px; }
   .strategyPanelNum { font-size: 2.5rem; bottom: 20px; right: 24px; }
+
+  /* Mobile only: fill the frame (no zoomed-in crop, no letterbox white
+     bands). `cover` scales the image just enough to fill; the logos stay
+     within the crop. */
+  .strategyPanel3 .strategyMediaBox:first-child {
+    background: var(--kaaro-cream);
+  }
+  .strategyPanel3 .strategyMediaBox:first-child .strategyMediaFill {
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: none;
+  }
   .resultsStats { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .resultNum { font-size: 2.5rem; }
 }

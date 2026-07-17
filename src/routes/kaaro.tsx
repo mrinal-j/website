@@ -230,7 +230,7 @@ function KaaroPage() {
                 desc: 'With thousands of small businesses launching at once, buyers were skeptical. Kaaro had to prove genuine story and craft and build trust.',
                 img: '/images/kaaro_02.webp',
                 imgPos: '50% 50%',
-                flip: true, // middle card: image on top, icon + number at the bottom
+                flip: false,
               },
               {
                 title: 'Visibility',
