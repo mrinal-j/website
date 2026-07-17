@@ -13,10 +13,6 @@ export const Route = createFileRoute('/kaaro')({
     meta: [
       { title: 'Kaaro — Mrinal Jadhav' },
       { name: 'description', content: 'Branding, strategy and product design for Kaaro, a handcrafted jewelry brand.' },
-      // Keep this page hidden from search engines (Google, etc.) while it's
-      // being built. Delete this one line when you're ready for it to show up
-      // in search results.
-      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: KaaroPage,

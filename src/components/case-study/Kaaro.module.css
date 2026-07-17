@@ -893,14 +893,14 @@
   .strategyMediaBox { height: 200px; }
   .strategyPanelNum { font-size: 2.5rem; bottom: 20px; right: 24px; }
 
-  /* Mobile only: fill the frame (no zoomed-in crop, no letterbox white
-     bands). `cover` scales the image just enough to fill; the logos stay
-     within the crop. */
+  /* Mobile only: show the whole logo artwork, vertically centred. The box
+     background matches the image's own warm cream (#fdf0dd) so the contain
+     padding is seamless — not the cool-white gaps the site cream produced. */
   .strategyPanel3 .strategyMediaBox:first-child {
-    background: var(--kaaro-cream);
+    background: #fdf0dd;
   }
   .strategyPanel3 .strategyMediaBox:first-child .strategyMediaFill {
-    object-fit: cover;
+    object-fit: contain;
     object-position: 50% 50%;
     transform: none;
   }

@@ -36,7 +36,7 @@ const projects = [
     x: '100%', y: '50%',
   },
   {
-    slug: 'https://legacy.mrinaljadhav.com/kaaro',
+    slug: '/kaaro',
     title: 'Kaaro',
     description: 'Branding, strategy and product design for a handcrafted jewelry brand.',
     tags: ['Brand Identity', 'Brand Strategy', 'Market Research', 'Logo Design', 'Jewelry Design', 'Photography'],
