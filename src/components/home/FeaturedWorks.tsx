@@ -31,9 +31,9 @@ const projects = [
     title: 'Reimaging Housing Works, New York',
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
     tags: ['Brand Strategy', 'Retail Experience Design', 'Customer Experience (CX)', 'Design for Social Impact', 'Design Strategy', 'Storytelling'],
-    image: '/images/DIQbZGpjnsJJT6IXdEaM4e7u1mw.webp',
+    image: '/images/housing_works_cover.webp',
     hoverImage: '/images/housing_works_banner.webp',
-    x: '100%', y: '50%',
+    x: '50%', y: '50%',
   },
   {
     slug: '/kaaro',
