@@ -1834,6 +1834,33 @@
   padding: 20px 0 64px;
 }
 
+/* These blocks are already black. The global reveal fades whole <div>s from
+   invisible, which briefly shows the white page through them before the black
+   appears. Keep their black background painted from the first frame (higher
+   specificity than `.reveal-fine > div`) so the reveal starts black; the intro
+   text still fades in gently over the black. */
+.page > .featuresIntroBg,
+.page > .featuresScrollWrap {
+  opacity: 1;
+}
+
+.featuresIntroBg .featuresIntro {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  will-change: opacity;
+}
+
+.featuresIntroBg.is-revealed .featuresIntro {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featuresIntroBg .featuresIntro {
+    opacity: 1;
+    transition: none;
+  }
+}
+
 .featuresSection {
   width: 100%;
   background: #000;

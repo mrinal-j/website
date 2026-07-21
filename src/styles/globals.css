@@ -17,6 +17,10 @@
    ============================================================ */
 
 :root {
+  /* Light-only site: opt out of browser/OS auto dark mode so black text is
+     never auto-inverted to white (e.g. Chrome Android "Auto dark theme"). */
+  color-scheme: light;
+
   /* Core palette */
   --color-orange: #f60;
   --color-orange-hover: #e55a00;
