@@ -98,15 +98,28 @@
 .bannerBand {
   width: 100%;
   overflow: hidden;
-  background: var(--un-blue);
+  /* Fill colour for the space around the artwork. Matches the artwork's own
+     background so the fill is seamless, and reads as "dark" so the navbar
+     switches to its light logo over the banner. */
+  background: #005579;
   line-height: 0; /* removes the inline-image gap under the band */
 }
 .bannerImg {
   display: block;
   width: 100%;
   height: clamp(300px, 56vh, 480px);
-  object-fit: cover;
+  /* Fit the whole artwork without stretching or cropping, centred. Any space
+     left over on the sides (or top/bottom) is filled by the band's #005579. */
+  object-fit: contain;
   object-position: 50% 50%;
+}
+/* On phones the fixed band height is much taller than the artwork, which
+   would leave a tall #005579 band. Let the height follow the artwork's own
+   3:1 ratio instead, so the banner stays short like the original. */
+@media (max-width: 768px) {
+  .bannerImg {
+    height: auto;
+  }
 }
 
 /* Placeholder tile — a dashed/striped box that reads as "image to come".

@@ -48,14 +48,12 @@ function Un80Page() {
         <section className={s.hero}>
           <div className={s.heroHeader}>
             <div className={s.heroTitle}>
-              <h1>Building a brand for the UN80 Initiative</h1>
+              <h1>UN80 Initiative</h1>
             </div>
             <div className={s.heroDesc}>
               <p>
                 A sub-identity for the UN80 Initiative, the United Nations'
-                system-wide reform effort. Built on the UN's foundational colour
-                and typography, extended into a modern, distinct visual language
-                so reform felt recognisable and legible across formats.
+                system-wide reform effort.
               </p>
             </div>
           </div>
@@ -65,8 +63,8 @@ function Un80Page() {
         <section className={u.bannerBand}>
           <img
             className={u.bannerImg}
-            src="/images/un80_banner 3.webp"
-            alt="The UN80 Initiative on LinkedIn: a phone showing the feed alongside content carousel cards"
+            src="/images/un80_banner 5.webp"
+            alt="The UN80 Initiative on LinkedIn: the UN80 logo, a phone showing the feed, and content carousel cards"
           />
         </section>
 
