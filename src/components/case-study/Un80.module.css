@@ -12,6 +12,7 @@
   --un-tint-40: #99d8f1;     /* 40% tint */
   --un-tint-20: #ccecf8;     /* 20% tint */
   --un-ink: #111;
+  --un-accent: #009edb;      /* accent blue for numbers and sub-heads */
 }
 
 /* Shared measure for body copy — the site caps paragraphs at ~3/4 width. */
@@ -24,6 +25,9 @@
   color: var(--text-secondary);
   max-width: 640px;
   margin: 0;
+}
+.sectionIntro + .sectionIntro {
+  margin-top: 20px;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
@@ -60,15 +64,6 @@
 }
 .bodyText + .bodyText {
   margin-top: 20px;
-}
-
-/* Small lead-in label above a group (e.g. "Three problems, one constraint"). */
-.subLabel {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin: 40px 0 0;
 }
 
 /* ============================================================
@@ -143,108 +138,106 @@
 }
 
 /* ============================================================
-   01 · THE CHALLENGE — headline, intro, three problem cards
+   01 · CONTEXT — section label, then a rounded photo that sits inside
+   the page margins, with a flat 40% black layer and the text centred
+   on it. Same structure as the Kaaro overview.
+   ============================================================ */
+.contextSection {
+  width: 100%;
+  background: var(--bg-primary);
+  padding: 88px 0;
+}
+.contextLabelWrap {
+  padding: 0 var(--page-side-padding);
+}
+.contextFigure {
+  position: relative;
+  /* Sits within the page margins (not full-bleed) */
+  margin: 28px var(--page-side-padding) 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--un-ink);
+}
+.contextImg {
+  display: block;
+  width: 100%;
+  height: clamp(400px, 60vh, 600px);
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.contextScrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+.contextCaption {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  transform: translateX(-50%);
+  width: min(92%, 820px);
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 2.1vw, 1.5rem);
+  line-height: 145%;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   02 · THE CHALLENGE — a how-might-we headline, a wide gap, then four
+   numbered points laid out as plain columns (no cards): circled number,
+   subhead, body. The fourth point is the constraint, so its subhead is
+   black instead of blue to set it apart from the three problems.
    ============================================================ */
 .challengeGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 44px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 96px;
 }
-.challengeCard {
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  padding: 24px;
-  background: #faf9f7;
+.challengeItem {
+  max-width: 260px;
 }
-.challengeCardTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  color: var(--text-primary);
-  margin: 0 0 8px;
-}
-.challengeCardText {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 155%;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-/* The fixed-master-brand constraint — highlighted, full width below. */
-.constraintCard {
-  margin-top: 18px;
-  border: 1px solid var(--un-tint-40);
-  border-left: 4px solid var(--un-blue);
-  border-radius: 12px;
-  padding: 24px 28px;
-  background: var(--un-tint-20);
-}
-.constraintTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  color: var(--text-primary);
-  margin: 0 0 8px;
-}
-.constraintText {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  line-height: 160%;
-  color: var(--text-secondary);
-  margin: 0;
-  max-width: 720px;
-}
-
-/* ============================================================
-   03 · OBJECTIVES — single outcome statement
-   ============================================================ */
-.objectivesBody {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
-  line-height: 148%;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  max-width: 780px;
-  margin: 0;
-  text-wrap: pretty;
-}
-
-/* ============================================================
-   04 · APPROACH — numbered process steps
-   ============================================================ */
-.approachSteps {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 48px;
-  margin-top: 44px;
-}
-.approachStep {
+.challengeNum {
   display: flex;
-  gap: 18px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--un-accent);
+  border-radius: 50%;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--un-accent);
+  margin-bottom: 22px;
 }
-.stepNum {
+/* The constraint's number — black, matching its subhead. */
+.challengeNumDark {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+.challengeItemTitle {
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--un-blue);
-  line-height: 1.4;
-  flex-shrink: 0;
+  line-height: 135%;
+  color: var(--un-accent);
+  margin: 0 0 10px;
 }
-.stepTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.125rem;
+/* The constraint's subhead — black, so it reads as different in kind. */
+.challengeItemTitleDark {
   color: var(--text-primary);
-  margin: 0 0 8px;
 }
-.stepText {
+.challengeItemText {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-weight: 400;
+  font-size: 0.875rem;
   line-height: 160%;
   color: var(--text-secondary);
   margin: 0;
@@ -266,11 +259,14 @@
 }
 
 /* ============================================================
-   02 · THE SUB-IDENTITY — dark section with inherited vs created
+   03 · THE SUB-IDENTITY — light section, inherited vs created.
+   The cards are pale tiles with a hairline border so they read as a
+   set on the white page.
    ============================================================ */
 .systemSection {
   padding: 88px var(--page-side-padding);
-  background: var(--un-ink);
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
 }
 .systemHeadline {
   font-family: var(--font-sans);
@@ -278,7 +274,7 @@
   font-size: clamp(1.75rem, 3.4vw, 2.15rem);
   line-height: 120%;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--text-primary);
   max-width: 700px;
   margin: 0 0 16px;
 }
@@ -287,12 +283,12 @@
   font-weight: 400;
   font-size: 1.0625rem;
   line-height: 170%;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--text-secondary);
   max-width: 620px;
   margin: 0 0 48px;
 }
 .systemIntro em {
-  color: #fff;
+  color: var(--text-primary);
   font-style: italic;
 }
 
@@ -307,23 +303,23 @@
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--text-muted);
 }
 .systemGroupLabelCreated > span:first-child {
-  color: var(--un-blue-light);
+  color: var(--un-accent);
 }
 .systemChip {
   font-family: ui-monospace, monospace;
   font-size: 0.5625rem;
-  color: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
   border-radius: 999px;
   padding: 3px 9px;
 }
 .systemChipNew {
   color: #fff;
-  background: var(--un-blue);
-  border-color: var(--un-blue);
+  background: var(--un-accent);
+  border-color: var(--un-accent);
 }
 
 .inheritedGrid {
@@ -339,7 +335,8 @@
 }
 
 .typeCard {
-  background: #f2f4f6;
+  background: #faf9f7;
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   padding: 24px 28px;
 }
@@ -374,7 +371,8 @@
 .swatchCard {
   border-radius: 12px;
   overflow: hidden;
-  background: #1c1c1c;
+  background: #faf9f7;
+  border: 1px solid var(--border-light);
 }
 .swatchColor {
   height: 96px;
@@ -386,19 +384,20 @@
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.75rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 .swatchHex {
   font-family: ui-monospace, monospace;
   font-size: 0.625rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--text-muted);
   margin-top: 3px;
 }
 
 .createdCard {
   border-radius: 12px;
   overflow: hidden;
-  background: #1c1c1c;
+  background: #faf9f7;
+  border: 1px solid var(--border-light);
 }
 .createdVisual {
   height: 130px;
@@ -412,13 +411,13 @@
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.9375rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 .createdText {
   font-family: var(--font-body);
   font-size: 0.75rem;
   line-height: 150%;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-secondary);
   margin-top: 6px;
 }
 /* The single-blue tonal scale — full-width ladder, the signature move. */
@@ -437,7 +436,8 @@
 .scaleSwatch {
   border-radius: 10px;
   overflow: hidden;
-  background: #1c1c1c;
+  background: #faf9f7;
+  border: 1px solid var(--border-light);
 }
 .scaleSwatchColor {
   height: 88px;
@@ -446,13 +446,13 @@
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.8125rem;
-  color: #fff;
+  color: var(--text-primary);
   padding: 10px 12px 0;
 }
 .scaleHex {
   font-family: ui-monospace, monospace;
   font-size: 0.5625rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
   padding: 3px 12px 12px;
 }
 
@@ -608,6 +608,160 @@
   margin: 0 0 20px;
 }
 
+/* ============================================================
+   THE LANDING PAGE — copy on the left, browser mockup on the right.
+   The wrapper is taller than the screen; while it is pinned, JS slides
+   the screenshot up inside the browser window so the whole page plays
+   through, stopping at the bottom of the image.
+   ============================================================ */
+.siteScrollWrap {
+  position: relative;
+  /* Tall enough that the screenshot travels at roughly the same speed as the
+     page scroll, so the mockup feels like a window you are scrolling. */
+  height: 300vh;
+  padding: 0 var(--page-side-padding);
+  background: var(--bg-primary);
+}
+/* The scroll-reveal moves each section with a transform, and a transformed
+   ancestor breaks the sticky child below. Fade this one in without the rise,
+   the same way the pinned blocks work in the In the Loop case study. */
+.un80 .siteScrollWrap {
+  transform: none;
+  will-change: opacity;
+}
+.siteSticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.siteGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) 1.15fr;
+  gap: 72px;
+  align-items: center;
+  width: 100%;
+}
+.siteHeadline {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.625rem, 3vw, 2.15rem);
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+.siteText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 170%;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.siteText + .siteText {
+  margin-top: 18px;
+}
+/* The four reader questions, called out inside the paragraph. */
+.siteEmphasis {
+  font-weight: 700;
+  color: var(--un-accent);
+}
+
+/* Call to action out to the live site. */
+.siteCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--un-accent);
+  text-decoration: none;
+}
+.siteCtaArrow {
+  transition: transform 0.25s ease;
+}
+.siteCta:hover .siteCtaArrow,
+.siteCta:focus-visible .siteCtaArrow {
+  transform: translateX(5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .siteCtaArrow {
+    transition: none;
+  }
+}
+
+/* The browser chrome: title bar with three dots and an address pill. */
+.browser {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 26px 60px -28px rgba(0, 0, 0, 0.32);
+}
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: #edeef0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+.browserDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dotRed {
+  background: #ff5f57;
+}
+.dotAmber {
+  background: #febc2e;
+}
+.dotGreen {
+  background: #28c840;
+}
+.browserAddress {
+  flex: 1;
+  margin-left: 10px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.625rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The window itself — a fixed height, like a real browser viewport. */
+.browserViewport {
+  position: relative;
+  height: clamp(360px, 60vh, 540px);
+  overflow: hidden;
+  background: #fff;
+}
+.browserPage {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* transform is set by JS from the section's scroll progress */
+  will-change: transform;
+}
+.builtNote {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 12px 0 0;
+}
+
 /* Sub-heading inside a light section (e.g. Landing Page subsections). */
 .subHeading {
   font-family: var(--font-sans);
@@ -616,6 +770,11 @@
   line-height: 130%;
   color: var(--text-primary);
   margin: 40px 0 14px;
+}
+/* Same, but first in its section, so no leading gap. */
+.subHeadingFirst {
+  composes: subHeading;
+  margin-top: 0;
 }
 
 /* Auto-scrolling LinkedIn carousel. */
@@ -783,11 +942,18 @@
     padding-top: 64px;
     padding-bottom: 64px;
   }
-  .challengeGrid,
   .createdGrid,
-  .resultsGrid,
-  .approachSteps {
+  .resultsGrid {
     grid-template-columns: 1fr;
+  }
+  /* Two-up on tablets, so the four points stay side by side in pairs. */
+  .challengeGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 28px;
+    margin-top: 64px;
+  }
+  .challengeItem {
+    max-width: none;
   }
   .scaleLadder {
     grid-template-columns: repeat(3, 1fr);
@@ -808,12 +974,64 @@
   .resultsGrid {
     grid-template-columns: 1fr 1fr;
   }
+  /* The label and the photo carry their own side padding here, so the
+     section keeps its 0 horizontal padding and only the inset changes. */
+  .contextSection {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .contextLabelWrap {
+    padding: 0 max(24px, var(--page-side-padding));
+  }
+  .contextFigure {
+    margin: 24px max(24px, var(--page-side-padding)) 0;
+    border-radius: 18px;
+  }
+  .contextImg {
+    height: clamp(340px, 58vh, 460px);
+  }
+  .contextCaption {
+    top: 9%;
+    width: 88%;
+  }
+  /* Landing page: copy stacks above the browser, which gets shorter so the
+     whole block still fits the screen while it is pinned. */
+  .siteScrollWrap {
+    height: 220vh;
+    padding-left: max(24px, var(--page-side-padding));
+    padding-right: max(24px, var(--page-side-padding));
+  }
+  .siteGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .siteHeadline {
+    margin-bottom: 16px;
+  }
+  .siteText {
+    font-size: 0.9375rem;
+  }
+  .browserViewport {
+    height: min(42vh, 320px);
+  }
 }
 
 @media (max-width: 560px) {
   .resultsGrid,
-  .inheritedGrid {
+  .inheritedGrid,
+  .challengeGrid {
     grid-template-columns: 1fr;
+  }
+  /* Short phones: shrink the browser window so the copy, the mockup and the
+     Drupal note all stay on screen while the block is pinned. */
+  .siteScrollWrap {
+    height: 200vh;
+  }
+  .siteGrid {
+    gap: 22px;
+  }
+  .browserViewport {
+    height: min(38vh, 260px);
   }
   .scaleLadder {
     grid-template-columns: repeat(2, 1fr);

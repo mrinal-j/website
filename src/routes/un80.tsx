@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/un80')({
       {
         name: 'description',
         content:
-          'Building a brand for the UN80 Initiative: a distinct visual identity, built inside the UN master brand, that made system-wide reform legible to a general public.',
+          'Building a brand for the UN80 Initiative: a distinct visual identity, built inside the UN master brand, that made system-wide reform legible to the general public.',
       },
       // Work-in-progress: keep this page out of search results until it's
       // ready to publish. (robots.txt also disallows /un80 as a backup.)
@@ -39,6 +39,48 @@ function Un80Page() {
   const mainRef = useRef<HTMLElement>(null)
   // Each top-level <section> fades/rises in as it enters the viewport.
   useScrollReveal(mainRef)
+
+  // The landing-page browser mockup: while the tall wrapper is pinned, the
+  // screenshot slides up inside the browser window, stopping exactly at the
+  // bottom of the page image.
+  const siteWrapRef = useRef<HTMLElement>(null)
+  const siteViewRef = useRef<HTMLDivElement>(null)
+  const siteImgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const img = siteImgRef.current
+
+    const onScroll = () => {
+      const wrap = siteWrapRef.current
+      const view = siteViewRef.current
+      const image = siteImgRef.current
+      if (!wrap || !view || !image) return
+
+      const rect = wrap.getBoundingClientRect()
+      const scrollable = rect.height - window.innerHeight
+      const travel = image.offsetHeight - view.clientHeight
+      // Nothing to scroll through (very short viewport, or image not measured
+      // yet): park the screenshot at the top of the page.
+      if (scrollable <= 0 || travel <= 0) {
+        image.style.transform = 'translate3d(0, 0, 0)'
+        return
+      }
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
+      image.style.transform = `translate3d(0, ${-progress * travel}px, 0)`
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    // The image height is only known once it has loaded.
+    img?.addEventListener('load', onScroll)
+    onScroll()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      img?.removeEventListener('load', onScroll)
+    }
+  }, [])
 
   return (
     <>
@@ -101,33 +143,31 @@ function Un80Page() {
           <p className={u.oneLiner}>
             Designed a distinct visual identity for the UN80 Initiative that
             lived inside the United Nations' master brand, turning dense reform
-            content into <span>plain-language, on-brand communication</span> a
+            content into <span>plain-language, on-brand communication</span> the
             general public could easily follow.
           </p>
         </section>
 
-        {/* ============ 01 · CONTEXT ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
+        {/* ============ 01 · CONTEXT — label, then a rounded photo with
+             a 40% black layer and the text centred on it ============ */}
+        <section className={u.contextSection}>
+          <div className={u.contextLabelWrap}>
             <SectionLabel title="CONTEXT" number="01" />
           </div>
-          <h2 className={u.sectionHeadline}>
-            One of the most significant reform pushes in the UN's history.
-          </h2>
-          <p className={u.bodyText}>
-            In March 2025, as the UN marked its 80th anniversary, the
-            Secretary-General launched the UN80 Initiative, a system-wide effort
-            to make the organisation more agile, integrated and effective amid
-            tightening resources. The work spans three workstreams: finding
-            efficiencies in the Secretariat, reviewing how mandates are
-            implemented, and examining structural change and programme
-            realignment.
-          </p>
-          <p className={u.bodyText}>
-            Its outputs (reports, memos, action plans and mandates) were written
-            for Member States and diplomats. For a wider audience, the story of
-            what the UN was changing, and why, wasn't easy to follow.
-          </p>
+          <figure className={u.contextFigure}>
+            <img
+              className={u.contextImg}
+              src="/images/UN80_GA.webp"
+              alt="The UN General Assembly hall in session during the UN's 80th anniversary"
+            />
+            <div className={u.contextScrim} aria-hidden="true" />
+            <figcaption className={u.contextCaption}>
+              In March 2025, as the UN marked its 80th anniversary, the
+              Secretary-General launched the UN80 Initiative, a system-wide
+              effort to make the organisation more agile, integrated and
+              effective amid tightening resources.
+            </figcaption>
+          </figure>
         </section>
 
         {/* ============ 02 · THE CHALLENGE ============ */}
@@ -136,17 +176,12 @@ function Un80Page() {
             <SectionLabel title="THE CHALLENGE" number="02" />
           </div>
           <h2 className={u.sectionHeadline}>
-            Make institutional reform recognisable and legible, without stepping
-            outside the institution's master brand.
+            How might we make institutional reform something the general public
+            can actually follow?
           </h2>
-          <p className={u.sectionIntro}>
-            Reform only builds public trust when people can follow it. UN80's
-            story lived in reports and formats built for insiders. It needed a
-            visual identity and a communications system that could carry complex
-            reform to a general audience, while staying officially UN.
-          </p>
 
-          <p className={u.subLabel}>Three problems, one hard constraint:</p>
+          {/* Three problems, then the constraint — the fourth point is the
+              constraint, so its number and subhead are black, not blue. */}
           <div className={u.challengeGrid}>
             {[
               {
@@ -161,85 +196,37 @@ function Un80Page() {
                 title: 'Every channel is different',
                 desc: 'The identity had to work across the web, the social feed and the inbox, each with its own format, not one asset stretched to fit all three.',
               },
-            ].map((c) => (
-              <div key={c.title} className={u.challengeCard}>
-                <h3 className={u.challengeCardTitle}>{c.title}</h3>
-                <p className={u.challengeCardText}>{c.desc}</p>
+              {
+                title: 'The constraint',
+                desc: "The UN's blue and typography are non-negotiable and centrally governed. Any new identity had to live inside them, not replace them.",
+                isConstraint: true,
+              },
+            ].map((c, i) => (
+              <div key={c.title} className={u.challengeItem}>
+                <span
+                  className={`${u.challengeNum} ${
+                    c.isConstraint ? u.challengeNumDark : ''
+                  }`}
+                >
+                  {i + 1}
+                </span>
+                <h3
+                  className={`${u.challengeItemTitle} ${
+                    c.isConstraint ? u.challengeItemTitleDark : ''
+                  }`}
+                >
+                  {c.title}
+                </h3>
+                <p className={u.challengeItemText}>{c.desc}</p>
               </div>
             ))}
           </div>
-
-          <div className={u.constraintCard}>
-            <h3 className={u.constraintTitle}>
-              A fixed master brand: the constraint
-            </h3>
-            <p className={u.constraintText}>
-              The UN's blue and typography are non-negotiable and centrally
-              governed. Any new identity had to live inside them, not replace
-              them.
-            </p>
-          </div>
         </section>
 
-        {/* ============ 03 · OBJECTIVES ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
-            <SectionLabel title="OBJECTIVES" number="03" />
-          </div>
-          <h2 className={u.sectionHeadline}>What success looked like.</h2>
-          <p className={u.objectivesBody}>
-            One recognisable identity, adopted across every channel. Complex
-            reform made digestible at a glance. And a reusable system of brand
-            guidelines, templates and components that any team could apply
-            consistently.
-          </p>
-        </section>
-
-        {/* ============ 04 · APPROACH ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
-            <SectionLabel title="APPROACH" number="04" />
-          </div>
-          <h2 className={u.sectionHeadline}>
-            A modern layer on a fixed institutional base.
-          </h2>
-          <div className={u.approachSteps}>
-            {[
-              {
-                title: 'Audit & strategy',
-                desc: 'Reviewed the initiative’s existing outputs and the UN master-brand guidelines to map what was fixed and where there was room to move.',
-              },
-              {
-                title: 'Sub-identity strategy',
-                desc: 'Rather than a new logo, I defined UN80 as a distinct layer on top of the master brand: inherited elements locked; new elements added to signal modernity and momentum.',
-              },
-              {
-                title: 'System design',
-                desc: 'Built the components (templates, type hierarchy and a plain-language content pattern) as a kit teams could reuse.',
-              },
-              {
-                title: 'Rollout & documentation',
-                desc: 'Applied the system across web, LinkedIn and a newsletter, then codified it in brand guidelines so it could run consistently across teams.',
-              },
-            ].map((step, i) => (
-              <div key={step.title} className={u.approachStep}>
-                <span className={u.stepNum}>{String(i + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3 className={u.stepTitle}>{step.title}</h3>
-                  <p className={u.stepText}>{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className={u.placeholderNote}>
-            Early exploration (moodboard and first iterations) to be added here.
-          </p>
-        </section>
-
-        {/* ============ 05 · THE SUB-IDENTITY (dark) ============ */}
+        {/* ============ 03 · THE SUB-IDENTITY ============ */}
         <section className={u.systemSection}>
           <div className={u.sectionLabelWrap}>
-            <SectionLabel title="THE SUB-IDENTITY" number="05" dark />
+            <SectionLabel title="THE SUB-IDENTITY" number="03" />
           </div>
           <h2 className={u.systemHeadline}>
             Modernised without adding a single new colour.
@@ -343,10 +330,10 @@ function Un80Page() {
           </div>
         </section>
 
-        {/* ============ 06 · ACROSS CHANNELS ============ */}
+        {/* ============ 04 · ACROSS CHANNELS ============ */}
         <section className={u.channelsSection}>
           <div className={u.sectionLabelWrap}>
-            <SectionLabel title="ACROSS CHANNELS" number="06" />
+            <SectionLabel title="ACROSS CHANNELS" number="04" />
           </div>
           <h2 className={u.sectionHeadline}>One system, three homes.</h2>
 
@@ -410,26 +397,84 @@ function Un80Page() {
           </p>
         </section>
 
-        {/* ============ 07 · THE LANDING PAGE ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
-            <SectionLabel title="THE LANDING PAGE" number="07" />
-          </div>
-          <h2 className={u.sectionHeadline}>The public home for the reform.</h2>
-          <p className={u.sectionIntro}>
-            un.org/un80-initiative was the initiative's official home, and for
-            most people the first and only place they'd go to stay informed about
-            the reform. The page had to do two jobs at once: introduce a complex,
-            system-wide reform to a general public, and stand as the credible
-            reference point for Member States, press and partners.
-          </p>
+        {/* ============ THE LANDING PAGE — copy on the left, a browser
+             mockup on the right. The wrapper is taller than the screen, so
+             while it is pinned the screenshot scrolls inside the browser
+             window until it reaches the bottom of the page. Same idea as the
+             phone screens in the In the Loop case study. ============ */}
+        <section ref={siteWrapRef} className={u.siteScrollWrap}>
+          <div className={u.siteSticky}>
+            <div className={u.siteGrid}>
+              <div className={u.siteCopy}>
+                <h2 className={u.siteHeadline}>
+                  The public home for the reform.
+                </h2>
+                <p className={u.siteText}>
+                  The website served two purposes: it introduces a system-wide
+                  reform to the general public, and stands as the resource
+                  centre for Member States, press and partners.
+                </p>
+                <p className={u.siteText}>
+                  The structure answers the reader's questions:{' '}
+                  <strong className={u.siteEmphasis}>
+                    what this is, why it matters, what's changing, and where to
+                    go next.
+                  </strong>
+                </p>
+                <a
+                  className={u.siteCta}
+                  href="https://www.un.org/un80-initiative"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View the website
+                  <svg
+                    className={u.siteCtaArrow}
+                    width="22"
+                    height="12"
+                    viewBox="0 0 22 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M0 6h20M15 1l5 5-5 5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
 
-          <h3 className={u.subHeading}>Why the structure works</h3>
-          <p className={u.bodyText}>
-            The page is ordered around the reader's questions, not the
-            institution's org chart: what is this, why does it matter, what's
-            changing, and where do I go next.
-          </p>
+              <div>
+                <div className={u.browser}>
+                  <div className={u.browserBar}>
+                    <span className={`${u.browserDot} ${u.dotRed}`} />
+                    <span className={`${u.browserDot} ${u.dotAmber}`} />
+                    <span className={`${u.browserDot} ${u.dotGreen}`} />
+                    <span className={u.browserAddress}>
+                      un.org/un80-initiative
+                    </span>
+                  </div>
+                  <div ref={siteViewRef} className={u.browserViewport}>
+                    <img
+                      ref={siteImgRef}
+                      className={u.browserPage}
+                      src="/images/un80_site_home.webp"
+                      alt="The UN80 Initiative home page on un.org"
+                    />
+                  </div>
+                </div>
+                <p className={u.builtNote}>Built on Drupal 11.0.0</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ THE LANDING PAGE — the detail still to be written ==== */}
+        <section className={u.section}>
+          <h3 className={u.subHeadingFirst}>Why the structure works</h3>
           <p className={u.placeholderNote}>
             To finalise: the actual top-to-bottom page structure and the one
             design decision you're proudest of.
@@ -447,9 +492,9 @@ function Un80Page() {
           </p>
         </section>
 
-        {/* ============ 08 · RESULTS + 09 · REFLECTION (one blue box) ============ */}
+        {/* ============ 05 · RESULTS + 06 · REFLECTION (one blue box) ============ */}
         <section className={u.resultsSection}>
-          <SectionLabel title="RESULTS" number="08" dark />
+          <SectionLabel title="RESULTS" number="05" dark />
           <div className={u.resultsGrid}>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
@@ -483,7 +528,7 @@ function Un80Page() {
 
           <div className={u.reflectionBlock}>
             <div className={u.sectionLabelWrap}>
-              <SectionLabel title="REFLECTION" number="09" dark />
+              <SectionLabel title="REFLECTION" number="06" dark />
             </div>
             <p className={u.reflectionQuote}>
               The hardest decision wasn't the blue or the type. It was insisting
