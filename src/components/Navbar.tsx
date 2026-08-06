@@ -5,6 +5,8 @@ import styles from './Navbar.module.css'
 interface NavbarProps {
   /** Keep the bar visible at all times (e.g. case study pages). Home omits this and uses scroll past #statements. */
   alwaysVisible?: boolean
+  /** Skip the hide-over-footer behavior. Short pages (e.g. /play) reach the footer with barely any scroll, which would dismiss the bar almost immediately. */
+  ignoreFooter?: boolean
 }
 
 function isDarkBackground(el: Element): boolean {
@@ -17,7 +19,7 @@ function isDarkBackground(el: Element): boolean {
   return (r + g + b) / 3 < 80
 }
 
-export function Navbar({ alwaysVisible = false }: NavbarProps) {
+export function Navbar({ alwaysVisible = false, ignoreFooter = false }: NavbarProps) {
   const [visible, setVisible] = useState(alwaysVisible)
   const [footerVisible, setFooterVisible] = useState(false)
   const [dark, setDark] = useState(false)
@@ -44,7 +46,7 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
       }
 
       const footer = document.querySelector('footer')
-      if (footer) {
+      if (footer && !ignoreFooter) {
         const footerRect = footer.getBoundingClientRect()
         setFooterVisible(footerRect.top < window.innerHeight)
       }
@@ -71,7 +73,7 @@ export function Navbar({ alwaysVisible = false }: NavbarProps) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [alwaysVisible])
+  }, [alwaysVisible, ignoreFooter])
 
   return (
     <nav ref={navRef} className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden} ${dark ? styles.navDark : ''}`}>

@@ -1,0 +1,288 @@
+.section {
+  position: relative;
+  background-color: var(--bg-primary);
+  width: 100%;
+  /* Equal top and bottom so the collage sits centred between the menu bar
+     and the footer. */
+  padding: 140px max(48px, calc((100vw - 1440px) / 2 + 48px));
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------
+   Faint ruled grid behind everything.
+   Two sets of hairlines crossed over each other, then masked so the
+   lines only start dissolving close to the edges.
+   ------------------------------------------------------------------ */
+.gridBackdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 64% at 50% 50%, #000 58%, transparent 94%);
+  mask-image: radial-gradient(ellipse 72% 64% at 50% 50%, #000 58%, transparent 94%);
+}
+
+.fadeWrap {
+  position: relative;
+  will-change: opacity, transform;
+  animation: playFadeIn 0.7s ease 0.05s both;
+}
+
+@keyframes playFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------
+   Desktop collage. Fixed aspect box so the percentage positions in
+   PlayGrid.tsx always land the same way, at any window width.
+   ------------------------------------------------------------------ */
+.collage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 540px;
+}
+
+.centerText {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: min(42%, 520px);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2rem, 4.2vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------------
+   Cards — one shared size so the set reads as a matched deck.
+   ------------------------------------------------------------------ */
+.card {
+  position: absolute;
+  display: block;
+  width: 19%;
+  text-decoration: none;
+  color: var(--text-primary);
+  z-index: 2;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Needed so touch-dragging a card moves the card, not the page. */
+  touch-action: none;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+/* Anchor for the tag pill. Kept separate from `cardImageWrapper` because
+   that one clips its contents to round off the photo, which would cut the
+   pill in half. */
+.cardMedia {
+  position: relative;
+  width: 100%;
+}
+
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+}
+
+.cardImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.04);
+}
+
+/* ------------------------------------------------------------------
+   Tag pill — frosted glass over the photo, hanging off one edge.
+   The dot is an accent colour sampled from the artwork. On hover the
+   pill widens to append "| Title" after the tag.
+   ------------------------------------------------------------------ */
+.pill {
+  position: absolute;
+  bottom: -14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  backdrop-filter: blur(12px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.pillLeft {
+  left: -16px;
+}
+
+.pillRight {
+  right: -16px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.tag,
+.title {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+  color: #111;
+}
+
+.sep {
+  margin: 0 8px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+/* The "| Title" tail starts collapsed and slides open on hover. */
+.reveal {
+  display: inline-flex;
+  align-items: center;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.4s ease, opacity 0.3s ease;
+}
+
+.hasTitle:hover .reveal,
+.hasTitle:focus-visible .reveal {
+  max-width: 220px;
+  opacity: 1;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+
+/* Only shown on phones, where there is no hover to reveal the title. */
+.mobileTitle {
+  display: none;
+}
+
+/* ------------------------------------------------------------------
+   Narrow screens: drop the collage, use a plain two-column grid with
+   the heading above it.
+   ------------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .section {
+    padding: 100px 24px;
+  }
+
+  .gridBackdrop {
+    background-size: 36px 36px;
+    -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 50%, #000 55%, transparent 95%);
+    mask-image: radial-gradient(ellipse 78% 62% at 50% 50%, #000 55%, transparent 95%);
+  }
+
+  .collage {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 44px 20px;
+  }
+
+  .centerText {
+    position: static;
+    transform: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-bottom: 24px;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .card {
+    position: static;
+    width: 100%;
+    cursor: pointer;
+    touch-action: auto;
+    /* Any leftover drag offset from the desktop layout must not follow the
+       cards into the grid. */
+    transform: none !important;
+  }
+
+  /* Half-width columns leave no room to hang the pill far off the edge, so
+     every one tucks against the left and the type steps down a size to keep
+     the longest tag on a single line. */
+  .pill {
+    left: -6px;
+    right: auto;
+    bottom: -12px;
+    padding: 6px 11px;
+  }
+
+  .tag,
+  .title,
+  .sep {
+    font-size: 0.6875rem;
+  }
+
+  /* No hover on touch screens: the pill keeps just the tag and the project
+     name is spelled out underneath instead. */
+  .reveal {
+    display: none;
+  }
+
+  .mobileTitle {
+    display: block;
+    margin-top: 24px;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    color: var(--text-primary);
+  }
+
+  .card:hover .cardImage {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeWrap {
+    animation: none;
+  }
+
+  .cardImage,
+  .reveal {
+    transition: none;
+  }
+
+  .card:hover .cardImage {
+    transform: none;
+  }
+}
