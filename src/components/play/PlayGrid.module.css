@@ -40,28 +40,26 @@
    Desktop collage. Fixed aspect box so the percentage positions in
    PlayGrid.tsx always land the same way, at any window width.
    ------------------------------------------------------------------ */
-.collage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 540px;
-}
-
-.centerText {
-  position: absolute;
-  left: 50%;
-  top: 44%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  width: min(42%, 520px);
+.pageTitle {
+  margin: 0 0 56px;
   text-align: center;
-  font-family: var(--font-sans);
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: clamp(2rem, 4.2vw, 3.75rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  z-index: 1;
+}
+
+.collage {
+  position: relative;
+  width: 100%;
+  /* Shorter than the old 16/9 box: the heading no longer sits in the
+     middle, so the cards spread across the full width in two bands.
+     The height is tuned so the lowest card lands just shy of the bottom
+     edge, keeping the gap above and below the collage even. */
+  aspect-ratio: 16 / 7.6;
+  min-height: 440px;
 }
 
 /* ------------------------------------------------------------------
@@ -217,12 +215,8 @@
     gap: 44px 20px;
   }
 
-  .centerText {
-    position: static;
-    transform: none;
-    grid-column: 1 / -1;
-    width: 100%;
-    margin-bottom: 24px;
+  .pageTitle {
+    margin-bottom: 36px;
     font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
 

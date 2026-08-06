@@ -29,7 +29,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/189761117/Concept-Packaging-Design',
     image: '/images/play_kaiyare.webp',
     accent: '#2f5241',
-    left: '3%', top: '8%', pill: 'right',
+    left: '2%', top: '4%', pill: 'right',
   },
   {
     title: 'Sarang & Ankita',
@@ -37,7 +37,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/189751407/Brand-Identity-Design-Project',
     image: '/images/play_sarang-ankita.webp',
     accent: '#c96e60',
-    left: '28%', top: '0%', pill: 'right',
+    left: '24%', top: '24%', pill: 'right',
   },
   {
     title: 'Jashn',
@@ -45,7 +45,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/189753297/Furniture-Design-Project',
     image: '/images/play_furniture.webp',
     accent: '#b45a2c',
-    left: '59%', top: '5%', pill: 'left',
+    left: '48%', top: '0%', pill: 'left',
   },
   {
     // No title on hover for this one — the tag is the whole story.
@@ -54,7 +54,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/118551649/INTERIOR-STYLING-Bedroom',
     image: '/images/play_interior-styling.webp',
     accent: '#3a5734',
-    left: '81%', top: '27%', pill: 'left',
+    left: '74%', top: '16%', pill: 'left',
   },
   {
     title: 'Snug',
@@ -62,7 +62,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/120069585/SNUG-Lighting-Design',
     image: '/images/play_snug.webp',
     accent: '#bc6f4a',
-    left: '1%', top: '55%', pill: 'right',
+    left: '4%', top: '58%', pill: 'right',
   },
   {
     title: 'Fika',
@@ -70,7 +70,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/117506707/FIKA-Placemat-Design',
     image: '/images/play_fika.webp',
     accent: '#5f7f3c',
-    left: '29%', top: '69%', pill: 'right',
+    left: '38%', top: '66%', pill: 'right',
   },
   {
     title: 'Yoga Bar',
@@ -78,7 +78,7 @@ const projects: PlayProject[] = [
     href: 'https://www.behance.net/gallery/118597783/YOGA-BAR-Product-Photography',
     image: '/images/play_yoga-bar.webp',
     accent: '#e0b514',
-    left: '61%', top: '63%', pill: 'left',
+    left: '70%', top: '62%', pill: 'left',
   },
 ]
 
@@ -156,11 +156,11 @@ export function PlayGrid() {
       {/* This page is a single screen, so the reveal is a plain CSS fade on
           load rather than a scroll-driven one — nothing to scroll into. */}
       <div className={styles.fadeWrap}>
-        <div className={styles.collage}>
-          <h1 id="play-title" className={styles.centerText}>
-            a little of everything
-          </h1>
+        <h1 id="play-title" className={styles.pageTitle}>
+          a little of everything
+        </h1>
 
+        <div className={styles.collage}>
           {projects.map((project, idx) => (
             <a
               key={project.tag}
