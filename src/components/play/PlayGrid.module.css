@@ -2,8 +2,15 @@
   position: relative;
   background-color: var(--bg-primary);
   width: 100%;
-  /* Equal top and bottom so the collage sits centred between the menu bar
-     and the footer. */
+  /* Fill the screen and centre the collage in it. Without the min-height
+     the section is only as tall as its contents, so on a tall monitor all
+     the leftover space piles up underneath and the collage rides high.
+     Equal top and bottom padding keeps it off the menu bar and the footer
+     once the screen is short enough that the collage sets the height. */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 140px max(48px, calc((100vw - 1440px) / 2 + 48px));
   overflow: hidden;
 }
@@ -40,26 +47,51 @@
    Desktop collage. Fixed aspect box so the percentage positions in
    PlayGrid.tsx always land the same way, at any window width.
    ------------------------------------------------------------------ */
-.pageTitle {
-  margin: 0 0 56px;
-  text-align: center;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(2rem, 4.2vw, 3.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
-
 .collage {
   position: relative;
   width: 100%;
-  /* Shorter than the old 16/9 box: the heading no longer sits in the
-     middle, so the cards spread across the full width in two bands.
-     The height is tuned so the lowest card lands just shy of the bottom
-     edge, keeping the gap above and below the collage even. */
-  aspect-ratio: 16 / 7.6;
-  min-height: 440px;
+  aspect-ratio: 16 / 9;
+  min-height: 540px;
+}
+
+/* Sits in the middle of the collage, with the cards ringed around it. */
+.centerText {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  /* One line, always — the box shrink-wraps the text rather than being
+     given a width that would force a break. */
+  white-space: nowrap;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.5vw, 3.125rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  z-index: 1;
+}
+
+/* Wraps the last word so the squiggle can be pinned under it. */
+.underlined {
+  position: relative;
+  display: inline-block;
+}
+
+.squiggle {
+  position: absolute;
+  top: 100%;
+  /* Deliberately narrower than the word and sitting a little left of centre,
+     so it reads as a quick pass with a pen rather than a ruled underline. */
+  left: 4%;
+  width: 84%;
+  height: 0.5em;
+  margin-top: 0.01em;
+  color: var(--color-orange);
+  overflow: visible;
+  pointer-events: none;
 }
 
 /* ------------------------------------------------------------------
@@ -72,15 +104,16 @@
   text-decoration: none;
   color: var(--text-primary);
   z-index: 2;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  /* Needed so touch-dragging a card moves the card, not the page. */
-  touch-action: none;
+  /* Every card drifts gently on the spot. The timings come from the data
+     in PlayGrid.tsx; the negative delays mean each one starts part-way
+     into its own cycle, so they never rise and fall together. */
+  animation: cardBob var(--bob-dur) ease-in-out var(--bob-delay) infinite;
+  will-change: transform;
 }
 
-.card:active {
-  cursor: grabbing;
+@keyframes cardBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(var(--bob-shift) * -1)); }
 }
 
 /* Anchor for the tag pill. Kept separate from `cardImageWrapper` because
@@ -114,8 +147,7 @@
 
 /* ------------------------------------------------------------------
    Tag pill — frosted glass over the photo, hanging off one edge.
-   The dot is an accent colour sampled from the artwork. On hover the
-   pill widens to append "| Title" after the tag.
+   On hover the pill widens to append "| Title" after the tag.
    ------------------------------------------------------------------ */
 .pill {
   position: absolute;
@@ -139,14 +171,6 @@
 
 .pillRight {
   right: -16px;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  margin-right: 8px;
-  flex-shrink: 0;
 }
 
 .tag,
@@ -212,22 +236,35 @@
     min-height: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 44px 20px;
+    /* `start` so each card keeps its natural height and the per-card
+       top margins below can stagger them, instead of every card being
+       stretched to match the tallest in its row. */
+    align-items: start;
+    gap: 30px 20px;
   }
 
-  .pageTitle {
-    margin-bottom: 36px;
-    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  .centerText {
+    position: static;
+    transform: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-bottom: 24px;
+    font-size: clamp(1.625rem, 7.5vw, 2.25rem);
+    /* It fits on one line at phone widths, but allow a break rather than
+       let it run off the side of a very narrow screen. */
+    white-space: normal;
   }
 
+  /* Two columns still, but each card is nudged sideways and down and sized
+     a little differently, so the result reads as a loose cluster rather
+     than a ruled grid. The values come from `mob` in PlayGrid.tsx.
+     Margins rather than transforms, because transform is already carrying
+     the bobbing animation. */
   .card {
     position: static;
-    width: 100%;
-    cursor: pointer;
-    touch-action: auto;
-    /* Any leftover drag offset from the desktop layout must not follow the
-       cards into the grid. */
-    transform: none !important;
+    width: var(--mob-w, 100%);
+    margin-left: var(--mob-x, 0);
+    margin-top: var(--mob-y, 0);
   }
 
   /* Half-width columns leave no room to hang the pill far off the edge, so
@@ -267,7 +304,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fadeWrap {
+  .fadeWrap,
+  .card {
     animation: none;
   }
 

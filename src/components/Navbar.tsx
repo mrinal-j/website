@@ -85,7 +85,7 @@ export function Navbar({ alwaysVisible = false, ignoreFooter = false }: NavbarPr
         <div className={styles.links}>
           <Link to="/" className={styles.navLink} hash="featured-works">Work</Link>
           <a href="https://legacy.mrinaljadhav.com/about#anchors-lr44wn3y" target="_blank" rel="noopener noreferrer" className={styles.navLink}>About</a>
-          <a href="https://www.behance.net/mrinaljadhav" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Play</a>
+          <Link to="/play" className={styles.navLink}>Play</Link>
           <span className={styles.divider} />
           <a href="mailto:mrinal.r.jadhav@gmail.com" className={styles.iconLink} aria-label="Email" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
