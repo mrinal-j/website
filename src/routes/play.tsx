@@ -12,9 +12,6 @@ export const Route = createFileRoute('/play')({
         content:
           'Odds and ends — packaging, identity, lighting, furniture, photography and styling work by Mrinal Jadhav.',
       },
-      // Work in progress: keep this page out of search results until the
-      // nav links to it. (robots.txt also disallows /play as a backup.)
-      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: PlayPage,
