@@ -5,6 +5,7 @@ import { Footer } from '~/components/Footer'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
 import { DraggableCardStack } from '~/components/case-study/DraggableCardStack'
+import { MoreWork } from '~/components/case-study/MoreWork'
 import { useScrollReveal } from '~/hooks/useScrollReveal'
 import styles from '~/components/case-study/InTheLoop.module.css'
 
@@ -773,6 +774,7 @@ function InTheLoopPage() {
           </div>
         </section>
       </main>
+      <MoreWork currentSlug="/in-the-loop" />
       <Footer />
     </>
   )

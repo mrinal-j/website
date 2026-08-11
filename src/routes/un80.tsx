@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
+import { MoreWork } from '~/components/case-study/MoreWork'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
 import { useScrollReveal } from '~/hooks/useScrollReveal'
@@ -550,6 +551,7 @@ function Un80Page() {
           </div>
         </section>
       </main>
+      <MoreWork currentSlug="/un80" />
       <Footer />
     </>
   )

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
+import { MoreWork } from '~/components/case-study/MoreWork'
 import { SectionLabel } from '~/components/SectionLabel'
 import { CountUp } from '~/components/CountUp'
 import { useScrollReveal } from '~/hooks/useScrollReveal'
@@ -524,6 +525,7 @@ function KaaroPage() {
           </div>
         </section>
       </main>
+      <MoreWork currentSlug="/kaaro" />
       <Footer />
     </>
   )
