@@ -517,14 +517,11 @@
 .siteSticky {
   position: sticky;
   top: 0;
-  /* Just tall enough to hold the mockup: a full-screen box would leave dead
-     space under it once the block releases. */
-  min-height: min(100vh, 640px);
+  min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  /* Clears the fixed navbar while the block is pinned, and sets the gap
-     between the newsletter above and the Website label. */
-  padding-top: 96px;
+  /* Centred in the viewport, so the block holds the middle of the screen for
+     the whole pinned scroll instead of riding the top edge. */
+  align-items: center;
 }
 .siteGrid {
   display: grid;
@@ -732,7 +729,7 @@
 .postCaption {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 16px;
   padding: 10px 14px;
   border-top: 1px solid var(--border-light);
@@ -758,6 +755,7 @@
 .newsletterStack {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
 }
 .newsletterBack,
 .newsletterFront {
@@ -771,7 +769,6 @@
 }
 .newsletterBack {
   order: 2;
-  margin-top: 44px;
   box-shadow: 0 10px 40px -22px rgba(0, 0, 0, 0.35);
 }
 .newsletterFront {
