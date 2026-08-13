@@ -11,6 +11,8 @@ export type Project = {
   tags: string[]
   image: string
   hoverImage?: string
+  /** Skip the dark bottom gradient — for flat covers like a logo lockup. */
+  flatCover?: boolean
   x: string
   y: string
 }
@@ -23,6 +25,7 @@ export const projects: Project[] = [
     tags: ['Brand Identity', 'Design Systems', 'Content Strategy', 'Multi-channel Design', 'Figma', 'Adobe CC', 'Drupal'],
     image: '/images/un80-logo-on-blue.webp',
     hoverImage: '/images/un80_banner 5.webp',
+    flatCover: true,
     x: '50%', y: '50%',
   },
   {

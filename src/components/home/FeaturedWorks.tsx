@@ -43,7 +43,7 @@ export function FeaturedWorks() {
                     className={`${styles.cardImage} ${styles.cardImageHover}`}
                   />
                 )}
-                <div className={styles.cardGradient} />
+                {!project.flatCover && <div className={styles.cardGradient} />}
                 <div className={styles.cardArrow}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M7 17L17 7M17 7H7M17 7v10"/>

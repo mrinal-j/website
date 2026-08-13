@@ -40,13 +40,14 @@
   margin-bottom: 28px;
 }
 
+/* Set in the body face, matching the overview above it, and in UN blue. */
 .sectionHeadline {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.75rem, 3.4vw, 2.15rem);
-  line-height: 120%;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  line-height: 135%;
+  letter-spacing: -0.01em;
+  color: var(--un-blue);
   max-width: 720px;
   margin: 0 0 22px;
 }
@@ -69,18 +70,18 @@
 /* ============================================================
    OVERVIEW — one prominent summary statement.
    ============================================================ */
-.oneLiner {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
-  line-height: 145%;
+.overviewText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 170%;
   letter-spacing: -0.01em;
-  color: var(--text-primary);
-  max-width: 840px;
+  color: var(--text-secondary);
+  max-width: 640px;
   margin: 0;
   text-wrap: pretty;
 }
-.oneLiner span {
+.overviewText span {
   color: var(--un-blue);
 }
 

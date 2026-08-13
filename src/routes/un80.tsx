@@ -180,11 +180,11 @@ function Un80Page() {
           <div className={u.sectionLabelWrap}>
             <SectionLabel title="OVERVIEW" />
           </div>
-          <p className={u.oneLiner}>
+          <p className={u.overviewText}>
             Designed a distinct visual identity for the UN80 Initiative that
             lived inside the United Nations' master brand, turning dense reform
-            content into <span>plain-language, on-brand communication</span> the
-            general public could easily follow.
+            content into <span>plain-language, on-brand communication</span> its
+            audiences could easily follow.
           </p>
         </section>
 
@@ -238,7 +238,7 @@ function Un80Page() {
               },
               {
                 title: 'Four varied audiences',
-                desc: 'The initiative answers to Member States, who lead the process; to civil society; to entities across the UN system; and to the general public, invited in through LinkedIn and the newsletter. One identity had to hold for all four.',
+                desc: 'The initiative answers to Member States, who lead the process; to civil society; to entities across the UN system; and to the general public, invited in through LinkedIn and the newsletter.',
               },
               {
                 title: 'The constraint',
@@ -314,7 +314,7 @@ function Un80Page() {
             ))}
           </div>
           <p className={u.specCaption}>
-            One blue, laddered from 100% to 10%, gives depth and hierarchy
+            One blue, graded from 100% to 10%, gives depth and hierarchy
             without introducing a single new hue. Black and white carry the type
             and the structure.
           </p>
@@ -341,9 +341,7 @@ function Un80Page() {
             </div>
           </div>
           <p className={u.specCaption}>
-            Roboto, inherited from the UN master brand. Bold for headers,
-            regular for body, and nothing else, so the hierarchy is doing the
-            work rather than the typeface.
+            Roboto is part of the UN identity, inherited rather than chosen.
           </p>
         </section>
 
@@ -358,13 +356,14 @@ function Un80Page() {
           <div className={u.channelLabel}>LinkedIn</div>
           <p className={u.channelDesc}>
             A template system including quote cards, announcements,
-            did-you-knows, end slides, short motion pieces and more, translating
+            did-you-knows, end cards, short motion pieces and more, translating
             complex institutional content into more accessible and engaging
             content.
           </p>
           <p className={u.channelOutcome}>
-            The templates meant a dense progress report could be published as a
-            feed post the same day, without a designer redrawing it each time.
+            Designed to stay quiet. Each template holds one idea in a simple,
+            repeatable frame, so the visuals give dense reform content the room
+            to be read rather than competing with it.
           </p>
           <a
             className={u.siteCta}
@@ -468,14 +467,14 @@ function Un80Page() {
             <div className={u.newsletterCopy}>
               <p className={u.newsletterText}>
                 A monthly issue offering insights into major milestones, work
-                underway, and progress toward a more effective UN system. It goes
-                out on <strong>LinkedIn</strong> and as an <strong>email</strong>,
-                so the same edition reaches the feed and the inbox.
+                underway, and progress toward a more effective UN system. To
+                reach a larger audience, it goes out on <strong>LinkedIn</strong>{' '}
+                and as an <strong>email</strong>.
               </p>
               <p className={u.channelOutcome}>
-                One template carries a long, link-heavy report, so each issue
-                lands looking like the last and readers know where to find
-                things.
+                Designed as one repeating template, so a long, link-heavy report
+                always arrives in the same shape and readers already know where
+                to look.
               </p>
               <a
                 className={u.siteCta}
@@ -518,14 +517,11 @@ function Un80Page() {
                 <p className={u.siteText}>
                   The website served two purposes: it introduces a system-wide
                   reform to the general public, and stands as the resource
-                  centre for Member States, press and partners.
+                  centre for Member States, the UN system, press and partners.
                 </p>
-                <p className={u.siteText}>
-                  The structure answers the reader's questions:{' '}
-                  <strong className={u.siteEmphasis}>
-                    what this is, why it matters, what's changing, and where to
-                    go next.
-                  </strong>
+                <p className={u.channelOutcome}>
+                  Structured around the reader's questions: what this is, why it
+                  matters, what's changing, and where to go next.
                 </p>
                 <a
                   className={u.siteCta}
@@ -621,12 +617,11 @@ function Un80Page() {
               <SectionLabel title="REFLECTION" number="06" dark />
             </div>
             <p className={u.reflectionQuote}>
-              The hardest decision wasn't the blue or the type. It was insisting
-              that <span>clarity itself was part of the brand</span>. Once the
-              system made simplification the default, the identity did the heavy
-              lifting, and on-brand, on-message work followed by design. The real
-              deliverable wasn't a logo. It was a system that made a complex
-              institution easier to understand.
+              The challenge of building a visual identity for the initiative
+              wasn't working on top of the UN's foundational identity. It was{' '}
+              <span>making clarity the visual language</span>. The real
+              deliverable was a system that made a complex institution easier to
+              understand.
             </p>
             <div className={u.tagRow}>
               {['Brand identity', 'Design systems', 'Content strategy', 'Multi-channel'].map(
