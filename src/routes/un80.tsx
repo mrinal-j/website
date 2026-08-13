@@ -16,11 +16,8 @@ export const Route = createFileRoute('/un80')({
       {
         name: 'description',
         content:
-          'Building a brand for the UN80 Initiative: a distinct visual identity, built inside the UN master brand, that made system-wide reform legible to the general public.',
+          'Building a brand for the UN80 Initiative: a distinct visual identity, built inside the UN master brand, that made system-wide reform legible to its audiences.',
       },
-      // Work-in-progress: keep this page out of search results until it's
-      // ready to publish. (robots.txt also disallows /un80 as a backup.)
-      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: Un80Page,
@@ -590,18 +587,10 @@ function Un80Page() {
             </div>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
-                <CountUp to={6944} duration={1800} />
+                <CountUp to={9000} duration={1800} />+
               </span>
               <span className={u.resultLabel}>
-                Newsletter subscribers on LinkedIn, also from zero
-              </span>
-            </div>
-            <div className={u.resultStat}>
-              <span className={u.resultNum}>
-                <CountUp to={8050} duration={1800} />
-              </span>
-              <span className={u.resultLabel}>
-                Newsletter article views on LinkedIn
+                Newsletter subscribers across LinkedIn and email, from zero
               </span>
             </div>
           </div>

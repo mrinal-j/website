@@ -15,7 +15,7 @@ export function Footer() {
         {/* Main row: LinkedIn + Behance on left, circle with heading in center, badge on right — bottom-aligned */}
         <div className={styles.mainRow}>
           <div className={styles.socialLinks}>
-            <a href="/" className={`${styles.socialIconLink} ${styles.homeIconMobile}`} aria-label="Home">
+            <a href="/#home" className={`${styles.socialIconLink} ${styles.homeIconMobile}`} aria-label="Home">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
@@ -63,7 +63,7 @@ export function Footer() {
           </div>
 
           <div className={styles.badgeRow}>
-            <a href="/" className={`${styles.socialIconLink} ${styles.homeIcon}`} aria-label="Home">
+            <a href="/#home" className={`${styles.socialIconLink} ${styles.homeIcon}`} aria-label="Home">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />

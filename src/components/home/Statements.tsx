@@ -87,7 +87,7 @@ export function Statements() {
   }, [])
 
   return (
-    <section id="statements" ref={sectionRef} className={styles.section}>
+    <section id="home" ref={sectionRef} className={styles.section}>
       <div ref={stickyRef} className={styles.sticky}>
         <div
           className={styles.layout}

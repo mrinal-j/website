@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import styles from './Navbar.module.css'
 
 interface NavbarProps {
-  /** Keep the bar visible at all times (e.g. case study pages). Home omits this and uses scroll past #statements. */
+  /** Keep the bar visible at all times (e.g. case study pages). Home omits this and uses scroll past #home. */
   alwaysVisible?: boolean
   /** Skip the hide-over-footer behavior. Short pages (e.g. /play) reach the footer with barely any scroll, which would dismiss the bar almost immediately. */
   ignoreFooter?: boolean
@@ -37,7 +37,7 @@ export function Navbar({ alwaysVisible = false, ignoreFooter = false }: NavbarPr
 
     const onScroll = () => {
       if (!alwaysVisible) {
-        const target = document.getElementById('statements')
+        const target = document.getElementById('home')
         if (!target) {
           setVisible(true)
         } else {
@@ -78,7 +78,7 @@ export function Navbar({ alwaysVisible = false, ignoreFooter = false }: NavbarPr
   return (
     <nav ref={navRef} className={`${styles.nav} ${visible && !footerVisible ? styles.navVisible : styles.navHidden} ${dark ? styles.navDark : ''}`}>
       <div className={styles.inner}>
-        <Link to="/" className={styles.logo}>
+        <Link to="/" hash="home" className={styles.logo}>
           <img src="/images/nav-icon.webp" alt="Mrinal Jadhav" className={styles.logoIcon} />
           <span className={styles.logoText}>Mrinal Jadhav</span>
         </Link>
