@@ -452,14 +452,14 @@ function Un80Page() {
           <div className={u.newsletterRow}>
             <div className={u.newsletterStack}>
               <img
-                className={u.newsletterBack}
+                className={u.newsletterBody}
                 src="/images/un80-newsletter-body.webp"
                 alt=""
                 aria-hidden="true"
                 loading="lazy"
               />
               <img
-                className={u.newsletterFront}
+                className={u.newsletterTop}
                 src="/images/un80-newsletter-top.webp"
                 alt="The UN80 Initiative newsletter, Edition 05: United to Deliver Better, with the contents of the issue and a quote from the Secretary-General"
                 loading="lazy"
