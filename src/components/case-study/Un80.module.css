@@ -243,21 +243,6 @@
   margin: 0;
 }
 
-/* A muted "content to come" note for sections still awaiting input. */
-.placeholderNote {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  line-height: 155%;
-  color: var(--text-muted);
-  font-style: italic;
-  margin: 24px 0 0;
-  padding: 14px 18px;
-  border: 1px dashed var(--border-light);
-  border-radius: 10px;
-  background: #faf9f7;
-  max-width: 640px;
-}
-
 /* ============================================================
    03 · THE SUB-IDENTITY — light section, inherited vs created.
    The cards are pale tiles with a hairline border so they read as a
@@ -292,231 +277,122 @@
   font-style: italic;
 }
 
-.systemGroupLabel {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.systemGroupLabel > span:first-child {
+/* Each piece of the identity (logo, colour, type) gets the same treatment:
+   a small heading, the specimen, then a line of explanation under it. */
+.specTitle {
   font-family: var(--font-body);
   font-size: 0.6875rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
+  margin: 0 0 18px;
 }
-.systemGroupLabelCreated > span:first-child {
-  color: var(--un-accent);
+.specTitle:not(:first-of-type) {
+  margin-top: 64px;
 }
-.systemChip {
-  font-family: ui-monospace, monospace;
-  font-size: 0.5625rem;
-  color: var(--text-muted);
-  border: 1px solid var(--border-light);
-  border-radius: 999px;
-  padding: 3px 9px;
-}
-.systemChipNew {
-  color: #fff;
-  background: var(--un-accent);
-  border-color: var(--un-accent);
-}
-
-.inheritedGrid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 14px;
-  margin-bottom: 44px;
-}
-.createdGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.typeCard {
-  background: #faf9f7;
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  padding: 24px 28px;
-}
-.typeGlyph {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 4rem;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  color: var(--un-ink);
-}
-.typeMeta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding-top: 12px;
-}
-.typeMetaName {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.875rem;
-  color: var(--un-ink);
-}
-.typeMetaSub {
-  font-family: ui-monospace, monospace;
-  font-size: 0.625rem;
-  color: #8a8a8a;
-}
-
-.swatchCard {
-  border-radius: 12px;
-  overflow: hidden;
-  background: #faf9f7;
-  border: 1px solid var(--border-light);
-}
-.swatchColor {
-  height: 96px;
-}
-.swatchBody {
-  padding: 11px 13px;
-}
-.swatchName {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.75rem;
-  color: var(--text-primary);
-}
-.swatchHex {
-  font-family: ui-monospace, monospace;
-  font-size: 0.625rem;
-  color: var(--text-muted);
-  margin-top: 3px;
-}
-
-.createdCard {
-  border-radius: 12px;
-  overflow: hidden;
-  background: #faf9f7;
-  border: 1px solid var(--border-light);
-}
-.createdVisual {
-  height: 130px;
-  position: relative;
-  overflow: hidden;
-}
-.createdBody {
-  padding: 16px 18px;
-}
-.createdTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.9375rem;
-  color: var(--text-primary);
-}
-.createdText {
+.specCaption {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  line-height: 150%;
+  font-size: 0.875rem;
+  line-height: 165%;
   color: var(--text-secondary);
-  margin-top: 6px;
-}
-/* The single-blue tonal scale — full-width ladder, the signature move. */
-.scaleBlock {
-  margin-bottom: 44px;
-}
-.scaleText {
   max-width: 620px;
-  margin-bottom: 20px;
+  margin: 18px 0 0;
 }
-.scaleLadder {
+
+/* Primary logo — the lockup in its two settings, side by side. */
+.logoRow {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
-.scaleSwatch {
-  border-radius: 10px;
-  overflow: hidden;
-  background: #faf9f7;
+.logoPanel {
   border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 7;
 }
-.scaleSwatchColor {
-  height: 88px;
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.scalePct {
+
+/* Colour — the tonal ladder plus the neutrals, drawn as pills. */
+.pillRow {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 14px;
+}
+.pillItem {
+  min-width: 0;
+}
+/* Taller than it is wide, so the rounded ends read as a pill rather than
+   collapsing into a circle. */
+.pill {
+  height: 232px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.pillPct {
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.8125rem;
   color: var(--text-primary);
-  padding: 10px 12px 0;
+  margin-top: 12px;
 }
-.scaleHex {
+.pillHex {
   font-family: ui-monospace, monospace;
   font-size: 0.5625rem;
   color: var(--text-muted);
-  padding: 3px 12px 12px;
+  margin-top: 3px;
 }
 
-/* the three "created" pillar visuals */
-.visualNeutral {
+/* Typography — the two weights actually set in Roboto, on white. */
+.typeRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.typePanel {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 32px 34px 24px;
+}
+.typeAa {
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 6rem;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--un-ink);
+}
+.typeAaBold {
+  font-weight: 700;
+}
+.typeInfo {
   display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 22px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 14px;
 }
-.visualNeutral > span {
-  flex: 1;
+.typeName {
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--un-ink);
 }
-.visualNeutral > span:last-child {
-  box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.12);
-}
-.visualCurves {
-  background: var(--un-blue);
-}
-.visualCurves::before {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-image: linear-gradient(150deg, var(--un-blue-light), var(--un-blue));
-  right: -70px;
-  top: -60px;
-}
-.visualCurves::after {
-  content: "";
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: var(--un-tint-40);
-  left: -40px;
-  bottom: -50px;
-}
-/* Motion — three offset pills that drift, suggesting movement. */
-.visualMotion {
-  background: var(--un-blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.visualMotion > span {
-  width: 20px;
-  height: 44px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.9);
-  animation: un80drift 2.4s ease-in-out infinite;
-}
-.visualMotion > span:nth-child(2) {
-  animation-delay: 0.2s;
-  background: var(--un-tint-40);
-}
-.visualMotion > span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-@keyframes un80drift {
-  0%, 100% { transform: translateY(-8px); }
-  50% { transform: translateY(8px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .visualMotion > span { animation: none; }
+.typeUse {
+  font-family: ui-monospace, monospace;
+  font-size: 0.625rem;
+  color: var(--text-muted);
 }
 
 /* ============================================================
@@ -762,85 +638,130 @@
   margin: 12px 0 0;
 }
 
-/* Sub-heading inside a light section (e.g. Landing Page subsections). */
-.subHeading {
+/* LinkedIn posts — each square asset sits inside a post frame (avatar, name,
+   follower count) so it reads as a feed post rather than a loose graphic. */
+.postsScroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  margin-bottom: 72px;
+  /* Bleed to the page edges so the row reads as something you scroll. */
+  margin-left: calc(var(--page-side-padding) * -1);
+  margin-right: calc(var(--page-side-padding) * -1);
+}
+.postsScroller::-webkit-scrollbar {
+  display: none;
+}
+.postsTrack {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  padding: 4px var(--page-side-padding);
+}
+.postCard {
+  width: 280px;
+  flex-shrink: 0;
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px -18px rgba(0, 0, 0, 0.35);
+}
+.postHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+.postAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--un-blue);
+}
+.postAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.postWho {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.postName {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 130%;
+  font-size: 0.8125rem;
   color: var(--text-primary);
-  margin: 40px 0 14px;
 }
-/* Same, but first in its section, so no leading gap. */
-.subHeadingFirst {
-  composes: subHeading;
-  margin-top: 0;
+.postMeta {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
 }
-
-/* Auto-scrolling LinkedIn carousel. */
-.carousel {
-  overflow: hidden;
-  border-radius: 12px;
-  margin-bottom: 48px;
-}
-.carouselTrack {
-  display: flex;
-  gap: 14px;
-  width: max-content;
-  animation: un80marquee 26s linear infinite;
-}
-.carousel:hover .carouselTrack {
-  animation-play-state: paused;
-}
-@keyframes un80marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.carouselSlide {
-  width: 200px;
-  height: 200px;
-  border-radius: 12px;
+.postMedia {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  flex-shrink: 0;
   background: #eef3f9;
+}
+.postCaption {
+  font-family: ui-monospace, monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 14px;
+  border-top: 1px solid var(--border-light);
 }
 
 /* Newsletter row. */
 .newsletterRow {
   display: grid;
   grid-template-columns: 1fr 1.15fr;
-  gap: 32px;
+  gap: 48px;
   align-items: center;
 }
-.emailCard {
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.18);
+/* The two captures stacked: the rest of the issue peeking out behind on the
+   right, the top of the issue in front, so you read both the length and the
+   detail at once. Both are cropped from the top to a fixed height. */
+.newsletterStack {
+  position: relative;
+  height: 620px;
 }
-.emailHead {
-  background: var(--un-blue);
-  padding: 18px 20px;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1rem;
-  color: #fff;
-}
-.emailBody {
-  padding: 20px;
-}
-.emailMast {
-  height: 100px;
+.newsletterBack,
+.newsletterFront {
+  position: absolute;
+  display: block;
+  height: 560px;
+  object-fit: cover;
+  object-position: top center;
   border-radius: 8px;
-  margin-bottom: 16px;
-  background-color: #f2f2f2;
+  border: 1px solid var(--border-light);
+  background: #fff;
 }
-.emailLine {
-  height: 7px;
-  background: rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-bottom: 8px;
+.newsletterBack {
+  right: 0;
+  top: 0;
+  width: 54%;
+  box-shadow: 0 10px 40px -22px rgba(0, 0, 0, 0.4);
+}
+.newsletterFront {
+  left: 0;
+  bottom: 0;
+  width: 72%;
+  box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.45);
+}
+.newsletterCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .newsletterTitle {
   font-family: var(--font-sans);
@@ -942,10 +863,6 @@
     padding-top: 64px;
     padding-bottom: 64px;
   }
-  .createdGrid,
-  .resultsGrid {
-    grid-template-columns: 1fr;
-  }
   /* Two-up on tablets, so the four points stay side by side in pairs. */
   .challengeGrid {
     grid-template-columns: 1fr 1fr;
@@ -955,11 +872,14 @@
   .challengeItem {
     max-width: none;
   }
-  .scaleLadder {
-    grid-template-columns: repeat(3, 1fr);
+  .pillRow {
+    grid-template-columns: repeat(4, 1fr);
   }
-  .inheritedGrid {
-    grid-template-columns: 1fr 1fr;
+  .pill {
+    height: 200px;
+  }
+  .typeAa {
+    font-size: 4.5rem;
   }
   .beforeAfter {
     grid-template-columns: 1fr;
@@ -970,6 +890,7 @@
   }
   .newsletterRow {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
   .resultsGrid {
     grid-template-columns: 1fr 1fr;
@@ -1018,8 +939,9 @@
 
 @media (max-width: 560px) {
   .resultsGrid,
-  .inheritedGrid,
-  .challengeGrid {
+  .challengeGrid,
+  .logoRow,
+  .typeRow {
     grid-template-columns: 1fr;
   }
   /* Short phones: shrink the browser window so the copy, the mockup and the
@@ -1033,7 +955,15 @@
   .browserViewport {
     height: min(38vh, 260px);
   }
-  .scaleLadder {
+  /* Two-up on phones: the columns get wide, so the pills need extra height
+     to stay pill-shaped rather than reading as circles. */
+  .pillRow {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .pill {
+    height: 280px;
+  }
+  .postCard {
+    width: 240px;
   }
 }

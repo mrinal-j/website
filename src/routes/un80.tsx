@@ -26,14 +26,52 @@ export const Route = createFileRoute('/un80')({
   component: Un80Page,
 })
 
-// The UN80 single-blue tonal scale: one hue laddered from 100% to 10%.
-const TONAL_SCALE = [
+// The UN80 palette: the single-blue tonal scale (one hue laddered from 100%
+// to 10%) plus the black and white that carry type and structure.
+const PALETTE = [
   { pct: '100%', hex: '#019EDB' },
   { pct: '80%', hex: '#34B1E2' },
   { pct: '60%', hex: '#67C5E9' },
   { pct: '40%', hex: '#99D8F1' },
   { pct: '20%', hex: '#CCECF8' },
   { pct: '10%', hex: '#E6F5FB' },
+  { pct: 'Black', hex: '#000000' },
+  { pct: 'White', hex: '#FFFFFF' },
+]
+
+// The LinkedIn post system: three still formats and two motion pieces, all
+// square, all built from the same identity.
+const POSTS = [
+  {
+    type: 'image' as const,
+    src: '/images/un80-post-1.webp',
+    alt: 'Quote card: co-facilitators Brian Wallace and Carolyn Schwalger on producing an implementable outcome, over a photo of the General Assembly',
+    caption: 'Quote card',
+  },
+  {
+    type: 'video' as const,
+    src: '/images/un80-post-video.mp4',
+    alt: 'Animated title card: United to Deliver Better',
+    caption: 'Motion title card',
+  },
+  {
+    type: 'image' as const,
+    src: '/images/un80-post-2.webp',
+    alt: 'Quote card: Guy Ryder, UN Under-Secretary-General for Policy, on entering the delivery-focused phase',
+    caption: 'Quote card',
+  },
+  {
+    type: 'video' as const,
+    src: '/images/un80-briefing-video.mp4',
+    alt: 'Captioned clip of Tom Fletcher speaking at the UN80 Initiative General Assembly briefing',
+    caption: 'Captioned briefing clip',
+  },
+  {
+    type: 'image' as const,
+    src: '/images/un80-post-3.webp',
+    alt: 'Carousel opener: Why Mandates matter? over a photo of a woman working in a tea field',
+    caption: 'Carousel opener',
+  },
 ]
 
 function Un80Page() {
@@ -224,7 +262,8 @@ function Un80Page() {
           </div>
         </section>
 
-        {/* ============ 03 · THE SUB-IDENTITY ============ */}
+        {/* ============ 03 · THE SUB-IDENTITY — the three pieces of the
+             system: the logo lockup, the palette, and the type ============ */}
         <section className={u.systemSection}>
           <div className={u.sectionLabelWrap}>
             <SectionLabel title="THE SUB-IDENTITY" number="03" />
@@ -235,100 +274,73 @@ function Un80Page() {
           <p className={u.systemIntro}>
             The UN's colour and typography are non-negotiable; the whole
             institution runs on them. So the UN80 layer stays entirely inside the
-            master brand: <em>one blue, scaled</em>, plus curves and motion that
-            make it recognisable while keeping it unmistakably UN.
+            master brand: <em>one blue, scaled</em>, plus curves that make it
+            recognisable while keeping it unmistakably UN.
           </p>
 
-          {/* Inherited — the UN system */}
-          <div className={u.systemGroupLabel}>
-            <span>Inherited · the UN system</span>
-            <span className={u.systemChip}>unchanged</span>
-          </div>
-          <div className={u.inheritedGrid}>
-            <div className={u.typeCard}>
-              <div className={u.typeGlyph}>Aa</div>
-              <div className={u.typeMeta}>
-                <span className={u.typeMetaName}>Roboto</span>
-                <span className={u.typeMetaSub}>Display · Text</span>
-              </div>
+          {/* The primary lockup, in its two approved settings. */}
+          <h3 className={u.specTitle}>Primary logo</h3>
+          <div className={u.logoRow}>
+            <div className={u.logoPanel}>
+              <img
+                className={u.logoImg}
+                src="/images/un80-logo-on-white.webp"
+                alt="The UN80 Initiative lockup: the UN emblem, United Nations, and UN80 Initiative, in blue on white"
+              />
             </div>
-            <div className={u.swatchCard}>
-              <div className={u.swatchColor} style={{ background: '#019EDB' }} />
-              <div className={u.swatchBody}>
-                <div className={u.swatchName}>UN Blue</div>
-                <div className={u.swatchHex}>#019EDB</div>
-              </div>
+            <div className={u.logoPanel}>
+              <img
+                className={u.logoImg}
+                src="/images/un80-logo-on-blue.webp"
+                alt="The same UN80 Initiative lockup reversed out in white on UN blue"
+              />
             </div>
           </div>
+          <p className={u.specCaption}>
+            The initiative's name locked to the UN wordmark by a divider rule, so
+            UN80 always reads as part of the institution, never beside it.
+          </p>
 
-          {/* Created — the UN80 layer */}
-          <div className={`${u.systemGroupLabel} ${u.systemGroupLabelCreated}`}>
-            <span>Created · the UN80 layer</span>
-            <span className={`${u.systemChip} ${u.systemChipNew}`}>new</span>
+          {/* The palette, as pills. */}
+          <h3 className={u.specTitle}>Colour</h3>
+          <div className={u.pillRow}>
+            {PALETTE.map((c) => (
+              <div key={c.pct} className={u.pillItem}>
+                <div className={u.pill} style={{ background: c.hex }} />
+                <div className={u.pillPct}>{c.pct}</div>
+                <div className={u.pillHex}>{c.hex}</div>
+              </div>
+            ))}
           </div>
+          <p className={u.specCaption}>
+            One blue, laddered from 100% to 10%, gives depth and hierarchy
+            without introducing a single new hue. Black and white carry the type
+            and the structure.
+          </p>
 
-          {/* The tonal scale — the signature systems move */}
-          <div className={u.scaleBlock}>
-            <div className={u.scaleText}>
-              <h3 className={u.createdTitle}>A single-blue tonal scale</h3>
-              <p className={u.createdText}>
-                One blue, laddered from 100% to 10%, giving depth, hierarchy and
-                a distinct UN80 feel without introducing a single new hue.
-              </p>
-            </div>
-            <div className={u.scaleLadder}>
-              {TONAL_SCALE.map((t) => (
-                <div key={t.pct} className={u.scaleSwatch}>
-                  <div
-                    className={u.scaleSwatchColor}
-                    style={{ background: t.hex }}
-                  />
-                  <div className={u.scalePct}>{t.pct}</div>
-                  <div className={u.scaleHex}>{t.hex}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={u.createdGrid}>
-            <div className={u.createdCard}>
-              <div className={`${u.createdVisual} ${u.visualNeutral}`}>
-                <span style={{ background: '#111' }} />
-                <span style={{ background: '#8a8a8a' }} />
-                <span style={{ background: '#fff' }} />
-              </div>
-              <div className={u.createdBody}>
-                <div className={u.createdTitle}>Neutral support</div>
-                <div className={u.createdText}>
-                  Black, white and grey for type, structure and contrast.
-                </div>
+          {/* The type, set in the real thing. */}
+          <h3 className={u.specTitle}>Typography</h3>
+          <div className={u.typeRow}>
+            <div className={u.typePanel}>
+              <div className={`${u.typeAa} ${u.typeAaBold}`}>Aa</div>
+              <div className={u.typeInfo}>
+                <span className={u.typeName}>Roboto Bold</span>
+                <span className={u.typeUse}>Headers</span>
               </div>
             </div>
-            <div className={u.createdCard}>
-              <div className={`${u.createdVisual} ${u.visualCurves}`} />
-              <div className={u.createdBody}>
-                <div className={u.createdTitle}>Curved forms</div>
-                <div className={u.createdText}>
-                  Arcs and pill shapes that soften a rigid, institutional brand
-                  and give UN80 its own signature.
-                </div>
-              </div>
-            </div>
-            <div className={u.createdCard}>
-              <div className={`${u.createdVisual} ${u.visualMotion}`}>
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className={u.createdBody}>
-                <div className={u.createdTitle}>Motion</div>
-                <div className={u.createdText}>
-                  Subtle movement (carousels and transitions) that made static
-                  reform content feel active and current.
-                </div>
+            <div className={u.typePanel}>
+              <div className={u.typeAa}>Aa</div>
+              <div className={u.typeInfo}>
+                <span className={u.typeName}>Roboto Regular</span>
+                <span className={u.typeUse}>Body</span>
               </div>
             </div>
           </div>
+          <p className={u.specCaption}>
+            Roboto, inherited from the UN master brand. Bold for headers,
+            regular for body, and nothing else, so the hierarchy is doing the
+            work rather than the typeface.
+          </p>
         </section>
 
         {/* ============ 04 · ACROSS CHANNELS ============ */}
@@ -338,64 +350,93 @@ function Un80Page() {
           </div>
           <h2 className={u.sectionHeadline}>One system, three homes.</h2>
 
-          {/* LinkedIn */}
-          <div className={u.channelLabel}>
-            LinkedIn · auto-scrolling carousel &amp; post system
-          </div>
+          {/* LinkedIn posts — each square asset sits in a post frame so it
+              reads as a feed post rather than a loose graphic. */}
+          <div className={u.channelLabel}>LinkedIn · the post system</div>
           <p className={u.channelDesc}>
-            An auto-scrolling carousel format plus a set of post types (1:1
-            posts, carousel slides, data-stat cards and quote cards) that turned
-            reports into a scrollable feed.
+            A set of square formats built from the same parts: quote cards,
+            carousel openers and short motion pieces, so dense reports arrive as
+            a scrollable feed.
           </p>
-          <div className={u.carousel}>
-            <div className={u.carouselTrack}>
-              {/* The list is duplicated so the marquee loops seamlessly. */}
-              {[0, 1].map((loop) =>
-                Array.from({ length: 5 }).map((_, i) => (
-                  <img
-                    key={`${loop}-${i}`}
-                    className={u.carouselSlide}
-                    src="/images/Li carousel_un80.webp"
-                    alt=""
-                    aria-hidden={loop === 1 ? true : undefined}
-                  />
-                )),
-              )}
+          <div className={u.postsScroller}>
+            <div className={u.postsTrack}>
+              {POSTS.map((post) => (
+                <figure key={post.src} className={u.postCard}>
+                  <div className={u.postHead}>
+                    <span className={u.postAvatar} aria-hidden="true">
+                      <img src="/images/un80-avatar.webp" alt="" />
+                    </span>
+                    <span className={u.postWho}>
+                      <span className={u.postName}>UN80 Initiative</span>
+                      <span className={u.postMeta}>13,025 followers</span>
+                    </span>
+                  </div>
+                  {post.type === 'video' ? (
+                    <video
+                      className={u.postMedia}
+                      src={post.src}
+                      aria-label={post.alt}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                    />
+                  ) : (
+                    <img
+                      className={u.postMedia}
+                      src={post.src}
+                      alt={post.alt}
+                      loading="lazy"
+                    />
+                  )}
+                  <figcaption className={u.postCaption}>
+                    {post.caption}
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </div>
 
-          {/* The Reform Brief newsletter */}
+          {/* The newsletter — the two captures stacked, the top of the issue
+              sitting in front of the full-length one. */}
           <div className={u.channelLabel}>
-            The Reform Brief · LinkedIn newsletter
+            UN80 Initiative Newsletter · LinkedIn and email
           </div>
           <div className={u.newsletterRow}>
-            <div className={u.emailCard}>
-              <div className={u.emailHead}>UN80 · The Reform Brief</div>
-              <div className={u.emailBody}>
-                <div className={`${u.ph} ${u.emailMast}`}>masthead image</div>
-                <div className={u.emailLine} style={{ width: '80%' }} />
-                <div className={u.emailLine} style={{ width: '95%' }} />
-                <div className={u.emailLine} style={{ width: '60%', marginBottom: 0 }} />
-              </div>
+            <div className={u.newsletterStack}>
+              <img
+                className={u.newsletterBack}
+                src="/images/un80-newsletter-body.webp"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
+              <img
+                className={u.newsletterFront}
+                src="/images/un80-newsletter-top.webp"
+                alt="The UN80 Initiative newsletter, Edition 05: United to Deliver Better, with the contents of the issue and a quote from the Secretary-General"
+                loading="lazy"
+              />
             </div>
-            <div>
+            <div className={u.newsletterCopy}>
               <h3 className={u.newsletterTitle}>
-                A recurring template that made complex reform digestible.
+                A monthly issue, sent two ways.
               </h3>
               <p className={u.newsletterText}>
-                Same masthead, same rhythm, same plain-language cards, issue
-                after issue. It grew a subscriber base from zero and gave the
-                initiative a dependable voice in the inbox.
+                The UN80 Initiative Newsletter offers insights into major
+                milestones, work underway, and progress toward a more effective
+                UN system. It goes out on <strong>LinkedIn</strong> and as an{' '}
+                <strong>email</strong>, so the same issue reaches the feed and
+                the inbox.
+              </p>
+              <p className={u.newsletterText}>
+                Same masthead, same rhythm, same plain-language sections, issue
+                after issue. The template is what makes a dense progress report
+                readable in a scroll.
               </p>
             </div>
           </div>
-
-          {/* Web (Drupal) */}
-          <div className={u.channelLabel}>Web · un.org/un80-initiative (Drupal)</div>
-          <p className={u.channelDesc}>
-            Templates for the un.org/un80-initiative landing page and updates, so
-            the identity carried onto the initiative's official home.
-          </p>
         </section>
 
         {/* ============ THE LANDING PAGE — copy on the left, a browser
@@ -473,56 +514,40 @@ function Un80Page() {
           </div>
         </section>
 
-        {/* ============ THE LANDING PAGE — the detail still to be written ==== */}
-        <section className={u.section}>
-          <h3 className={u.subHeadingFirst}>Why the structure works</h3>
-          <p className={u.placeholderNote}>
-            To finalise: the actual top-to-bottom page structure and the one
-            design decision you're proudest of.
-          </p>
-
-          <h3 className={u.subHeading}>Designing within Drupal</h3>
-          <p className={u.bodyText}>
-            The page was built in Drupal, the UN's content management system,
-            which set the boundaries of what was possible.
-          </p>
-          <p className={u.placeholderNote}>
-            To finalise: the specific Drupal constraints you worked within and
-            how the design adapted, ideally with one concrete before/after
-            example.
-          </p>
-        </section>
-
         {/* ============ 05 · RESULTS + 06 · REFLECTION (one blue box) ============ */}
         <section className={u.resultsSection}>
           <SectionLabel title="RESULTS" number="05" dark />
           <div className={u.resultsGrid}>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
-                <CountUp to={610} duration={1600} />K
+                <CountUp to={1111122} duration={2000} />
               </span>
               <span className={u.resultLabel}>
-                social impressions across the campaign
+                LinkedIn impressions since the channel started in November 2025
+              </span>
+            </div>
+            <div className={u.resultStat}>
+              <span className={u.resultNum}>
+                <CountUp to={13025} duration={1800} />
+              </span>
+              <span className={u.resultLabel}>
+                LinkedIn followers, from zero and all organic
+              </span>
+            </div>
+            <div className={u.resultStat}>
+              <span className={u.resultNum}>
+                <CountUp to={6944} duration={1800} />
+              </span>
+              <span className={u.resultLabel}>
+                newsletter subscribers on LinkedIn, also from zero
               </span>
             </div>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
                 <CountUp to={8050} duration={1800} />
               </span>
-              <span className={u.resultLabel}>newsletter article views</span>
-            </div>
-            <div className={u.resultStat}>
-              <span className={u.resultNum}>
-                <CountUp to={5992} duration={1800} />
-              </span>
-              <span className={u.resultLabel}>new subscribers, from zero</span>
-            </div>
-            <div className={u.resultStat}>
-              <span className={u.resultNum}>
-                <CountUp to={1} duration={900} />
-              </span>
               <span className={u.resultLabel}>
-                coherent identity, adopted across the initiative
+                newsletter article views on LinkedIn
               </span>
             </div>
           </div>

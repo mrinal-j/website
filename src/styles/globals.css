@@ -12,6 +12,10 @@
 @font-face { font-family: "Manrope"; src: url("/fonts/manrope/manrope-regular.woff2"); font-display: swap; font-style: normal; font-weight: 400 }
 @font-face { font-family: "Manrope"; src: url("/fonts/manrope/manrope-bold.woff2"); font-display: swap; font-style: normal; font-weight: 700 }
 
+/* Roboto — the UN master brand's typeface. Used only inside the UN80 case
+   study, to show the type as it really is. One variable file covers 400–700. */
+@font-face { font-family: "Roboto"; src: url("/fonts/roboto/roboto-latin-variable.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 100 900 }
+
 /* ============================================================
    DESIGN TOKENS
    ============================================================ */

@@ -34,3 +34,7 @@ test-results/
 
 .vercel/
 .netlify/
+
+# Master artwork kept on the machine only — the exported .webp/.mp4 files in
+# public/images are what the site actually serves.
+design-source/
