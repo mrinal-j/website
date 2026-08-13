@@ -26,6 +26,12 @@ export const Route = createFileRoute('/un80')({
   component: Un80Page,
 })
 
+// The three live homes for the work, linked from their sections.
+const LINKEDIN_URL = 'https://www.linkedin.com/company/un80-initiative'
+const NEWSLETTER_URL =
+  'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7426685523542372353'
+const SITE_URL = 'https://www.un.org/un80-initiative'
+
 // The UN80 palette: the single-blue tonal scale (one hue laddered from 100%
 // to 10%) plus the black and white that carry type and structure.
 const PALETTE = [
@@ -46,31 +52,26 @@ const POSTS = [
     type: 'image' as const,
     src: '/images/un80-post-1.webp',
     alt: 'Quote card: co-facilitators Brian Wallace and Carolyn Schwalger on producing an implementable outcome, over a photo of the General Assembly',
-    caption: 'Quote card',
   },
   {
     type: 'video' as const,
     src: '/images/un80-post-video.mp4',
     alt: 'Animated title card: United to Deliver Better',
-    caption: 'Motion title card',
   },
   {
     type: 'image' as const,
     src: '/images/un80-post-2.webp',
     alt: 'Quote card: Guy Ryder, UN Under-Secretary-General for Policy, on entering the delivery-focused phase',
-    caption: 'Quote card',
   },
   {
     type: 'video' as const,
     src: '/images/un80-briefing-video.mp4',
     alt: 'Captioned clip of Tom Fletcher speaking at the UN80 Initiative General Assembly briefing',
-    caption: 'Captioned briefing clip',
   },
   {
     type: 'image' as const,
     src: '/images/un80-post-3.webp',
     alt: 'Carousel opener: Why Mandates matter? over a photo of a woman working in a tea field',
-    caption: 'Carousel opener',
   },
 ]
 
@@ -268,14 +269,10 @@ function Un80Page() {
           <div className={u.sectionLabelWrap}>
             <SectionLabel title="THE SUB-IDENTITY" number="03" />
           </div>
-          <h2 className={u.systemHeadline}>
-            Modernised without adding a single new colour.
-          </h2>
           <p className={u.systemIntro}>
-            The UN's colour and typography are non-negotiable; the whole
-            institution runs on them. So the UN80 layer stays entirely inside the
-            master brand: <em>one blue, scaled</em>, plus curves that make it
-            recognisable while keeping it unmistakably UN.
+            The UN80 layer stays entirely within the UN's master brand: the UN
+            blue, scaled, plus curves that make it recognisable while keeping it
+            unmistakably UN.
           </p>
 
           {/* The primary lockup, in its two approved settings. */}
@@ -301,8 +298,8 @@ function Un80Page() {
             UN80 always reads as part of the institution, never beside it.
           </p>
 
-          {/* The palette, as pills. */}
-          <h3 className={u.specTitle}>Colour</h3>
+          {/* The palette, as circles. */}
+          <h3 className={u.specTitle}>Colour palette</h3>
           <div className={u.pillRow}>
             {PALETTE.map((c) => (
               <div key={c.pct} className={u.pillItem}>
@@ -324,7 +321,10 @@ function Un80Page() {
             <div className={u.typePanel}>
               <div className={`${u.typeAa} ${u.typeAaBold}`}>Aa</div>
               <div className={u.typeInfo}>
-                <span className={u.typeName}>Roboto Bold</span>
+                {/* Each label is set in the weight it names. */}
+                <span className={`${u.typeName} ${u.typeNameBold}`}>
+                  Roboto Bold
+                </span>
                 <span className={u.typeUse}>Headers</span>
               </div>
             </div>
@@ -348,16 +348,48 @@ function Un80Page() {
           <div className={u.sectionLabelWrap}>
             <SectionLabel title="ACROSS CHANNELS" number="04" />
           </div>
-          <h2 className={u.sectionHeadline}>One system, three homes.</h2>
 
           {/* LinkedIn posts — each square asset sits in a post frame so it
               reads as a feed post rather than a loose graphic. */}
-          <div className={u.channelLabel}>LinkedIn · the post system</div>
+          <div className={u.channelLabel}>LinkedIn</div>
           <p className={u.channelDesc}>
-            A set of square formats built from the same parts: quote cards,
-            carousel openers and short motion pieces, so dense reports arrive as
-            a scrollable feed.
+            A template system including{' '}
+            <span className={u.siteEmphasis}>quote cards</span>,{' '}
+            <span className={u.siteEmphasis}>announcements</span>,{' '}
+            <span className={u.siteEmphasis}>did-you-knows</span>,{' '}
+            <span className={u.siteEmphasis}>end slides</span>,{' '}
+            <span className={u.siteEmphasis}>short motion pieces</span> and
+            more, translating complex institutional content into more accessible
+            and engaging content.
           </p>
+          <p className={u.channelOutcome}>
+            The templates meant a dense progress report could be published as a
+            feed post the same day, without a designer redrawing it each time.
+          </p>
+          <a
+            className={u.siteCta}
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View the LinkedIn page
+            <svg
+              className={u.siteCtaArrow}
+              width="22"
+              height="12"
+              viewBox="0 0 22 12"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 6h20M15 1l5 5-5 5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
           <div className={u.postsScroller}>
             <div className={u.postsTrack}>
               {POSTS.map((post) => (
@@ -390,8 +422,10 @@ function Un80Page() {
                       loading="lazy"
                     />
                   )}
-                  <figcaption className={u.postCaption}>
-                    {post.caption}
+                  {/* Stands in for a post's caption text, without inventing
+                      copy that was never written. */}
+                  <figcaption className={u.postCaption} aria-hidden="true">
+                    ....
                   </figcaption>
                 </figure>
               ))}
@@ -420,21 +454,41 @@ function Un80Page() {
               />
             </div>
             <div className={u.newsletterCopy}>
-              <h3 className={u.newsletterTitle}>
-                A monthly issue, sent two ways.
-              </h3>
               <p className={u.newsletterText}>
-                The UN80 Initiative Newsletter offers insights into major
-                milestones, work underway, and progress toward a more effective
-                UN system. It goes out on <strong>LinkedIn</strong> and as an{' '}
-                <strong>email</strong>, so the same issue reaches the feed and
-                the inbox.
+                A monthly issue offering insights into major milestones, work
+                underway, and progress toward a more effective UN system. It goes
+                out on <strong>LinkedIn</strong> and as an <strong>email</strong>,
+                so the same edition reaches the feed and the inbox.
               </p>
-              <p className={u.newsletterText}>
-                Same masthead, same rhythm, same plain-language sections, issue
-                after issue. The template is what makes a dense progress report
-                readable in a scroll.
+              <p className={u.channelOutcome}>
+                One template carries a long, link-heavy report, so each issue
+                lands looking like the last and readers know where to find
+                things.
               </p>
+              <a
+                className={u.siteCta}
+                href={NEWSLETTER_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View the newsletter
+                <svg
+                  className={u.siteCtaArrow}
+                  width="22"
+                  height="12"
+                  viewBox="0 0 22 12"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 6h20M15 1l5 5-5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </section>
@@ -448,9 +502,7 @@ function Un80Page() {
           <div className={u.siteSticky}>
             <div className={u.siteGrid}>
               <div className={u.siteCopy}>
-                <h2 className={u.siteHeadline}>
-                  The public home for the reform.
-                </h2>
+                <div className={u.channelLabel}>Website</div>
                 <p className={u.siteText}>
                   The website served two purposes: it introduces a system-wide
                   reform to the general public, and stands as the resource
@@ -465,7 +517,7 @@ function Un80Page() {
                 </p>
                 <a
                   className={u.siteCta}
-                  href="https://www.un.org/un80-initiative"
+                  href={SITE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
