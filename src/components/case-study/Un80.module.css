@@ -504,7 +504,8 @@
   /* Long enough for the screenshot to travel through the browser window, but
      not so long that the block lingers on screen before Results. */
   height: 210vh;
-  padding: 0 var(--page-side-padding);
+  /* The bottom padding gives the Drupal note room before the blue band. */
+  padding: 0 var(--page-side-padding) 48px;
   background: var(--bg-primary);
 }
 /* The scroll-reveal moves each section with a transform, and a transformed
