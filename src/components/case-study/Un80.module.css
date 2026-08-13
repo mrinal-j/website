@@ -767,18 +767,20 @@
   border: 1px solid var(--border-light);
   background: #fff;
 }
-/* The masthead capture — left, and underneath. */
+/* The masthead capture — left, and underneath. No shadow of its own: the
+   captures overlap by less than a shadow's blur, so a shadow here was being
+   cut off dead where the capture on top covered it. */
 .newsletterTop {
   order: 1;
   margin-right: -5%;
-  box-shadow: 0 10px 40px -22px rgba(0, 0, 0, 0.35);
 }
-/* The rest of the issue — right, and on top at the overlap. */
+/* The rest of the issue — right, on top at the overlap, and the only one
+   casting a shadow, the way a sheet of paper laid over another would. */
 .newsletterBody {
   order: 2;
   position: relative;
   z-index: 1;
-  box-shadow: 0 18px 50px -24px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.28);
 }
 .newsletterCopy {
   display: flex;
@@ -905,9 +907,16 @@
     transform: rotate(90deg);
     justify-self: center;
   }
+  /* Stacked: read the copy first, then the artwork it describes. */
   .newsletterRow {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  .newsletterCopy {
+    order: 1;
+  }
+  .newsletterStack {
+    order: 2;
   }
   .resultsGrid {
     grid-template-columns: 1fr 1fr;
@@ -933,7 +942,12 @@
     width: 88%;
   }
   /* Landing page: copy stacks above the browser, which gets shorter so the
-     whole block still fits the screen while it is pinned. */
+     whole block still fits the screen while it is pinned. Top-aligned here so
+     the gap above it matches the one between the channels above. */
+  .siteSticky {
+    align-items: flex-start;
+    padding-top: 36px;
+  }
   .siteScrollWrap {
     height: 220vh;
     padding-left: max(24px, var(--page-side-padding));
@@ -972,8 +986,14 @@
   .browserViewport {
     height: min(38vh, 260px);
   }
+  /* Four-up and capped, so the circles stay small on a phone instead of
+     filling half the screen each. */
   .pillRow {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .pill {
+    max-width: 72px;
   }
   .postCard {
     width: 240px;
