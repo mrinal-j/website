@@ -17,6 +17,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: '/un80',
+    title: 'UN80 Initiative',
+    description: "A sub-identity for the United Nations' system-wide reform effort, built inside the UN master brand and carried across the web, the feed and the inbox.",
+    tags: ['Brand Identity', 'Design Systems', 'Content Strategy', 'Multi-channel Design', 'Figma', 'Adobe CC', 'Drupal'],
+    image: '/images/un80-logo-on-blue.webp',
+    hoverImage: '/images/un80_banner 5.webp',
+    x: '50%', y: '50%',
+  },
+  {
     slug: '/in-the-loop',
     title: 'In the Loop',
     description: 'Redefining professional mobility as a tool for community building and intentional growth.',
