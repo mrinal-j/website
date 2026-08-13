@@ -955,6 +955,8 @@
     height: 220vh;
     padding-left: max(24px, var(--page-side-padding));
     padding-right: max(24px, var(--page-side-padding));
+    /* A little white under the mockup before the blue band starts. */
+    padding-bottom: 48px;
   }
   .siteGrid {
     grid-template-columns: 1fr;
