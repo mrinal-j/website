@@ -40,14 +40,13 @@
   margin-bottom: 28px;
 }
 
-/* Set in the body face, matching the overview above it, and in UN blue. */
 .sectionHeadline {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-weight: 700;
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
-  line-height: 135%;
-  letter-spacing: -0.01em;
-  color: var(--un-blue);
+  font-size: clamp(1.75rem, 3.4vw, 2.15rem);
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
   max-width: 720px;
   margin: 0 0 22px;
 }
@@ -859,9 +858,6 @@
   max-width: 760px;
   margin: 0;
   text-wrap: pretty;
-}
-.reflectionQuote span {
-  color: var(--un-tint-20);
 }
 .tagRow {
   margin-top: 40px;

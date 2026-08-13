@@ -274,9 +274,9 @@ function Un80Page() {
             <SectionLabel title="THE SUB-IDENTITY" number="03" />
           </div>
           <p className={u.systemIntro}>
-            The UN80 layer stays entirely within the UN's master brand: the UN
-            blue, scaled, plus curves that make it recognisable while keeping it
-            unmistakably UN.
+            The UN80 layer stays entirely within the UN's master brand,
+            including the colour system and type, with additional visual
+            elements, making it recognisable.
           </p>
 
           {/* The primary lockup, in its two approved settings. */}
@@ -313,11 +313,6 @@ function Un80Page() {
               </div>
             ))}
           </div>
-          <p className={u.specCaption}>
-            One blue, graded from 100% to 10%, gives depth and hierarchy
-            without introducing a single new hue. Black and white carry the type
-            and the structure.
-          </p>
 
           {/* The type, set in the real thing. */}
           <h3 className={u.specTitle}>Typography</h3>
@@ -340,9 +335,6 @@ function Un80Page() {
               </div>
             </div>
           </div>
-          <p className={u.specCaption}>
-            Roboto is part of the UN identity, inherited rather than chosen.
-          </p>
         </section>
 
         {/* ============ 04 · ACROSS CHANNELS ============ */}
@@ -361,9 +353,9 @@ function Un80Page() {
             content.
           </p>
           <p className={u.channelOutcome}>
-            Designed to stay quiet. Each template holds one idea in a simple,
-            repeatable frame, so the visuals give dense reform content the room
-            to be read rather than competing with it.
+            The templates are built around structural simplicity. Each holds a
+            single idea in a simple, repeatable frame, giving dense reform
+            content room to be read instead of competing with it.
           </p>
           <a
             className={u.siteCta}
@@ -472,9 +464,10 @@ function Un80Page() {
                 and as an <strong>email</strong>.
               </p>
               <p className={u.channelOutcome}>
-                Designed as one repeating template, so a long, link-heavy report
-                always arrives in the same shape and readers already know where
-                to look.
+                Designed as one simply structured repeating template, so a long,
+                link-heavy report always reads in the same format every edition.
+                This allows new readers to easily follow, and returning readers
+                already know where to look.
               </p>
               <a
                 className={u.siteCta}
@@ -617,11 +610,11 @@ function Un80Page() {
               <SectionLabel title="REFLECTION" number="06" dark />
             </div>
             <p className={u.reflectionQuote}>
-              The challenge of building a visual identity for the initiative
-              wasn't working on top of the UN's foundational identity. It was{' '}
-              <span>making clarity the visual language</span>. The real
-              deliverable was a system that made a complex institution easier to
-              understand.
+              The challenge of building a visual identity for the initiative was
+              not layering it on top of the UN's foundational identity, but
+              designing a visual language whose job was to make things clearer.
+              What the project really needed to deliver was a system that made a
+              complex institution easier to understand.
             </p>
             <div className={u.tagRow}>
               {['Brand identity', 'Design systems', 'Content strategy', 'Multi-channel'].map(
