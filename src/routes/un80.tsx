@@ -216,8 +216,8 @@ function Un80Page() {
             <SectionLabel title="THE CHALLENGE" number="02" />
           </div>
           <h2 className={u.sectionHeadline}>
-            How might we make institutional reform something the general public
-            can actually follow?
+            How might we make institutional reform something people can
+            actually follow?
           </h2>
 
           {/* Three problems, then the constraint — the fourth point is the
@@ -233,12 +233,12 @@ function Un80Page() {
                 desc: 'Reform is dense by default. The text needed distinct visuals alongside it to make the content easier to digest.',
               },
               {
-                title: 'Every channel is different',
+                title: 'Multiple channels',
                 desc: 'The identity had to work across the web, the social feed and the inbox, each with its own format, not one asset stretched to fit all three.',
               },
               {
-                title: 'Four audiences at once',
-                desc: 'The initiative answers to Member States, who lead the process; to civil society, which has its own engagement track; to organisations across the UN system; and to the general public, invited in through LinkedIn and the newsletter. One identity had to hold for all four.',
+                title: 'Four varied audiences',
+                desc: 'The initiative answers to Member States, who lead the process; to civil society; to entities across the UN system; and to the general public, invited in through LinkedIn and the newsletter. One identity had to hold for all four.',
               },
               {
                 title: 'The constraint',
@@ -425,28 +425,19 @@ function Un80Page() {
                   {/* A reaction bar closes the frame, so each asset reads as
                       a post rather than a loose graphic. Decorative only. */}
                   <figcaption className={u.postCaption} aria-hidden="true">
-                    <span className={u.postAction}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M7 22V11l4.5-8a2 2 0 0 1 2.8 2.4L13 10h5.5a2.2 2.2 0 0 1 2.2 2.7l-1.6 6.6A3 3 0 0 1 16.2 22z" />
-                        <path d="M7 11H4a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3" />
-                      </svg>
-                      Like
-                    </span>
-                    <span className={u.postAction}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 11.5a8 8 0 0 1-11.7 7.1L3 20.5l1.9-6.2A8 8 0 1 1 21 11.5z" />
-                      </svg>
-                      Comment
-                    </span>
-                    <span className={u.postAction}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M17 2l4 4-4 4" />
-                        <path d="M21 6H8a4 4 0 0 0-4 4v1" />
-                        <path d="M7 22l-4-4 4-4" />
-                        <path d="M3 18h13a4 4 0 0 0 4-4v-1" />
-                      </svg>
-                      Repost
-                    </span>
+                    <svg className={u.postAction} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M7 22V11l4.5-8a2 2 0 0 1 2.8 2.4L13 10h5.5a2.2 2.2 0 0 1 2.2 2.7l-1.6 6.6A3 3 0 0 1 16.2 22z" />
+                      <path d="M7 11H4a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3" />
+                    </svg>
+                    <svg className={u.postAction} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 11.5a8 8 0 0 1-11.7 7.1L3 20.5l1.9-6.2A8 8 0 1 1 21 11.5z" />
+                    </svg>
+                    <svg className={u.postAction} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17 2l4 4-4 4" />
+                      <path d="M21 6H8a4 4 0 0 0-4 4v1" />
+                      <path d="M7 22l-4-4 4-4" />
+                      <path d="M3 18h13a4 4 0 0 0 4-4v-1" />
+                    </svg>
                   </figcaption>
                 </figure>
               ))}
