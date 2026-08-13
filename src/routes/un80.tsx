@@ -353,14 +353,10 @@ function Un80Page() {
               reads as a feed post rather than a loose graphic. */}
           <div className={u.channelLabel}>LinkedIn</div>
           <p className={u.channelDesc}>
-            A template system including{' '}
-            <span className={u.siteEmphasis}>quote cards</span>,{' '}
-            <span className={u.siteEmphasis}>announcements</span>,{' '}
-            <span className={u.siteEmphasis}>did-you-knows</span>,{' '}
-            <span className={u.siteEmphasis}>end slides</span>,{' '}
-            <span className={u.siteEmphasis}>short motion pieces</span> and
-            more, translating complex institutional content into more accessible
-            and engaging content.
+            A template system including quote cards, announcements,
+            did-you-knows, end slides, short motion pieces and more, translating
+            complex institutional content into more accessible and engaging
+            content.
           </p>
           <p className={u.channelOutcome}>
             The templates meant a dense progress report could be published as a
@@ -591,7 +587,7 @@ function Un80Page() {
                 <CountUp to={6944} duration={1800} />
               </span>
               <span className={u.resultLabel}>
-                newsletter subscribers on LinkedIn, also from zero
+                Newsletter subscribers on LinkedIn, also from zero
               </span>
             </div>
             <div className={u.resultStat}>
@@ -599,7 +595,7 @@ function Un80Page() {
                 <CountUp to={8050} duration={1800} />
               </span>
               <span className={u.resultLabel}>
-                newsletter article views on LinkedIn
+                Newsletter article views on LinkedIn
               </span>
             </div>
           </div>

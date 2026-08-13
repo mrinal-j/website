@@ -251,7 +251,6 @@
 .systemSection {
   padding: 88px var(--page-side-padding);
   background: var(--bg-primary);
-  border-top: 1px solid var(--border-light);
 }
 .systemHeadline {
   font-family: var(--font-sans);
@@ -460,7 +459,7 @@
    04 · ACROSS CHANNELS
    ============================================================ */
 .channelsSection {
-  padding: 88px var(--page-side-padding);
+  padding: 88px var(--page-side-padding) 0;
   background: var(--bg-primary);
 }
 .channelLabel {
@@ -520,13 +519,16 @@
   top: 0;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  /* Clears the fixed navbar while the block is pinned, and sets the gap
+     between the newsletter above and the Website label. */
+  padding-top: 96px;
 }
 .siteGrid {
   display: grid;
   grid-template-columns: minmax(260px, 0.85fr) 1.15fr;
   gap: 72px;
-  align-items: center;
+  align-items: start;
   width: 100%;
 }
 .siteHeadline {
@@ -654,6 +656,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
+  margin-top: 40px;
   margin-bottom: 72px;
   /* Bleed to the page edges so the row reads as something you scroll. */
   margin-left: calc(var(--page-side-padding) * -1);
@@ -736,7 +739,9 @@
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 48px;
-  align-items: center;
+  /* The captures run their full length, so the copy sits at the top rather
+     than floating halfway down a very tall column. */
+  align-items: start;
 }
 /* The two captures side by side, matched in width and overlapping only at the
    edge: the top of the issue in front, the rest of it just behind. Both are
@@ -749,10 +754,8 @@
 .newsletterFront {
   display: block;
   width: 52%;
-  height: 560px;
+  height: auto;
   flex-shrink: 0;
-  object-fit: cover;
-  object-position: top center;
   border-radius: 8px;
   border: 1px solid var(--border-light);
   background: #fff;
