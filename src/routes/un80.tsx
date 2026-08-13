@@ -192,7 +192,7 @@ function Un80Page() {
              a 40% black layer and the text centred on it ============ */}
         <section className={u.contextSection}>
           <div className={u.contextLabelWrap}>
-            <SectionLabel title="CONTEXT" number="01" />
+            <SectionLabel title="CONTEXT" />
           </div>
           <figure className={u.contextFigure}>
             <img
@@ -208,12 +208,13 @@ function Un80Page() {
               effective amid tightening resources.
             </figcaption>
           </figure>
+          <p className={u.contextCredit}>Photo credit: UN Photo/Loey Felipe</p>
         </section>
 
         {/* ============ 02 · THE CHALLENGE ============ */}
         <section className={u.section}>
           <div className={u.sectionLabelWrap}>
-            <SectionLabel title="THE CHALLENGE" number="02" />
+            <SectionLabel title="THE CHALLENGE" />
           </div>
           <h2 className={u.sectionHeadline}>
             How might we make institutional reform something people can
@@ -271,7 +272,7 @@ function Un80Page() {
              system: the logo lockup, the palette, and the type ============ */}
         <section className={u.systemSection}>
           <div className={u.sectionLabelWrap}>
-            <SectionLabel title="THE SUB-IDENTITY" number="03" />
+            <SectionLabel title="THE SUB-IDENTITY" />
           </div>
           <p className={u.systemIntro}>
             The UN80 layer stays entirely within the UN's master brand,
@@ -340,7 +341,7 @@ function Un80Page() {
         {/* ============ 04 · ACROSS CHANNELS ============ */}
         <section className={u.channelsSection}>
           <div className={u.sectionLabelWrap}>
-            <SectionLabel title="ACROSS CHANNELS" number="04" />
+            <SectionLabel title="ACROSS CHANNELS" />
           </div>
 
           {/* LinkedIn posts — each square asset sits in a post frame so it
@@ -464,9 +465,9 @@ function Un80Page() {
                 and as an <strong>email</strong>.
               </p>
               <p className={u.channelOutcome}>
-                Designed as one simply structured repeating template, so a long,
-                link-heavy report always reads in the same format every edition.
-                This allows new readers to easily follow, and returning readers
+                Designed as a single, simply structured template that repeats,
+                so a long, link-heavy report reads the same way in every
+                edition. New readers can follow it easily, and returning readers
                 already know where to look.
               </p>
               <a
@@ -569,7 +570,7 @@ function Un80Page() {
 
         {/* ============ 05 · RESULTS + 06 · REFLECTION (one blue box) ============ */}
         <section className={u.resultsSection}>
-          <SectionLabel title="RESULTS" number="05" dark />
+          <SectionLabel title="RESULTS" dark />
           <div className={u.resultsGrid}>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
@@ -607,14 +608,15 @@ function Un80Page() {
 
           <div className={u.reflectionBlock}>
             <div className={u.sectionLabelWrap}>
-              <SectionLabel title="REFLECTION" number="06" dark />
+              <SectionLabel title="REFLECTION" dark />
             </div>
             <p className={u.reflectionQuote}>
               The challenge of building a visual identity for the initiative was
               not layering it on top of the UN's foundational identity, but
               designing a visual language whose job was to make things clearer.
-              What the project really needed to deliver was a system that made a
-              complex institution easier to understand.
+              What the project really needed to deliver was a system that made
+              a complex institution easier to understand for its wide audience,
+              across every channel.
             </p>
             <div className={u.tagRow}>
               {['Brand identity', 'Design systems', 'Content strategy', 'Multi-channel'].map(
