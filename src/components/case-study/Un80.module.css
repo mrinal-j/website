@@ -518,11 +518,15 @@
 .siteSticky {
   position: sticky;
   top: 0;
-  min-height: 100vh;
+  /* Hug the content. A full-screen box keeps half a screen of empty space
+     under the mockup that the next section cannot rise into, which reads as
+     an awkward gap. Sized to its content, the block simply holds near the top
+     of the screen while the Results band scrolls up to meet it. */
+  min-height: auto;
   display: flex;
-  /* Centred in the viewport, so the block holds the middle of the screen for
-     the whole pinned scroll instead of riding the top edge. */
-  align-items: center;
+  align-items: flex-start;
+  /* Clears the fixed navbar while the block is pinned. */
+  padding-top: 96px;
 }
 .siteGrid {
   display: grid;
