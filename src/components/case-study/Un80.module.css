@@ -862,13 +862,16 @@
 .reflectionBlock {
   margin-top: 96px;
 }
+/* Set as body copy, matching the paragraphs elsewhere on the page, just
+   reversed out on the blue. */
 .reflectionQuote {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: clamp(1.375rem, 2.6vw, 1.625rem);
-  line-height: 140%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 170%;
+  letter-spacing: -0.01em;
   color: #fff;
-  max-width: 760px;
+  max-width: 640px;
   margin: 0;
   text-wrap: pretty;
 }
