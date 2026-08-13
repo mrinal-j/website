@@ -947,6 +947,9 @@
   .siteSticky {
     align-items: flex-start;
     padding-top: 36px;
+    /* Hug the content rather than filling the screen: a full-height box left
+       a screenful of empty space under the mockup before Results. */
+    min-height: auto;
   }
   .siteScrollWrap {
     height: 220vh;
