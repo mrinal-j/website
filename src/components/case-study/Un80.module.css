@@ -827,7 +827,9 @@
 .resultsSection {
   padding: 88px var(--page-side-padding) 104px;
   background: var(--un-blue);
-  background-image: linear-gradient(150deg, var(--un-blue), var(--un-blue-deep));
+  /* Runs 100% -> 80% tint rather than darkening: the type on this band is
+     black, so the blue has to stay light enough to carry it. */
+  background-image: linear-gradient(150deg, var(--un-blue), var(--un-blue-light));
 }
 .resultsGrid {
   display: grid;
@@ -845,13 +847,13 @@
   font-size: clamp(2.25rem, 4.5vw, 3rem);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: #000;
 }
 .resultLabel {
   font-family: var(--font-body);
   font-size: 0.8125rem;
   line-height: 150%;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.75);
   margin-top: 12px;
 }
 
@@ -870,7 +872,7 @@
   font-size: 1.0625rem;
   line-height: 170%;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: #000;
   max-width: 640px;
   margin: 0;
   text-wrap: pretty;
@@ -884,8 +886,8 @@
 .tag {
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.55);
   border-radius: 999px;
   padding: 8px 16px;
 }

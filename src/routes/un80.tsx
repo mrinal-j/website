@@ -567,7 +567,7 @@ function Un80Page() {
 
         {/* ============ 05 · RESULTS + 06 · REFLECTION (one blue box) ============ */}
         <section className={u.resultsSection}>
-          <SectionLabel title="RESULTS" dark />
+          <SectionLabel title="RESULTS" onColor />
           <div className={u.resultsGrid}>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
@@ -597,7 +597,7 @@ function Un80Page() {
 
           <div className={u.reflectionBlock}>
             <div className={u.sectionLabelWrap}>
-              <SectionLabel title="REFLECTION" dark />
+              <SectionLabel title="REFLECTION" onColor />
             </div>
             <p className={u.reflectionQuote}>
               The challenge of building a visual identity for the initiative was
