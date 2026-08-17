@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as Unga80RouteImport } from './routes/unga80'
 import { Route as Un80RouteImport } from './routes/un80'
 import { Route as PlayRouteImport } from './routes/play'
 import { Route as KaaroRouteImport } from './routes/kaaro'
@@ -16,6 +17,11 @@ import { Route as InTheLoopRouteImport } from './routes/in-the-loop'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const Unga80Route = Unga80RouteImport.update({
+  id: '/unga80',
+  path: '/unga80',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Un80Route = Un80RouteImport.update({
   id: '/un80',
   path: '/un80',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
+  '/unga80': typeof Unga80Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
+  '/unga80': typeof Unga80Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,12 +79,20 @@ export interface FileRoutesById {
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
+  '/unga80': typeof Unga80Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/in-the-loop' | '/kaaro' | '/play' | '/un80'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/in-the-loop'
+    | '/kaaro'
+    | '/play'
+    | '/un80'
+    | '/unga80'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/in-the-loop' | '/kaaro' | '/play' | '/un80'
+  to: '/' | '/about' | '/in-the-loop' | '/kaaro' | '/play' | '/un80' | '/unga80'
   id:
     | '__root__'
     | '/'
@@ -85,6 +101,7 @@ export interface FileRouteTypes {
     | '/kaaro'
     | '/play'
     | '/un80'
+    | '/unga80'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,10 +111,18 @@ export interface RootRouteChildren {
   KaaroRoute: typeof KaaroRoute
   PlayRoute: typeof PlayRoute
   Un80Route: typeof Un80Route
+  Unga80Route: typeof Unga80Route
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unga80': {
+      id: '/unga80'
+      path: '/unga80'
+      fullPath: '/unga80'
+      preLoaderRoute: typeof Unga80RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/un80': {
       id: '/un80'
       path: '/un80'
@@ -150,6 +175,7 @@ const rootRouteChildren: RootRouteChildren = {
   KaaroRoute: KaaroRoute,
   PlayRoute: PlayRoute,
   Un80Route: Un80Route,
+  Unga80Route: Unga80Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
