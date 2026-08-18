@@ -19,6 +19,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: '/unga80',
+    title: 'United Nations General Assembly Exhibit 2025',
+    description: 'An immersive UN 2.0 exhibit at UN Headquarters, with a visual identity built on AI-generated photography.',
+    tags: ['Exhibition Design', 'Visual Identity', 'AI Imagery', 'Art Direction', 'Brand Design', 'Print Design', 'Adobe CC', 'Figma'],
+    image: '/images/unga80-unga-sign.webp',
+    hoverImage: '/images/unga80-lounge-column.webp',
+    x: '50%', y: '50%',
+  },
+  {
     slug: '/un80',
     title: 'UN80 Initiative',
     description: "A sub-identity for the UN80 Initiative, the United Nations' system-wide reform effort.",

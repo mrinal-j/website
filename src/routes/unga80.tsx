@@ -17,9 +17,6 @@ export const Route = createFileRoute('/unga80')({
         content:
           'An immersive UN 2.0 exhibit at UN Headquarters for the 80th General Assembly, with a visual identity built on AI-generated photography.',
       },
-      // Work in progress: keep this page out of search results until it is
-      // ready to publish. (robots.txt also disallows /unga80 as a backup.)
-      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: Unga80Page,
@@ -76,7 +73,7 @@ function Unga80Page() {
           <img
             className={g.bannerImg}
             src="/images/UNGA+Wall.webp"
-            alt="The UNGA80 exhibit wall: a #UNGA80 title panel followed by six image panels, one per UN 2.0 tool, joined by a zigzag line that changes colour across them"
+            alt="The UNGA80 exhibit wall: a #UNGA80 title panel followed by a run of image panels, joined by a zigzag line that changes colour across them"
           />
         </section>
 
@@ -85,8 +82,8 @@ function Unga80Page() {
           <div className={s.metaCell}>
             <span className={s.metaLabel}>Role</span>
             <span className={s.metaValue}>
-              Exhibit concept, exhibit design, visual identity, AI image
-              direction, large-format print design
+              Exhibition design, Visual identity, AI imagery, Art direction,
+              Brand design, Print design
             </span>
           </div>
           <div className={s.metaCell}>
@@ -107,107 +104,104 @@ function Unga80Page() {
           </div>
         </section>
 
-        {/* ============ THE ASK — the brief on the left, the fixed facts
-             of the job on the right. ============ */}
+        {/* ============ CONTEXT ============ */}
         <section className={g.section}>
-          <SectionLabel title="THE ASK" />
-          <div className={g.askGrid}>
-            <div className={g.askBody}>
-              <p className={g.askLead}>
-                Create an engaging exhibit that showcases the six quintets of
-                the UN 2.0 agenda, and asks its audience how the UN could do it
-                better.
+          <SectionLabel title="CONTEXT" />
+          <div className={g.contextGrid}>
+            <div className={g.contextBody}>
+              <p className={g.contextPara}>
+                At 80, the United Nations is working to stay fit for purpose in a
+                fast-changing world. UN 2.0 is the transformation agenda
+                behind that effort, scaling the use of data, digital,
+                innovation, foresight and behavioural science to deliver better
+                results for people and planet.
               </p>
-              <p className={g.askPara}>
-                A week-long exhibit showcasing the six tools of UN 2.0, the
-                United Nations' transformation agenda: data, digital,
-                innovation, foresight, behavioural science and culture. The
-                space was built to welcome world leaders, delegates and visitors
-                at the 2025 General Assembly, and to invite them to explore the
-                agenda and share where they think the UN should go next.
-              </p>
-              <p className={g.askPara}>
-                The exhibit did not open with an answer. It opened with a
-                question: which innovations are already delivering results, and
-                how can we scale them further? The exercise drew out how tools
-                like AI, data platforms and digital public infrastructure can
-                speed up decision-making, improve service delivery, and bring
-                the UN closer to the people it serves.
+              <p className={g.contextPara}>
+                UNGA80 put that work on a global stage: a chance to show
+                system-wide progress, point to concrete impact, and invite a
+                wide audience to shape the future of multilateralism.
               </p>
             </div>
+            <img
+              className={g.contextPhoto}
+              src="/images/unga80-unga-sign.webp"
+              alt="Delegates gathered around the #UNGA letter sculpture on the plaza outside UN Headquarters"
+              loading="lazy"
+            />
+          </div>
+        </section>
 
-            <div className={g.askSide}>
-              <div>
-                <div className={g.sideLabel}>Audience</div>
-                <div className={g.sideValue}>
-                  World leaders, delegates and visitors at UNGA80
-                </div>
+        {/* ============ THE ASK — the brief, then the fixed facts of the
+             job underneath it. ============ */}
+        <section className={g.section}>
+          <SectionLabel title="THE ASK" />
+          <p className={g.askLead}>
+            Transform the high-traffic area in the UN Secretariat into a
+            bright, participatory meeting point, where passers-by are drawn in
+            by bold visuals, stay for conversation, and leave with content to
+            share. Create an engaging exhibit that showcases the quintets of the
+            UN 2.0 agenda.
+          </p>
+          <p className={g.askNote}>
+            The ask covered the installation and the activations across the
+            whole area: a large curved wall, the pillars along the passage, and
+            the lounge.
+          </p>
+
+          <div className={g.factRow}>
+            <div>
+              <div className={g.factLabel}>Audience</div>
+              <div className={g.factValue}>
+                World leaders, Member States, delegates and UN colleagues
               </div>
-              <div>
-                <div className={g.sideLabel}>Constraint</div>
-                <div className={g.sideValue}>
-                  One passage wall, six tools and no staffed demos, so the
-                  design had to carry the whole conversation
-                </div>
+            </div>
+            <div>
+              <div className={g.factLabel}>Constraint</div>
+              <div className={g.factValue}>
+                A natural flow point with high visibility, but no staff on
+                site, so the design had to carry the whole conversation
               </div>
-              <div>
-                <div className={g.sideLabel}>My contribution</div>
-                <div className={g.sideValue}>
-                  Conceptualising the interactive exhibit, and exploring
-                  AI-generated imagery against the existing brand identity to
-                  build a new identity for the event
-                </div>
+            </div>
+            <div>
+              <div className={g.factLabel}>My contribution</div>
+              <div className={g.factValue}>
+                Conceptualising the interactive exhibit, exploring AI-generated
+                imagery against the existing brand identity to build a new
+                identity for the event, and creating the assets for the pillars
               </div>
             </div>
           </div>
         </section>
 
-        {/* ============ THE OUTCOME — the result stated once, then the
-             wall itself panel by panel, then the installation
-             photography. ============ */}
+        {/* ============ THE OUTCOME ============ */}
         <section className={g.section}>
           <SectionLabel title="THE OUTCOME" />
           <p className={g.outcomeText}>
-            A visual language that put those questions in the room. A wall
-            running the length of the passage gave each of the six tools its own
-            panel, built from AI-generated imagery and joined by a single zigzag
-            line that changes colour as it travels across them. It turned six
-            abstract capabilities into something people could walk up to, look
-            at, and answer.
+            Three columns standing between the wall and the lounge carried the
+            exhibit: high-resolution UN 2.0 visuals on some faces, the questions
+            on the others. Built from AI-generated imagery, they showcased the
+            five tools of UN 2.0, the United Nations' transformation agenda:
+            data, digital, innovation, foresight and behavioural science. What
+            carries over from the parent brand are its core colours and elements
+            drawn from the quintet icon.
           </p>
 
-          {/* The identity banners, stood in a row the way they stood in
-              the passage. */}
-          <div className={g.bannerStrip}>
-            <div className={g.bannerTrack}>
-              {BANNERS.map((b) => (
-                <img
-                  key={b.src}
-                  className={g.bannerTile}
-                  src={b.src}
-                  alt={b.alt}
-                  loading="lazy"
-                />
-              ))}
-            </div>
+          {/* The identity banners, filling the full content width. */}
+          <div className={g.bannerRow}>
+            {BANNERS.map((b) => (
+              <img
+                key={b.src}
+                className={g.bannerTile}
+                src={b.src}
+                alt={b.alt}
+                loading="lazy"
+              />
+            ))}
           </div>
-          <p className={g.stripCaption}>
-            One invitation, five ways in. Each banner opens with the same line
-            and hands it to a different image, with the zigzag changing colour
-            as it crosses.
-          </p>
-
-          {/* The voting banners: the half of the exhibit that the visitors
-              finished. */}
-          <h3 className={g.subTitle}>Asking the room</h3>
-          <p className={g.stripCaption}>
-            Four banners carried the questions, and left the answering to the
-            room. Visitors placed a sticker in the colour of who they were, so
-            the wall filled in as a picture of who thought what: Member States,
-            public and private sector, and UN colleagues.
-          </p>
-          <div className={g.bannerStrip}>
-            <div className={g.bannerTrack}>
+          {/* The voting banners, with the copy about them held alongside and
+              centred against their height. */}
+          <div className={g.questionGrid}>
+            <div className={g.questionRow}>
               {QUESTIONS.map((q) => (
                 <img
                   key={q.src}
@@ -218,6 +212,51 @@ function Unga80Page() {
                 />
               ))}
             </div>
+            <div className={g.questionCopy}>
+              <p className={g.questionText}>
+                The exhibit opened with questions, drawing out how tools like
+                AI, data platforms and digital public infrastructure can speed
+                up decision-making, improve service delivery, and bring the UN
+                closer to the people it serves.
+              </p>
+              <p className={g.questionNote}>
+                Visitors answered by dot voting, so the wall filled in as a
+                picture of who thought what: Member States, public and private
+                sector, and UN colleagues.
+              </p>
+            </div>
+          </div>
+
+          {/* The columns themselves: one face carrying the identity, the
+              next carrying a question with the votes on it. */}
+          <div className={g.imgPair}>
+            <figure className={g.imgFigure}>
+              <div className={g.imgPairTall}>
+                <img
+                  className={g.photo}
+                  src="/images/unga80-column-voting.webp"
+                  alt="A column in the lounge with an Enter UN 2.0 banner on one face and a Vote Now banner on the next, dots already placed against the answers"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className={g.photoCaption}>
+                One column, two jobs: the identity on one face, a question on
+                the next, filling up as the week went on.
+              </figcaption>
+            </figure>
+            <figure className={g.imgFigure}>
+              <div className={g.imgPairTall}>
+                <img
+                  className={g.photo}
+                  src="/images/unga80-column-conversation.webp"
+                  alt="Two visitors talking across a high table beside the Exceptional Data column"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className={g.photoCaption}>
+                The columns gave people somewhere to stop, which was the point.
+              </figcaption>
+            </figure>
           </div>
 
           {/* The exhibit as it stood, and as it was used. */}
@@ -251,142 +290,51 @@ function Unga80Page() {
             </figure>
           </div>
 
-          <figure className={g.imgFigure}>
-            <div className={g.imgWide}>
-              <img
-                className={g.photo}
-                src="/images/unga80-passage.webp"
-                alt="The passage at UN Headquarters: an Enter UN 2.0 banner standing in the foreground with the blue #UNGA80 wall running down the corridor behind it"
-                loading="lazy"
-              />
-            </div>
+          {/* The lounge end of the space. */}
+          <div className={g.imgPair}>
+            <figure className={g.imgFigure}>
+              <div className={g.imgPairCell}>
+                <img
+                  className={g.photo}
+                  src="/images/unga80-lounge-column.webp"
+                  alt="The lounge seating along the window with the blue Exceptional People column standing in front of the #UNGA80 wall"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className={g.photoCaption}>
+                The lounge, with a column holding the corner it turns.
+              </figcaption>
+            </figure>
+            <figure className={g.imgFigure}>
+              <div className={g.imgPairCell}>
+                <img
+                  className={g.photo}
+                  src="/images/unga80-lounge-group.webp"
+                  alt="Visitors gathered at the table beside a column, with the #UNGA80 wall behind them"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className={g.photoCaption}>
+                The space in use during high-level week.
+              </figcaption>
+            </figure>
+          </div>
+
+          {/* Shown whole rather than cropped to a band, so the pillar and the
+              wall stay in one frame. */}
+          <figure className={`${g.imgFigure} ${g.imgFull}`}>
+            <img
+              className={g.photoFull}
+              src="/images/unga80-passage.webp"
+              alt="The passage at UN Headquarters: an Enter UN 2.0 pillar standing in the foreground with the blue #UNGA80 wall running down the corridor behind it"
+              loading="lazy"
+            />
             <figcaption className={g.photoCaption}>
               The exhibit in place on the Conference Building ground floor.
-              Photo credit: Abel Fekade.
             </figcaption>
           </figure>
-        </section>
 
-        {/* ============ PROCESS — three beats, each a titled column and
-             the work it produced. ============ */}
-        <section className={g.section}>
-          <SectionLabel title="PROCESS" />
-          <p className={g.processIntro}>
-            Three beats: work out what visitors would actually do, build an
-            identity that could hold AI imagery, then make it survive at wall
-            scale.
-          </p>
-
-          <div className={g.processRow}>
-            <div>
-              <div className={g.processNum}>01</div>
-              <h3 className={g.processTitle}>Brainstorming the interaction</h3>
-              <p className={g.processText}>
-                We started from what the exhibit would ask, not what it would
-                say. The question came first, then the format that could collect
-                an answer from someone walking through with four minutes to
-                spare.
-              </p>
-            </div>
-            <div className={`${g.ph} ${g.processMedia}`}>
-              <span className={g.phNote}>
-                Whiteboard and brainstorm sketches: interaction ideas for how
-                visitors respond
-              </span>
-            </div>
-          </div>
-
-          <div className={g.processRow}>
-            <div>
-              <div className={g.processNum}>02</div>
-              <h3 className={g.processTitle}>
-                An identity that could hold AI imagery
-              </h3>
-              <p className={g.processText}>
-                Built with the lead designer and photographer. The existing UN
-                2.0 identity set the frame; the AI-generated photography had to
-                sit inside it and still read as new, innovative and futuristic.
-                The zigzag came out of this: one line to carry six separate
-                images as a single wall.
-              </p>
-            </div>
-            <div className={g.processPair}>
-              <div className={`${g.ph} ${g.processMedia}`}>
-                <span className={g.phNote}>
-                  Identity exploration: colour and line studies
-                </span>
-              </div>
-              <div className={`${g.ph} ${g.processMedia}`}>
-                <span className={g.phNote}>
-                  AI imagery trials against the identity
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className={g.processRow}>
-            <div>
-              <div className={g.processNum}>03</div>
-              <h3 className={g.processTitle}>Banner iterations at wall scale</h3>
-              <p className={g.processText}>
-                Iterating the physical banner: where the line crosses each
-                panel, how the colour changes hand off between tools, and how
-                much space the imagery gives up to keep the type legible from
-                across the passage.
-              </p>
-            </div>
-            <div className={g.processStack}>
-              <div className={`${g.ph} ${g.processStrip}`}>
-                <span>Iteration v1: full banner strip</span>
-              </div>
-              <div className={`${g.ph} ${g.processStrip}`}>
-                <span>Iteration v2: full banner strip</span>
-              </div>
-              <div className={`${g.ph} ${g.processStrip}`}>
-                <span>Final: shipped banner strip</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ IMPACT — what the wall did. On white, with
-             hairlines top and bottom instead of a grey band. ============ */}
-        <section className={g.impactBand}>
-          <div className={g.impactGrid}>
-            <div className={g.impactStats}>
-              <div>
-                {/* Waiting on the real footfall figure. */}
-                <div className={g.impactNumTodo}>[figure]</div>
-                <div className={g.impactLabel}>
-                  estimated people through the passage over the week
-                </div>
-              </div>
-              <div className={g.impactPair}>
-                <div>
-                  <div className={g.impactNum}>6</div>
-                  <div className={g.impactLabel}>panels, one per tool</div>
-                </div>
-                <div>
-                  <div className={g.impactNum}>1</div>
-                  <div className={g.impactLabel}>week live at UNGA80</div>
-                </div>
-              </div>
-            </div>
-
-            <div className={g.impactCopy}>
-              <SectionLabel title="WHAT IT DID" />
-              <p className={g.impactText}>
-                Visitors stopped and answered. The wall was read tool by tool
-                rather than skimmed, and the responses left on it became the
-                record of where people think the UN should go next, which is the
-                outcome the exhibit was built to produce.
-              </p>
-              <p className={g.impactNote}>
-                Responses were collected on the wall during the week and were
-                not documented photographically.
-              </p>
-            </div>
-          </div>
+          <p className={g.photoCredit}>Photo credit: Abel Fekade</p>
         </section>
       </main>
       <MoreWork currentSlug="/unga80" />
