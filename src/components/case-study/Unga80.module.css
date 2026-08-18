@@ -195,56 +195,51 @@
   color: var(--text-muted);
 }
 
-/* Installation photography: a cropped pair, then one shot shown whole. */
-.imgPair {
+/* Installation photography as one block. A slight white gutter separates
+   the pictures; the grid holds the rounded corners and clips what overflows,
+   so the only round corners in the whole group are its outer four.
+   Rows pair pictures of a similar shape and are sized by aspect ratio rather
+   than a fixed height, so no picture loses much of its length. */
+.photoGrid {
   margin-top: 56px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 6px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-primary);
 }
-.imgFigure {
-  margin: 0;
-}
-/* A fixed-height slot, so the picture is cropped to fill it. */
-.imgPairCell {
-  height: 330px;
-}
-/* A taller slot, for the upright shots of the columns. */
-.imgPairTall {
-  height: 520px;
-}
-.photo {
+/* The landscape rows. Three of the four are already 3:2. */
+.gridPhoto {
   display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 12px;
-  background: var(--bg-secondary);
+  border-radius: 0;
 }
-/* Shown whole: the full frame, never cropped, height follows the picture. */
-.imgFull {
-  margin-top: 24px;
-}
-.photoFull {
+/* The upright row, sized between the two shots' own ratios so each gives up
+   only a sliver rather than one being cut in half. */
+.gridPhotoTall {
   display: block;
+  width: 100%;
+  aspect-ratio: 0.62;
+  object-fit: cover;
+  border-radius: 0;
+}
+/* The closing shot spans both columns and keeps its own proportions, so it
+   is never cropped in length. */
+.gridPhotoWide {
+  display: block;
+  grid-column: 1 / -1;
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  background: var(--bg-secondary);
+  border-radius: 0;
 }
-.photoCaption {
-  margin: 12px 0 0;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  line-height: 160%;
-  color: var(--text-muted);
-}
+
 /* One credit line closing the photography, so it reads as covering all
    of the pictures above it rather than only the last one. */
 .photoCredit {
-  margin: 28px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-light);
+  margin: 20px 0 0;
   font-family: var(--font-body);
   font-size: 0.8125rem;
   line-height: 160%;
@@ -280,24 +275,9 @@
   .questionRow {
     order: 2;
   }
-  .imgPairCell {
-    height: 260px;
-  }
-  .imgPairTall {
-    height: 420px;
-  }
 }
 
 @media (max-width: 560px) {
-  .imgPair {
-    grid-template-columns: 1fr;
-  }
-  .imgPairCell {
-    height: 220px;
-  }
-  .imgPairTall {
-    height: 340px;
-  }
   /* Five and four across would leave each banner about 60px wide, too
      narrow to read a word of. Two across keeps them legible. */
   .bannerRow,

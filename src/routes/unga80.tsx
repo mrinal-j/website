@@ -41,6 +41,18 @@ const QUESTIONS = [
   { src: '/images/unga80-question-4.webp', alt: 'The $3B Game banner: you have 3 UNGAbucks, where do you invest for the next 5 years? An empty investment jar garden for visitors to fill' },
 ]
 
+// The six photographs in the two-column half of the grid. Rows pair pictures
+// of a similar shape, so nothing has to be cropped much to make a row line up:
+// two landscape rows, then a row of the two upright shots of the columns.
+const PHOTOS = [
+  { src: '/images/unga80-visitor-wall.webp', alt: 'A visitor being photographed in front of the #UNGA80 wall in the passage' },
+  { src: '/images/unga80-vote-table.webp', alt: "A visitor filling in a voting card at the table, beside a card reading Vote now: what's the UN of the future?" },
+  { src: '/images/unga80-lounge-column.webp', alt: 'The lounge seating along the window with the blue Exceptional People column standing in front of the #UNGA80 wall' },
+  { src: '/images/unga80-lounge-group.webp', alt: 'Visitors gathered at the table beside a column, with the #UNGA80 wall behind them' },
+  { src: '/images/unga80-column-conversation.webp', alt: 'Two visitors talking across a high table beside the Exceptional Data column', tall: true },
+  { src: '/images/unga80-column-voting.webp', alt: 'A column in the lounge with an Enter UN 2.0 banner on one face and a Vote Now banner on the next, dots already placed against the answers', tall: true },
+]
+
 function Unga80Page() {
   const mainRef = useRef<HTMLElement>(null)
   // Each top-level <section> fades and rises in as it enters the viewport.
@@ -227,112 +239,28 @@ function Unga80Page() {
             </div>
           </div>
 
-          {/* The columns themselves: one face carrying the identity, the
-              next carrying a question with the votes on it. */}
-          <div className={g.imgPair}>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairTall}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-column-voting.webp"
-                  alt="A column in the lounge with an Enter UN 2.0 banner on one face and a Vote Now banner on the next, dots already placed against the answers"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                One column, two jobs: the identity on one face, a question on
-                the next, filling up as the week went on.
-              </figcaption>
-            </figure>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairTall}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-column-conversation.webp"
-                  alt="Two visitors talking across a high table beside the Exceptional Data column"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                The columns gave people somewhere to stop, which was the point.
-              </figcaption>
-            </figure>
-          </div>
-
-          {/* The exhibit as it stood, and as it was used. */}
-          <div className={g.imgPair}>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairCell}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-visitor-wall.webp"
-                  alt="A visitor being photographed in front of the #UNGA80 wall in the passage"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                The wall as a backdrop people chose to stand in front of.
-              </figcaption>
-            </figure>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairCell}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-vote-table.webp"
-                  alt="A visitor filling in a voting card at the table, beside a card reading Vote now: what's the UN of the future?"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                Voting in progress. The colour a visitor picked recorded who
-                they were as well as what they thought.
-              </figcaption>
-            </figure>
-          </div>
-
-          {/* The lounge end of the space. */}
-          <div className={g.imgPair}>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairCell}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-lounge-column.webp"
-                  alt="The lounge seating along the window with the blue Exceptional People column standing in front of the #UNGA80 wall"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                The lounge, with a column holding the corner it turns.
-              </figcaption>
-            </figure>
-            <figure className={g.imgFigure}>
-              <div className={g.imgPairCell}>
-                <img
-                  className={g.photo}
-                  src="/images/unga80-lounge-group.webp"
-                  alt="Visitors gathered at the table beside a column, with the #UNGA80 wall behind them"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className={g.photoCaption}>
-                The space in use during high-level week.
-              </figcaption>
-            </figure>
-          </div>
-
-          {/* Shown whole rather than cropped to a band, so the pillar and the
-              wall stay in one frame. */}
-          <figure className={`${g.imgFigure} ${g.imgFull}`}>
+          {/* The photography as one block: three rows of two, then the
+              passage shot spanning both columns and shown whole. A hairline
+              white gutter separates the pictures. The container carries the
+              rounded corners and clips its children, so the only round
+              corners in the group are its outer four. */}
+          <div className={g.photoGrid}>
+            {PHOTOS.map((ph) => (
+              <img
+                key={ph.src}
+                className={ph.tall ? g.gridPhotoTall : g.gridPhoto}
+                src={ph.src}
+                alt={ph.alt}
+                loading="lazy"
+              />
+            ))}
             <img
-              className={g.photoFull}
+              className={g.gridPhotoWide}
               src="/images/unga80-passage.webp"
               alt="The passage at UN Headquarters: an Enter UN 2.0 pillar standing in the foreground with the blue #UNGA80 wall running down the corridor behind it"
               loading="lazy"
             />
-            <figcaption className={g.photoCaption}>
-              The exhibit in place on the Conference Building ground floor.
-            </figcaption>
-          </figure>
+          </div>
 
           <p className={g.photoCredit}>Photo credit: Abel Fekade</p>
         </section>
