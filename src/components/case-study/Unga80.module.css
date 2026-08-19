@@ -79,6 +79,10 @@
 .contextPara + .contextPara {
   margin-top: 20px;
 }
+.contextPara strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
 /* ============================================================
    THE ASK — the brief itself, set large, then the scope note, then
    the fixed facts of the job in a row underneath.
@@ -107,19 +111,23 @@
    than beside it. */
 .factRow {
   margin-top: 56px;
-  padding-top: 34px;
-  border-top: 1px solid var(--border-light);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
 }
+/* Set in the brand blue rather than sitting under a rule: the colour on the
+   headings is what separates these three from the brief above them. */
 .factLabel {
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--text-muted);
-  margin-bottom: 10px;
+  color: var(--un-blue);
+  /* The rule runs the width of the column, which is the measure the body
+     text under it wraps to. */
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--un-blue);
+  margin-bottom: 12px;
 }
 .factValue {
   font-family: var(--font-body);

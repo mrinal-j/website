@@ -122,16 +122,20 @@ function Unga80Page() {
           <div className={g.contextGrid}>
             <div className={g.contextBody}>
               <p className={g.contextPara}>
-                At 80, the United Nations is working to stay fit for purpose in a
-                fast-changing world. UN 2.0 is the transformation agenda
-                behind that effort, scaling the use of data, digital,
-                innovation, foresight and behavioural science to deliver better
-                results for people and planet.
+                At 80 years, the United Nations is working to stay fit for
+                purpose in a fast-changing world.{' '}
+                <strong>
+                  UN 2.0 is the transformation agenda behind that effort,
+                  scaling the use of data, digital, innovation, foresight and
+                  behavioural science to deliver better results for people and
+                  planet.
+                </strong>
               </p>
               <p className={g.contextPara}>
-                UNGA80 put that work on a global stage: a chance to show
-                system-wide progress, point to concrete impact, and invite a
-                wide audience to shape the future of multilateralism.
+                The United Nations General Assembly gives a chance to show
+                system-wide progress on a global stage, pointing to concrete
+                impact, and inviting a wide audience to shape the future of
+                multilateralism.
               </p>
             </div>
             <img
@@ -189,13 +193,13 @@ function Unga80Page() {
         <section className={g.section}>
           <SectionLabel title="THE OUTCOME" />
           <p className={g.outcomeText}>
-            Three columns standing between the wall and the lounge carried the
-            exhibit: high-resolution UN 2.0 visuals on some faces, the questions
-            on the others. Built from AI-generated imagery, they showcased the
-            five tools of UN 2.0, the United Nations' transformation agenda:
-            data, digital, innovation, foresight and behavioural science. What
-            carries over from the parent brand are its core colours and elements
-            drawn from the quintet icon.
+            Three pillars standing between the wall and the lounge carried the
+            main exhibit, which included high-resolution UN 2.0 visual banners
+            and question banners. Built from AI-generated imagery, they
+            showcased the five quintets of UN 2.0, the United Nations'
+            transformation agenda: data, digital, innovation, foresight and
+            behavioural science. What carries over from the parent brand are its
+            core colours and elements drawn from the quintet icon.
           </p>
 
           {/* The identity banners, filling the full content width. */}
@@ -262,7 +266,9 @@ function Unga80Page() {
             />
           </div>
 
-          <p className={g.photoCredit}>Photo credit: Abel Fekade</p>
+          <p className={g.photoCredit}>
+            Photo credit, AI image generation: Abel Fekade
+          </p>
         </section>
       </main>
       <MoreWork currentSlug="/unga80" />
