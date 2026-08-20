@@ -52,7 +52,7 @@
 .cardImageWrapper {
   position: relative;
   height: 460px;
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 

@@ -64,7 +64,7 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   background: var(--bg-secondary);
 }
 .contextPara {
@@ -165,7 +165,7 @@
   aspect-ratio: 255 / 844;
   display: block;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: var(--radius-card);
   background: var(--bg-secondary);
 }
 /* The four voting banners on the left, the copy about them on the right,
@@ -213,7 +213,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--bg-primary);
 }

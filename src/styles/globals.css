@@ -45,6 +45,15 @@
   --border-light: #ebebeb;
   --border-medium: #cbcbcb;
 
+  /* Corner radius
+     --radius-card is the one standard for cards, images and thumbnails.
+     Change it here and every card on the site follows.
+     Pills, tags and buttons stay fully round (999px) and are not tokenised,
+     because a single value cannot serve both short and tall pills.
+     Device mockups (phone frames, the UN80 browser window) keep their own
+     rounding so they read as real hardware. */
+  --radius-card: 8px;
+
   /* Font stacks */
   --font-sans: "General Sans", sans-serif;
   --font-body: "Manrope", sans-serif;

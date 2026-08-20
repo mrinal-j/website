@@ -24,7 +24,7 @@
   position: absolute;
   width: 380px;
   min-height: 300px;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   padding: 48px 36px;
   display: flex;
   align-items: center;

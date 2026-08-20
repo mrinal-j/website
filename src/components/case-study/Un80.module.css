@@ -154,7 +154,7 @@
   position: relative;
   /* Sits within the page margins (not full-bleed) */
   margin: 28px var(--page-side-padding) 0;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--un-ink);
 }
@@ -317,7 +317,7 @@
 }
 .logoPanel {
   border: 1px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -405,67 +405,6 @@
   font-family: ui-monospace, monospace;
   font-size: 0.625rem;
   color: var(--text-muted);
-}
-
-/* ============================================================
-   03 · THE SIGNATURE MOVE — before / after
-   ============================================================ */
-.beforeAfter {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 28px;
-  margin-top: 40px;
-}
-.baCard {
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  padding: 24px;
-  background: #fafafa;
-}
-.baCardAfter {
-  border-color: #cfe7f4;
-  background: #eff8fc;
-}
-.baLabel {
-  font-family: ui-monospace, monospace;
-  font-weight: 600;
-  font-size: 0.5625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.baLabelBefore { color: #b03b3b; }
-.baLabelAfter { color: var(--un-blue-deep); }
-.baLines {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.baLine {
-  height: 6px;
-  background: rgba(0, 0, 0, 0.14);
-  border-radius: 2px;
-}
-.baAfterTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.3125rem;
-  line-height: 122%;
-  color: var(--text-primary);
-  margin: 0 0 10px;
-}
-.baAfterText {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  line-height: 160%;
-  color: var(--text-secondary);
-  margin: 0;
-}
-.baArrow {
-  font-size: 1.875rem;
-  color: var(--un-blue);
-  font-weight: 700;
 }
 
 /* ============================================================
@@ -695,7 +634,7 @@
   margin: 0;
   background: #fff;
   border: 1px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: 0 8px 30px -18px rgba(0, 0, 0, 0.35);
 }
@@ -781,7 +720,7 @@
   width: 52%;
   height: auto;
   flex-shrink: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   background: #fff;
 }
@@ -920,13 +859,6 @@
   .typeAa {
     font-size: 4.5rem;
   }
-  .beforeAfter {
-    grid-template-columns: 1fr;
-  }
-  .baArrow {
-    transform: rotate(90deg);
-    justify-self: center;
-  }
   /* Stacked: read the copy first, then the artwork it describes. */
   .newsletterRow {
     grid-template-columns: 1fr;
@@ -952,7 +884,7 @@
   }
   .contextFigure {
     margin: 24px max(24px, var(--page-side-padding)) 0;
-    border-radius: 18px;
+    border-radius: var(--radius-card);
   }
   .contextCredit {
     margin-left: max(24px, var(--page-side-padding));

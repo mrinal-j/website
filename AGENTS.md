@@ -9,6 +9,13 @@
 - When describing a fix, focus on what changed, why it mattered, and what the user should expect now.
 - If the user says `commit and push`, treat that as permission to commit and push all current local changes unless they clearly say otherwise.
 
+## Design System
+
+- `DESIGN.md` holds the agreed visual rules. Read it before changing how anything looks.
+- Cards, images and thumbnails use `var(--radius-card)` (currently 8px). Never type a radius number straight into a component stylesheet.
+- Shared colour, type and radius tokens live in `src/styles/globals.css`.
+- When a visual rule changes, update `DESIGN.md` in the same pass.
+
 ## Git Workflow
 
 - Always work directly on the `main` branch.

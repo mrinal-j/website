@@ -68,7 +68,7 @@
   position: relative;
   /* Sits within the page margins (not full-bleed) */
   margin: 28px var(--page-side-padding) 0;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background: #2a2a2a;
 }
@@ -185,7 +185,7 @@
 .challengeCard {
   background: var(--kaaro-cream); /* #FFFFF1 */
   border: 1px solid var(--border-light);
-  border-radius: 18px;
+  border-radius: var(--radius-card);
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -200,7 +200,7 @@
   z-index: 1;
   flex: 1;
   background: var(--kaaro-cream);
-  border-radius: 0 0 18px 18px;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
   margin-bottom: -18px;
   padding: 22px 22px 16px;
   display: flex;
@@ -212,7 +212,7 @@
    curved seam moves to its top corners; it fills the remaining height
    with the icon row pushed to the bottom. */
 .challengeBodyFlip {
-  border-radius: 18px 18px 0 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
   margin-bottom: 0;
   margin-top: -18px;
   padding-bottom: 22px;
@@ -420,7 +420,7 @@
   object-fit: cover;
   background: var(--kaaro-cream);
   border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
 }
 
 .bentoLogo { grid-area: logo; }
@@ -440,7 +440,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 
@@ -487,7 +487,7 @@
   position: relative;
   flex: 1;
   min-width: 0;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   border: 1px solid var(--border-light);
   overflow: hidden;
   cursor: pointer;
@@ -596,7 +596,7 @@
   flex: 1;
   min-width: 0;
   height: 100%;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 
@@ -632,7 +632,7 @@
 .strategyMediaPlaceholder {
   flex: 1;
   border: 1.5px dashed var(--panel-dash);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -697,7 +697,7 @@
 .reviewsFrame {
   position: relative;
   height: 560px;
-  border-radius: 24px;
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 
@@ -752,7 +752,7 @@
 .reviewImg {
   flex: 0 0 auto;
   height: auto;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
 }
 

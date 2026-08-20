@@ -128,7 +128,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background-color: var(--bg-secondary);
 }
@@ -208,7 +208,7 @@
 .card:focus-visible {
   outline: 2px solid var(--text-primary);
   outline-offset: 6px;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
 }
 
 /* Only shown on phones, where there is no hover to reveal the title. */
