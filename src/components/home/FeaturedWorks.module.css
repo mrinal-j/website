@@ -1,6 +1,6 @@
 .section {
   --grid-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
-  --card-gap: 20px;
+  --card-gap: 24px;
 
   background-color: var(--bg-primary);
   width: 100%;
@@ -16,30 +16,84 @@
   will-change: opacity, transform;
 }
 
-.header {
-  position: relative;
-  padding: 36px var(--grid-side-padding) 24px;
-  flex-shrink: 0;
+/* ---- Tab bar -------------------------------------------------------------
+   "Work" on the left, the category tabs pushed to the right, both sitting on
+   one hairline. The active tab's orange underline sits on that hairline. */
+
+.tabBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin: 36px var(--grid-side-padding) 34px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 auto 14px 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 28px;
+}
+
+.tab {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  /* 0.55 is as light as this can go and still clear 4.5:1 on white. */
+  color: rgba(0, 0, 0, 0.55);
+  background: none;
   border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0 0 12px;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 48px var(--card-gap);
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.tabActive {
+  color: var(--text-primary);
+  border-bottom-color: var(--color-orange);
+}
+
+/* ---- Two staggered columns ---------------------------------------------- */
+
+.columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--card-gap);
   padding: 0 var(--grid-side-padding);
 }
+
+.column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+/* ---- Card ----------------------------------------------------------------
+   A framed card: the photo sits inside a white border of padding, and the
+   whole card lifts on a soft shadow when hovered. */
 
 .card {
   display: flex;
@@ -47,11 +101,21 @@
   text-decoration: none;
   color: var(--text-primary);
   cursor: pointer;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-card);
+  padding: 8px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
 }
 
 .cardImageWrapper {
   position: relative;
-  height: 460px;
+  /* Set per project in the data, so the two columns fall out of step. */
+  height: var(--card-h, 420px);
   border-radius: var(--radius-card);
   overflow: hidden;
 }
@@ -62,11 +126,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.55s ease, opacity 0.5s ease;
-}
-
-.card:hover .cardImage {
-  transform: scale(1.04);
+  transition: opacity 0.5s ease;
 }
 
 /* Cross-fade image (In the Loop, Kaaro): stacked on top, hidden until the
@@ -79,56 +139,23 @@
   opacity: 1;
 }
 
-.cardGradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.04) 50%, transparent 100%);
-  pointer-events: none;
-}
-
-.cardArrow {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.card:hover .cardArrow {
-  color: #ffffff;
-  opacity: 1;
-}
-
 .cardContent {
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  padding: 18px 12px 10px;
 }
 
 .cardTitle {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   line-height: 130%;
-  margin: 0 0 6px;
+  margin: 0;
   transition: color 0.25s ease;
 }
 
-/* Title turns orange when the pointer is over the card's image or the
-   title itself. (.cardContent is the next sibling of .cardImageWrapper.) */
-.cardImageWrapper:hover + .cardContent .cardTitle,
-.cardTitle:hover {
+.card:hover .cardTitle {
   color: var(--color-orange);
 }
 
@@ -137,30 +164,93 @@
   font-weight: 400;
   font-size: 0.88rem;
   line-height: 150%;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   margin: 0;
+  max-width: 52ch;
 }
 
 .cardTags {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  flex-shrink: 0;
+  margin-top: 6px;
 }
 
 .tag {
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
-  color: rgba(0,0,0,0.65);
-  background-color: #ffffff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  padding: 4px 12px;
+  /* 0.62 keeps the tag soft while still clearing 4.5:1 on the grey fill. */
+  color: rgba(0, 0, 0, 0.62);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 5px 12px;
   border-radius: 20px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* ---- "More work" row -----------------------------------------------------
+   The tabs at the top scroll out of sight while you read the cards, so the
+   categories you are not looking at are offered again at the end. */
+
+.moreRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 56px var(--grid-side-padding) 0;
+  padding-top: 26px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.moreLabel {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.moreLink:hover {
+  color: var(--color-orange);
+}
+
+.moreLink:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.moreArrow {
+  color: rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.moreLink:hover .moreArrow {
+  transform: translateX(4px);
+  color: var(--color-orange);
+}
+
+/* Narrower desktops: the columns get thinner, so bring the photos down with
+   them rather than letting them turn into tall slivers. */
+@media (max-width: 1100px) {
+  .cardImageWrapper {
+    height: calc(var(--card-h, 420px) * 0.8);
+  }
 }
 
 @media (max-width: 767px) {
@@ -171,12 +261,62 @@
     margin-bottom: 88px;
   }
 
-  .header { padding: 24px var(--grid-side-padding) 16px; }
-
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .tabBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin: 24px var(--grid-side-padding) 24px;
   }
 
-  .cardImageWrapper { height: 280px; }
+  .heading {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+
+  /* Three tabs do not fit across a phone, so let them scroll sideways. */
+  .tabs {
+    gap: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    font-size: 0.85rem;
+    padding-bottom: 10px;
+  }
+
+  .columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* One stack, not two. `display: contents` drops the column wrappers so the
+     cards become direct children here and `order` can put them back into the
+     order they are listed in the data. */
+  .column {
+    display: contents;
+  }
+
+  .card {
+    order: var(--order, 0);
+  }
+
+  .moreRow {
+    margin-top: 40px;
+    padding-top: 22px;
+    gap: 10px 22px;
+  }
+
+  .moreLabel,
+  .moreLink {
+    font-size: 0.9rem;
+  }
+
+  .cardImageWrapper {
+    height: 280px;
+  }
 }
