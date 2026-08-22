@@ -21,7 +21,11 @@ export function useSectionFadeIn(sectionRef: RefObject<HTMLElement | null>): {
       // and finishes when it's about 40% up the screen.
       // rect.top = vh → progress 0 (just peeking in)
       // rect.top = vh * 0.4 → progress 1 (fully visible)
-      const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.6)))
+      // A zero window height would make this 0 / 0, which is NaN. Guard it:
+      // 0 means "not started", the safe state, and it avoids tripping the
+      // lock below and disabling the fade permanently.
+      const progress =
+        vh > 0 ? Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.6))) : 0
 
       if (progress >= 1) locked.current = true
       setFadeIn(progress)

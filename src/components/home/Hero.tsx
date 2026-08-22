@@ -43,7 +43,9 @@ export function Hero() {
   useEffect(() => {
     const onScroll = () => {
       const vh = window.innerHeight
-      const progress = Math.min(1, Math.max(0, window.scrollY / (vh * 0.8)))
+      // Guard against a zero window height, which would make this 0 / 0 (NaN).
+      const progress =
+        vh > 0 ? Math.min(1, Math.max(0, window.scrollY / (vh * 0.8))) : 0
       setDarkOpacity(progress)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
