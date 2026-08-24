@@ -11,6 +11,16 @@
   --un-ink: #111;
 }
 
+/* The shared hero puts the title and the standfirst at the top of their own
+   columns. On this page the title runs long enough that the standfirst reads
+   as stranded, so the two are centred against each other instead. Scoped
+   here, not in the shared stylesheet, because the other case studies want
+   the top-aligned version. The class is doubled to out-specify the shared
+   rule whichever order the two stylesheets end up in. */
+.heroCenter.heroCenter {
+  align-items: center;
+}
+
 /* A generic light section wrapper with the page's aligned side padding. */
 .section {
   padding: 88px var(--page-side-padding);

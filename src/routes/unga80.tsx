@@ -64,7 +64,7 @@ function Unga80Page() {
       <main ref={mainRef} className={`${s.page} ${g.unga80} reveal-root`}>
         {/* ============ HERO ============ */}
         <section className={s.hero}>
-          <div className={s.heroHeader}>
+          <div className={`${s.heroHeader} ${g.heroCenter}`}>
             <div className={s.heroTitle}>
               <h1>United Nations General Assembly Exhibit 2025</h1>
             </div>
@@ -94,8 +94,8 @@ function Unga80Page() {
           <div className={s.metaCell}>
             <span className={s.metaLabel}>Role</span>
             <span className={s.metaValue}>
-              Exhibition design, Visual identity, AI imagery, Art direction,
-              Brand design, Print design
+              Exhibition Design, Visual Identity, Brand Design, Print Design,
+              Art Direction
             </span>
           </div>
           <div className={s.metaCell}>
@@ -105,7 +105,7 @@ function Unga80Page() {
           <div className={s.metaCell}>
             <span className={s.metaLabel}>Team</span>
             <span className={s.metaValue}>
-              Enerel Enkhsarnai (Lead Designer), Abel Fekade (Photographer)
+              Enerel Enkhsarnai (Designer), Abel Fekade (Photographer)
             </span>
           </div>
           <div className={`${s.metaCell} ${s.metaCellLast}`}>
