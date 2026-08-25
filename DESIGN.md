@@ -87,6 +87,8 @@ Use the token, not the hex code, so a colour change stays a one line edit.
 | --- | --- | --- |
 | `--font-sans` | General Sans | Headlines and labels. Weights 600 and 700. |
 | `--font-body` | Manrope | Body copy. Weights 400 and 700. |
+| `--font-script` | Flaviotte | Handwritten accents. Only the About page's "now playing" sketch for now. |
+| `--font-mono` | SF Mono / Menlo (system) | Tiny technical captions, like the photo labels on the About page. |
 
 Roboto is loaded but is only for the UN80 case study, where it shows the United
 Nations master brand typeface as it really is. Do not use it anywhere else.

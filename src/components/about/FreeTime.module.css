@@ -1,0 +1,159 @@
+.section {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 60px 0 80px;
+}
+
+/* ------------------------------------------------------------
+   Journal spread
+   ------------------------------------------------------------ */
+
+.journal {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-top: 56px;
+}
+
+.journalTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.journalBody {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-top: 14px;
+  max-width: 32ch;
+}
+
+.journalMedia {
+  margin: 0;
+  max-width: 620px;
+}
+
+/* The journal caption runs as one line, unlike the tiny collage captions */
+.journalMedia .caption {
+  max-width: none;
+}
+
+.journalPlaceholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 500 / 270;
+  border-radius: var(--radius-card);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* Centre spine of the open notebook */
+.journalPlaceholder::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------------------------------------------------
+   Word-and-image collages
+   ------------------------------------------------------------ */
+
+.collage {
+  margin-top: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.collageRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px 32px;
+}
+
+/* Stagger rows inward so the composition doesn't sit flush left */
+.collageRow:nth-child(2) {
+  padding-left: clamp(0px, 6vw, 60px);
+}
+
+.collageRow:nth-child(3) {
+  padding-left: clamp(20px, 14vw, 160px);
+}
+
+.collageWord {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.collageFigure {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.placeholder {
+  max-width: 100%;
+  border-radius: var(--radius-card);
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-top: 8px;
+  max-width: 150px;
+}
+
+/* Placeholder stripe fills: warm cream for food, cool blue-grey for places */
+.warm {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f0eadd 0 10px,
+    #e8e1d0 10px 20px
+  );
+}
+
+.cool {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #e9eef3 0 10px,
+    #dfe6ed 10px 20px
+  );
+}
+
+@media (max-width: 767px) {
+  .journal {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+
+  .collage {
+    margin-top: 56px;
+  }
+
+  .collageRow {
+    gap: 20px 24px;
+  }
+
+  .collageRow:nth-child(2),
+  .collageRow:nth-child(3) {
+    padding-left: 0;
+  }
+
+  /* On small screens the fixed offsets crowd the wrapped rows */
+  .collageFigure {
+    transform: none !important;
+  }
+}

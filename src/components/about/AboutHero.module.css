@@ -1,51 +1,82 @@
-.container {
-  position: relative;
+.section {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  /* Clears the fixed navbar */
+  padding: 140px 0 40px;
+}
+
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  margin-top: 48px;
+}
+
+/* The polaroid frame and orange scribbles are part of the image itself */
+.photo {
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: auto;
 }
 
-.meshLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+.intro {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  max-width: 440px;
 }
 
-.meshLayerVisible {
-  opacity: 1;
+.lead {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.5;
 }
 
-.binderLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.8s ease 0.3s;
+.sub {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-top: 28px;
+  max-width: 34ch;
 }
 
-.binderLayerVisible {
-  opacity: 1;
+.playerWrap {
+  margin-top: 44px;
 }
 
-.scrollArrow {
-  position: absolute;
-  bottom: 32px;
-  right: 48px;
-  z-index: 3;
-  color: rgba(0, 0, 0, 0.35);
-  animation: heroArrowBounce 2s ease-in-out infinite;
-}
-
-@keyframes heroArrowBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+.note {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-top: 24px;
+  max-width: 40ch;
 }
 
 @media (max-width: 767px) {
-  .scrollArrow {
-    right: 24px;
-    bottom: 24px;
+  .section {
+    padding-top: 110px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+  }
+
+  .photo {
+    max-width: 420px;
+  }
+
+  .intro {
+    padding-top: 0;
   }
 }

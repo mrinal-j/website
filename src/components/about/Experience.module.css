@@ -1,0 +1,125 @@
+.section {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 60px 0 40px;
+}
+
+.list {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-light);
+}
+
+/* Quiet initial tile for rows that don't have a logo file yet */
+.logoFallback {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-card);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.left {
+  flex: 1;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.org {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.role {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.right {
+  flex-shrink: 0;
+  text-align: right;
+  padding-top: 2px;
+}
+
+.dates {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+.place {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.resume {
+  display: inline-block;
+  margin-top: 44px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-orange);
+}
+
+.resume:hover {
+  color: var(--color-orange-hover);
+  text-decoration: underline;
+}
+
+@media (max-width: 599px) {
+  .row {
+    flex-wrap: wrap;
+    gap: 12px 16px;
+  }
+
+  .left {
+    flex-basis: calc(100% - 60px);
+  }
+
+  /* Dates drop below the text, aligned with it, reading left to right */
+  .right {
+    flex-basis: 100%;
+    padding-left: 60px;
+    padding-top: 0;
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .place {
+    margin-top: 0;
+  }
+}

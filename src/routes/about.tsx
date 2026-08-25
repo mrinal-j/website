@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Navbar } from '~/components/Navbar'
-import { AboutDesktop } from '~/components/about/AboutDesktop'
+import { AboutHero } from '~/components/about/AboutHero'
+import { Experience } from '~/components/about/Experience'
+import { FreeTime } from '~/components/about/FreeTime'
 import { HowIWork } from '~/components/home/HowIWork'
 import { Footer } from '~/components/Footer'
 
@@ -22,8 +24,10 @@ function AboutPage() {
     <>
       <Navbar alwaysVisible />
       <main style={{ minHeight: '100vh' }}>
-        <AboutDesktop />
-        <HowIWork />
+        <AboutHero />
+        <Experience />
+        <FreeTime />
+        <HowIWork noLabelLine />
       </main>
       <Footer />
     </>
