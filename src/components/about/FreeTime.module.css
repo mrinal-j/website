@@ -4,120 +4,57 @@
   padding: 60px 0 80px;
 }
 
-/* ------------------------------------------------------------
-   Journal spread
-   ------------------------------------------------------------ */
-
-.journal {
-  display: grid;
-  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 64px);
-  align-items: center;
-  margin-top: 56px;
-}
-
-.journalTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(22px, 2.5vw, 28px);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-.journalBody {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-top: 14px;
-  max-width: 32ch;
-}
-
-.journalMedia {
-  margin: 0;
-  max-width: 620px;
-}
-
-/* The journal caption runs as one line, unlike the tiny collage captions */
-.journalMedia .caption {
-  max-width: none;
-}
-
-.journalPlaceholder {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 500 / 270;
-  border-radius: var(--radius-card);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
-}
-
-/* Centre spine of the open notebook */
-.journalPlaceholder::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.08);
-}
-
-/* ------------------------------------------------------------
-   Word-and-image collages
-   ------------------------------------------------------------ */
-
+/* One tile size drives the whole grid: photos are cropped to 3:4 */
 .collage {
-  margin-top: 72px;
+  --tile-w: clamp(120px, 16vw, 190px);
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
 .collageRow {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 28px 32px;
-}
-
-/* Stagger rows inward so the composition doesn't sit flush left */
-.collageRow:nth-child(2) {
-  padding-left: clamp(0px, 6vw, 60px);
-}
-
-.collageRow:nth-child(3) {
-  padding-left: clamp(20px, 14vw, 160px);
+  gap: 20px;
 }
 
 .collageWord {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: clamp(30px, 4vw, 44px);
+  font-size: clamp(30px, 4vw, 46px);
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
-.collageFigure {
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.placeholder {
-  max-width: 100%;
+.tile {
+  display: block;
+  width: var(--tile-w);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
   border-radius: var(--radius-card);
 }
 
-.caption {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--text-muted);
-  margin-top: 8px;
-  max-width: 150px;
+/* ------------------------------------------------------------
+   Journal book placeholder — a small open spread whose right
+   page flips over on a loop until the real journal gif exists.
+   ------------------------------------------------------------ */
+
+.book {
+  position: relative;
+  width: min(280px, 100%);
+  aspect-ratio: 500 / 280;
+  perspective: 800px;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.14));
 }
 
-/* Placeholder stripe fills: warm cream for food, cool blue-grey for places */
-.warm {
+.bookPageLeft,
+.bookPageRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
   background-image: repeating-linear-gradient(
     45deg,
     #f0eadd 0 10px,
@@ -125,35 +62,64 @@
   );
 }
 
-.cool {
+.bookPageLeft {
+  left: 0;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
+}
+
+.bookPageRight {
+  right: 0;
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+}
+
+/* The turning page: anchored at the spine, sweeps right-to-left */
+.bookFlip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   background-image: repeating-linear-gradient(
     45deg,
-    #e9eef3 0 10px,
-    #dfe6ed 10px 20px
+    #f4efe4 0 10px,
+    #ece5d6 10px 20px
   );
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  animation: bookFlip 5s ease-in-out infinite;
+}
+
+.bookSpine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bookFlip {
+  0%   { transform: rotateY(0deg); }
+  20%  { transform: rotateY(0deg); }
+  60%  { transform: rotateY(-180deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bookFlip {
+    animation: none;
+  }
 }
 
 @media (max-width: 767px) {
-  .journal {
-    grid-template-columns: 1fr;
-    margin-top: 40px;
-  }
-
   .collage {
-    margin-top: 56px;
+    --tile-w: clamp(96px, 26vw, 140px);
+    gap: 16px;
   }
 
   .collageRow {
-    gap: 20px 24px;
-  }
-
-  .collageRow:nth-child(2),
-  .collageRow:nth-child(3) {
-    padding-left: 0;
-  }
-
-  /* On small screens the fixed offsets crowd the wrapped rows */
-  .collageFigure {
-    transform: none !important;
+    gap: 14px 16px;
   }
 }

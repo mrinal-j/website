@@ -1,84 +1,66 @@
-import { SectionLabel } from '~/components/SectionLabel'
 import styles from './FreeTime.module.css'
 
 /**
- * "In my free time" — a journal spread (placeholder for now) followed by two
- * collages where big words and small photos interleave, magazine-ad style.
- * Every image is a striped placeholder until real photos are ready.
+ * "Outside of work" — a tight, centred grid where big phrases and photos
+ * share the same rows, magazine-ad style. Every photo is cropped to a
+ * uniform 3:4 tile so the rows read as a neat grid; "Outside of work" is
+ * part of the grid itself rather than a section header.
+ *
+ * The journal has no photos yet: it renders as a small open-book
+ * placeholder whose right page flips on a loop.
  */
 
 type Piece =
   | { kind: 'word'; text: string }
-  | { kind: 'img'; caption: string; w: number; h: number; dy?: number }
+  | { kind: 'img'; src: string; alt: string }
+  | { kind: 'book' }
 
-const FOOD_ROWS: Piece[][] = [
+const ROWS: Piece[][] = [
   [
-    { kind: 'word', text: 'Food' },
-    { kind: 'img', caption: '(01) khichdi, home', w: 150, h: 120, dy: -14 },
-    { kind: 'word', text: 'I’ve' },
-    { kind: 'img', caption: '(02) dosa, Bangalore', w: 140, h: 95, dy: 6 },
-    { kind: 'word', text: 'loved' },
+    { kind: 'word', text: 'Outside of work,' },
+    { kind: 'book' },
+    { kind: 'word', text: 'I doodle,' },
   ],
   [
-    { kind: 'img', caption: '(03) bagel, Brooklyn', w: 145, h: 90, dy: 0 },
-    { kind: 'word', text: 'eating,' },
-    { kind: 'img', caption: '(04) ramen, East Village', w: 105, h: 130, dy: -10 },
-    { kind: 'img', caption: '(05) filter coffee', w: 92, h: 115, dy: 4 },
+    { kind: 'img', src: '/images/about-photo-02.webp', alt: 'A thali lunch' },
+    { kind: 'word', text: 'I feast,' },
+    { kind: 'img', src: '/images/about-photo-08.webp', alt: 'Dim sum' },
+    { kind: 'img', src: '/images/about-photo-23.webp', alt: 'Ramen and bao' },
   ],
+  [
+    { kind: 'img', src: '/images/about-photo-12.webp', alt: 'Brunch plates' },
+    { kind: 'img', src: '/images/about-photo-04.webp', alt: 'Burgers and fries' },
+    { kind: 'img', src: '/images/about-photo-19.webp', alt: 'A sushi bento box' },
+    { kind: 'word', text: 'I wander,' },
+  ],
+  [
+    { kind: 'img', src: '/images/about-photo-01.webp', alt: 'The Himalayas from a plane window' },
+    { kind: 'img', src: '/images/about-photo-10.webp', alt: 'Brooklyn Bridge at dusk' },
+    { kind: 'img', src: '/images/about-photo-22.webp', alt: 'Waves along lakeside cliffs' },
+    { kind: 'img', src: '/images/about-photo-03.webp', alt: 'A camel in the desert at sunset' },
+    { kind: 'img', src: '/images/about-photo-20.webp', alt: 'An autumn river reflection' },
+  ],
+  [
+    { kind: 'img', src: '/images/about-photo-13.webp', alt: 'A home-cooked family spread' },
+    { kind: 'word', text: 'I cook,' },
+    { kind: 'img', src: '/images/about-photo-14.webp', alt: 'A dosa on a steel plate' },
+  ],
+  [
+    { kind: 'img', src: '/images/about-photo-05.webp', alt: 'A dog on the beach' },
+    { kind: 'word', text: 'and mostly, I dilly dally.' },
+    { kind: 'img', src: '/images/about-photo-21.webp', alt: 'Red barns seen from a car window' },
+  ],
+  [{ kind: 'word', text: '...and I call it research.' }],
 ]
 
-const PLACES_ROWS: Piece[][] = [
-  [
-    { kind: 'word', text: 'Places' },
-    { kind: 'img', caption: '(01) Hampi', w: 145, h: 90, dy: -8 },
-    { kind: 'word', text: 'I’ve' },
-    { kind: 'img', caption: '(02) Lisbon', w: 102, h: 122, dy: 10 },
-  ],
-  [
-    { kind: 'img', caption: '(03) Jaipur', w: 145, h: 95, dy: 0 },
-    { kind: 'word', text: 'loved' },
-    { kind: 'img', caption: '(04) Brooklyn Bridge', w: 106, h: 150, dy: -6 },
-    { kind: 'word', text: 'exploring' },
-  ],
-  [{ kind: 'img', caption: '(05) Kochi backwaters', w: 175, h: 95, dy: 0 }],
-]
-
-function Collage({
-  rows,
-  variant,
-}: {
-  rows: Piece[][]
-  variant: 'food' | 'places'
-}) {
+/** Small open-notebook placeholder: the right page flips over on a loop. */
+function JournalBook() {
   return (
-    <div className={styles.collage}>
-      {rows.map((row, ri) => (
-        <div key={ri} className={styles.collageRow}>
-          {row.map((piece, pi) =>
-            piece.kind === 'word' ? (
-              <span key={pi} className={styles.collageWord}>
-                {piece.text}
-              </span>
-            ) : (
-              <figure
-                key={pi}
-                className={styles.collageFigure}
-                style={{ transform: `translateY(${piece.dy ?? 0}px)` }}
-              >
-                <div
-                  className={`${styles.placeholder} ${
-                    variant === 'food' ? styles.warm : styles.cool
-                  }`}
-                  style={{ width: piece.w, height: piece.h }}
-                />
-                <figcaption className={styles.caption}>
-                  {piece.caption}
-                </figcaption>
-              </figure>
-            ),
-          )}
-        </div>
-      ))}
+    <div className={styles.book} role="img" aria-label="Doodle journal, pages coming soon">
+      <div className={styles.bookPageLeft} />
+      <div className={styles.bookPageRight} />
+      <div className={styles.bookFlip} />
+      <div className={styles.bookSpine} />
     </div>
   )
 }
@@ -86,29 +68,35 @@ function Collage({
 export function FreeTime() {
   return (
     <section className={styles.section}>
-      <SectionLabel title="OUTSIDE OF WORK" noLine />
+      <h2 className="visually-hidden">Outside of work</h2>
 
-      {/* Journal spread — media is intentionally blank until the gif exists */}
-      <div className={styles.journal}>
-        <div className={styles.journalText}>
-          <h3 className={styles.journalTitle}>
-            I&rsquo;m drawing out patterns.
-          </h3>
-          <p className={styles.journalBody}>
-            A notebook of doodles and repeating patterns I keep filling.
-            Scroll to turn the pages.
-          </p>
-        </div>
-        <figure className={styles.journalMedia}>
-          <div className={`${styles.journalPlaceholder} ${styles.warm}`} />
-          <figcaption className={styles.caption}>
-            journal.gif: pattern doodles, flips on scroll
-          </figcaption>
-        </figure>
+      <div className={styles.collage}>
+        {ROWS.map((row, ri) => (
+          <div key={ri} className={styles.collageRow}>
+            {row.map((piece, pi) => {
+              if (piece.kind === 'word') {
+                return (
+                  <span key={pi} className={styles.collageWord}>
+                    {piece.text}
+                  </span>
+                )
+              }
+              if (piece.kind === 'book') {
+                return <JournalBook key={pi} />
+              }
+              return (
+                <img
+                  key={pi}
+                  src={piece.src}
+                  alt={piece.alt}
+                  className={styles.tile}
+                  loading="lazy"
+                />
+              )
+            })}
+          </div>
+        ))}
       </div>
-
-      <Collage rows={FOOD_ROWS} variant="food" />
-      <Collage rows={PLACES_ROWS} variant="places" />
     </section>
   )
 }
