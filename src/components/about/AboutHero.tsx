@@ -12,7 +12,7 @@ export function AboutHero() {
           alt="Mrinal smiling on the Brooklyn Bridge at night, with the lit-up Manhattan skyline behind her"
           className={styles.photo}
           width="1200"
-          height="1416"
+          height="1407"
         />
 
         <div className={styles.intro}>

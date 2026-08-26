@@ -1,7 +1,9 @@
 .section {
   width: min(1100px, 92vw);
   margin: 0 auto;
-  padding: 60px 0 80px;
+  /* Deep bottom padding: the hand-tuned layout shifts one photo well below
+     the last row, and the section has to reach past it. */
+  padding: 60px 0 440px;
 }
 
 /* One tile size drives the whole grid: photos are cropped to 3:4 */
@@ -37,83 +39,52 @@
 }
 
 /* ------------------------------------------------------------
-   Journal book placeholder — a small open spread whose right
-   page flips over on a loop until the real journal gif exists.
+   Journal book — 11 photographed frames of the real notebook
+   playing as a stop-motion loop. The container is sized for the
+   tallest (mid-flip) frame; flat spreads sit at its bottom.
    ------------------------------------------------------------ */
 
 .book {
   position: relative;
   width: min(280px, 100%);
-  aspect-ratio: 500 / 280;
-  perspective: 800px;
+  /* Ratio of the tallest frame, so no frame ever overflows */
+  aspect-ratio: 1190 / 1276;
   filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.14));
 }
 
-.bookPageLeft,
-.bookPageRight {
+/* Each frame takes one hard-cut turn on the shared loop; its slot is set
+   by the inline animation-delay (0.4s per frame, 11 frames = 4.4s). */
+.bookFrame {
   position: absolute;
-  top: 0;
   bottom: 0;
-  width: 50%;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #f0eadd 0 10px,
-    #e8e1d0 10px 20px
-  );
-}
-
-.bookPageLeft {
   left: 0;
-  border-radius: var(--radius-card) 0 0 var(--radius-card);
+  width: 100%;
+  opacity: 0;
+  animation: journalLoop 4.4s steps(1) infinite;
 }
 
-.bookPageRight {
-  right: 0;
-  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+/* Also the still image shown when animations are off */
+.bookFrame:first-of-type {
+  opacity: 1;
 }
 
-/* The turning page: anchored at the spine, sweeps right-to-left */
-.bookFlip {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 50%;
-  transform-origin: left center;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #f4efe4 0 10px,
-    #ece5d6 10px 20px
-  );
-  border-radius: 0 var(--radius-card) var(--radius-card) 0;
-  animation: bookFlip 5s ease-in-out infinite;
-}
-
-.bookSpine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-@keyframes bookFlip {
-  0%   { transform: rotateY(0deg); }
-  20%  { transform: rotateY(0deg); }
-  60%  { transform: rotateY(-180deg); }
-  100% { transform: rotateY(-180deg); }
+@keyframes journalLoop {
+  0%    { opacity: 1; }
+  9.09% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bookFlip {
+  .bookFrame {
     animation: none;
   }
 }
 
 @media (max-width: 767px) {
+  /* No shifted pieces on phones, so no need for the deep padding */
+  .section {
+    padding-bottom: 80px;
+  }
+
   .collage {
     --tile-w: clamp(96px, 26vw, 140px);
     gap: 16px;
@@ -121,5 +92,13 @@
 
   .collageRow {
     gap: 14px 16px;
+  }
+
+  /* The hand-tuned offsets are designed for desktop widths; on phones the
+     pieces fall back to the plain grid so nothing lands off screen. */
+  .tile,
+  .collageWord,
+  .book {
+    transform: none !important;
   }
 }
