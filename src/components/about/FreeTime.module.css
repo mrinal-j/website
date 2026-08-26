@@ -1,41 +1,56 @@
 .section {
   width: min(1100px, 92vw);
   margin: 0 auto;
-  /* Deep bottom padding: the hand-tuned layout shifts one photo well below
-     the last row, and the section has to reach past it. */
-  padding: 60px 0 440px;
+  padding: 60px 0 80px;
 }
 
-/* One tile size drives the whole grid: photos are cropped to 3:4 */
 .collage {
-  --tile-w: clamp(120px, 16vw, 190px);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(36px, 5vw, 64px);
 }
 
-.collageRow {
+/* Eight columns, no column gap: photos in adjacent columns butt together
+   into strips, and the empty cells are the whitespace. */
+.row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: center;
+}
+
+.cellImg,
+.cellStrip,
+.cellText,
+.cellBook {
+  min-width: 0;
+}
+
+/* Strip: squares sitting edge to edge */
+.cellStrip {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
-.collageWord {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(30px, 4vw, 46px);
-  line-height: 1;
-  letter-spacing: -0.02em;
+/* min-width:0 lets the photos shrink to their share of the cell instead of
+   holding their intrinsic width and overflowing it. */
+.cellStrip .square {
+  flex: 1;
+  min-width: 0;
 }
 
-.tile {
+/* Small body-text notes sitting in the whitespace */
+.note {
   display: block;
-  width: var(--tile-w);
-  aspect-ratio: 3 / 4;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.square {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: var(--radius-card);
 }
 
 /* ------------------------------------------------------------
@@ -46,7 +61,7 @@
 
 .book {
   position: relative;
-  width: min(280px, 100%);
+  width: 100%;
   /* Ratio of the tallest frame, so no frame ever overflows */
   aspect-ratio: 1190 / 1276;
   filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.14));
@@ -80,24 +95,33 @@
 }
 
 @media (max-width: 767px) {
-  /* No shifted pieces on phones, so no need for the deep padding */
-  .section {
-    padding-bottom: 80px;
-  }
-
   .collage {
-    --tile-w: clamp(96px, 26vw, 140px);
-    gap: 16px;
+    gap: 28px;
   }
 
-  .collageRow {
-    gap: 14px 16px;
+  /* Four columns on a phone, and blocks flow in order rather than sitting
+     in their desktop columns, so nothing gets squeezed to nothing. */
+  .row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 0;
   }
 
-  /* The hand-tuned offsets are designed for desktop widths; on phones the
-     pieces fall back to the plain grid so nothing lands off screen. */
-  .tile,
-  .collageWord,
+  .cellImg {
+    grid-column: auto / span 2 !important;
+  }
+
+  .cellStrip,
+  .cellText {
+    grid-column: auto / span 4 !important;
+  }
+
+  .cellBook {
+    grid-column: auto / span 4 !important;
+  }
+
+  /* Any hand-tuned offsets are designed for desktop widths */
+  .square,
+  .note,
   .book {
     transform: none !important;
   }

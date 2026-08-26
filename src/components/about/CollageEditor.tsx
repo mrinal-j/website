@@ -36,12 +36,14 @@ type Override = PieceLayout
 type Store = Record<string, Override>
 type Meta = Record<string, { label: string; kind: PieceKind; defaults: PieceLayout }>
 
-const STORAGE_KEY = 'aboutCollageLayout'
+// Bumped when the collage is rearranged, so stale saved offsets from an
+// older arrangement don't get applied to the new one.
+const STORAGE_KEY = 'aboutCollageLayout-v2'
 
 /** min, max, and starting value for each kind's size control */
 const SIZE_RANGE: Record<PieceKind, [number, number, number]> = {
-  img: [80, 420, 190],
-  word: [16, 90, 46],
+  img: [80, 420, 160],
+  word: [11, 40, 16],
   book: [120, 600, 280],
 }
 
