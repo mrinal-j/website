@@ -91,32 +91,21 @@ const ROWS: Block[][] = [
   [{ kind: 'text', text: '...and I call it research.', col: 4, span: 2 }],
 ]
 
-const JOURNAL_FRAMES = Array.from(
-  { length: 11 },
-  (_, i) => `/images/journal-${String(i + 1).padStart(2, '0')}.webp`,
-)
-
+/** Open-notebook placeholder: the right page turns over on a loop. */
 function JournalBook({ layout }: { layout?: PieceLayout }) {
   const { style, editProps } = usePiece('book', 'Journal book', 'book', layout)
   return (
     <div
       className={styles.book}
       role="img"
-      aria-label="My doodle journal, flipping through pages of hand-drawn patterns"
+      aria-label="Doodle journal, pages coming soon"
       style={style}
       {...editProps}
     >
-      {JOURNAL_FRAMES.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt=""
-          className={styles.bookFrame}
-          style={{ animationDelay: `${i * 0.4}s` }}
-          loading="lazy"
-          draggable={false}
-        />
-      ))}
+      <div className={styles.bookPageLeft} />
+      <div className={styles.bookPageRight} />
+      <div className={styles.bookFlip} />
+      <div className={styles.bookSpine} />
     </div>
   )
 }

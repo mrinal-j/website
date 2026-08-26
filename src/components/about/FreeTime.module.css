@@ -1,5 +1,6 @@
+/* Wider than the rest of the page so the photo squares read a size up */
 .section {
-  width: min(1100px, 92vw);
+  width: min(1280px, 94vw);
   margin: 0 auto;
   padding: 60px 0 80px;
 }
@@ -54,42 +55,78 @@
 }
 
 /* ------------------------------------------------------------
-   Journal book — 11 photographed frames of the real notebook
-   playing as a stop-motion loop. The container is sized for the
-   tallest (mid-flip) frame; flat spreads sit at its bottom.
+   Journal book placeholder — an open spread whose right page
+   turns over on a loop, standing in for the real journal photos.
    ------------------------------------------------------------ */
 
 .book {
   position: relative;
   width: 100%;
-  /* Ratio of the tallest frame, so no frame ever overflows */
-  aspect-ratio: 1190 / 1276;
+  aspect-ratio: 500 / 280;
+  perspective: 900px;
   filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.14));
 }
 
-/* Each frame takes one hard-cut turn on the shared loop; its slot is set
-   by the inline animation-delay (0.4s per frame, 11 frames = 4.4s). */
-.bookFrame {
+.bookPageLeft,
+.bookPageRight {
   position: absolute;
+  top: 0;
   bottom: 0;
+  width: 50%;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f0eadd 0 10px,
+    #e8e1d0 10px 20px
+  );
+}
+
+.bookPageLeft {
   left: 0;
-  width: 100%;
-  opacity: 0;
-  animation: journalLoop 4.4s steps(1) infinite;
+  border-radius: var(--radius-card) 0 0 var(--radius-card);
 }
 
-/* Also the still image shown when animations are off */
-.bookFrame:first-of-type {
-  opacity: 1;
+.bookPageRight {
+  right: 0;
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
 }
 
-@keyframes journalLoop {
-  0%    { opacity: 1; }
-  9.09% { opacity: 0; }
+/* The turning page: anchored at the spine, sweeps right to left */
+.bookFlip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f4efe4 0 10px,
+    #ece5d6 10px 20px
+  );
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  animation: bookFlip 5s ease-in-out infinite;
+}
+
+.bookSpine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bookFlip {
+  0%   { transform: rotateY(0deg); }
+  20%  { transform: rotateY(0deg); }
+  60%  { transform: rotateY(-180deg); }
+  100% { transform: rotateY(-180deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bookFrame {
+  .bookFlip {
     animation: none;
   }
 }
