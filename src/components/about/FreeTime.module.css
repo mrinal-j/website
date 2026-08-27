@@ -6,6 +6,8 @@
 }
 
 .collage {
+  /* One grid square, matching the 8 columns below */
+  --sq: calc(min(1280px, 94vw) / 8);
   display: flex;
   flex-direction: column;
   gap: clamp(36px, 5vw, 64px);
@@ -22,7 +24,8 @@
 .cellImg,
 .cellStrip,
 .cellText,
-.cellBook {
+.cellBook,
+.cellPlayer {
   min-width: 0;
 }
 
@@ -33,9 +36,59 @@
 
 /* min-width:0 lets the photos shrink to their share of the cell instead of
    holding their intrinsic width and overflowing it. */
-.cellStrip .square {
+.cellStrip .square,
+.cellStrip .placeholder {
   flex: 1;
   min-width: 0;
+}
+
+/* Striped tile standing in for a photo not taken yet. Neighbouring tiles
+   shift tone slightly so a run of them still reads as separate boxes. */
+.placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f0eadd 0 10px,
+    #e8e1d0 10px 20px
+  );
+}
+
+.placeholder:nth-child(2) {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #e9e3d4 0 10px,
+    #e0d9c7 10px 20px
+  );
+}
+
+.placeholder:nth-child(3) {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #f4efe4 0 10px,
+    #ece5d6 10px 20px
+  );
+}
+
+/* Text sits left in its cell and centred against the squares beside it.
+   The inset keeps it off the photos in neighbouring columns. */
+.cellText {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 0 20px;
+}
+
+/* Sits centred in the gap between the photos on either side, while the
+   text block itself stays within two squares. */
+.cellTextCentre {
+  justify-content: center;
+}
+
+.cellTextCentre .note {
+  max-width: calc(var(--sq) * 2);
 }
 
 /* Small body-text notes sitting in the whitespace */
@@ -148,8 +201,20 @@
   }
 
   .cellStrip,
-  .cellText {
+  .cellText,
+  .cellPlayer {
     grid-column: auto / span 4 !important;
+  }
+
+  /* Strips wrap two-up rather than dividing the width three or four ways,
+     so every photo stays the same size as a lone one. */
+  .cellStrip {
+    flex-wrap: wrap;
+  }
+
+  .cellStrip .square,
+  .cellStrip .placeholder {
+    flex: 0 0 50%;
   }
 
   .cellBook {

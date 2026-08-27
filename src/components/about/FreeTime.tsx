@@ -5,6 +5,7 @@ import {
   usePiece,
   type PieceLayout,
 } from './CollageEditor'
+import { NowPlaying } from './NowPlaying'
 import styles from './FreeTime.module.css'
 
 /**
@@ -16,7 +17,7 @@ import styles from './FreeTime.module.css'
  * read top to bottom as one sentence.
  *
  * `col` is the column a block starts in (1-8); `span` is how many columns
- * it covers.
+ * it covers. Striped tiles stand in for photos not taken yet.
  */
 
 interface Img {
@@ -26,10 +27,24 @@ interface Img {
 }
 
 type Block =
-  | { kind: 'text'; text: string; col: number; span: number; layout?: PieceLayout }
+  | {
+      kind: 'text'
+      text: string
+      col: number
+      span: number
+      align?: 'center'
+      layout?: PieceLayout
+    }
   | { kind: 'img'; img: Img; col: number }
   | { kind: 'strip'; imgs: Img[]; col: number }
+  | { kind: 'phStrip'; count: number; col: number; label: string }
   | { kind: 'book'; col: number; span: number; layout?: PieceLayout }
+  | { kind: 'player'; col: number; span: number }
+
+const p = (n: string, alt: string): Img => ({
+  src: `/images/about-photo-${n}.webp`,
+  alt,
+})
 
 const ROWS: Block[][] = [
   [
@@ -38,57 +53,83 @@ const ROWS: Block[][] = [
     { kind: 'text', text: 'I doodle,', col: 7, span: 2 },
   ],
   [
-    { kind: 'img', img: { src: '/images/about-photo-02.webp', alt: 'A thali lunch' }, col: 1 },
-    { kind: 'text', text: 'I feast,', col: 3, span: 2 },
+    { kind: 'player', col: 1, span: 2 },
+    // column 3 is left empty, so the player has room to breathe
+    { kind: 'strip', col: 4, imgs: [p('06', 'A Korean spread with banchan'), p('07', 'Dumplings and fried rice')] },
     {
       kind: 'strip',
-      col: 5,
+      col: 6,
       imgs: [
-        { src: '/images/about-photo-08.webp', alt: 'Dim sum' },
-        { src: '/images/about-photo-23.webp', alt: 'Ramen and bao' },
+        p('11', 'Hot dogs and onion rings'),
+        p('15', 'Korean barbecue with friends'),
+        p('16', 'A plated dinner out'),
       ],
     },
-    { kind: 'img', img: { src: '/images/about-photo-12.webp', alt: 'Brunch plates' }, col: 8 },
+  ],
+  [
+    { kind: 'strip', col: 1, imgs: [p('02', 'A thali lunch'), p('12', 'Brunch plates')] },
+    {
+      kind: 'text',
+      text: 'I feast my way through a New York list that keeps growing,',
+      col: 3,
+      span: 3,
+      align: 'center',
+    },
+    {
+      kind: 'strip',
+      col: 6,
+      imgs: [
+        p('08', 'Dim sum'),
+        p('23', 'Ramen and bao'),
+        p('17', 'A fried platter with plantain'),
+      ],
+    },
   ],
   [
     {
       kind: 'strip',
       col: 1,
       imgs: [
-        { src: '/images/about-photo-19.webp', alt: 'A sushi bento box' },
-        { src: '/images/about-photo-04.webp', alt: 'Burgers and fries' },
+        p('04', 'Burgers and fries'),
+        p('19', 'A sushi bento box'),
+        p('01', 'The Himalayas from a plane window'),
       ],
     },
-    { kind: 'text', text: 'I wander,', col: 4, span: 2 },
-    { kind: 'img', img: { src: '/images/about-photo-01.webp', alt: 'The Himalayas from a plane window' }, col: 6 },
-    { kind: 'img', img: { src: '/images/about-photo-10.webp', alt: 'Brooklyn Bridge at dusk' }, col: 8 },
-  ],
-  [
-    { kind: 'img', img: { src: '/images/about-photo-22.webp', alt: 'Waves along lakeside cliffs' }, col: 1 },
-    {
-      kind: 'strip',
-      col: 3,
-      imgs: [
-        { src: '/images/about-photo-03.webp', alt: 'A camel in the desert at sunset' },
-        { src: '/images/about-photo-20.webp', alt: 'An autumn river reflection' },
-      ],
-    },
-    { kind: 'text', text: 'I cook,', col: 6, span: 2 },
-    { kind: 'img', img: { src: '/images/about-photo-13.webp', alt: 'A home-cooked family spread' }, col: 8 },
-  ],
-  [
-    { kind: 'img', img: { src: '/images/about-photo-14.webp', alt: 'A dosa on a steel plate' }, col: 1 },
-    { kind: 'text', text: 'and mostly, I dilly dally.', col: 3, span: 2 },
+    { kind: 'text', text: 'I wander,', col: 4, span: 2, align: 'center' },
     {
       kind: 'strip',
       col: 6,
       imgs: [
-        { src: '/images/about-photo-05.webp', alt: 'A dog on the beach' },
-        { src: '/images/about-photo-21.webp', alt: 'Red barns seen from a car window' },
+        p('10', 'Brooklyn Bridge at dusk'),
+        p('22', 'Waves along lakeside cliffs'),
+        p('03', 'A camel in the desert at sunset'),
       ],
     },
   ],
-  [{ kind: 'text', text: '...and I call it research.', col: 4, span: 2 }],
+  [
+    {
+      kind: 'strip',
+      col: 1,
+      imgs: [
+        p('09', 'A snowy mountain drive'),
+        p('18', 'Sunset by the sea'),
+        p('20', 'An autumn river reflection'),
+        p('21', 'Red barns seen from a car window'),
+      ],
+    },
+    { kind: 'text', text: 'I cook,', col: 5, span: 2, align: 'center' },
+    { kind: 'strip', col: 7, imgs: [p('13', 'A home-cooked family spread'), p('14', 'A dosa on a steel plate')] },
+  ],
+  [
+    {
+      kind: 'text',
+      text: 'and I am learning to keep three plants alive.',
+      col: 1,
+      span: 2,
+    },
+    { kind: 'img', img: p('05', 'A dog on the beach'), col: 4 },
+    { kind: 'phStrip', count: 3, col: 6, label: 'Three plants, photos coming soon' },
+  ],
 ]
 
 /** Open-notebook placeholder: the right page turns over on a loop. */
@@ -133,25 +174,12 @@ function Square({ img }: { img: Img }) {
   )
 }
 
-/** Places one block into its columns. */
-function Cell({
-  block,
-  children,
-  className,
-}: {
-  block: Block
-  children: React.ReactNode
-  className: string
-}) {
-  const span = block.kind === 'img' ? 1 : block.kind === 'strip' ? 2 : block.span
-  return (
-    <div
-      className={className}
-      style={{ gridColumn: `${block.col} / span ${span}` }}
-    >
-      {children}
-    </div>
-  )
+/** How many columns a block covers. */
+function spanOf(block: Block) {
+  if (block.kind === 'img') return 1
+  if (block.kind === 'strip') return block.imgs.length
+  if (block.kind === 'phStrip') return block.count
+  return block.span
 }
 
 export function FreeTime() {
@@ -164,33 +192,63 @@ export function FreeTime() {
           {ROWS.map((row, ri) => (
             <div key={ri} className={styles.row}>
               {row.map((block, bi) => {
+                const style = { gridColumn: `${block.col} / span ${spanOf(block)}` }
+
                 if (block.kind === 'text') {
                   return (
-                    <Cell key={bi} block={block} className={styles.cellText}>
+                    <div
+                      key={bi}
+                      className={`${styles.cellText} ${
+                        block.align === 'center' ? styles.cellTextCentre : ''
+                      }`}
+                      style={style}
+                    >
                       <Note text={block.text} layout={block.layout} />
-                    </Cell>
+                    </div>
                   )
                 }
                 if (block.kind === 'book') {
                   return (
-                    <Cell key={bi} block={block} className={styles.cellBook}>
+                    <div key={bi} className={styles.cellBook} style={style}>
                       <JournalBook layout={block.layout} />
-                    </Cell>
+                    </div>
+                  )
+                }
+                if (block.kind === 'player') {
+                  return (
+                    <div key={bi} className={styles.cellPlayer} style={style}>
+                      <NowPlaying height={184} />
+                    </div>
                   )
                 }
                 if (block.kind === 'strip') {
                   return (
-                    <Cell key={bi} block={block} className={styles.cellStrip}>
+                    <div key={bi} className={styles.cellStrip} style={style}>
                       {block.imgs.map(img => (
                         <Square key={img.src} img={img} />
                       ))}
-                    </Cell>
+                    </div>
+                  )
+                }
+                if (block.kind === 'phStrip') {
+                  return (
+                    <div
+                      key={bi}
+                      className={styles.cellStrip}
+                      style={style}
+                      role="img"
+                      aria-label={block.label}
+                    >
+                      {Array.from({ length: block.count }, (_, i) => (
+                        <span key={i} className={styles.placeholder} />
+                      ))}
+                    </div>
                   )
                 }
                 return (
-                  <Cell key={bi} block={block} className={styles.cellImg}>
+                  <div key={bi} className={styles.cellImg} style={style}>
                     <Square img={block.img} />
-                  </Cell>
+                  </div>
                 )
               })}
             </div>

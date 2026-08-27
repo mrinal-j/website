@@ -5,61 +5,48 @@
   padding: 140px 0 40px;
 }
 
-.heading {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: clamp(40px, 6vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
+/* The photo keeps its natural 3:4 shape, uncropped, and the text sits
+   centred against it so the two columns stay optically balanced. */
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  margin-top: 48px;
+  align-items: center;
 }
 
-/* The polaroid frame and orange scribbles are part of the image itself */
+/* The file is natively 3:4, so this shows all of it, uncropped. */
 .photo {
   width: 100%;
   height: auto;
+  border-radius: var(--radius-card);
 }
 
 .intro {
   display: flex;
   flex-direction: column;
-  padding-top: 12px;
-  max-width: 440px;
+  max-width: 460px;
 }
 
-.lead {
-  font-family: var(--font-body);
-  font-size: clamp(18px, 2vw, 21px);
-  line-height: 1.5;
+/* Close to body scale, set apart by the brand orange and a little air */
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--color-orange);
+  margin-bottom: 24px;
 }
 
-.sub {
+.body {
   font-family: var(--font-body);
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text-secondary);
-  margin-top: 28px;
-  max-width: 34ch;
 }
 
-.playerWrap {
-  margin-top: 44px;
-}
-
-.note {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-top: 24px;
-  max-width: 40ch;
+.body + .body {
+  margin-top: 18px;
 }
 
 @media (max-width: 767px) {
@@ -69,14 +56,11 @@
 
   .grid {
     grid-template-columns: 1fr;
-    margin-top: 32px;
   }
 
   .photo {
+    height: auto;
+    width: 100%;
     max-width: 420px;
-  }
-
-  .intro {
-    padding-top: 0;
   }
 }
