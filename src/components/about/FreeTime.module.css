@@ -2,16 +2,18 @@
 .section {
   width: min(1280px, 94vw);
   margin: 0 auto;
-  padding: 60px 0 80px;
+  padding: 100px 0 80px;
 }
 
-/* Titles the section: body font, one size up from the notes inside the grid */
+/* The site's section-label treatment, minus the trailing line. Kept as a
+   real heading so the page still reads as structured to screen readers. */
 .heading {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.35);
   margin-bottom: 40px;
 }
 
@@ -52,43 +54,14 @@
 
 /* min-width:0 lets the photos shrink to their share of the cell instead of
    holding their intrinsic width and overflowing it. */
-.cellStrip .square,
-.cellStrip .placeholder {
+.cellStrip .square {
   flex: 1;
   min-width: 0;
 }
 
-/* Striped tile standing in for a photo not taken yet. Neighbouring tiles
-   shift tone slightly so a run of them still reads as separate boxes. */
-.placeholder {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #f0eadd 0 10px,
-    #e8e1d0 10px 20px
-  );
-}
-
-.placeholder[data-tone='1'] {
-  background-image: repeating-linear-gradient(
-    45deg,
-    #e9e3d4 0 10px,
-    #e0d9c7 10px 20px
-  );
-}
-
-.placeholder[data-tone='2'] {
-  background-image: repeating-linear-gradient(
-    45deg,
-    #f4efe4 0 10px,
-    #ece5d6 10px 20px
-  );
-}
-
-/* Caption tucked just under the tiles it belongs to */
+/* Caption sits on its own line under the last row */
 .vsco {
+  grid-row: 2;
   align-self: start;
   text-align: right;
   margin-top: 12px;
@@ -246,14 +219,17 @@
     grid-column: auto / span 4 !important;
   }
 
+  .vsco {
+    grid-row: auto;
+  }
+
   /* Strips wrap two-up rather than dividing the width three or four ways,
      so every photo stays the same size as a lone one. */
   .cellStrip {
     flex-wrap: wrap;
   }
 
-  .cellStrip .square,
-  .cellStrip .placeholder {
+  .cellStrip .square {
     flex: 0 0 50%;
   }
 

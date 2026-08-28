@@ -48,7 +48,7 @@ const ROLES = [
 export function Experience() {
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>Previously&hellip;</h2>
+      <h2 className={styles.heading}>Professional experience</h2>
 
       <ul className={styles.list}>
         {ROLES.map((r) => (

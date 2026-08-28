@@ -1,16 +1,18 @@
 .section {
   width: min(1280px, 94vw);
   margin: 0 auto;
-  padding: 60px 0 40px;
+  padding: 100px 0 80px;
 }
 
-/* Titles the section, matching "Outside of work..." below it */
+/* The site's section-label treatment, minus the trailing line. Kept as a
+   real heading so the page still reads as structured to screen readers. */
 .heading {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.4;
-  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.35);
 }
 
 .list {

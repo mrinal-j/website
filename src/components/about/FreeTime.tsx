@@ -31,7 +31,6 @@ type Block =
   | { kind: 'text'; text: string; col: number; span: number; align?: 'center' }
   | { kind: 'img'; img: Img; col: number }
   | { kind: 'strip'; imgs: Img[]; col: number }
-  | { kind: 'phStrip'; count: number; col: number; label: string }
   | { kind: 'book'; col: number; span: number }
   | { kind: 'player'; col: number; span: number }
   | { kind: 'caption'; col: number; span: number }
@@ -46,6 +45,14 @@ const ROWS: Block[][] = [
   [
     { kind: 'book', col: 1, span: 2 },
     { kind: 'text', text: 'I doodle,', col: 4, span: 2 },
+    {
+      kind: 'strip',
+      col: 7,
+      imgs: [
+        p('27', 'Painting in the park with a friend', 63),
+        p('28', 'Sketching in Central Park', 62),
+      ],
+    },
   ],
   [
     { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice', 74), p('20', 'An autumn river reflection')] },
@@ -54,8 +61,8 @@ const ROWS: Block[][] = [
       col: 3,
       imgs: [
         p('19', 'A sushi bento box'),
-        p('15', 'Korean barbecue with friends'),
         p('21', 'Red barns seen from a car window', 59),
+        p('15', 'Korean barbecue with friends', 41),
       ],
     },
     // column 6 stays empty, so the card has room to breathe
@@ -74,9 +81,9 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 6,
       imgs: [
+        p('23', 'Ramen and bao'),
         p('18', 'Sunset by the sea', 61),
         p('16', 'A plated dinner out', 23),
-        p('23', 'Ramen and bao'),
       ],
     },
   ],
@@ -106,18 +113,20 @@ const ROWS: Block[][] = [
     { kind: 'text', text: 'I cook,', col: 2, span: 1, align: 'center' },
     { kind: 'img', img: p('04', 'Burgers and fries'), col: 3 },
     { kind: 'img', img: p('13', 'A home-cooked family spread'), col: 4 },
+    { kind: 'img', img: p('26', 'Making rice paper rolls at home'), col: 5 },
     { kind: 'img', img: p('05', 'A dog on the beach'), col: 6 },
     { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('14', 'A dosa on a steel plate')] },
   ],
   [
     {
       kind: 'text',
-      text: 'and I am a new plant mom to three, so far.',
+      text: 'and I am a new plant mom to three.',
       col: 1,
       span: 2,
     },
-    { kind: 'img', img: p('01', 'The Himalayas from a plane window'), col: 4 },
-    { kind: 'phStrip', count: 3, col: 6, label: 'Three plants, photos coming soon' },
+    { kind: 'img', img: p('25', 'Burrata, bread and a glass of rosé'), col: 6 },
+    { kind: 'img', img: p('01', 'The Himalayas from a plane window'), col: 7 },
+    { kind: 'img', img: p('24', 'The Circle Line boat passing the skyline at sunset'), col: 8 },
     { kind: 'caption', col: 6, span: 3 },
   ],
 ]
@@ -131,8 +140,7 @@ const ROWS: Block[][] = [
    grid itself can never shift.
    ------------------------------------------------------------ */
 
-/** null stands for a striped placeholder tile. */
-const PHOTO_POOL: (Img | null)[] = []
+const PHOTO_POOL: Img[] = []
 const TEXT_POOL: string[] = []
 
 for (const row of ROWS) {
@@ -140,9 +148,6 @@ for (const row of ROWS) {
     if (block.kind === 'text') TEXT_POOL.push(block.text)
     if (block.kind === 'img') PHOTO_POOL.push(block.img)
     if (block.kind === 'strip') PHOTO_POOL.push(...block.imgs)
-    if (block.kind === 'phStrip') {
-      for (let i = 0; i < block.count; i++) PHOTO_POOL.push(null)
-    }
   }
 }
 
@@ -176,16 +181,6 @@ function Note({ slot }: { slot: number }) {
 function Square({ slot }: { slot: number }) {
   const { content, focusY, slotProps } = useSlot('photo', slot)
   const img = PHOTO_POOL[content]
-
-  if (!img) {
-    return (
-      <span
-        className={styles.placeholder}
-        data-tone={content % 3}
-        {...slotProps}
-      />
-    )
-  }
   // Live edits win, then anything baked in, then centred
   const y = focusY ?? img.posY ?? 50
   return (
@@ -204,7 +199,6 @@ function Square({ slot }: { slot: number }) {
 function spanOf(block: Block) {
   if (block.kind === 'img') return 1
   if (block.kind === 'strip') return block.imgs.length
-  if (block.kind === 'phStrip') return block.count
   return block.span
 }
 
@@ -218,7 +212,7 @@ export function FreeTime() {
     <CollageProvider>
       <SlotCounts />
       <section className={styles.section}>
-        <h2 className={styles.heading}>Outside of work&hellip;</h2>
+        <h2 className={styles.heading}>Outside of work</h2>
 
         <div className={styles.collage}>
           {ROWS.map((row, ri) => (
@@ -258,22 +252,6 @@ export function FreeTime() {
                   const slots = block.imgs.map(() => photoSlot++)
                   return (
                     <div key={bi} className={styles.cellStrip} style={style}>
-                      {slots.map(slot => (
-                        <Square key={slot} slot={slot} />
-                      ))}
-                    </div>
-                  )
-                }
-                if (block.kind === 'phStrip') {
-                  const slots = Array.from({ length: block.count }, () => photoSlot++)
-                  return (
-                    <div
-                      key={bi}
-                      className={styles.cellStrip}
-                      style={style}
-                      role="img"
-                      aria-label={block.label}
-                    >
                       {slots.map(slot => (
                         <Square key={slot} slot={slot} />
                       ))}

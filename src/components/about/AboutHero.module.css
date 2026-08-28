@@ -2,7 +2,7 @@
   width: min(1280px, 94vw);
   margin: 0 auto;
   /* Clears the fixed navbar */
-  padding: 140px 0 40px;
+  padding: 140px 0 80px;
 }
 
 /* The photo keeps its natural 3:4 shape, uncropped, and the text sits
