@@ -6,7 +6,7 @@ import styles from './NowPlaying.module.css'
  * This is the licensed way to play the real song on the page: it brings the
  * official cover art, plays the full track for anyone signed in to Spotify,
  * and a 30 second preview for everyone else. Spotify controls the look
- * inside the frame; the rounding and size around it are ours.
+ * inside the frame; theme=0 is its darker treatment.
  *
  * Track id confirmed via Spotify's oEmbed API.
  */
@@ -18,7 +18,7 @@ export function NowPlaying({ height = 80 }: { height?: number }) {
     <iframe
       className={styles.player}
       style={{ height }}
-      src={`https://open.spotify.com/embed/track/${TRACK_ID}?utm_source=generator`}
+      src={`https://open.spotify.com/embed/track/${TRACK_ID}?utm_source=generator&theme=0`}
       title="Spotify player: A Head Full of Dreams by Coldplay"
       width="100%"
       frameBorder="0"

@@ -5,6 +5,16 @@
   padding: 60px 0 80px;
 }
 
+/* Titles the section: body font, one size up from the notes inside the grid */
+.heading {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 40px;
+}
+
 .collage {
   /* One grid square, matching the 8 columns below */
   --sq: calc(min(1280px, 94vw) / 8);
@@ -61,7 +71,7 @@
   );
 }
 
-.placeholder:nth-child(2) {
+.placeholder[data-tone='1'] {
   background-image: repeating-linear-gradient(
     45deg,
     #e9e3d4 0 10px,
@@ -69,12 +79,35 @@
   );
 }
 
-.placeholder:nth-child(3) {
+.placeholder[data-tone='2'] {
   background-image: repeating-linear-gradient(
     45deg,
     #f4efe4 0 10px,
     #ece5d6 10px 20px
   );
+}
+
+/* Caption tucked just under the tiles it belongs to */
+.vsco {
+  align-self: start;
+  text-align: right;
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Only the service name is a link */
+.vsco a {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--text-primary);
+  padding-bottom: 1px;
+}
+
+.vsco a:hover {
+  color: var(--color-orange);
+  border-bottom-color: var(--color-orange);
 }
 
 /* Text sits left in its cell and centred against the squares beside it.
@@ -208,7 +241,8 @@
 
   .cellStrip,
   .cellText,
-  .cellPlayer {
+  .cellPlayer,
+  .vsco {
     grid-column: auto / span 4 !important;
   }
 

@@ -1,4 +1,4 @@
-/* Dev-only layout editor. Never ships to the live site, so its styling is
+/* Dev-only swap editor. Never ships to the live site, so its styling is
    deliberately its own thing (see the Edit panel exception in DESIGN.md). */
 
 .toggle {
@@ -29,43 +29,17 @@
   font-family: var(--font-body);
 }
 
-.title {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
 .hint {
-  font-size: 12.5px;
+  font-size: 13px;
   line-height: 1.5;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.rowLabel {
-  flex-shrink: 0;
-  width: 74px;
-  font-size: 11.5px;
-  color: var(--text-secondary);
-}
-
-.row input[type='range'] {
-  flex: 1;
-  min-width: 0;
-}
-
-.number {
-  width: 52px;
+.note {
   font-size: 12px;
-  padding: 3px 4px;
-  border: 1px solid var(--border-medium);
-  border-radius: 6px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-top: 8px;
 }
 
 .footer {
@@ -91,16 +65,16 @@
 }
 
 /* Highlights on the collage pieces while editing */
-:global([data-editable]) {
-  cursor: grab;
+:global([data-swappable]) {
+  cursor: pointer;
 }
 
-:global([data-editable]):hover {
+:global([data-swappable]):hover {
   outline: 2px dashed var(--border-medium);
   outline-offset: 3px;
 }
 
-:global([data-editable][data-selected]) {
-  outline: 2px dashed var(--color-orange);
+:global([data-swappable][data-picked]) {
+  outline: 2px solid var(--color-orange);
   outline-offset: 3px;
 }

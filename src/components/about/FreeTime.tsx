@@ -2,8 +2,8 @@ import {
   CAN_EDIT,
   CollageEditPanel,
   CollageProvider,
-  usePiece,
-  type PieceLayout,
+  useRegisterSlots,
+  useSlot,
 } from './CollageEditor'
 import { NowPlaying } from './NowPlaying'
 import styles from './FreeTime.module.css'
@@ -23,23 +23,16 @@ import styles from './FreeTime.module.css'
 interface Img {
   src: string
   alt: string
-  layout?: PieceLayout
 }
 
 type Block =
-  | {
-      kind: 'text'
-      text: string
-      col: number
-      span: number
-      align?: 'center'
-      layout?: PieceLayout
-    }
+  | { kind: 'text'; text: string; col: number; span: number; align?: 'center' }
   | { kind: 'img'; img: Img; col: number }
   | { kind: 'strip'; imgs: Img[]; col: number }
   | { kind: 'phStrip'; count: number; col: number; label: string }
-  | { kind: 'book'; col: number; span: number; layout?: PieceLayout }
+  | { kind: 'book'; col: number; span: number }
   | { kind: 'player'; col: number; span: number }
+  | { kind: 'caption'; col: number; span: number }
 
 const p = (n: string, alt: string): Img => ({
   src: `/images/about-photo-${n}.webp`,
@@ -48,26 +41,25 @@ const p = (n: string, alt: string): Img => ({
 
 const ROWS: Block[][] = [
   [
-    { kind: 'text', text: 'Outside of work,', col: 1, span: 2 },
-    { kind: 'book', col: 4, span: 2 },
-    { kind: 'text', text: 'I doodle,', col: 7, span: 2 },
+    { kind: 'book', col: 1, span: 2 },
+    { kind: 'text', text: 'I doodle,', col: 4, span: 2 },
   ],
   [
-    { kind: 'player', col: 1, span: 2 },
-    // column 3 is left empty, so the player has room to breathe
-    { kind: 'strip', col: 4, imgs: [p('06', 'A Korean spread with banchan'), p('07', 'Dumplings and fried rice')] },
+    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice'), p('20', 'An autumn river reflection')] },
     {
       kind: 'strip',
-      col: 6,
+      col: 3,
       imgs: [
-        p('11', 'Hot dogs and onion rings'),
+        p('19', 'A sushi bento box'),
         p('15', 'Korean barbecue with friends'),
-        p('16', 'A plated dinner out'),
+        p('21', 'Red barns seen from a car window'),
       ],
     },
+    // column 6 stays empty, so the card has room to breathe
+    { kind: 'player', col: 7, span: 2 },
   ],
   [
-    { kind: 'strip', col: 1, imgs: [p('02', 'A thali lunch'), p('12', 'Brunch plates')] },
+    { kind: 'strip', col: 1, imgs: [p('11', 'Hot dogs and onion rings'), p('09', 'A snowy mountain drive')] },
     {
       kind: 'text',
       text: 'I feast my way through a New York list that keeps growing,',
@@ -79,8 +71,29 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 6,
       imgs: [
-        p('08', 'Dim sum'),
+        p('18', 'Sunset by the sea'),
+        p('16', 'A plated dinner out'),
         p('23', 'Ramen and bao'),
+      ],
+    },
+  ],
+  [
+    {
+      kind: 'strip',
+      col: 1,
+      imgs: [
+        p('12', 'Brunch plates'),
+        p('10', 'Brooklyn Bridge at dusk'),
+        p('02', 'A thali lunch'),
+      ],
+    },
+    { kind: 'text', text: 'I wander,', col: 4, span: 2, align: 'center' },
+    {
+      kind: 'strip',
+      col: 6,
+      imgs: [
+        p('03', 'A camel in the desert at sunset'),
+        p('08', 'Dim sum'),
         p('17', 'A fried platter with plantain'),
       ],
     },
@@ -90,35 +103,14 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 1,
       imgs: [
-        p('04', 'Burgers and fries'),
-        p('19', 'A sushi bento box'),
-        p('01', 'The Himalayas from a plane window'),
-      ],
-    },
-    { kind: 'text', text: 'I wander,', col: 4, span: 2, align: 'center' },
-    {
-      kind: 'strip',
-      col: 6,
-      imgs: [
-        p('10', 'Brooklyn Bridge at dusk'),
         p('22', 'Waves along lakeside cliffs'),
-        p('03', 'A camel in the desert at sunset'),
+        p('04', 'Burgers and fries'),
+        p('13', 'A home-cooked family spread'),
       ],
     },
-  ],
-  [
-    {
-      kind: 'strip',
-      col: 1,
-      imgs: [
-        p('09', 'A snowy mountain drive'),
-        p('18', 'Sunset by the sea'),
-        p('20', 'An autumn river reflection'),
-        p('21', 'Red barns seen from a car window'),
-      ],
-    },
-    { kind: 'text', text: 'I cook,', col: 5, span: 2, align: 'center' },
-    { kind: 'strip', col: 7, imgs: [p('13', 'A home-cooked family spread'), p('14', 'A dosa on a steel plate')] },
+    { kind: 'text', text: 'I cook,', col: 4, span: 2, align: 'center' },
+    { kind: 'img', img: p('05', 'A dog on the beach'), col: 6 },
+    { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('14', 'A dosa on a steel plate')] },
   ],
   [
     {
@@ -127,21 +119,43 @@ const ROWS: Block[][] = [
       col: 1,
       span: 2,
     },
-    { kind: 'img', img: p('05', 'A dog on the beach'), col: 4 },
+    { kind: 'img', img: p('01', 'The Himalayas from a plane window'), col: 4 },
     { kind: 'phStrip', count: 3, col: 6, label: 'Three plants, photos coming soon' },
+    { kind: 'caption', col: 6, span: 3 },
   ],
 ]
 
+/* ------------------------------------------------------------
+   Content pools.
+
+   ROWS above fixes the grid: which column each box sits in and how wide
+   it is. The pools below are the content that fills those boxes, in the
+   order they first appear. The editor only reorders these pools, so the
+   grid itself can never shift.
+   ------------------------------------------------------------ */
+
+/** null stands for a striped placeholder tile. */
+const PHOTO_POOL: (Img | null)[] = []
+const TEXT_POOL: string[] = []
+
+for (const row of ROWS) {
+  for (const block of row) {
+    if (block.kind === 'text') TEXT_POOL.push(block.text)
+    if (block.kind === 'img') PHOTO_POOL.push(block.img)
+    if (block.kind === 'strip') PHOTO_POOL.push(...block.imgs)
+    if (block.kind === 'phStrip') {
+      for (let i = 0; i < block.count; i++) PHOTO_POOL.push(null)
+    }
+  }
+}
+
 /** Open-notebook placeholder: the right page turns over on a loop. */
-function JournalBook({ layout }: { layout?: PieceLayout }) {
-  const { style, editProps } = usePiece('book', 'Journal book', 'book', layout)
+function JournalBook() {
   return (
     <div
       className={styles.book}
       role="img"
       aria-label="Doodle journal, pages coming soon"
-      style={style}
-      {...editProps}
     >
       <div className={styles.bookPageLeft} />
       <div className={styles.bookPageRight} />
@@ -151,25 +165,37 @@ function JournalBook({ layout }: { layout?: PieceLayout }) {
   )
 }
 
-function Note({ text, layout }: { text: string; layout?: PieceLayout }) {
-  const { style, editProps } = usePiece(`word:${text}`, `"${text}"`, 'word', layout)
+/** One text box. `slot` is its fixed place in the grid. */
+function Note({ slot }: { slot: number }) {
+  const { content, slotProps } = useSlot('text', slot)
   return (
-    <span className={styles.note} style={style} {...editProps}>
-      {text}
+    <span className={styles.note} {...slotProps}>
+      {TEXT_POOL[content]}
     </span>
   )
 }
 
-function Square({ img }: { img: Img }) {
-  const { style, editProps } = usePiece(`img:${img.src}`, img.alt, 'img', img.layout)
+/** One square box: a photo, or a striped tile where a photo is still to come. */
+function Square({ slot }: { slot: number }) {
+  const { content, slotProps } = useSlot('photo', slot)
+  const img = PHOTO_POOL[content]
+
+  if (!img) {
+    return (
+      <span
+        className={styles.placeholder}
+        data-tone={content % 3}
+        {...slotProps}
+      />
+    )
+  }
   return (
     <img
       src={img.src}
       alt={img.alt}
       className={styles.square}
       loading="lazy"
-      style={style}
-      {...editProps}
+      {...slotProps}
     />
   )
 }
@@ -183,10 +209,16 @@ function spanOf(block: Block) {
 }
 
 export function FreeTime() {
+  // Slot counters: each box gets a fixed number in grid order, so the editor
+  // always knows which place it is swapping.
+  let photoSlot = 0
+  let textSlot = 0
+
   return (
     <CollageProvider>
+      <SlotCounts />
       <section className={styles.section}>
-        <h2 className="visually-hidden">Outside of work</h2>
+        <h2 className={styles.heading}>Outside of work&hellip;</h2>
 
         <div className={styles.collage}>
           {ROWS.map((row, ri) => (
@@ -195,6 +227,7 @@ export function FreeTime() {
                 const style = { gridColumn: `${block.col} / span ${spanOf(block)}` }
 
                 if (block.kind === 'text') {
+                  const slot = textSlot++
                   return (
                     <div
                       key={bi}
@@ -203,14 +236,14 @@ export function FreeTime() {
                       }`}
                       style={style}
                     >
-                      <Note text={block.text} layout={block.layout} />
+                      <Note slot={slot} />
                     </div>
                   )
                 }
                 if (block.kind === 'book') {
                   return (
                     <div key={bi} className={styles.cellBook} style={style}>
-                      <JournalBook layout={block.layout} />
+                      <JournalBook />
                     </div>
                   )
                 }
@@ -222,15 +255,17 @@ export function FreeTime() {
                   )
                 }
                 if (block.kind === 'strip') {
+                  const slots = block.imgs.map(() => photoSlot++)
                   return (
                     <div key={bi} className={styles.cellStrip} style={style}>
-                      {block.imgs.map(img => (
-                        <Square key={img.src} img={img} />
+                      {slots.map(slot => (
+                        <Square key={slot} slot={slot} />
                       ))}
                     </div>
                   )
                 }
                 if (block.kind === 'phStrip') {
+                  const slots = Array.from({ length: block.count }, () => photoSlot++)
                   return (
                     <div
                       key={bi}
@@ -239,15 +274,31 @@ export function FreeTime() {
                       role="img"
                       aria-label={block.label}
                     >
-                      {Array.from({ length: block.count }, (_, i) => (
-                        <span key={i} className={styles.placeholder} />
+                      {slots.map(slot => (
+                        <Square key={slot} slot={slot} />
                       ))}
                     </div>
                   )
                 }
+                if (block.kind === 'caption') {
+                  return (
+                    <p key={bi} className={styles.vsco} style={style}>
+                      the photos that did not make it are on{' '}
+                      <a
+                        href="https://vsco.co/mrinaljadhav/gallery"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        VSCO
+                      </a>
+                      .
+                    </p>
+                  )
+                }
+                const slot = photoSlot++
                 return (
                   <div key={bi} className={styles.cellImg} style={style}>
-                    <Square img={block.img} />
+                    <Square slot={slot} />
                   </div>
                 )
               })}
@@ -259,4 +310,11 @@ export function FreeTime() {
       </section>
     </CollageProvider>
   )
+}
+
+/** Registers how many swappable boxes of each kind the grid has. */
+function SlotCounts() {
+  useRegisterSlots('photo', PHOTO_POOL.length)
+  useRegisterSlots('text', TEXT_POOL.length)
+  return null
 }
