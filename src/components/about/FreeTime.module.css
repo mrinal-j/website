@@ -2,7 +2,7 @@
 .section {
   width: min(1280px, 94vw);
   margin: 0 auto;
-  padding: 100px 0 80px;
+  padding: 100px 0 160px;
 }
 
 /* The site's section-label treatment, minus the trailing line. Kept as a

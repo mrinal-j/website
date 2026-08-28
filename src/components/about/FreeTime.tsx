@@ -24,7 +24,8 @@ import styles from './FreeTime.module.css'
 interface Img {
   src: string
   alt: string
-  /** Vertical framing inside the square, as a percent. 50 is centred. */
+  /** Framing inside the square, as percents. 50 is centred on that axis. */
+  posX?: number
   posY?: number
 }
 
@@ -36,10 +37,11 @@ type Block =
   | { kind: 'player'; col: number; span: number }
   | { kind: 'caption'; col: number; span: number }
 
-const p = (n: string, alt: string, posY?: number): Img => ({
+const p = (n: string, alt: string, posY?: number, posX?: number): Img => ({
   src: `/images/about-photo-${n}.webp`,
   alt,
   ...(posY == null ? {} : { posY }),
+  ...(posX == null ? {} : { posX }),
 })
 
 const ROWS: Block[][] = [
@@ -255,16 +257,21 @@ function Note({ slot }: { slot: number }) {
 
 /** One square box: a photo, or a striped tile where a photo is still to come. */
 function Square({ slot }: { slot: number }) {
-  const { content, focusY, slotProps } = useSlot('photo', slot)
+  const { content, framing, slotProps } = useSlot('photo', slot)
   const img = PHOTO_POOL[content]
   // Live edits win, then anything baked in, then centred
-  const y = focusY ?? img.posY ?? 50
+  const x = framing?.x ?? img.posX ?? 50
+  const y = framing?.y ?? img.posY ?? 50
   return (
     <img
       src={img.src}
       alt={img.alt}
       className={styles.square}
-      style={y === 50 ? undefined : { objectPosition: `50% ${y}%` }}
+      style={
+        x === 50 && y === 50
+          ? undefined
+          : { objectPosition: `${x}% ${y}%` }
+      }
       loading="lazy"
       {...slotProps}
     />

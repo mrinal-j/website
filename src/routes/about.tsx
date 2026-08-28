@@ -3,7 +3,9 @@ import { Navbar } from '~/components/Navbar'
 import { AboutHero } from '~/components/about/AboutHero'
 import { Experience } from '~/components/about/Experience'
 import { FreeTime } from '~/components/about/FreeTime'
-import { HowIWork } from '~/components/home/HowIWork'
+// Parked for now, may come back. The component and its styles are still
+// in src/components/home/HowIWork.tsx: put these two lines back to restore it.
+// import { HowIWork } from '~/components/home/HowIWork'
 import { Footer } from '~/components/Footer'
 
 export const Route = createFileRoute('/about')({
@@ -27,7 +29,7 @@ function AboutPage() {
         <AboutHero />
         <Experience />
         <FreeTime />
-        <HowIWork noLabelLine />
+        {/* <HowIWork noLabelLine /> */}
       </main>
       <Footer />
     </>

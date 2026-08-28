@@ -25,14 +25,18 @@ export const CAN_EDIT = import.meta.env.DEV
 export type SwapKind = 'photo' | 'text'
 
 type Order = Record<SwapKind, number[]>
-/** Vertical framing per photo, as a percent. 50 is centred. */
-type Focus = Record<number, number>
+/** Framing per photo, as percents. 50/50 is centred. */
+export interface Framing {
+  x?: number
+  y?: number
+}
+type Focus = Record<number, Framing>
 type Selection = { kind: SwapKind; slot: number } | null
 
 // Bumped whenever an order is baked into the code, so a stale saved
 // order in someone's browser is discarded rather than reapplied.
 const STORAGE_KEY = 'aboutCollageOrder-v5'
-const FOCUS_KEY = 'aboutCollageFocus-v4'
+const FOCUS_KEY = 'aboutCollageFocus-v5'
 
 interface Ctx {
   editing: boolean
@@ -40,7 +44,7 @@ interface Ctx {
   order: Order
   contentFor: (kind: SwapKind, slot: number) => number
   focus: Focus
-  setFocus: (content: number, value: number) => void
+  setFocus: (content: number, axis: 'x' | 'y', value: number) => void
   selected: Selection
   pick: (kind: SwapKind, slot: number) => void
   reset: () => void
@@ -99,8 +103,11 @@ export function CollageProvider({ children }: { children: ReactNode }) {
     }
   }, [focus])
 
-  const setFocus = (content: number, value: number) =>
-    setFocusState(prev => ({ ...prev, [content]: value }))
+  const setFocus = (content: number, axis: 'x' | 'y', value: number) =>
+    setFocusState(prev => ({
+      ...prev,
+      [content]: { ...prev[content], [axis]: value },
+    }))
 
   useEffect(() => {
     if (!CAN_EDIT || typeof window === 'undefined') return
@@ -203,13 +210,13 @@ export function useRegisterSlots(kind: SwapKind, count: number) {
 export function useSlot(kind: SwapKind, slot: number) {
   const { editing, contentFor, focus, selected, pick } = useContext(CollageCtx)
   const content = contentFor(kind, slot)
-  const focusY = focus[content]
+  const framing = focus[content]
 
-  if (!CAN_EDIT || !editing) return { content, focusY, slotProps: {} }
+  if (!CAN_EDIT || !editing) return { content, framing, slotProps: {} }
 
   return {
     content,
-    focusY,
+    framing,
     slotProps: {
       onClick: (e: React.MouseEvent) => {
         e.preventDefault()
@@ -260,23 +267,45 @@ export function CollageEditPanel() {
           </p>
 
           {selected && selected.kind === 'photo' && (
-            <label className={styles.row}>
-              <span className={styles.rowLabel}>Framing</span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={focus[contentFor('photo', selected.slot)] ?? 50}
-                onChange={e =>
-                  setFocus(contentFor('photo', selected.slot), Number(e.target.value))
-                }
-              />
-            </label>
+            <>
+              <label className={styles.row}>
+                <span className={styles.rowLabel}>Up / down</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={focus[contentFor('photo', selected.slot)]?.y ?? 50}
+                  onChange={e =>
+                    setFocus(
+                      contentFor('photo', selected.slot),
+                      'y',
+                      Number(e.target.value),
+                    )
+                  }
+                />
+              </label>
+              <label className={styles.row}>
+                <span className={styles.rowLabel}>Left / right</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={focus[contentFor('photo', selected.slot)]?.x ?? 50}
+                  onChange={e =>
+                    setFocus(
+                      contentFor('photo', selected.slot),
+                      'x',
+                      Number(e.target.value),
+                    )
+                  }
+                />
+              </label>
+            </>
           )}
 
           <p className={styles.note}>
             {selected && selected.kind === 'photo'
-              ? 'Framing slides the photo up and down inside its square, to show the part you want.'
+              ? 'Slide the photo inside its square to show the part you want. A tall photo only moves up and down, a wide one only left and right.'
               : 'Boxes keep their size and position, so the grid stays as it is.'}
           </p>
 
