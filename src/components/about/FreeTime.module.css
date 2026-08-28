@@ -29,6 +29,12 @@
   min-width: 0;
 }
 
+/* Spotify draws its card slightly high inside the frame, which leaves it
+   sitting above the photos beside it. Nudge it back down to their top edge. */
+.cellPlayer {
+  transform: translateY(12px);
+}
+
 /* Strip: squares sitting edge to edge */
 .cellStrip {
   display: flex;
