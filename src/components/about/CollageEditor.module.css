@@ -42,6 +42,24 @@
   margin-top: 8px;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.rowLabel {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.row input[type='range'] {
+  flex: 1;
+  min-width: 0;
+}
+
 .footer {
   display: flex;
   gap: 8px;

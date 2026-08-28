@@ -23,6 +23,8 @@ import styles from './FreeTime.module.css'
 interface Img {
   src: string
   alt: string
+  /** Vertical framing inside the square, as a percent. 50 is centred. */
+  posY?: number
 }
 
 type Block =
@@ -34,9 +36,10 @@ type Block =
   | { kind: 'player'; col: number; span: number }
   | { kind: 'caption'; col: number; span: number }
 
-const p = (n: string, alt: string): Img => ({
+const p = (n: string, alt: string, posY?: number): Img => ({
   src: `/images/about-photo-${n}.webp`,
   alt,
+  ...(posY == null ? {} : { posY }),
 })
 
 const ROWS: Block[][] = [
@@ -45,21 +48,21 @@ const ROWS: Block[][] = [
     { kind: 'text', text: 'I doodle,', col: 4, span: 2 },
   ],
   [
-    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice'), p('20', 'An autumn river reflection')] },
+    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice', 74), p('20', 'An autumn river reflection')] },
     {
       kind: 'strip',
       col: 3,
       imgs: [
         p('19', 'A sushi bento box'),
         p('15', 'Korean barbecue with friends'),
-        p('21', 'Red barns seen from a car window'),
+        p('21', 'Red barns seen from a car window', 59),
       ],
     },
     // column 6 stays empty, so the card has room to breathe
     { kind: 'player', col: 7, span: 2 },
   ],
   [
-    { kind: 'strip', col: 1, imgs: [p('11', 'Hot dogs and onion rings'), p('09', 'A snowy mountain drive')] },
+    { kind: 'strip', col: 1, imgs: [p('11', 'Hot dogs and onion rings'), p('09', 'A snowy mountain drive', 92)] },
     {
       kind: 'text',
       text: 'I feast my way through a New York list that keeps growing,',
@@ -71,8 +74,8 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 6,
       imgs: [
-        p('18', 'Sunset by the sea'),
-        p('16', 'A plated dinner out'),
+        p('18', 'Sunset by the sea', 61),
+        p('16', 'A plated dinner out', 23),
         p('23', 'Ramen and bao'),
       ],
     },
@@ -99,23 +102,17 @@ const ROWS: Block[][] = [
     },
   ],
   [
-    {
-      kind: 'strip',
-      col: 1,
-      imgs: [
-        p('22', 'Waves along lakeside cliffs'),
-        p('04', 'Burgers and fries'),
-        p('13', 'A home-cooked family spread'),
-      ],
-    },
-    { kind: 'text', text: 'I cook,', col: 4, span: 2, align: 'center' },
+    { kind: 'img', img: p('22', 'Waves along lakeside cliffs', 70), col: 1 },
+    { kind: 'text', text: 'I cook,', col: 2, span: 1, align: 'center' },
+    { kind: 'img', img: p('04', 'Burgers and fries'), col: 3 },
+    { kind: 'img', img: p('13', 'A home-cooked family spread'), col: 4 },
     { kind: 'img', img: p('05', 'A dog on the beach'), col: 6 },
     { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('14', 'A dosa on a steel plate')] },
   ],
   [
     {
       kind: 'text',
-      text: 'and I am learning to keep three plants alive.',
+      text: 'and I am a new plant mom to three, so far.',
       col: 1,
       span: 2,
     },
@@ -177,7 +174,7 @@ function Note({ slot }: { slot: number }) {
 
 /** One square box: a photo, or a striped tile where a photo is still to come. */
 function Square({ slot }: { slot: number }) {
-  const { content, slotProps } = useSlot('photo', slot)
+  const { content, focusY, slotProps } = useSlot('photo', slot)
   const img = PHOTO_POOL[content]
 
   if (!img) {
@@ -189,11 +186,14 @@ function Square({ slot }: { slot: number }) {
       />
     )
   }
+  // Live edits win, then anything baked in, then centred
+  const y = focusY ?? img.posY ?? 50
   return (
     <img
       src={img.src}
       alt={img.alt}
       className={styles.square}
+      style={y === 50 ? undefined : { objectPosition: `50% ${y}%` }}
       loading="lazy"
       {...slotProps}
     />

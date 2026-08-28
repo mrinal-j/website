@@ -25,17 +25,22 @@ export const CAN_EDIT = import.meta.env.DEV
 export type SwapKind = 'photo' | 'text'
 
 type Order = Record<SwapKind, number[]>
+/** Vertical framing per photo, as a percent. 50 is centred. */
+type Focus = Record<number, number>
 type Selection = { kind: SwapKind; slot: number } | null
 
 // Bumped whenever an order is baked into the code, so a stale saved
 // order in someone's browser is discarded rather than reapplied.
-const STORAGE_KEY = 'aboutCollageOrder-v2'
+const STORAGE_KEY = 'aboutCollageOrder-v3'
+const FOCUS_KEY = 'aboutCollageFocus-v2'
 
 interface Ctx {
   editing: boolean
   setEditing: (on: boolean) => void
   order: Order
   contentFor: (kind: SwapKind, slot: number) => number
+  focus: Focus
+  setFocus: (content: number, value: number) => void
   selected: Selection
   pick: (kind: SwapKind, slot: number) => void
   reset: () => void
@@ -48,11 +53,23 @@ const CollageCtx = createContext<Ctx>({
   setEditing: noop,
   order: { photo: [], text: [] },
   contentFor: (_k, slot) => slot,
+  focus: {},
+  setFocus: noop,
   selected: null,
   pick: noop,
   reset: noop,
   register: noop,
 })
+
+function loadFocus(): Focus {
+  if (!CAN_EDIT || typeof window === 'undefined') return {}
+  try {
+    const raw = window.localStorage.getItem(FOCUS_KEY)
+    return raw ? (JSON.parse(raw) as Focus) : {}
+  } catch {
+    return {}
+  }
+}
 
 function loadOrder(): Partial<Order> {
   if (!CAN_EDIT || typeof window === 'undefined') return {}
@@ -71,6 +88,19 @@ export function CollageProvider({ children }: { children: ReactNode }) {
     const saved = loadOrder()
     return { photo: saved.photo ?? [], text: saved.text ?? [] }
   })
+  const [focus, setFocusState] = useState<Focus>(loadFocus)
+
+  useEffect(() => {
+    if (!CAN_EDIT || typeof window === 'undefined') return
+    try {
+      window.localStorage.setItem(FOCUS_KEY, JSON.stringify(focus))
+    } catch {
+      /* ignore */
+    }
+  }, [focus])
+
+  const setFocus = (content: number, value: number) =>
+    setFocusState(prev => ({ ...prev, [content]: value }))
 
   useEffect(() => {
     if (!CAN_EDIT || typeof window === 'undefined') return
@@ -133,12 +163,24 @@ export function CollageProvider({ children }: { children: ReactNode }) {
       photo: prev.photo.map((_, i) => i),
       text: prev.text.map((_, i) => i),
     }))
+    setFocusState({})
     setSelected(null)
   }
 
   return (
     <CollageCtx.Provider
-      value={{ editing, setEditing, order, contentFor, selected, pick, reset, register }}
+      value={{
+        editing,
+        setEditing,
+        order,
+        contentFor,
+        focus,
+        setFocus,
+        selected,
+        pick,
+        reset,
+        register,
+      }}
     >
       {children}
     </CollageCtx.Provider>
@@ -159,13 +201,15 @@ export function useRegisterSlots(kind: SwapKind, count: number) {
  * the props that make it clickable while edit mode is on.
  */
 export function useSlot(kind: SwapKind, slot: number) {
-  const { editing, contentFor, selected, pick } = useContext(CollageCtx)
+  const { editing, contentFor, focus, selected, pick } = useContext(CollageCtx)
   const content = contentFor(kind, slot)
+  const focusY = focus[content]
 
-  if (!CAN_EDIT || !editing) return { content, slotProps: {} }
+  if (!CAN_EDIT || !editing) return { content, focusY, slotProps: {} }
 
   return {
     content,
+    focusY,
     slotProps: {
       onClick: (e: React.MouseEvent) => {
         e.preventDefault()
@@ -181,14 +225,15 @@ export function useSlot(kind: SwapKind, slot: number) {
 }
 
 export function CollageEditPanel() {
-  const { editing, setEditing, order, selected, reset } = useContext(CollageCtx)
+  const { editing, setEditing, order, focus, setFocus, contentFor, selected, reset } =
+    useContext(CollageCtx)
   const [copied, setCopied] = useState(false)
 
   if (!CAN_EDIT) return null
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(JSON.stringify(order, null, 2))
+      await navigator.clipboard.writeText(JSON.stringify({ order, focus }, null, 2))
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
     } catch {
@@ -213,8 +258,26 @@ export function CollageEditPanel() {
               ? `Now click another ${selected.kind === 'photo' ? 'photo' : 'line of text'} to swap the two.`
               : 'Click a photo to pick it up, then click another photo to swap them. Text swaps with text the same way.'}
           </p>
+
+          {selected && selected.kind === 'photo' && (
+            <label className={styles.row}>
+              <span className={styles.rowLabel}>Framing</span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={focus[contentFor('photo', selected.slot)] ?? 50}
+                onChange={e =>
+                  setFocus(contentFor('photo', selected.slot), Number(e.target.value))
+                }
+              />
+            </label>
+          )}
+
           <p className={styles.note}>
-            Boxes keep their size and position, so the grid stays as it is.
+            {selected && selected.kind === 'photo'
+              ? 'Framing slides the photo up and down inside its square, to show the part you want.'
+              : 'Boxes keep their size and position, so the grid stays as it is.'}
           </p>
 
           <div className={styles.footer}>

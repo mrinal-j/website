@@ -4,9 +4,18 @@
   padding: 60px 0 40px;
 }
 
+/* Titles the section, matching "Outside of work..." below it */
+.heading {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
 .list {
   list-style: none;
-  margin: 32px 0 0;
+  margin: 40px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -67,18 +76,21 @@
   margin-top: 3px;
 }
 
+/* Same quiet caption treatment as the VSCO line in the collage */
 .resume {
   display: inline-block;
   margin-top: 44px;
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--color-orange);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--text-primary);
+  padding-bottom: 1px;
 }
 
 .resume:hover {
-  color: var(--color-orange-hover);
-  text-decoration: underline;
+  color: var(--color-orange);
+  border-bottom-color: var(--color-orange);
 }
 
 @media (max-width: 599px) {

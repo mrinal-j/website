@@ -1,4 +1,3 @@
-import { SectionLabel } from '~/components/SectionLabel'
 import styles from './Experience.module.css'
 
 const ROLES = [
@@ -49,7 +48,7 @@ const ROLES = [
 export function Experience() {
   return (
     <section className={styles.section}>
-      <SectionLabel title="EXPERIENCE" noLine />
+      <h2 className={styles.heading}>Previously&hellip;</h2>
 
       <ul className={styles.list}>
         {ROLES.map((r) => (
@@ -73,7 +72,7 @@ export function Experience() {
         target="_blank"
         rel="noopener"
       >
-        LinkedIn <span aria-hidden="true">&rarr;</span>
+        more on LinkedIn
       </a>
     </section>
   )
