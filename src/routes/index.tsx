@@ -8,7 +8,7 @@ import { Footer } from '~/components/Footer'
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Mrinal Jadhav — Designer' },
+      { title: 'Mrinal Jadhav' },
       { name: 'description', content: 'I design with empathy for communities, solutions that scale impact, and interventions that matter.' },
     ],
   }),
