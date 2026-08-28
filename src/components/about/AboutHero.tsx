@@ -19,8 +19,8 @@ export function AboutHero() {
             I am a visual designer and strategist based in New York City.
           </p>
           <p className={styles.body}>
-            I build brand strategies and identities, campaigns, and the print
-            and digital work that carries them.
+            I build brand strategies, identities, campaigns, and the print and
+            digital work that carries them.
           </p>
           <p className={styles.body}>
             I am drawn towards design that genuinely changes how people think,
