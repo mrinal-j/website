@@ -210,50 +210,63 @@
 }
 
 @media (max-width: 767px) {
+  /* Site standard on phones: a 24px margin each side */
+  .section {
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* One continuous two-column grid. The desktop rows and strips dissolve
+     with display:contents, so every photo flows in order two across, and
+     the notes sit among them the way they sit between columns on desktop. */
   .collage {
-    gap: 28px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    align-items: center;
   }
 
-  /* Four columns on a phone, and blocks flow in order rather than sitting
-     in their desktop columns, so nothing gets squeezed to nothing. */
-  .row {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px 0;
+  .row,
+  .cellStrip {
+    display: contents;
   }
 
-  .cellImg {
-    grid-column: auto / span 2 !important;
+  /* !important beats the desktop column each cell carries inline */
+  .cellImg,
+  .cellText {
+    grid-column: auto !important;
   }
 
-  .cellStrip,
-  .cellText,
+  .cellText {
+    padding: 0 14px;
+  }
+
+  /* Too wide to share a row with a photo */
+  .cellBook,
   .cellPlayer,
   .vsco {
-    grid-column: auto / span 4 !important;
+    grid-column: 1 / -1 !important;
+  }
+
+  .cellBook,
+  .cellPlayer {
+    margin: 16px 0;
+  }
+
+  /* The desktop nudge lines the card up with the photos beside it; on a
+     phone it sits on its own row and needs none. */
+  .cellPlayer {
+    transform: none;
   }
 
   .vsco {
     grid-row: auto;
+    margin-top: 20px;
   }
 
-  /* Strips wrap two-up rather than dividing the width three or four ways,
-     so every photo stays the same size as a lone one. */
-  .cellStrip {
-    flex-wrap: wrap;
-  }
-
+  /* Strip photos are grid items now, not flex children */
   .cellStrip .square {
-    flex: 0 0 50%;
-  }
-
-  .cellBook {
-    grid-column: auto / span 4 !important;
-  }
-
-  /* Any hand-tuned offsets are designed for desktop widths */
-  .square,
-  .note,
-  .book {
-    transform: none !important;
+    flex: none;
   }
 }

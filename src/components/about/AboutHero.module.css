@@ -50,6 +50,13 @@
 }
 
 @media (max-width: 767px) {
+  /* Site standard on phones: a 24px margin each side */
+  .section {
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .section {
     padding-top: 110px;
   }

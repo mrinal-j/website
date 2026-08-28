@@ -95,6 +95,15 @@
   border-bottom-color: var(--color-orange);
 }
 
+@media (max-width: 767px) {
+  /* Site standard on phones: a 24px margin each side */
+  .section {
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 @media (max-width: 599px) {
   .row {
     flex-wrap: wrap;
