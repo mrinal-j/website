@@ -9,7 +9,7 @@ export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
       { title: 'Mrinal Jadhav' },
-      { name: 'description', content: 'I design with empathy for communities, solutions that scale impact, and interventions that matter.' },
+      { name: 'description', content: 'Mrinal Jadhav is a visual designer and strategist in New York City, building brand strategies, identities and campaigns.' },
     ],
   }),
   component: HomePage,
