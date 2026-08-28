@@ -220,10 +220,13 @@
   /* One continuous two-column grid. The desktop rows and strips dissolve
      with display:contents, so every photo flows in order two across, and
      the notes sit among them the way they sit between columns on desktop. */
+  /* Photos still butt together side to side, as they do in a desktop strip,
+     and every row is set apart by the same small gap. */
   .collage {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0;
+    column-gap: 0;
+    row-gap: 16px;
     align-items: center;
   }
 
@@ -242,16 +245,17 @@
     padding: 0 14px;
   }
 
+  /* The final photo has no partner, so it sits on the right and the gap
+     falls on the left, above the caption's own right edge. */
+  .cellImg:has(+ .vsco) {
+    grid-column: 2 !important;
+  }
+
   /* Too wide to share a row with a photo */
   .cellBook,
   .cellPlayer,
   .vsco {
     grid-column: 1 / -1 !important;
-  }
-
-  .cellBook,
-  .cellPlayer {
-    margin: 16px 0;
   }
 
   /* The desktop nudge lines the card up with the photos beside it; on a
@@ -260,9 +264,19 @@
     transform: none;
   }
 
+  /* Spotify draws its card 152px tall at the top of the frame, so a taller
+     frame leaves blank space underneath. Matching the frame to the card lets
+     the card keep the same row gap as everything else, rather than its own.
+     !important beats the height the player carries inline. */
+  .cellPlayer iframe {
+    height: 152px !important;
+  }
+
+  /* The desktop 12px is on top of the row gap here, which would make the
+     caption the odd one out. */
   .vsco {
     grid-row: auto;
-    margin-top: 20px;
+    margin-top: 0;
   }
 
   /* Strip photos are grid items now, not flex children */

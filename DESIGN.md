@@ -94,6 +94,29 @@ Nations master brand typeface as it really is. Do not use it anywhere else.
 
 ---
 
+## Phone layout
+
+Phone styling starts at `max-width: 767px`.
+
+**Sections keep a 24px margin each side.** On wider screens a section is capped
+and centred; on a phone it goes full width and holds its content 24px in from
+both edges. Every section follows this, so nothing sits closer to the edge than
+anything else.
+
+**In the About collage, rows are 16px apart and photos still touch side to
+side.** On desktop the collage is an eight column grid where neighbouring
+photos butt together into strips and the empty cells are the whitespace. On a
+phone it becomes one continuous two column grid: photos still meet with no gap
+across, and a single 16px gap separates every row, including the rows holding
+the doodle journal, the Spotify card and the closing caption. Nothing gets its
+own spacing.
+
+One consequence worth knowing: the Spotify embed always draws its card 152px
+tall, pinned to the top of its frame. The frame must match that height on a
+phone, or the leftover becomes blank space that reads as an uneven gap.
+
+---
+
 ## Standing rules
 
 These apply site wide, not just to one page.

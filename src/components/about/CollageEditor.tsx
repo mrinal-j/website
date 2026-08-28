@@ -35,8 +35,8 @@ type Selection = { kind: SwapKind; slot: number } | null
 
 // Bumped whenever an order is baked into the code, so a stale saved
 // order in someone's browser is discarded rather than reapplied.
-const STORAGE_KEY = 'aboutCollageOrder-v6'
-const FOCUS_KEY = 'aboutCollageFocus-v6'
+const STORAGE_KEY = 'aboutCollageOrder-v7'
+const FOCUS_KEY = 'aboutCollageFocus-v7'
 
 interface Ctx {
   editing: boolean

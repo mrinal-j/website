@@ -58,14 +58,14 @@ const ROWS: Block[][] = [
     },
   ],
   [
-    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice', 74), p('20', 'An autumn river reflection', 67)] },
+    { kind: 'strip', col: 1, imgs: [p('20', 'An autumn river reflection', 67), p('10', 'Brooklyn Bridge at dusk')] },
     {
       kind: 'strip',
       col: 3,
       imgs: [
-        p('19', 'A sushi bento box'),
+        p('23', 'Ramen and bao'),
         p('21', 'Red barns seen from a car window', 59),
-        p('15', 'Korean barbecue with friends', 41),
+        p('16', 'A plated dinner out', 61),
       ],
     },
     // column 6 stays empty, so the card has room to breathe
@@ -84,9 +84,9 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 6,
       imgs: [
-        p('23', 'Ramen and bao'),
-        p('18', 'Sunset by the sea', 61),
-        p('16', 'A plated dinner out', 23),
+        p('19', 'A sushi bento box'),
+        p('07', 'Dumplings and fried rice', 74),
+        p('15', 'Korean barbecue with friends', 41),
       ],
     },
   ],
@@ -95,9 +95,9 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 1,
       imgs: [
+        p('02', 'A thali lunch', 53, 49),
+        p('22', 'Waves along lakeside cliffs', 70),
         p('12', 'Brunch plates'),
-        p('10', 'Brooklyn Bridge at dusk'),
-        p('02', 'A thali lunch', 42, 49),
       ],
     },
     { kind: 'text', text: 'I wander,', col: 4, span: 2, align: 'center' },
@@ -105,20 +105,20 @@ const ROWS: Block[][] = [
       kind: 'strip',
       col: 6,
       imgs: [
-        p('03', 'A camel in the desert at sunset'),
         p('08', 'Dim sum'),
+        p('03', 'A camel in the desert at sunset'),
         p('17', 'A fried platter with plantain'),
       ],
     },
   ],
   [
-    { kind: 'img', img: p('22', 'Waves along lakeside cliffs', 70), col: 1 },
+    { kind: 'img', img: p('13', 'A home-cooked family spread'), col: 1 },
     { kind: 'text', text: 'I cook,', col: 2, span: 1, align: 'center' },
-    { kind: 'img', img: p('26', 'Making rice paper rolls at home'), col: 3 },
-    { kind: 'img', img: p('13', 'A home-cooked family spread'), col: 4 },
-    { kind: 'img', img: p('24', 'The Circle Line boat passing the skyline at sunset'), col: 5 },
-    { kind: 'img', img: p('05', 'A dog on the beach'), col: 6 },
-    { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('14', 'A dosa on a steel plate')] },
+    { kind: 'img', img: p('26', 'Making rice paper rolls at home', undefined, 100), col: 3 },
+    { kind: 'img', img: p('24', 'The Circle Line boat passing the skyline at sunset'), col: 4 },
+    { kind: 'img', img: p('05', 'A dog on the beach'), col: 5 },
+    { kind: 'img', img: p('14', 'A dosa on a steel plate'), col: 6 },
+    { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('01', 'The Himalayas from a plane window', 100, 77)] },
   ],
   [
     {
@@ -127,9 +127,9 @@ const ROWS: Block[][] = [
       col: 1,
       span: 2,
     },
-    { kind: 'img', img: p('25', 'Burrata, bread and a glass of rosé'), col: 6 },
-    { kind: 'img', img: p('01', 'The Himalayas from a plane window', 75, 77), col: 7 },
-    { kind: 'img', img: p('04', 'Burgers and fries', 56, 54), col: 8 },
+    { kind: 'img', img: p('25', 'Burrata, bread and a glass of rosé', 53), col: 6 },
+    { kind: 'img', img: p('04', 'Burgers and fries', 56, 54), col: 7 },
+    { kind: 'img', img: p('18', 'Sunset by the sea', 61), col: 8 },
     { kind: 'caption', col: 6, span: 3 },
   ],
 ]
