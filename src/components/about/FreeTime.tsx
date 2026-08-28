@@ -47,7 +47,7 @@ const p = (n: string, alt: string, posY?: number, posX?: number): Img => ({
 const ROWS: Block[][] = [
   [
     { kind: 'book', col: 1, span: 2 },
-    { kind: 'text', text: 'I doodle,', col: 4, span: 2 },
+    { kind: 'text', text: 'I doodle and paint,', col: 4, span: 2 },
     {
       kind: 'strip',
       col: 7,
@@ -58,7 +58,7 @@ const ROWS: Block[][] = [
     },
   ],
   [
-    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice', 74), p('20', 'An autumn river reflection')] },
+    { kind: 'strip', col: 1, imgs: [p('07', 'Dumplings and fried rice', 74), p('20', 'An autumn river reflection', 67)] },
     {
       kind: 'strip',
       col: 3,
@@ -97,7 +97,7 @@ const ROWS: Block[][] = [
       imgs: [
         p('12', 'Brunch plates'),
         p('10', 'Brooklyn Bridge at dusk'),
-        p('02', 'A thali lunch'),
+        p('02', 'A thali lunch', 42, 49),
       ],
     },
     { kind: 'text', text: 'I wander,', col: 4, span: 2, align: 'center' },
@@ -114,9 +114,9 @@ const ROWS: Block[][] = [
   [
     { kind: 'img', img: p('22', 'Waves along lakeside cliffs', 70), col: 1 },
     { kind: 'text', text: 'I cook,', col: 2, span: 1, align: 'center' },
-    { kind: 'img', img: p('04', 'Burgers and fries'), col: 3 },
+    { kind: 'img', img: p('26', 'Making rice paper rolls at home'), col: 3 },
     { kind: 'img', img: p('13', 'A home-cooked family spread'), col: 4 },
-    { kind: 'img', img: p('26', 'Making rice paper rolls at home'), col: 5 },
+    { kind: 'img', img: p('24', 'The Circle Line boat passing the skyline at sunset'), col: 5 },
     { kind: 'img', img: p('05', 'A dog on the beach'), col: 6 },
     { kind: 'strip', col: 7, imgs: [p('06', 'A Korean spread with banchan'), p('14', 'A dosa on a steel plate')] },
   ],
@@ -128,8 +128,8 @@ const ROWS: Block[][] = [
       span: 2,
     },
     { kind: 'img', img: p('25', 'Burrata, bread and a glass of rosé'), col: 6 },
-    { kind: 'img', img: p('01', 'The Himalayas from a plane window'), col: 7 },
-    { kind: 'img', img: p('24', 'The Circle Line boat passing the skyline at sunset'), col: 8 },
+    { kind: 'img', img: p('01', 'The Himalayas from a plane window', 75, 77), col: 7 },
+    { kind: 'img', img: p('04', 'Burgers and fries', 56, 54), col: 8 },
     { kind: 'caption', col: 6, span: 3 },
   ],
 ]
