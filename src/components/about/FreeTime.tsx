@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import {
   CAN_EDIT,
   CollageEditPanel,
@@ -151,18 +152,93 @@ for (const row of ROWS) {
   }
 }
 
-/** Open-notebook placeholder: the right page turns over on a loop. */
+/* ------------------------------------------------------------
+   The doodle journal.
+
+   Sixteen scanned pattern pages become eight leaves, each with a doodle
+   on the front and another on the back. Leaves turn one at a time, then
+   the book leafs back the other way, so the loop never snaps.
+   ------------------------------------------------------------ */
+
+const DOODLES = Array.from(
+  { length: 16 },
+  (_, i) => `/images/doodle-${String(i + 1).padStart(2, '0')}.webp`,
+)
+/** Two doodles per leaf: one each side. */
+const LEAVES = DOODLES.length / 2
+const TURN_MS = 1700
+
 function JournalBook() {
+  const [turned, setTurned] = useState(0)
+  // The leaf mid-turn is held on top, so it never pops behind its
+  // neighbours halfway through the rotation.
+  const [moving, setMoving] = useState<number | null>(null)
+  const direction = useRef(1)
+  const turnedRef = useRef(0)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    let settle: ReturnType<typeof setTimeout>
+    const id = setInterval(() => {
+      let step = direction.current
+      let next = turnedRef.current + step
+      if (next > LEAVES || next < 0) {
+        direction.current = -step
+        step = -step
+        next = turnedRef.current + step
+      }
+      // Turning forward moves the topmost unturned leaf; turning back
+      // moves the one that lands face up again.
+      const leaf = step > 0 ? turnedRef.current : next
+      turnedRef.current = next
+
+      setMoving(leaf)
+      setTurned(next)
+      clearTimeout(settle)
+      settle = setTimeout(() => setMoving(null), TURN_MS - 300)
+    }, TURN_MS)
+
+    return () => {
+      clearInterval(id)
+      clearTimeout(settle)
+    }
+  }, [])
+
   return (
     <div
       className={styles.book}
       role="img"
-      aria-label="Doodle journal, pages coming soon"
+      aria-label="My doodle journal, turning through pages of hand-drawn patterns"
     >
-      <div className={styles.bookPageLeft} />
-      <div className={styles.bookPageRight} />
-      <div className={styles.bookFlip} />
-      <div className={styles.bookSpine} />
+      <span className={styles.bookPageLeft} />
+      <span className={styles.bookPageRight} />
+
+      {Array.from({ length: LEAVES }, (_, k) => {
+        const isTurned = k < turned
+        const isMoving = k === moving
+        return (
+          <div
+            key={k}
+            className={`${styles.leaf} ${isTurned ? styles.leafTurned : ''} ${
+              isMoving ? styles.leafMoving : ''
+            }`}
+            // At rest, unturned leaves stack with the next one on top and
+            // turned leaves pile up the other way. The leaf in motion sits
+            // above both piles for the whole sweep.
+            style={{ zIndex: isMoving ? LEAVES + 1 : isTurned ? k : LEAVES - k }}
+          >
+            <span className={styles.leafFront}>
+              <img src={DOODLES[k * 2]} alt="" loading="lazy" draggable={false} />
+            </span>
+            <span className={styles.leafBack}>
+              <img src={DOODLES[k * 2 + 1]} alt="" loading="lazy" draggable={false} />
+            </span>
+          </div>
+        )
+      })}
+
+      <span className={styles.bookSpine} />
     </div>
   )
 }
@@ -212,7 +288,7 @@ export function FreeTime() {
     <CollageProvider>
       <SlotCounts />
       <section className={styles.section}>
-        <h2 className={styles.heading}>Outside of work</h2>
+        <h2 className={styles.heading}>Outside of work&hellip;</h2>
 
         <div className={styles.collage}>
           {ROWS.map((row, ri) => (

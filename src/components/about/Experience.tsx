@@ -10,7 +10,7 @@ const ROLES = [
   },
   {
     org: 'United Nations - Executive Office of the Secretary-General (Complex Risk Analytics Fund)',
-    role: 'Design Strategic Communications Fellow',
+    role: 'Design and Strategic Communications Fellow',
     dates: 'August 2025 – November 2025',
     place: 'New York, USA',
     logo: '/images/crafd_logo.webp',
