@@ -160,7 +160,7 @@ function Un80Page() {
           <div className={s.metaCell}>
             <span className={s.metaLabel}>Team</span>
             <span className={s.metaValue}>
-              Sole designer, partnering with two communications writers
+              Sole designer, partnering with two communications officers
             </span>
           </div>
           <div className={`${s.metaCell} ${s.metaCellLast}`}>
