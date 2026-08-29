@@ -19,15 +19,15 @@ export function AboutHero() {
             I am a visual designer and strategist based in New York City.
           </p>
           <p className={styles.body}>
-            I build brand strategies, identities, campaigns, and the print and
-            digital work that carries them.
+            I build brand identities, campaigns, and the print and digital
+            work around them.
           </p>
           <p className={styles.body}>
-            I am drawn towards design that genuinely changes how people think,
-            act and experience the world around them. Most recently, I have
-            been leading brand and visual design for a system-wide reform
-            effort at the United Nations Executive Office of the
-            Secretary-General, making complex institutional work feel clearer.
+            I am drawn to design that genuinely changes how people think, act,
+            and experience the world. Most recently, I have been leading brand
+            and visual design for a system-wide reform effort at the United
+            Nations Executive Office of the Secretary-General, making complex
+            institutional work feel clearer.
           </p>
           <p className={styles.body}>
             I believe design builds trust in work that matters.
