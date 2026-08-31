@@ -13,6 +13,7 @@ import { Route as Unga80RouteImport } from './routes/unga80'
 import { Route as Un80RouteImport } from './routes/un80'
 import { Route as PlayRouteImport } from './routes/play'
 import { Route as KaaroRouteImport } from './routes/kaaro'
+import { Route as IntegratedCareForChildrenRouteImport } from './routes/integrated-care-for-children'
 import { Route as InTheLoopRouteImport } from './routes/in-the-loop'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -37,6 +38,12 @@ const KaaroRoute = KaaroRouteImport.update({
   path: '/kaaro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntegratedCareForChildrenRoute =
+  IntegratedCareForChildrenRouteImport.update({
+    id: '/integrated-care-for-children',
+    path: '/integrated-care-for-children',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const InTheLoopRoute = InTheLoopRouteImport.update({
   id: '/in-the-loop',
   path: '/in-the-loop',
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
@@ -76,6 +85,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/in-the-loop': typeof InTheLoopRoute
+  '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
@@ -87,17 +97,27 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/in-the-loop'
+    | '/integrated-care-for-children'
     | '/kaaro'
     | '/play'
     | '/un80'
     | '/unga80'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/in-the-loop' | '/kaaro' | '/play' | '/un80' | '/unga80'
+  to:
+    | '/'
+    | '/about'
+    | '/in-the-loop'
+    | '/integrated-care-for-children'
+    | '/kaaro'
+    | '/play'
+    | '/un80'
+    | '/unga80'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/in-the-loop'
+    | '/integrated-care-for-children'
     | '/kaaro'
     | '/play'
     | '/un80'
@@ -108,6 +128,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   InTheLoopRoute: typeof InTheLoopRoute
+  IntegratedCareForChildrenRoute: typeof IntegratedCareForChildrenRoute
   KaaroRoute: typeof KaaroRoute
   PlayRoute: typeof PlayRoute
   Un80Route: typeof Un80Route
@@ -144,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KaaroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/integrated-care-for-children': {
+      id: '/integrated-care-for-children'
+      path: '/integrated-care-for-children'
+      fullPath: '/integrated-care-for-children'
+      preLoaderRoute: typeof IntegratedCareForChildrenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/in-the-loop': {
       id: '/in-the-loop'
       path: '/in-the-loop'
@@ -172,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   InTheLoopRoute: InTheLoopRoute,
+  IntegratedCareForChildrenRoute: IntegratedCareForChildrenRoute,
   KaaroRoute: KaaroRoute,
   PlayRoute: PlayRoute,
   Un80Route: Un80Route,

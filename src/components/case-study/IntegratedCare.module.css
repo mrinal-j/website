@@ -1,0 +1,27 @@
+/* ============================================================
+   Integrated Care for Children
+   Page-specific styles. Reuses the shared case-study classes from
+   InTheLoop.module.css (hero header, metadata grid) and adds the
+   sections unique to this project. Page-scoped tokens live on
+   .integratedCare so the whole page can be re-themed from one place.
+   ============================================================ */
+.integratedCare {
+  --ic-ink: #111;
+}
+
+/* A generic light section wrapper with the page's aligned side padding. */
+.section {
+  padding: 88px var(--page-side-padding);
+  background-color: var(--bg-primary);
+}
+
+/* Body copy sits at about three quarters of the content width so the lines
+   stay short enough to read comfortably. */
+.body {
+  max-width: 75%;
+}
+@media (max-width: 768px) {
+  .body {
+    max-width: 100%;
+  }
+}
