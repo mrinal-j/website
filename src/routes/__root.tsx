@@ -7,6 +7,7 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 import { SmoothScroll } from '~/components/SmoothScroll'
+import { ScrollBehavior } from '~/components/ScrollBehavior'
 
 import globalsCss from '~/styles/globals.css?url'
 
@@ -30,6 +31,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <SmoothScroll />
+      <ScrollBehavior />
       <Outlet />
     </RootDocument>
   )
@@ -47,14 +49,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
           }}
         />
         <HeadContent />
-        <script
-          // Disable the browser's automatic scroll restoration so every refresh
-          // starts at the top of the page (the hero section).
-          dangerouslySetInnerHTML={{
-            __html:
-              "if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);",
-          }}
-        />
       </head>
       <body>
         {children}
