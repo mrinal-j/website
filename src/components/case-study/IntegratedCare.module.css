@@ -1,12 +1,15 @@
 /* ============================================================
    Integrated Care for Children
    Page-specific styles. Reuses the shared case-study classes from
-   InTheLoop.module.css (hero header, metadata grid) and adds the
-   sections unique to this project. Page-scoped tokens live on
-   .integratedCare so the whole page can be re-themed from one place.
+   InTheLoop.module.css (page shell, hero header, metadata grid) and
+   adds the sections unique to this project. Page-scoped tokens live
+   on .integratedCare so the whole page can be re-themed from one
+   place once the final palette is set.
    ============================================================ */
 .integratedCare {
-  --ic-ink: #111;
+  /* Placeholder accent until the identity's own colour is chosen.
+     Swap this one value and the whole page follows. */
+  --ic-accent: #4450ea;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
@@ -14,14 +17,471 @@
   padding: 88px var(--page-side-padding);
   background-color: var(--bg-primary);
 }
+.sectionAlt {
+  background-color: var(--bg-secondary);
+}
+.sectionLabelWrap {
+  margin-bottom: 48px;
+}
 
-/* Body copy sits at about three quarters of the content width so the lines
-   stay short enough to read comfortably. */
-.body {
+/* Section headline: the one-line argument that opens a section. */
+.sectionHeadline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 32px;
+  max-width: 75%;
+}
+
+/* Body copy. Capped at three quarters of the content width so the
+   lines stay short enough to read comfortably. */
+.bodyText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 75%;
+}
+.bodyText + .bodyText {
+  margin-top: 20px;
+}
+/* The one sentence in a section that carries the argument. */
+.bodyLead {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 56px var(--page-side-padding);
+  }
+  .sectionHeadline,
+  .bodyText {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   HERO BANNER — full-width edge-to-edge band holding the finished
+   mark and nothing else. Wordless on purpose: it gives the reader
+   something to hold before the argument starts, and because it makes
+   no claim it cannot pre-empt one.
+   ============================================================ */
+.bannerBand {
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  line-height: 0;
+}
+.bannerImg {
+  display: block;
+  width: 100%;
+  height: clamp(280px, 46vh, 460px);
+  object-fit: cover;
+}
+.bannerPh {
+  height: clamp(280px, 46vh, 460px);
+}
+@media (max-width: 768px) {
+  .bannerImg,
+  .bannerPh {
+    height: clamp(200px, 32vh, 280px);
+  }
+}
+
+/* ============================================================
+   Placeholder tile — a striped box that reads as "image to come".
+   Swap these for the real artwork as the assets come in.
+   ============================================================ */
+.ph {
+  background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0 8px, rgba(0, 0, 0, 0.02) 8px 16px);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.02em;
+  padding: 16px;
+}
+/* Standard placeholder heights for the three shapes used on the page. */
+.phWide { width: 100%; height: clamp(260px, 42vw, 520px); }
+.phHalf { width: 100%; height: clamp(220px, 26vw, 340px); }
+.phSquare { width: 100%; aspect-ratio: 1 / 1; }
+
+/* ============================================================
+   OVERVIEW — a single large statement, the way the other case
+   studies open.
+   ============================================================ */
+.overviewText {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 155%;
+  color: var(--text-primary);
+  margin: 0;
+  max-width: 75%;
+}
+.overviewText span {
+  color: var(--ic-accent);
+}
+@media (max-width: 768px) {
+  .overviewText {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   WHY IT EXISTS — the emotional beat. Copy on the left, the
+   single-window diagram on the right.
+   ============================================================ */
+.whyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.whyGrid .bodyText {
+  max-width: 100%;
+}
+@media (max-width: 900px) {
+  .whyGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* The journey illustration sitting beside the Why It Exists copy. */
+.journeyFigure {
+  margin: 0;
+  border-radius: var(--radius-card);
+  background: var(--bg-primary);
+  padding: 24px;
+  border: 1px solid var(--bg-tertiary);
+}
+.journeyImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   THE ASK — the brief itself, set apart in a tinted box so it reads
+   as the thing that was handed over rather than as narration. The
+   section label sits inside the box, so it runs without its line.
+   ============================================================ */
+.askBox {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  margin-bottom: 56px;
+  max-width: 75%;
+}
+.askText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  /* A step up from the page's body size, matching .bodyLead. */
+  font-size: 1.125rem;
+  line-height: 175%;
+  color: var(--text-primary);
+  margin: 24px 0 0;
+}
+@media (max-width: 768px) {
+  .askBox {
+    max-width: 100%;
+    padding: 28px;
+  }
+}
+
+/* ============================================================
+   THE DESIGN PROBLEM — four tensions in a numbered row, matching
+   the pattern used on the UN80 page.
+   ============================================================ */
+.problemGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 64px;
+}
+.problemNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ic-accent);
+  border-radius: 50%;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--ic-accent);
+  margin-bottom: 22px;
+}
+.problemTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 135%;
+  color: var(--ic-accent);
+  margin: 0 0 10px;
+}
+.problemText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .problemGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+}
+@media (max-width: 560px) {
+  .problemGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   BRAND STRATEGY — the positioning line, then the four attributes.
+   ============================================================ */
+.positioning {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.375rem);
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+  max-width: 75%;
+}
+.attributeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 72px;
+  border-top: 1px solid var(--bg-tertiary);
+  padding-top: 40px;
+}
+.attributeName {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--ic-accent);
+  margin: 0 0 10px;
+}
+.attributeText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+/* The value running under all four attributes. */
+.underneath {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--bg-tertiary);
+}
+@media (max-width: 900px) {
+  .attributeGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+  .positioning {
+    max-width: 100%;
+  }
+}
+@media (max-width: 560px) {
+  .attributeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   VISUAL TERRITORY — named clusters rather than one undifferentiated
+   reference wall, each captioned with what it offered and what it
+   risked.
+   ============================================================ */
+.territoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 56px;
+}
+.territoryName {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin: 20px 0 8px;
+}
+.caption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 160%;
+  color: var(--text-muted);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .territoryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   LOGO EXPLORATION — the routes that were tried and dropped, each
+   with the specific reason it failed. One route per row so the
+   reasoning reads as reasoning rather than a gallery.
+   ============================================================ */
+.routeRow {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--bg-tertiary);
+}
+.routeRow:first-of-type {
+  border-top: 1px solid var(--bg-tertiary);
+}
+.routeName {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+.routeText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 170%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+/* The reason a route was set aside. Marked so it reads as the verdict. */
+.routeVerdict {
+  margin-top: 14px;
+  color: var(--text-primary);
+}
+@media (max-width: 900px) {
+  .routeRow {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ============================================================
+   THE IDENTITY — the payoff. Full-bleed mark, then the system laid
+   out piece by piece.
+   ============================================================ */
+.markBand {
+  width: 100%;
+  padding: 96px var(--page-side-padding);
+  background: var(--bg-secondary);
+}
+.specTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin: 72px 0 8px;
+}
+.specTitle:first-of-type {
+  margin-top: 0;
+}
+.specCaption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  margin: 0 0 28px;
+  max-width: 75%;
+}
+/* Lockups, applications and other even runs of tiles. */
+.tileRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.tileRowThree {
+  grid-template-columns: repeat(3, 1fr);
+}
+.tileRowTwo {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 900px) {
+  .tileRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* The palette, shown as swatch pills with their reason underneath. */
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.pillItem {
+  width: 120px;
+}
+.pill {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.pillName {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  margin: 10px 0 2px;
+}
+.pillHex {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   WHERE IT STANDS — the honest close. No manufactured outcome.
+   ============================================================ */
+.standing {
+  padding: 96px var(--page-side-padding);
+  background: var(--bg-secondary);
+}
+.standingHeadline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  line-height: 140%;
+  color: var(--text-primary);
+  margin: 0 0 24px;
   max-width: 75%;
 }
 @media (max-width: 768px) {
-  .body {
+  .standing {
+    padding: 56px var(--page-side-padding);
+  }
+  .standingHeadline {
     max-width: 100%;
   }
 }
