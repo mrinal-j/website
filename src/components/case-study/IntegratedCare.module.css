@@ -344,79 +344,230 @@
 }
 
 /* ============================================================
-   THE IDENTITY — the payoff. Full-bleed mark, then the system laid
-   out piece by piece.
+   THE IDENTITY — one bento grid rather than a run of separate
+   sections. It sits inside the page's usual margins and carries the
+   standard card radius as a single unit: the tiles butt together and
+   the grid's own corners are the only rounded ones.
+
+   The 1px gaps let the grid's background show through as hairlines,
+   which keeps two pale tiles apart without drawing borders on each.
+
+   There is no explanatory copy inside the grid. Each tile carries a
+   small label and the artwork itself, which is how identity guides are
+   normally presented.
    ============================================================ */
-.markBand {
-  width: 100%;
-  padding: 96px var(--page-side-padding);
-  background: var(--bg-secondary);
+.identityHeader {
+  padding: 88px var(--page-side-padding) 40px;
+  background: var(--bg-primary);
 }
-.specTitle {
+.boardWrap {
+  padding: 0 var(--page-side-padding) 88px;
+  background: var(--bg-primary);
+}
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--bg-tertiary); /* shows through as hairlines */
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+/* One panel of the grid. */
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 48px;
+  min-height: 300px;
+}
+/* The grounds, drawn from the palette. */
+.tileCream { background: #FBF4E6; }
+.tileWhite { background: #FFFFFF; }
+.tileNavy  { background: #263474; }
+.tilePh    { background: var(--bg-secondary); }
+
+/* The small label at the top of each tile. */
+.tileLabel {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--text-primary);
-  margin: 72px 0 8px;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
 }
-.specTitle:first-of-type {
-  margin-top: 0;
+.tileLabelLight {
+  color: rgba(255, 255, 255, 0.6);
 }
-.specCaption {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 165%;
-  color: var(--text-secondary);
-  margin: 0 0 28px;
-  max-width: 75%;
+
+/* The artwork. Sized as a share of its tile so each piece fills its
+   panel properly rather than floating in negative space. */
+.tileArt {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-/* Lockups, applications and other even runs of tiles. */
-.tileRow {
+/* Percentages resolve against each tile's content box, so these are the
+   share of the space inside the padding, not of the tile itself. */
+.artPrimary   { max-width: min(880px, 84%); }
+.artSecondary { max-width: 92%; }
+.artMark      { max-width: 92%; }
+/* The construction drawing is deliberately the smallest thing here: it
+   is supporting evidence, not the headline. */
+.artBuild     { max-width: 58%; }
+
+/* ---- The rows of the grid. Columns are deliberately unequal. ---- */
+.rowSecondary,
+.rowBuild,
+.rowApps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 1px;
 }
-.tileRowThree {
-  grid-template-columns: repeat(3, 1fr);
-}
-.tileRowTwo {
-  grid-template-columns: repeat(2, 1fr);
-}
+.rowSecondary { grid-template-columns: 1.45fr 1fr; }
+/* Construction narrow, palette wide. */
+.rowBuild { grid-template-columns: 0.78fr 1.22fr; }
+.rowApps { grid-template-columns: repeat(3, 1fr); }
+
 @media (max-width: 900px) {
-  .tileRow {
+  .rowSecondary,
+  .rowBuild,
+  .rowApps {
+    grid-template-columns: 1fr;
+  }
+  .tile {
+    min-height: 240px;
+    padding: 56px 24px;
+  }
+  .artPrimary { max-width: 94%; }
+  .artMark { max-width: 72%; }
+  .artBuild { max-width: 54%; }
+}
+
+/* ---- Palette ----
+   The colour fills its half of the row: six blocks butted together with
+   no padding around them, each carrying only its hex. Nothing else is
+   in this tile, so the colour itself is the whole statement. ---- */
+.tilePalette {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  min-height: 300px;
+}
+.swatchBlock {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 8px;
+  min-height: 0;
+}
+.swatchHex {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+/* On the pale blocks the hex has to flip to dark type. */
+.swatchHexDark {
+  color: rgba(0, 0, 0, 0.6);
+}
+@media (max-width: 560px) {
+  .tilePalette {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 
-/* The palette, shown as swatch pills with their reason underneath. */
-.pillRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+/* ---- Typography, as a face-to-role map ----
+   NOTE: Clash Grotesk and Nunito are not self-hosted on this site yet, so
+   these specimens currently fall back to the page's own faces. Drop the
+   woff2 files into /public/fonts, add the @font-face rules in globals.css,
+   and this renders correctly with no change here. */
+.tileType {
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
-.pillItem {
-  width: 120px;
-}
-.pill {
+.typeMap {
   width: 100%;
-  height: 120px;
-  border-radius: var(--radius-card);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
-.pillName {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.8125rem;
+.typeMapRow {
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.typeClash { font-family: "Clash Grotesk", var(--font-sans); }
+.typeNunito { font-family: "Nunito", var(--font-body); }
+.typeSemibold.typeSemibold { font-weight: 600; }
+
+.typeMapFace {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-align: right;
+}
+/* The connecting rule between a face and what it is used for. */
+.typeMapArrow {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+.typeMapArrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  border-left: 6px solid rgba(0, 0, 0, 0.25);
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+}
+.typeMapUse {
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 120%;
   color: var(--text-primary);
-  margin: 10px 0 2px;
 }
-.pillHex {
+.typeMapBody {
+  font-size: 0.8125rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .typeMapRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+  .typeMapFace { text-align: center; }
+  .typeMapArrow { display: none; }
+}
+
+/* Placeholder box for an application still to be made. */
+.tilePhBox {
+  width: 100%;
+  height: 170px;
+  border-radius: var(--radius-card);
+  background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0 8px, rgba(0, 0, 0, 0.02) 8px 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--text-muted);
-  margin: 0;
-  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================================

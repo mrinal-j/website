@@ -97,6 +97,18 @@ const ROUTES = [
   },
 ]
 
+// The palette, as supplied. The navy is the ground the reversed lockup sits
+// on; the warm three are the gradient the mark is drawn in.
+// `light` marks the blocks pale enough to need dark type on them.
+const PALETTE = [
+  { hex: '#000000' },
+  { hex: '#263474' },
+  { hex: '#F04F39' },
+  { hex: '#F6A9BE', light: true },
+  { hex: '#FEC661', light: true },
+  { hex: '#FFFFFF', light: true },
+]
+
 // TODO: replace with the real reflections. The strongest thread available:
 // designing something permanent for a service with no history, for a family
 // you have not met, that first has to survive a room it was not designed for.
@@ -204,29 +216,31 @@ function IntegratedCarePage() {
           <div className={c.whyGrid}>
             <div>
               <p className={`${c.bodyText} ${c.bodyLead}`}>
-                A child with cerebral palsy in rural Karnataka may need an
-                orthopaedic surgeon, an occupational therapist, an audiologist
-                and a psychiatrist.
+                A child with cerebral palsy in rural Karnataka may need a
+                paediatrician, an orthopaedic surgeon, an occupational
+                therapist, an audiologist and a psychiatrist.
               </p>
               <p className={c.bodyText}>
-                That means four departments, four appointments, four separate
-                days, and for a family earning daily wages, four days of lost
+                That means five departments, five appointments, five separate
+                days, and for a family earning daily wages, five days of lost
                 income. Each separate visit is a chance to fall out of the
                 system, which most families end up doing.
               </p>
               <p className={c.bodyText}>
                 The initiative's aim is to make sure this happens within one
-                visit, under a single roof.
+                visit, under a single roof. Every specialist in that room has
+                volunteered their time to be there, so the visit costs the
+                family nothing.
               </p>
             </div>
-            {/* Filler illustration of the current journey: four visits,
-                four days, families falling out at each handover. Swap the
+            {/* Filler illustration of the current journey: five visits,
+                five days, families falling out at each handover. Swap the
                 file at this path to replace it. */}
             <figure className={c.journeyFigure}>
               <img
                 className={c.journeyImg}
                 src="/images/integrated-care-journey.svg"
-                alt="The current journey: four separate hospital visits across four days, one specialty each, with families falling out of the system at each handover."
+                alt="The current journey: five separate hospital visits across five days, one specialty each, with families falling out of the system at each handover."
               />
             </figure>
           </div>
@@ -247,97 +261,133 @@ function IntegratedCarePage() {
           </div>
         </section>
 
-        {/* ============ THE IDENTITY — the outcome, placed up front. The
-             strategy and exploration that produced it follow. ============ */}
-        <section className={c.section}>
+        {/* ============ THE IDENTITY — one continuous board rather than a
+             run of separate sections. Tiles butt edge to edge, each carrying
+             a small label and nothing else: the artwork does the explaining.
+             ============ */}
+        <section className={c.identityHeader}>
           <div className={c.sectionLabelWrap}>
             <SectionLabel title="THE IDENTITY" number="02" />
           </div>
-          <p className={`${c.bodyText} ${c.bodyLead}`}>
-            {/* TODO: what the final mark is, and why it answered both tests.
-                Two or three sentences, then let the images run. */}
-            [What the final mark is, and why it answered both tests: recognisable
-            as theirs by a parent, serious by a surgeon.]
-          </p>
         </section>
 
-        {/* The mark, alone, on its own band. */}
-        <section className={c.markBand}>
-          <div className={`${c.ph} ${c.phWide}`}>The mark, full bleed</div>
-        </section>
+        <section className={c.boardWrap} aria-label="Identity style guide">
+          <div className={c.board}>
+            {/* Row 1 — the primary lockup, the full width of the grid. */}
+            <div className={`${c.tile} ${c.tileWhite}`}>
+              <span className={c.tileLabel}>Primary logo</span>
+              <img
+                className={`${c.tileArt} ${c.artPrimary}`}
+                src="/images/icc-primary-logo.svg"
+                alt="The Integrated Care for Children primary logo: a linked adult and child figure drawn in one continuous warm gradient line, beside the name set in three lines."
+              />
+            </div>
 
-        <section className={c.section}>
-          <h3 className={c.specTitle}>Construction</h3>
-          <p className={c.specCaption}>
-            [The geometry or system underneath the mark.]
-          </p>
-          <div className={`${c.ph} ${c.phWide}`}>Construction drawing</div>
-
-          <h3 className={c.specTitle}>Lockups</h3>
-          <p className={c.specCaption}>
-            Primary, horizontal, stacked, and the symbol on its own.
-          </p>
-          <div className={c.tileRow}>
-            {['Primary', 'Horizontal', 'Stacked', 'Symbol alone'].map((t) => (
-              <div className={`${c.ph} ${c.phSquare}`} key={t}>{t}</div>
-            ))}
-          </div>
-
-          <h3 className={c.specTitle}>Alongside the hospital's identity</h3>
-          <p className={c.specCaption}>
-            The endorsement relationship: distinct enough to be recognised as
-            its own programme, visibly belonging to its host institution.
-          </p>
-          <div className={`${c.ph} ${c.phHalf}`}>Endorsement lockup</div>
-
-          <h3 className={c.specTitle}>Palette</h3>
-          <p className={c.specCaption}>
-            {/* TODO: the anchor colour and its rationale. Worth saying what
-                you moved away from: the paediatric primary-brights and the
-                corporate-hospital blue both fail the positioning, for
-                opposite reasons. */}
-            [Anchor colour and rationale.] Chosen against two tests: does it
-            hold authority next to the hospital's own identity, and does it stay
-            warm printed on uncoated, low-cost stock.
-          </p>
-          <div className={c.pillRow}>
-            {[1, 2, 3, 4].map((n) => (
-              <div className={c.pillItem} key={n}>
-                <div className={`${c.pill} ${c.ph}`}>Swatch</div>
-                <p className={c.pillName}>[Name]</p>
-                <p className={c.pillHex}>#000000</p>
+            {/* Row 2 — the reversed lockup, wider, beside the mark alone. */}
+            <div className={c.rowSecondary}>
+              <div className={`${c.tile} ${c.tileNavy}`}>
+                <span className={`${c.tileLabel} ${c.tileLabelLight}`}>
+                  Secondary logo
+                </span>
+                <img
+                  className={`${c.tileArt} ${c.artSecondary}`}
+                  src="/images/icc-secondary-logo.svg"
+                  alt="The secondary logo: the same lockup reversed out of the deep navy ground."
+                />
               </div>
-            ))}
-          </div>
+              <div className={`${c.tile} ${c.tileWhite}`}>
+                <span className={c.tileLabel}>Logomark</span>
+                <img
+                  className={`${c.tileArt} ${c.artMark}`}
+                  src="/images/icc-logomark.svg"
+                  alt="The logomark on its own: the adult and child figure, without the name."
+                />
+              </div>
+            </div>
 
-          <h3 className={c.specTitle}>Typography</h3>
-          <p className={c.specCaption}>
-            {/* TODO: if the chosen typeface has Kannada or Devanagari
-                coverage, say so and say why. Script support is a specific,
-                contextual decision that shows you understood where this
-                lives. */}
-            [Typeface, and why. Note the script coverage if it has any.]
-          </p>
-          <div className={`${c.ph} ${c.phHalf}`}>Typography in use</div>
+            {/* Row 3 — construction kept small, with the palette taking the
+                wider half beside it. */}
+            <div className={c.rowBuild}>
+              <div className={`${c.tile} ${c.tileNavy}`}>
+                <span className={`${c.tileLabel} ${c.tileLabelLight}`}>
+                  Construction
+                </span>
+                <img
+                  className={`${c.tileArt} ${c.artBuild}`}
+                  src="/images/icc-logo-build.svg"
+                  alt="The construction drawing: the mark laid over the circles its curves are struck from."
+                />
+              </div>
+              {/* The palette fills its half of the row: six blocks butted
+                  together, each carrying only its hex. */}
+              <div className={c.tilePalette}>
+                {PALETTE.map((sw) => (
+                  <div
+                    className={c.swatchBlock}
+                    key={sw.hex}
+                    style={{ backgroundColor: sw.hex }}
+                  >
+                    <span
+                      className={`${c.swatchHex} ${
+                        sw.light ? c.swatchHexDark : ''
+                      }`}
+                    >
+                      {sw.hex}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          <h3 className={c.specTitle}>Supporting elements</h3>
-          <p className={c.specCaption}>
-            [The six-specialty device, pattern, or system element.] This is the
-            most direct visual proof of integration.
-          </p>
-          <div className={`${c.ph} ${c.phWide}`}>Supporting elements</div>
+            {/* Row 4 — typography, the two families and the role each carries. */}
+            <div className={`${c.tile} ${c.tileWhite} ${c.tileType}`}>
+              <span className={c.tileLabel}>Typography</span>
+              <div className={c.typeMap}>
+                <div className={c.typeMapRow}>
+                  <span className={`${c.typeMapFace} ${c.typeClash}`}>
+                    Clash Grotesk Regular
+                  </span>
+                  <span className={c.typeMapArrow} aria-hidden="true" />
+                  <span className={`${c.typeMapUse} ${c.typeClash}`}>
+                    Logotype
+                  </span>
+                </div>
+                <div className={c.typeMapRow}>
+                  <span
+                    className={`${c.typeMapFace} ${c.typeClash} ${c.typeSemibold}`}
+                  >
+                    Clash Grotesk Semibold
+                  </span>
+                  <span className={c.typeMapArrow} aria-hidden="true" />
+                  <span
+                    className={`${c.typeMapUse} ${c.typeClash} ${c.typeSemibold}`}
+                  >
+                    Heading
+                  </span>
+                </div>
+                <div className={c.typeMapRow}>
+                  <span className={`${c.typeMapFace} ${c.typeNunito}`}>
+                    Nunito Regular
+                  </span>
+                  <span className={c.typeMapArrow} aria-hidden="true" />
+                  <p className={`${c.typeMapBody} ${c.typeNunito}`}>
+                    Body text. A single window of voluntary care for disabled
+                    and underprivileged children, bringing six specialties into
+                    one visit under one roof.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-          <h3 className={c.specTitle}>Built to survive its own conditions</h3>
-          <p className={c.specCaption}>
-            Minimum size, clear space, single colour and reversed: proof it
-            works on a flyer footer and on a badge. [If true: the mark had to
-            survive a photocopier and a WhatsApp compression before anything
-            else. Both were tested early, and both eliminated routes.]
-          </p>
-          <div className={`${c.tileRow} ${c.tileRowThree}`}>
-            {['Single colour', 'Reversed', 'Minimum size'].map((t) => (
-              <div className={`${c.ph} ${c.phSquare}`} key={t}>{t}</div>
-            ))}
+            {/* Row 5 — applications, to come. */}
+            <div className={c.rowApps}>
+              {['Room signage', 'Child\u2019s file', 'ID badge'].map((t) => (
+                <div className={`${c.tile} ${c.tilePh}`} key={t}>
+                  <span className={c.tileLabel}>{t}</span>
+                  <div className={c.tilePhBox}>Mockup to come</div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
