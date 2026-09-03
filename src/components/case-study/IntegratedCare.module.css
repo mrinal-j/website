@@ -433,13 +433,23 @@
 .rowSecondary { grid-template-columns: 1.45fr 1fr; }
 /* Construction narrow, palette wide. */
 .rowBuild { grid-template-columns: 0.78fr 1.22fr; }
-.rowApps { grid-template-columns: repeat(3, 1fr); }
+.rowApps { grid-template-columns: 1.6fr 1fr; }
+/* The remaining placeholders stack beside the photograph. */
+.rowAppsStack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1px;
+  background: var(--bg-tertiary);
+}
 
 @media (max-width: 900px) {
   .rowSecondary,
   .rowBuild,
   .rowApps {
     grid-template-columns: 1fr;
+  }
+  .tilePhoto {
+    min-height: 260px;
   }
   .tile {
     min-height: 240px;
@@ -553,13 +563,38 @@
     text-align: center;
   }
   .typeMapFace { text-align: center; }
+  /* The connecting arrow only makes sense across two columns. */
   .typeMapArrow { display: none; }
+  /* With the arrows gone the specimens run together, so each one after
+     the first takes a rule above it. */
+  .typeMapRow + .typeMapRow {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-top: 30px;
+  }
+}
+
+/* A photographic application fills its tile: no padding, the image
+   cropped to the panel, with the label sitting over it. */
+.tilePhoto {
+  padding: 0;
+  overflow: hidden;
+  background: #263474;
+}
+.tilePhotoImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Placeholder box for an application still to be made. */
+.rowAppsStack .tile {
+  min-height: 0;
+  padding: 48px 32px;
+}
 .tilePhBox {
   width: 100%;
-  height: 170px;
+  height: 100px;
   border-radius: var(--radius-card);
   background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0 8px, rgba(0, 0, 0, 0.02) 8px 16px);
   display: flex;

@@ -305,41 +305,7 @@ function IntegratedCarePage() {
               </div>
             </div>
 
-            {/* Row 3 — construction kept small, with the palette taking the
-                wider half beside it. */}
-            <div className={c.rowBuild}>
-              <div className={`${c.tile} ${c.tileNavy}`}>
-                <span className={`${c.tileLabel} ${c.tileLabelLight}`}>
-                  Construction
-                </span>
-                <img
-                  className={`${c.tileArt} ${c.artBuild}`}
-                  src="/images/icc-logo-build.svg"
-                  alt="The construction drawing: the mark laid over the circles its curves are struck from."
-                />
-              </div>
-              {/* The palette fills its half of the row: six blocks butted
-                  together, each carrying only its hex. */}
-              <div className={c.tilePalette}>
-                {PALETTE.map((sw) => (
-                  <div
-                    className={c.swatchBlock}
-                    key={sw.hex}
-                    style={{ backgroundColor: sw.hex }}
-                  >
-                    <span
-                      className={`${c.swatchHex} ${
-                        sw.light ? c.swatchHexDark : ''
-                      }`}
-                    >
-                      {sw.hex}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Row 4 — typography, the two families and the role each carries. */}
+            {/* Row 3 — typography, the two families and the role each carries. */}
             <div className={`${c.tile} ${c.tileWhite} ${c.tileType}`}>
               <span className={c.tileLabel}>Typography</span>
               <div className={c.typeMap}>
@@ -371,22 +337,64 @@ function IntegratedCarePage() {
                   </span>
                   <span className={c.typeMapArrow} aria-hidden="true" />
                   <p className={`${c.typeMapBody} ${c.typeNunito}`}>
-                    Body text. A single window of voluntary care for disabled
-                    and underprivileged children, bringing six specialties into
-                    one visit under one roof.
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                    magna aliquam erat.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Row 5 — applications, to come. */}
+            {/* Row 4 — construction kept small, with the palette taking the
+                wider half beside it. */}
+            <div className={c.rowBuild}>
+              <div className={`${c.tile} ${c.tileNavy}`}>
+                <img
+                  className={`${c.tileArt} ${c.artBuild}`}
+                  src="/images/icc-logo-build.svg"
+                  alt="The construction drawing: the mark laid over the circles its curves are struck from."
+                />
+              </div>
+              {/* The palette fills its half of the row: six blocks butted
+                  together, each carrying only its hex. */}
+              <div className={c.tilePalette}>
+                {PALETTE.map((sw) => (
+                  <div
+                    className={c.swatchBlock}
+                    key={sw.hex}
+                    style={{ backgroundColor: sw.hex }}
+                  >
+                    <span
+                      className={`${c.swatchHex} ${
+                        sw.light ? c.swatchHexDark : ''
+                      }`}
+                    >
+                      {sw.hex}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Row 5 — the first real application, with the rest still to
+                come. The photograph fills its tile rather than sitting in
+                padding, so it reads as a picture and not as artwork. */}
             <div className={c.rowApps}>
-              {['Room signage', 'Child\u2019s file', 'ID badge'].map((t) => (
-                <div className={`${c.tile} ${c.tilePh}`} key={t}>
-                  <span className={c.tileLabel}>{t}</span>
-                  <div className={c.tilePhBox}>Mockup to come</div>
-                </div>
-              ))}
+              <div className={`${c.tile} ${c.tilePhoto}`}>
+                <img
+                  className={c.tilePhotoImg}
+                  src="/images/icc-coat-mockup.webp"
+                  alt="A doctor's white coat with the Integrated Care for Children logo embroidered on the chest."
+                />
+              </div>
+              <div className={c.rowAppsStack}>
+                {['Room signage', 'ID badge'].map((t) => (
+                  <div className={`${c.tile} ${c.tilePh}`} key={t}>
+                    <span className={c.tileLabel}>{t}</span>
+                    <div className={c.tilePhBox}>Mockup to come</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
