@@ -185,6 +185,16 @@
   margin-bottom: 56px;
   max-width: 75%;
 }
+.askBoxCentered {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+/* The label inside a centred box needs centring too: it is a flex row. */
+.askBoxCentered > div {
+  justify-content: center;
+}
+
 .askText {
   font-family: var(--font-body);
   font-weight: 400;
@@ -198,58 +208,6 @@
   .askBox {
     max-width: 100%;
     padding: 28px;
-  }
-}
-
-/* ============================================================
-   THE DESIGN PROBLEM — four tensions in a numbered row, matching
-   the pattern used on the UN80 page.
-   ============================================================ */
-.problemGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  margin-top: 64px;
-}
-.problemNum {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--ic-accent);
-  border-radius: 50%;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.9375rem;
-  color: var(--ic-accent);
-  margin-bottom: 22px;
-}
-.problemTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 135%;
-  color: var(--ic-accent);
-  margin: 0 0 10px;
-}
-.problemText {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 160%;
-  color: var(--text-secondary);
-  margin: 0;
-}
-@media (max-width: 900px) {
-  .problemGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 24px;
-  }
-}
-@media (max-width: 560px) {
-  .problemGrid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -462,26 +420,40 @@
 }
 
 /* ============================================================
-   WHERE IT STANDS — the honest close. No manufactured outcome.
+   REFLECTIONS — the honest close. Each note is set off by a rule down
+   its left edge, the same idiom used on the In The Loop page.
    ============================================================ */
-.standing {
-  padding: 96px var(--page-side-padding);
-  background: var(--bg-secondary);
-}
-.standingHeadline {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
-  line-height: 140%;
-  color: var(--text-primary);
-  margin: 0 0 24px;
+.reflectionsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
   max-width: 75%;
 }
+.reflectionItem {
+  border-left: 3px solid var(--ic-accent);
+  padding-left: 28px;
+}
+.reflectionTitle {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 130%;
+  color: var(--text-primary);
+  margin: 0 0 14px;
+}
+.reflectionBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+  margin: 0;
+}
 @media (max-width: 768px) {
-  .standing {
-    padding: 56px var(--page-side-padding);
-  }
-  .standingHeadline {
+  .reflectionsContent {
     max-width: 100%;
+  }
+  .reflectionItem {
+    padding-left: 20px;
   }
 }

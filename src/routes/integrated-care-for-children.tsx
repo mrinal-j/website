@@ -97,6 +97,24 @@ const ROUTES = [
   },
 ]
 
+// TODO: replace with the real reflections. The strongest thread available:
+// designing something permanent for a service with no history, for a family
+// you have not met, that first has to survive a room it was not designed for.
+const REFLECTIONS = [
+  {
+    title: '[Reflection one]',
+    body: '[Designing something permanent for a service that has no history yet.]',
+  },
+  {
+    title: '[Reflection two]',
+    body: '[Designing for a family you have not met, in a room that has not opened.]',
+  },
+  {
+    title: '[Reflection three]',
+    body: '[What you would carry into the next piece of work like this.]',
+  },
+]
+
 function IntegratedCarePage() {
   const mainRef = useRef<HTMLElement>(null)
   // Each top-level <section> fades and rises in as it enters the viewport.
@@ -165,7 +183,7 @@ function IntegratedCarePage() {
           <p className={c.overviewText}>
             Integrated Care for Children brings six specialties under a{' '}
             <span>single window of voluntary care</span> for disabled and
-            underprivileged children at [Hospital] in Karnataka, India.
+            underprivileged children at a private hospital in Karnataka, India.
           </p>
           <p className={c.bodyText} style={{ marginTop: '32px' }}>
             The initiative runs entirely on donated time and goodwill:
@@ -198,7 +216,7 @@ function IntegratedCarePage() {
               </p>
               <p className={c.bodyText}>
                 The initiative's aim is to make sure this happens within one
-                visit, under a single roof. Not more care. Joined-up care.
+                visit, under a single roof.
               </p>
             </div>
             {/* Filler illustration of the current journey: four visits,
@@ -218,7 +236,7 @@ function IntegratedCarePage() {
         <section className={c.section}>
           {/* The brief itself, set apart in a coloured box. The label sits
               inside the box, so it runs without its trailing line. */}
-          <div className={c.askBox}>
+          <div className={`${c.askBox} ${c.askBoxCentered}`}>
             <SectionLabel title="THE ASK" noLine />
             <p className={c.askText}>
               To build the visual language and identity for the initiative
@@ -227,172 +245,13 @@ function IntegratedCarePage() {
               hospital administration and to prospective donors.
             </p>
           </div>
-          <h2 className={c.sectionHeadline}>
-            It had to work in a boardroom next month and in a corridor in ten
-            years, and those are not the same brief.
-          </h2>
-          <p className={c.bodyText}>
-            The initiative arrived named. "Integrated Care for Children" was set
-            by the founding team, and the name is unusually clear about what it
-            offers, six specialties and one door, so the work began downstream
-            of naming.
-          </p>
-          <p className={c.bodyText}>
-            That created the defining constraint. The flyer is a first pitch,
-            but the identity is not a pitch asset. Assuming approval, it stays.
-            It would go on signage, on a child's file, on the door of the room,
-            for as long as the initiative runs.
-          </p>
         </section>
 
-        {/* ============ THE DESIGN PROBLEM ============ */}
+        {/* ============ THE IDENTITY — the outcome, placed up front. The
+             strategy and exploration that produced it follow. ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="THE DESIGN PROBLEM" number="03" />
-          </div>
-          <h2 className={c.sectionHeadline}>Four tensions, held at once.</h2>
-          <div className={c.problemGrid}>
-            {PROBLEMS.map((p, i) => (
-              <div key={p.title}>
-                <div className={c.problemNum}>{i + 1}</div>
-                <h3 className={c.problemTitle}>{p.title}</h3>
-                <p className={c.problemText}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ============ WHO IT'S FOR — the audience argument, and the page's
-             strongest observation. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="WHO IT'S FOR" number="04" />
-          </div>
-          <h2 className={c.sectionHeadline}>
-            The identity was designed for families, but its first real test was
-            a room of administrators.
-          </h2>
-          <p className={c.bodyText}>
-            The identity is designed for the children and the families who bring
-            them. They are who it exists for, and they are who will live with
-            it: on the door, on the file, on the wall of the room they wait in.
-          </p>
-          <p className={c.bodyText}>
-            But at proposal stage, they are not the first people to see it. The
-            flyer reaches a hospital board and a set of prospective donors long
-            before it reaches a parent. That produced a question worth being
-            deliberate about. Does designing for families cost the initiative
-            credibility with the people funding it?
-          </p>
-          <p className={`${c.bodyText} ${c.bodyLead}`}>
-            It does not, and assuming it does is how healthcare initiatives end
-            up with identities that look like insurance companies. A funding
-            committee is not looking for a brand that flatters funders. It is
-            looking for evidence that the initiative understands the child it
-            claims to serve. Warmth, dignity and clarity are the argument.
-          </p>
-          <p className={c.bodyText}>
-            Where the second audience legitimately shaped the work was in
-            standard rather than direction. It had to be precisely built,
-            consistent, and correct in a single colour on cheap uncoated paper,
-            because a programme that looks carelessly made suggests it will be
-            carelessly run, and that is the one impression a volunteer surgeon
-            cannot be given.
-          </p>
-          <p className={c.bodyText}>
-            One identity, two registers. The mark stays constant. The flyer
-            translates it into the language of a programme: structure,
-            specifics, proof of model. That separation is why the flyer reads
-            institutionally without the identity having to.
-          </p>
-        </section>
-
-        {/* ============ BRAND STRATEGY ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="BRAND STRATEGY" number="05" />
-          </div>
-          <p className={c.positioning}>An initiative held together by goodwill.</p>
-          <p className={c.bodyText}>
-            Care that runs on volunteered expertise, donated support and the
-            hospital's own space, organised around the family rather than the
-            department, and built to last.
-          </p>
-
-          <div className={c.attributeGrid}>
-            {ATTRIBUTES.map((a) => (
-              <div key={a.name}>
-                <h3 className={c.attributeName}>{a.name}</h3>
-                <p className={c.attributeText}>{a.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className={c.underneath}>
-            <p className={`${c.bodyText} ${c.bodyLead}`}>
-              Running underneath all four: dignity. The initiative serves
-              families who are used to being processed. The identity's quiet job
-              is to make the encounter feel like care, not charity.
-            </p>
-          </div>
-        </section>
-
-        {/* ============ VISUAL TERRITORY — named clusters, not one
-             undifferentiated reference wall. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="VISUAL TERRITORY" number="06" />
-          </div>
-          <p className={c.bodyText}>
-            {/* TODO: the synthesis line. The specific intersection taken
-                forward is the most valuable sentence in this section. */}
-            [The synthesis line: the specific intersection of these territories
-            that was taken forward.]
-          </p>
-          <div className={c.territoryGrid}>
-            {TERRITORIES.map((t) => (
-              <div key={t.name}>
-                <div className={`${c.ph} ${c.phSquare}`}>{t.name}</div>
-                <h3 className={c.territoryName}>{t.name}</h3>
-                <p className={c.caption}>{t.caption}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ============ LOGO EXPLORATION — routes and why they failed, each
-             judged against the same single question. ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="LOGO EXPLORATION" number="07" />
-          </div>
-          <h2 className={c.sectionHeadline}>
-            Would a parent recognise this as theirs, and would a surgeon
-            recognise it as serious?
-          </h2>
-          <p className={c.bodyText}>
-            Every route was tested against that same question. Most failed one
-            or the other.
-          </p>
-          <div style={{ marginTop: '48px' }}>
-            {ROUTES.map((r) => (
-              <div className={c.routeRow} key={r.name}>
-                <div>
-                  <h3 className={c.routeName}>{r.name}</h3>
-                  <p className={c.routeText}>{r.reaching}</p>
-                  <p className={`${c.routeText} ${c.routeVerdict}`}>{r.verdict}</p>
-                </div>
-                <div className={`${c.ph} ${c.phHalf}`}>{r.name} explorations</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ============ THE IDENTITY — the payoff. Everything above has been
-             argument; this is where it resolves. ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="THE IDENTITY" number="08" />
+            <SectionLabel title="THE IDENTITY" number="02" />
           </div>
           <p className={`${c.bodyText} ${c.bodyLead}`}>
             {/* TODO: what the final mark is, and why it answered both tests.
@@ -486,7 +345,7 @@ function IntegratedCarePage() {
              boardroom. ============ */}
         <section className={`${c.section} ${c.sectionAlt}`}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="THE FLYER" number="09" />
+            <SectionLabel title="THE FLYER" number="03" />
           </div>
           <h2 className={c.sectionHeadline}>
             The same identity, switched into an institutional register.
@@ -529,36 +388,101 @@ function IntegratedCarePage() {
           </div>
         </section>
 
-        {/* ============ WHERE IT STANDS — an honest close. A proposal-stage
-             project closes well if it closes honestly. ============ */}
-        <section className={c.standing}>
+        {/* ============ BRAND STRATEGY ============ */}
+        <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="WHERE IT STANDS" number="10" />
+            <SectionLabel title="BRAND STRATEGY" number="04" />
           </div>
-          <p className={c.standingHeadline}>
-            The identity exists ahead of the service it names, which was always
-            the condition of the work.
-          </p>
+          <p className={c.positioning}>An initiative held together by goodwill.</p>
           <p className={c.bodyText}>
-            The initiative is currently with [the hospital administration /
-            prospective funding partners] for approval.
+            Care that runs on volunteered expertise, donated support and the
+            hospital's own space, organised around the family rather than the
+            department, and built to last.
           </p>
+
+          <div className={c.attributeGrid}>
+            {ATTRIBUTES.map((a) => (
+              <div key={a.name}>
+                <h3 className={c.attributeName}>{a.name}</h3>
+                <p className={c.attributeText}>{a.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className={c.underneath}>
+            <p className={`${c.bodyText} ${c.bodyLead}`}>
+              Running underneath all four: dignity. The initiative serves
+              families who are used to being processed. The identity's quiet job
+              is to make the encounter feel like care, not charity.
+            </p>
+          </div>
+        </section>
+
+        {/* ============ VISUAL TERRITORY — named clusters, not one
+             undifferentiated reference wall. ============ */}
+        <section className={`${c.section} ${c.sectionAlt}`}>
+          <div className={c.sectionLabelWrap}>
+            <SectionLabel title="VISUAL TERRITORY" number="05" />
+          </div>
           <p className={c.bodyText}>
-            {/* TODO: any real signal. Board response, a specialist who
-                committed, a conversation the flyer opened. One true sentence
-                beats a paragraph of speculation. */}
-            [One true signal, if there is one.]
+            {/* TODO: the synthesis line. The specific intersection taken
+                forward is the most valuable sentence in this section. */}
+            [The synthesis line: the specific intersection of these territories
+            that was taken forward.]
           </p>
-          <h3 className={c.specTitle}>What I'd carry forward</h3>
-          <p className={c.specCaption}>
-            {/* TODO: two or three honest lines. The strongest thread
-                available: designing something permanent for a service with no
-                history, for a family you have not met, that first has to
-                survive a room it was not designed for. */}
-            [Two or three honest lines on designing something permanent for a
-            service with no history, for a family you have not met, that first
-            has to survive a room it was not designed for.]
+          <div className={c.territoryGrid}>
+            {TERRITORIES.map((t) => (
+              <div key={t.name}>
+                <div className={`${c.ph} ${c.phSquare}`}>{t.name}</div>
+                <h3 className={c.territoryName}>{t.name}</h3>
+                <p className={c.caption}>{t.caption}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ============ LOGO EXPLORATION — routes and why they failed, each
+             judged against the same single question. ============ */}
+        <section className={c.section}>
+          <div className={c.sectionLabelWrap}>
+            <SectionLabel title="LOGO EXPLORATION" number="06" />
+          </div>
+          <h2 className={c.sectionHeadline}>
+            Would a parent recognise this as theirs, and would a surgeon
+            recognise it as serious?
+          </h2>
+          <p className={c.bodyText}>
+            Every route was tested against that same question. Most failed one
+            or the other.
           </p>
+          <div style={{ marginTop: '48px' }}>
+            {ROUTES.map((r) => (
+              <div className={c.routeRow} key={r.name}>
+                <div>
+                  <h3 className={c.routeName}>{r.name}</h3>
+                  <p className={c.routeText}>{r.reaching}</p>
+                  <p className={`${c.routeText} ${c.routeVerdict}`}>{r.verdict}</p>
+                </div>
+                <div className={`${c.ph} ${c.phHalf}`}>{r.name} explorations</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ============ REFLECTIONS — the honest close, each note set off
+             by a rule on the left. ============ */}
+        <section className={`${c.section} ${c.sectionAlt}`}>
+          <div className={c.sectionLabelWrap}>
+            <SectionLabel title="REFLECTIONS" number="07" />
+          </div>
+          <div className={c.reflectionsContent}>
+            {REFLECTIONS.map((r) => (
+              <div className={c.reflectionItem} key={r.title}>
+                <h3 className={c.reflectionTitle}>{r.title}</h3>
+                <p className={c.reflectionBody}>{r.body}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <MoreWork currentSlug="/integrated-care-for-children" />
