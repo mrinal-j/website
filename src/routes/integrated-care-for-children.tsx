@@ -341,7 +341,7 @@ function IntegratedCarePage() {
                   alt="The secondary logo: the same lockup reversed out of the deep navy ground."
                 />
               </div>
-              <div className={`${c.tile} ${c.tileWhite}`}>
+              <div className={`${c.tile} ${c.tileWhite} ${c.tileHairline}`}>
                 <span className={c.tileLabel}>Logomark</span>
                 <img
                   className={`${c.tileArt} ${c.artMark}`}
@@ -422,9 +422,9 @@ function IntegratedCarePage() {
               </div>
             </div>
 
-            {/* Row 5 — the first real application, with the rest still to
-                come. The photograph fills its tile rather than sitting in
-                padding, so it reads as a picture and not as artwork. */}
+            {/* Row 5 — the applications, side by side. The photographs fill
+                their tiles rather than sitting in padding, so they read as
+                pictures and not as artwork. */}
             <div className={c.rowApps}>
               <div className={`${c.tile} ${c.tilePhoto}`}>
                 <img
@@ -433,69 +433,31 @@ function IntegratedCarePage() {
                   alt="A doctor's white coat with the Integrated Care for Children logo embroidered on the chest."
                 />
               </div>
-              <div className={c.rowAppsStack}>
-                {['Room signage', 'ID badge'].map((t) => (
-                  <div className={`${c.tile} ${c.tilePh}`} key={t}>
-                    <span className={c.tileLabel}>{t}</span>
-                    <div className={c.tilePhBox}>Mockup to come</div>
-                  </div>
-                ))}
+              <div className={`${c.tile} ${c.tilePhoto}`}>
+                <img
+                  className={c.tilePhotoImg}
+                  src="/images/icc-id-mockup.webp"
+                  alt="A staff ID badge on a branded lanyard: the logo and the wearer's photograph on the card, with the lanyard carrying the logo and a run of the identity's colour blocks."
+                />
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ============ THE FLYER — the identity translated for the
-             boardroom. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="THE FLYER" number="03" />
-          </div>
-          <h2 className={c.sectionHeadline}>
-            The same identity, switched into an institutional register.
-          </h2>
-          <p className={c.bodyText}>
-            The flyer is the identity's first and only live application, and it
-            carries a specific load. It is handed across a desk in a funding
-            conversation, and forwarded to specialists who are being asked to
-            give up a Saturday.
-          </p>
-          <p className={c.bodyText}>
-            This is where the identity switches register. The mark stays as it
-            is. Everything around it becomes structural: the six specialties
-            laid out as a model rather than a list, specifics instead of
-            appeals, the mechanism made legible in the first three seconds.
-          </p>
-          <p className={c.bodyText}>
-            {/* TODO: two or three decisions. Hierarchy, how the six
-                specialties are shown, what was cut and why. */}
-            [Two or three decisions: hierarchy, how the six specialties are
-            shown, what was cut and why.]
-          </p>
-          <div className={`${c.tileRow} ${c.tileRowTwo}`} style={{ marginTop: '48px' }}>
-            <div className={`${c.ph} ${c.phWide}`}>Flyer, front</div>
-            <div className={`${c.ph} ${c.phWide}`}>Flyer, back</div>
-          </div>
-
-          {/* TODO: two or three speculative applications, labelled honestly
-              as proposed. One application makes an identity look untested;
-              three make it look like a system. */}
-          <h3 className={c.specTitle}>Proposed applications</h3>
-          <p className={c.specCaption}>
-            Not yet produced. Shown to test the system rather than to claim it
-            has shipped.
-          </p>
-          <div className={`${c.tileRow} ${c.tileRowThree}`}>
-            {['Room signage', 'ID badge', 'Donor one-pager'].map((t) => (
-              <div className={`${c.ph} ${c.phSquare}`} key={t}>{t}</div>
-            ))}
+            {/* Row 6 — the flyer, the one piece that was actually produced.
+                It runs whole rather than cropped, so the trifold reads. */}
+            <div className={`${c.tile} ${c.tilePhoto} ${c.tilePhotoFull}`}>
+              <img
+                className={`${c.tilePhotoImg} ${c.tilePhotoImgFull}`}
+                src="/images/icc-flyer-mockup.webp"
+                alt="The trifold flyer, opened and closed: a navy cover carrying the mark and the name, with inside panels setting out how a contribution helps, how to support the initiative, and the room, clinic hours and contact details."
+              />
+            </div>
           </div>
         </section>
 
         {/* ============ BRAND STRATEGY ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="BRAND STRATEGY" number="04" />
+            <SectionLabel title="BRAND STRATEGY" number="03" />
           </div>
           <p className={c.positioning}>An initiative held together by goodwill.</p>
           <p className={c.bodyText}>
@@ -526,7 +488,7 @@ function IntegratedCarePage() {
              undifferentiated reference wall. ============ */}
         <section className={`${c.section} ${c.sectionAlt}`}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="VISUAL TERRITORY" number="05" />
+            <SectionLabel title="VISUAL TERRITORY" number="04" />
           </div>
           <p className={c.bodyText}>
             {/* TODO: the synthesis line. The specific intersection taken
@@ -549,7 +511,7 @@ function IntegratedCarePage() {
              judged against the same single question. ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="LOGO EXPLORATION" number="06" />
+            <SectionLabel title="LOGO EXPLORATION" number="05" />
           </div>
           <h2 className={c.sectionHeadline}>
             Would a parent recognise this as theirs, and would a surgeon
@@ -577,7 +539,7 @@ function IntegratedCarePage() {
              by a rule on the left. ============ */}
         <section className={`${c.section} ${c.sectionAlt}`}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="07" />
+            <SectionLabel title="REFLECTIONS" number="06" />
           </div>
           <div className={c.reflectionsContent}>
             {REFLECTIONS.map((r) => (
