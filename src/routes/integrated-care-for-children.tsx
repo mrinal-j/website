@@ -422,9 +422,12 @@ function IntegratedCarePage() {
               </div>
             </div>
 
-            {/* Row 5 — the applications, side by side. The photographs fill
-                their tiles rather than sitting in padding, so they read as
-                pictures and not as artwork. */}
+            {/* Row 5 — the three applications across one row, the flyer in
+                the middle. The photographs fill their tiles rather than
+                sitting in padding, so they read as pictures and not as
+                artwork. Columns are weighted roughly to each image's own
+                proportions, so no one of them is cropped much harder than
+                the others. */}
             <div className={c.rowApps}>
               <div className={`${c.tile} ${c.tilePhoto}`}>
                 <img
@@ -436,20 +439,17 @@ function IntegratedCarePage() {
               <div className={`${c.tile} ${c.tilePhoto}`}>
                 <img
                   className={c.tilePhotoImg}
+                  src="/images/icc-flyer-mockup.webp"
+                  alt="The trifold flyer, opened and closed: a navy cover carrying the mark and the name, with inside panels setting out how a contribution helps, how to support the initiative, and the room, clinic hours and contact details."
+                />
+              </div>
+              <div className={`${c.tile} ${c.tilePhoto}`}>
+                <img
+                  className={c.tilePhotoImg}
                   src="/images/icc-id-mockup.webp"
                   alt="A staff ID badge on a branded lanyard: the logo and the wearer's photograph on the card, with the lanyard carrying the logo and a run of the identity's colour blocks."
                 />
               </div>
-            </div>
-
-            {/* Row 6 — the flyer, the one piece that was actually produced.
-                It runs whole rather than cropped, so the trifold reads. */}
-            <div className={`${c.tile} ${c.tilePhoto} ${c.tilePhotoFull}`}>
-              <img
-                className={`${c.tilePhotoImg} ${c.tilePhotoImgFull}`}
-                src="/images/icc-flyer-mockup.webp"
-                alt="The trifold flyer, opened and closed: a navy cover carrying the mark and the name, with inside panels setting out how a contribution helps, how to support the initiative, and the room, clinic hours and contact details."
-              />
             </div>
           </div>
         </section>
