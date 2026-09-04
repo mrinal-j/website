@@ -109,6 +109,27 @@ const PALETTE = [
   { hex: '#FFFFFF', light: true },
 ]
 
+// The banner's colour cells. Fixed sequences rather than random ones: the
+// page is prerendered, so a value that differed between server and browser
+// would flicker on load. Each column of three is mixed by hand so no two
+// touching cells share a colour, and white is used sparingly, the way it is
+// in the artwork itself.
+const Y = '#FEC661'
+const R = '#F04F39'
+const P = '#F6A9BE'
+const N = '#263474'
+const W = '#FFFFFF'
+
+// Read top to bottom, then left to right. The left run ends beside the
+// artwork's yellow edge, so it leads away from yellow.
+const BANNER_CELLS_LEFT = [
+  N, R, Y,  P, Y, N,  R, N, P,  Y, P, R,  N, Y, W,  P, R, N,
+]
+// The right run starts beside the artwork's red edge.
+const BANNER_CELLS_RIGHT = [
+  N, Y, P,  Y, P, R,  W, N, Y,  R, Y, N,  P, R, Y,  N, P, R,
+]
+
 // TODO: replace with the real reflections. The strongest thread available:
 // designing something permanent for a service with no history, for a family
 // you have not met, that first has to survive a room it was not designed for.
@@ -155,8 +176,33 @@ function IntegratedCarePage() {
              the reader something to hold before the argument starts, and
              because it makes no claim it cannot pre-empt one. ============ */}
         <section className={c.bannerBand}>
-          <div className={`${c.ph} ${c.bannerPh}`}>
-            Final mark, full bleed
+          {/* The artwork is never cropped at the sides. It sits at its own
+              width and the space left over on either side is filled with
+              live cells on the same 160px module the collage is built on,
+              so the band extends to any screen width without the
+              photographs losing their edges. */}
+          <div className={c.bannerFill} aria-hidden="true">
+            {BANNER_CELLS_LEFT.map((hex, n) => (
+              <span
+                className={c.bannerCell}
+                key={n}
+                style={{ backgroundColor: hex }}
+              />
+            ))}
+          </div>
+          <img
+            className={c.bannerImg}
+            src="/images/banner_icc.webp"
+            alt="A collage banner: black and white photographs of mothers holding their children, interleaved with blocks of the identity's yellow, red, pink and navy."
+          />
+          <div className={c.bannerFill} aria-hidden="true">
+            {BANNER_CELLS_RIGHT.map((hex, n) => (
+              <span
+                className={c.bannerCell}
+                key={n}
+                style={{ backgroundColor: hex }}
+              />
+            ))}
           </div>
         </section>
 
@@ -310,15 +356,6 @@ function IntegratedCarePage() {
               <span className={c.tileLabel}>Typography</span>
               <div className={c.typeMap}>
                 <div className={c.typeMapRow}>
-                  <span className={`${c.typeMapFace} ${c.typeClash}`}>
-                    Clash Grotesk Regular
-                  </span>
-                  <span className={c.typeMapArrow} aria-hidden="true" />
-                  <span className={`${c.typeMapUse} ${c.typeClash}`}>
-                    Logotype
-                  </span>
-                </div>
-                <div className={c.typeMapRow}>
                   <span
                     className={`${c.typeMapFace} ${c.typeClash} ${c.typeSemibold}`}
                   >
@@ -328,7 +365,16 @@ function IntegratedCarePage() {
                   <span
                     className={`${c.typeMapUse} ${c.typeClash} ${c.typeSemibold}`}
                   >
-                    Heading
+                    Heading 1
+                  </span>
+                </div>
+                <div className={c.typeMapRow}>
+                  <span className={`${c.typeMapFace} ${c.typeClash}`}>
+                    Clash Grotesk Regular
+                  </span>
+                  <span className={c.typeMapArrow} aria-hidden="true" />
+                  <span className={`${c.typeMapUse} ${c.typeClash} ${c.typeMapUseTwo}`}>
+                    Heading 2
                   </span>
                 </div>
                 <div className={c.typeMapRow}>

@@ -7,9 +7,12 @@
    place once the final palette is set.
    ============================================================ */
 .integratedCare {
-  /* Placeholder accent until the identity's own colour is chosen.
-     Swap this one value and the whole page follows. */
-  --ic-accent: #4450ea;
+  /* The identity's own colours, now that they are settled. The red
+     carries the highlighted words; the navy carries the smaller accents,
+     where it holds contrast better than the red does. */
+  --ic-red: #F04F39;
+  --ic-yellow: #FEC661;
+  --ic-accent: #263474;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
@@ -67,31 +70,63 @@
 }
 
 /* ============================================================
-   HERO BANNER — full-width edge-to-edge band holding the finished
-   mark and nothing else. Wordless on purpose: it gives the reader
-   something to hold before the argument starts, and because it makes
-   no claim it cannot pre-empt one.
+   HERO BANNER — the collage, full bleed, never cropped at the sides.
+
+   The artwork is a 3:1 collage built on a 160px module: nine columns
+   of three. Rather than stretching or cropping it to fit the screen,
+   it sits at its own width and the space left over on either side is
+   filled with cells on that same module. The band therefore extends
+   to any width without the photographs losing their edges.
+
+   The band's height drives everything: the artwork is 3 times as wide
+   as the band is tall, and each filler cell is a square one third of
+   that height, so the fillers line up with the collage's own rows.
    ============================================================ */
 .bannerBand {
   width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   overflow: hidden;
-  background: var(--bg-tertiary);
+  background: var(--ic-yellow);
   line-height: 0;
+  /* Tall enough to read on a phone, 3:1 wherever the screen allows it,
+     capped so it never dominates a large monitor. */
+  height: clamp(180px, 33.3333vw, 520px);
 }
 .bannerImg {
   display: block;
-  width: 100%;
-  height: clamp(280px, 46vh, 460px);
-  object-fit: cover;
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  /* The global img rule caps images at the width of their container. Here
+     that would squash the collage instead of letting it run past the edge,
+     so it is lifted: on a phone the band is narrower than the artwork and
+     the sides are meant to crop, not compress. */
+  max-width: none;
 }
-.bannerPh {
-  height: clamp(280px, 46vh, 460px);
+
+/* The filler either side. Three rows, filled column by column, each cell
+   square, so a cell's width comes from the row height and the module
+   matches the collage. */
+.bannerFill {
+  flex: 1 1 0;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  overflow: hidden;
+  min-width: 0;
 }
-@media (max-width: 768px) {
-  .bannerImg,
-  .bannerPh {
-    height: clamp(200px, 32vh, 280px);
-  }
+/* The left run is flush against the artwork, so it overflows off the
+   left edge of the screen rather than leaving a gap beside the collage. */
+.bannerFill:first-child {
+  justify-content: end;
+}
+.bannerCell {
+  display: block;
+  height: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 /* ============================================================
@@ -131,7 +166,7 @@
   max-width: 75%;
 }
 .overviewText span {
-  color: var(--ic-accent);
+  color: var(--ic-red);
 }
 @media (max-width: 768px) {
   .overviewText {
@@ -179,7 +214,7 @@
    section label sits inside the box, so it runs without its line.
    ============================================================ */
 .askBox {
-  background: var(--bg-tertiary);
+  background: var(--ic-yellow);
   border-radius: var(--radius-card);
   padding: 40px;
   margin-bottom: 56px;
@@ -349,9 +384,6 @@
    standard card radius as a single unit: the tiles butt together and
    the grid's own corners are the only rounded ones.
 
-   The 1px gaps let the grid's background show through as hairlines,
-   which keeps two pale tiles apart without drawing borders on each.
-
    There is no explanatory copy inside the grid. Each tile carries a
    small label and the artwork itself, which is how identity guides are
    normally presented.
@@ -367,8 +399,6 @@
 .board {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  background: var(--bg-tertiary); /* shows through as hairlines */
   border-radius: var(--radius-card);
   overflow: hidden;
 }
@@ -417,7 +447,10 @@
 /* Percentages resolve against each tile's content box, so these are the
    share of the space inside the padding, not of the tile itself. */
 .artPrimary   { max-width: min(880px, 84%); }
-.artSecondary { max-width: 92%; }
+/* The secondary is a compact stacked lockup rather than a wide one, so
+   it is capped to sit at the same visual weight as the mark beside it
+   instead of filling the tile. */
+.artSecondary { max-width: min(340px, 70%); }
 .artMark      { max-width: 92%; }
 /* The construction drawing is deliberately the smallest thing here: it
    is supporting evidence, not the headline. */
@@ -428,7 +461,6 @@
 .rowBuild,
 .rowApps {
   display: grid;
-  gap: 1px;
 }
 .rowSecondary { grid-template-columns: 1.45fr 1fr; }
 /* Construction narrow, palette wide. */
@@ -438,8 +470,6 @@
 .rowAppsStack {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  gap: 1px;
-  background: var(--bg-tertiary);
 }
 
 @media (max-width: 900px) {
@@ -456,6 +486,7 @@
     padding: 56px 24px;
   }
   .artPrimary { max-width: 94%; }
+  .artSecondary { max-width: 58%; }
   .artMark { max-width: 72%; }
   .artBuild { max-width: 54%; }
 }
@@ -549,6 +580,11 @@
   font-weight: 400;
   line-height: 120%;
   color: var(--text-primary);
+}
+/* Heading 2 is set a step smaller than Heading 1, so the two rows show
+   the hierarchy rather than just naming it. */
+.typeMapUseTwo {
+  font-size: 1.375rem;
 }
 .typeMapBody {
   font-size: 0.8125rem;
