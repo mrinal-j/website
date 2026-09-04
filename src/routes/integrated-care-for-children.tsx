@@ -25,81 +25,6 @@ export const Route = createFileRoute('/integrated-care-for-children')({
   component: IntegratedCarePage,
 })
 
-// The four tensions the identity had to hold at once. Numbered in the row,
-// the way the UN80 challenge grid is.
-const PROBLEMS = [
-  {
-    title: 'Warmth without childishness',
-    desc: 'Paediatric care defaults to bright, rounded and illustrative, the visual shorthand for friendly. But this identity had to sit inside a hospital, be approved by administrators, and still feel like it belonged to the child rather than the department. Too playful and it reads as a school project. Too clinical and it disappears into the hospital around it.',
-  },
-  {
-    title: 'Six specialties, one promise',
-    desc: 'Integration is the entire proposition. Six departments that currently operate separately had to look like one offer, without splintering into six sub-brands, and without flattening into something so general it says nothing.',
-  },
-  {
-    title: 'A brand inside a brand',
-    desc: 'The initiative lives within an existing hospital that has its own established identity. It needed enough distinctiveness to be recognised as a specific programme, while visibly belonging to its host institution.',
-  },
-  {
-    title: 'Designing for a service that does not exist',
-    desc: 'No patients treated, no outcomes, no photographs. Every decision was made for a version of the initiative that had not happened yet.',
-  },
-]
-
-// The four brand attributes, drawn from the founding team's own word bank.
-// Trust, one roof and holistic are folded into the definitions rather than
-// listed separately, so the set stays at four memorable words.
-const ATTRIBUTES = [
-  {
-    name: 'Warm',
-    desc: 'The warmth of a good doctor, not of a toy shop. Approachable to a parent who is already anxious, without becoming childish.',
-  },
-  {
-    name: 'Whole',
-    desc: 'One file, one team, one door. Every element reinforces convergence rather than addition.',
-  },
-  {
-    name: 'Together',
-    desc: 'The initiative only exists because people give their time. Community is the mechanism here, not the sentiment.',
-  },
-  {
-    name: 'Enduring',
-    desc: 'The promise is continuity of care, so the identity had to be built to still look correct in a decade.',
-  },
-]
-
-// TODO: replace with the real logo routes. Every route needs the specific
-// reason it was set aside, not a general one.
-const ROUTES = [
-  {
-    name: 'Route one',
-    reaching: 'What this route was reaching for.',
-    verdict: 'The specific reason it was dropped.',
-  },
-  {
-    name: 'Route two',
-    reaching: 'What this route was reaching for.',
-    verdict: 'The specific reason it was dropped.',
-  },
-  {
-    name: 'Route three',
-    reaching: 'What this route was reaching for.',
-    verdict: 'The specific reason it was dropped.',
-  },
-]
-
-// The palette, as supplied. The navy is the ground the reversed lockup sits
-// on; the warm three are the gradient the mark is drawn in.
-// `light` marks the blocks pale enough to need dark type on them.
-const PALETTE = [
-  { hex: '#000000' },
-  { hex: '#263474' },
-  { hex: '#F04F39' },
-  { hex: '#F6A9BE', light: true },
-  { hex: '#FEC661', light: true },
-  { hex: '#FFFFFF', light: true },
-]
-
 // The banner's colour cells. Fixed sequences rather than random ones: the
 // page is prerendered, so a value that differed between server and browser
 // would flicker on load. Each column of three is mixed by hand so no two
@@ -121,19 +46,15 @@ const BANNER_CELLS_RIGHT = [
   N, Y, P,  Y, P, R,  W, N, Y,  R, Y, N,  P, R, Y,  N, P, R,
 ]
 
-const REFLECTIONS = [
-  {
-    title: 'Where it stands',
-    body: 'The initiative is awaiting approval to launch.',
-  },
-  {
-    title: 'The deadline did the editing',
-    body: 'The timeline was short, and that turned out to be a kind of protection. There was no room to go in circles over what the design language should be. I went back to the words that had come to mind while I was understanding the initiative, trusted them, and moved.',
-  },
-  {
-    title: 'Looking back',
-    body: 'I think it does the job well. What made this one worth building was the care behind it, and I would rather have made something decisive out of that than something hedged.',
-  },
+// The palette, as supplied. `light` marks the blocks pale enough to need
+// dark type on them.
+const PALETTE = [
+  { hex: '#000000' },
+  { hex: '#263474' },
+  { hex: '#F04F39' },
+  { hex: '#F6A9BE', light: true },
+  { hex: '#FEC661', light: true },
+  { hex: '#FFFFFF', light: true },
 ]
 
 function IntegratedCarePage() {
@@ -199,7 +120,7 @@ function IntegratedCarePage() {
           <div className={s.metaCell}>
             <span className={s.metaLabel}>Role</span>
             <span className={s.metaValue}>
-              Brand Strategy, Identity Design, Print Collateral
+              Brand Identity, Print Collateral
             </span>
           </div>
           <div className={s.metaCell}>
@@ -304,28 +225,22 @@ function IntegratedCarePage() {
             <SectionLabel title="THE IDENTITY" number="02" />
           </div>
           <p className={`${c.bodyText} ${c.bodyLead}`}>
-            The mark is a loop, and the loop is the idea. The initiative is
-            built so a child's care can be completed inside one system rather
-            than sending the family out of it and hoping they find their way
-            back in.
+            The initiative is built so a child's care can be completed inside
+            one system, rather than sending the family out of it and hoping
+            they find their way back in. Care within a single loop.
           </p>
           <p className={c.bodyText}>
-            Drawn as one unbroken line, that loop resolves into a parent and a
-            child. The thought and the picture are the same shape, which is why
-            it holds in both rooms: a parent sees two figures, and a hospital
-            sees a system that closes.
+            The logomark draws its inspiration from that concept. Drawn as one
+            unbroken line, the loop resolves into a parent and a child, so the
+            thought and the picture are the same shape. A parent sees two
+            figures. A hospital sees care that holds together.
           </p>
           <p className={c.bodyText}>
-            The colour follows the same logic. The warm run of red into pink
-            into yellow is the loop itself, one gradient travelling from the
-            parent to the child, so the palette is doing the same job as the
-            line. Paediatric work usually reaches for primary brights, which
-            read as a toy shop, and hospital brands reach for a corporate blue,
-            which reads as an insurer. A warm gradient, anchored by a deep
-            navy, sits between the two: approachable to a parent, sober enough
-            for a boardroom. The navy carries the weight the initiative needs
-            in front of administrators, and the warmth carries everything the
-            family meets.
+            Colour is where the identity loosens up. The warm run from red
+            through pink to yellow adds a playful spirit, and it is
+            deliberately the loudest thing in the system. The navy holds it in
+            balance, steady underneath, so the warmth reads as care rather than
+            decoration.
           </p>
         </section>
 
@@ -466,77 +381,39 @@ function IntegratedCarePage() {
           </div>
         </section>
 
-        {/* ============ BRAND STRATEGY ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="BRAND STRATEGY" number="03" />
-          </div>
+        {/* The identity closes on what the whole thing is for. */}
+        <section className={c.identityClose}>
           <p className={c.positioning}>An initiative held together by goodwill.</p>
           <p className={c.bodyText}>
             Care that runs on volunteered expertise, donated support and the
             hospital's own space, organised around the family rather than the
             department, and built to last.
           </p>
-
-          <div className={c.attributeGrid}>
-            {ATTRIBUTES.map((a) => (
-              <div key={a.name}>
-                <h3 className={c.attributeName}>{a.name}</h3>
-                <p className={c.attributeText}>{a.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className={c.underneath}>
-            <p className={`${c.bodyText} ${c.bodyLead}`}>
-              Running underneath all four: dignity. The initiative serves
-              families who are used to being processed. The identity's quiet job
-              is to make the encounter feel like care, not charity.
-            </p>
-          </div>
+          <p className={`${c.bodyText} ${c.bodyLead}`}>
+            Underneath it, dignity. Families arrive having already been through
+            a lot of departments and a lot of waiting, and the identity's quiet
+            job is to make the encounter feel like care, not charity.
+          </p>
         </section>
 
-        {/* ============ EXPLORATIONS — the routes that were tried, each
-             judged against the same single question. ============ */}
+        {/* ============ REFLECTIONS — the honest close: one note, set off
+             by a rule on the left. ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="EXPLORATIONS" number="04" />
-          </div>
-          <h2 className={c.sectionHeadline}>
-            Would a parent recognise this as theirs, and would a surgeon
-            recognise it as serious?
-          </h2>
-          <p className={c.bodyText}>
-            Every route was tested against that same question. Most failed one
-            or the other.
-          </p>
-          <div style={{ marginTop: '48px' }}>
-            {ROUTES.map((r) => (
-              <div className={c.routeRow} key={r.name}>
-                <div>
-                  <h3 className={c.routeName}>{r.name}</h3>
-                  <p className={c.routeText}>{r.reaching}</p>
-                  <p className={`${c.routeText} ${c.routeVerdict}`}>{r.verdict}</p>
-                </div>
-                <div className={`${c.ph} ${c.phHalf}`}>{r.name} explorations</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ============ REFLECTIONS — the honest close, each note set off
-             by a rule on the left. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="05" />
+            <SectionLabel title="REFLECTIONS" number="03" />
           </div>
           <div className={c.reflectionsContent}>
-            {REFLECTIONS.map((r) => (
-              <div className={c.reflectionItem} key={r.title}>
-                <h3 className={c.reflectionTitle}>{r.title}</h3>
-                <p className={c.reflectionBody}>{r.body}</p>
-              </div>
-            ))}
+            <div className={c.reflectionItem}>
+              <p className={c.reflectionBody}>
+                The timeline was short, which was a concern at first and turned
+                out to work in the project's favour. There was no room to go in
+                circles over what the design language should be. I went back to
+                the words that had come to mind while I was understanding the
+                initiative, trusted them, and moved. The doctors recognised the
+                initiative in it. What made this one worth building was the care
+                behind it. It is now awaiting approval to launch.
+              </p>
+            </div>
           </div>
         </section>
 

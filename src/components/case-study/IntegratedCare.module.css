@@ -7,12 +7,11 @@
    place once the final palette is set.
    ============================================================ */
 .integratedCare {
-  /* The identity's own colours, now that they are settled. The red
-     carries the highlighted words; the navy carries the smaller accents,
-     where it holds contrast better than the red does. */
+  /* The identity's own colours. The red carries every accent on the page,
+     so the highlighted words and the reflections rule agree; the yellow
+     carries the ask box. */
   --ic-red: #F04F39;
   --ic-yellow: #FEC661;
-  --ic-accent: #263474;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
@@ -27,17 +26,6 @@
   margin-bottom: 48px;
 }
 
-/* Section headline: the one-line argument that opens a section. */
-.sectionHeadline {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 2.6vw, 2.125rem);
-  line-height: 130%;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  margin: 0 0 32px;
-  max-width: 75%;
-}
 
 /* Body copy. Capped at three quarters of the content width so the
    lines stay short enough to read comfortably. */
@@ -63,7 +51,6 @@
   .section {
     padding: 56px var(--page-side-padding);
   }
-  .sectionHeadline,
   .bodyText {
     max-width: 100%;
   }
@@ -130,29 +117,6 @@
 }
 
 /* ============================================================
-   Placeholder tile — a striped box that reads as "image to come".
-   Swap these for the real artwork as the assets come in.
-   ============================================================ */
-.ph {
-  background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0 8px, rgba(0, 0, 0, 0.02) 8px 16px);
-  border-radius: var(--radius-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.4);
-  letter-spacing: 0.02em;
-  padding: 16px;
-}
-/* Standard placeholder heights for the three shapes used on the page. */
-.phWide { width: 100%; height: clamp(260px, 42vw, 520px); }
-.phHalf { width: 100%; height: clamp(220px, 26vw, 340px); }
-.phSquare { width: 100%; aspect-ratio: 1 / 1; }
-
-/* ============================================================
    OVERVIEW — a single large statement, the way the other case
    studies open.
    ============================================================ */
@@ -195,12 +159,10 @@
 }
 
 /* The journey illustration sitting beside the Why It Exists copy. */
+/* No card around it: the illustration sits straight on the section's own
+   ground, with no panel, border or padding of its own. */
 .journeyFigure {
   margin: 0;
-  border-radius: var(--radius-card);
-  background: var(--bg-primary);
-  padding: 24px;
-  border: 1px solid var(--bg-tertiary);
 }
 .journeyImg {
   display: block;
@@ -259,123 +221,10 @@
   margin: 0 0 24px;
   max-width: 75%;
 }
-.attributeGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  margin-top: 72px;
-  border-top: 1px solid var(--bg-tertiary);
-  padding-top: 40px;
-}
-.attributeName {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--ic-accent);
-  margin: 0 0 10px;
-}
-.attributeText {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 165%;
-  color: var(--text-secondary);
-  margin: 0;
-}
-/* The value running under all four attributes. */
-.underneath {
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid var(--bg-tertiary);
-}
-@media (max-width: 900px) {
-  .attributeGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px 24px;
-  }
-  .positioning {
-    max-width: 100%;
-  }
-}
-@media (max-width: 560px) {
-  .attributeGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   VISUAL TERRITORY — named clusters rather than one undifferentiated
-   reference wall, each captioned with what it offered and what it
-   risked.
-   ============================================================ */
-.territoryGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 56px;
-}
-.territoryName {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin: 20px 0 8px;
-}
-.caption {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.8125rem;
-  line-height: 160%;
-  color: var(--text-muted);
-  margin: 0;
-}
-@media (max-width: 900px) {
-  .territoryGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   LOGO EXPLORATION — the routes that were tried and dropped, each
-   with the specific reason it failed. One route per row so the
-   reasoning reads as reasoning rather than a gallery.
-   ============================================================ */
-.routeRow {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 48px;
-  align-items: center;
-  padding: 48px 0;
-  border-bottom: 1px solid var(--bg-tertiary);
-}
-.routeRow:first-of-type {
-  border-top: 1px solid var(--bg-tertiary);
-}
-.routeName {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text-primary);
-  margin: 0 0 12px;
-}
-.routeText {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.9375rem;
-  line-height: 170%;
-  color: var(--text-secondary);
-  margin: 0;
-}
-/* The reason a route was set aside. Marked so it reads as the verdict. */
-.routeVerdict {
-  margin-top: 14px;
-  color: var(--text-primary);
-}
-@media (max-width: 900px) {
-  .routeRow {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+/* The identity's closing block, sitting under the grid. */
+.identityClose {
+  padding: 72px var(--page-side-padding) 88px;
+  background: var(--bg-primary);
 }
 
 /* ============================================================
@@ -424,7 +273,6 @@
 }
 
 /* The grounds, drawn from the palette. */
-.tileCream { background: #FBF4E6; }
 .tileWhite { background: #FFFFFF; }
 .tileNavy  { background: #263474; }
 
@@ -478,10 +326,11 @@
 .rowSecondary { grid-template-columns: 1.45fr 1fr; }
 /* Construction narrow, palette wide. */
 .rowBuild { grid-template-columns: 0.78fr 1.22fr; }
-/* Coat, flyer, badge. The flyer takes the middle and the most width,
-   and the outer two are weighted towards their own proportions so the
-   cropping lands evenly rather than gutting the widest image. */
-.rowApps { grid-template-columns: 1.4fr 1.5fr 1.1fr; }
+/* Coat, flyer, badge. The flyer takes the middle and the most width. The
+   coat is a wide crop that survives being cut into, so it takes the
+   narrowest column; the lanyard is nearly square and loses its shape if
+   cropped, so it gets the room instead. */
+.rowApps { grid-template-columns: 1.15fr 1.5fr 1.35fr; }
 
 @media (max-width: 900px) {
   .rowSecondary,
@@ -650,16 +499,8 @@
   max-width: 75%;
 }
 .reflectionItem {
-  border-left: 3px solid var(--ic-accent);
+  border-left: 3px solid var(--ic-red);
   padding-left: 28px;
-}
-.reflectionTitle {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 130%;
-  color: var(--text-primary);
-  margin: 0 0 14px;
 }
 .reflectionBody {
   font-family: var(--font-body);

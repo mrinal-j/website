@@ -56,6 +56,17 @@ export const projects: Project[] = [
     x: '50%', y: '50%',
   },
   {
+    id: 'integrated-care',
+    slug: '/integrated-care-for-children',
+    title: 'Integrated Care for Children',
+    description: 'Brand identity for a volunteer-run paediatric care initiative in Karnataka, India.',
+    tags: ['Brand Identity', 'Logo Design', 'Print Collateral', 'Figma', 'Adobe CC'],
+    image: '/images/banner_icc.webp',
+    hoverImage: '/images/icc-card-hover.svg',
+    cardHeight: 400,
+    x: '50%', y: '50%',
+  },
+  {
     id: 'housing-works',
     slug: 'https://legacy.mrinaljadhav.com/housing-works',
     title: 'Reimagining Housing Works, New York',
@@ -96,7 +107,7 @@ export const projects: Project[] = [
 // columns left, right, left, right.
 export const workCategories: { label: string; ids: string[] }[] = [
   { label: 'Featured Works', ids: ['un80', 'unga80', 'kaaro', 'in-the-loop'] },
-  { label: 'Brand Design', ids: ['un80', 'unga80', 'housing-works', 'know-your-vote'] },
+  { label: 'Brand Design', ids: ['un80', 'unga80', 'integrated-care', 'kaaro', 'housing-works'] },
   { label: 'Strategy', ids: ['in-the-loop', 'housing-works', 'know-your-vote', 'kaaro'] },
 ]
 
