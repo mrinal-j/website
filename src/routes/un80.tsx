@@ -166,8 +166,8 @@ function Un80Page() {
           <div className={`${s.metaCell} ${s.metaCellLast}`}>
             <span className={s.metaLabel}>Tools</span>
             <span className={s.metaValue}>
-              Figma, Adobe Creative Cloud, Drupal, Canva, Claude (Cowork, design,
-              chat)
+              Figma, Adobe Creative Cloud, Drupal, Canva, Claude (Cowork,
+              Design, Code)
             </span>
           </div>
         </section>
