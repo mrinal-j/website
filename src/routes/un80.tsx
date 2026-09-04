@@ -18,6 +18,11 @@ export const Route = createFileRoute('/un80')({
         content:
           'Building a brand for the UN80 Initiative: a distinct visual identity, built inside the UN master brand, that made system-wide reform legible to its audiences.',
       },
+      // Keep this page out of search results. Visitors can still reach it from
+      // the site, and search engines may still follow its links; they just
+      // won't list the page itself. Note that /un80 must stay crawlable in
+      // robots.txt, otherwise crawlers never read this tag.
+      { name: 'robots', content: 'noindex, follow' },
     ],
   }),
   component: Un80Page,
