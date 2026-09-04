@@ -68,15 +68,6 @@ const ATTRIBUTES = [
   },
 ]
 
-// TODO: replace with the real reference clusters from the territory board.
-// Each one needs what it offered and what it risked, in the voice of the
-// notes written at the time.
-const TERRITORIES = [
-  { name: 'Territory one', caption: 'What this cluster offered, and what it risked. Replace with the notes from the board.' },
-  { name: 'Territory two', caption: 'What this cluster offered, and what it risked. Replace with the notes from the board.' },
-  { name: 'Territory three', caption: 'What this cluster offered, and what it risked. Replace with the notes from the board.' },
-]
-
 // TODO: replace with the real logo routes. Every route needs the specific
 // reason it was set aside, not a general one.
 const ROUTES = [
@@ -130,21 +121,18 @@ const BANNER_CELLS_RIGHT = [
   N, Y, P,  Y, P, R,  W, N, Y,  R, Y, N,  P, R, Y,  N, P, R,
 ]
 
-// TODO: replace with the real reflections. The strongest thread available:
-// designing something permanent for a service with no history, for a family
-// you have not met, that first has to survive a room it was not designed for.
 const REFLECTIONS = [
   {
-    title: '[Reflection one]',
-    body: '[Designing something permanent for a service that has no history yet.]',
+    title: 'Where it stands',
+    body: 'The initiative is awaiting approval to launch.',
   },
   {
-    title: '[Reflection two]',
-    body: '[Designing for a family you have not met, in a room that has not opened.]',
+    title: 'The deadline did the editing',
+    body: 'The timeline was short, and that turned out to be a kind of protection. There was no room to go in circles over what the design language should be. I went back to the words that had come to mind while I was understanding the initiative, trusted them, and moved.',
   },
   {
-    title: '[Reflection three]',
-    body: '[What you would carry into the next piece of work like this.]',
+    title: 'Looking back',
+    body: 'I think it does the job well. What made this one worth building was the care behind it, and I would rather have made something decisive out of that than something hedged.',
   },
 ]
 
@@ -315,6 +303,30 @@ function IntegratedCarePage() {
           <div className={c.sectionLabelWrap}>
             <SectionLabel title="THE IDENTITY" number="02" />
           </div>
+          <p className={`${c.bodyText} ${c.bodyLead}`}>
+            The mark is a loop, and the loop is the idea. The initiative is
+            built so a child's care can be completed inside one system rather
+            than sending the family out of it and hoping they find their way
+            back in.
+          </p>
+          <p className={c.bodyText}>
+            Drawn as one unbroken line, that loop resolves into a parent and a
+            child. The thought and the picture are the same shape, which is why
+            it holds in both rooms: a parent sees two figures, and a hospital
+            sees a system that closes.
+          </p>
+          <p className={c.bodyText}>
+            The colour follows the same logic. The warm run of red into pink
+            into yellow is the loop itself, one gradient travelling from the
+            parent to the child, so the palette is doing the same job as the
+            line. Paediatric work usually reaches for primary brights, which
+            read as a toy shop, and hospital brands reach for a corporate blue,
+            which reads as an insurer. A warm gradient, anchored by a deep
+            navy, sits between the two: approachable to a parent, sober enough
+            for a boardroom. The navy carries the weight the initiative needs
+            in front of administrators, and the warmth carries everything the
+            family meets.
+          </p>
         </section>
 
         <section className={c.boardWrap} aria-label="Identity style guide">
@@ -484,34 +496,11 @@ function IntegratedCarePage() {
           </div>
         </section>
 
-        {/* ============ VISUAL TERRITORY — named clusters, not one
-             undifferentiated reference wall. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
-            <SectionLabel title="VISUAL TERRITORY" number="04" />
-          </div>
-          <p className={c.bodyText}>
-            {/* TODO: the synthesis line. The specific intersection taken
-                forward is the most valuable sentence in this section. */}
-            [The synthesis line: the specific intersection of these territories
-            that was taken forward.]
-          </p>
-          <div className={c.territoryGrid}>
-            {TERRITORIES.map((t) => (
-              <div key={t.name}>
-                <div className={`${c.ph} ${c.phSquare}`}>{t.name}</div>
-                <h3 className={c.territoryName}>{t.name}</h3>
-                <p className={c.caption}>{t.caption}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ============ LOGO EXPLORATION — routes and why they failed, each
+        {/* ============ EXPLORATIONS — the routes that were tried, each
              judged against the same single question. ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="LOGO EXPLORATION" number="05" />
+            <SectionLabel title="EXPLORATIONS" number="04" />
           </div>
           <h2 className={c.sectionHeadline}>
             Would a parent recognise this as theirs, and would a surgeon
@@ -539,7 +528,7 @@ function IntegratedCarePage() {
              by a rule on the left. ============ */}
         <section className={`${c.section} ${c.sectionAlt}`}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="06" />
+            <SectionLabel title="REFLECTIONS" number="05" />
           </div>
           <div className={c.reflectionsContent}>
             {REFLECTIONS.map((r) => (

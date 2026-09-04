@@ -456,10 +456,14 @@
 /* Percentages resolve against each tile's content box, so these are the
    share of the space inside the padding, not of the tile itself. */
 .artPrimary   { max-width: min(880px, 84%); }
-/* The secondary is a compact stacked lockup rather than a wide one, so
-   it is capped to sit at the same visual weight as the mark beside it
-   instead of filling the tile. */
-.artSecondary { max-width: min(340px, 70%); }
+/* The secondary is a tall stacked lockup, so it is sized by height
+   rather than width: capping its width would run it off the bottom of
+   the tile. */
+.artSecondary {
+  width: auto;
+  max-width: 70%;
+  max-height: 340px;
+}
 .artMark      { max-width: 92%; }
 /* The construction drawing is deliberately the smallest thing here: it
    is supporting evidence, not the headline. */
@@ -493,7 +497,7 @@
     padding: 56px 24px;
   }
   .artPrimary { max-width: 94%; }
-  .artSecondary { max-width: 58%; }
+  .artSecondary { max-height: 260px; }
   .artMark { max-width: 72%; }
   .artBuild { max-width: 54%; }
 }
