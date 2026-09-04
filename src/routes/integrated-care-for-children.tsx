@@ -17,9 +17,6 @@ export const Route = createFileRoute('/integrated-care-for-children')({
         content:
           'Brand identity for a volunteer-run paediatric care initiative in Karnataka, India, bringing six specialties under a single window of care.',
       },
-      // Hide this page from search engines while it's still being built.
-      // Remove this line when ready to launch.
-      { name: 'robots', content: 'noindex, nofollow' },
     ],
   }),
   component: IntegratedCarePage,

@@ -28,8 +28,8 @@ export const projects: Project[] = [
     title: 'UN80 Initiative',
     description: "A sub-identity for the UN80 Initiative, the United Nations' system-wide reform effort.",
     tags: ['Brand Identity', 'Design Systems', 'Content Strategy', 'Multi-channel Design', 'Figma', 'Adobe CC', 'Drupal'],
-    image: '/images/un80-logo-on-blue.webp',
-    hoverImage: '/images/un80_banner 5.webp',
+    image: '/images/un80_banner 5.webp',
+    hoverImage: '/images/un80-logo-on-blue.webp',
     cardHeight: 480,
     x: '50%', y: '50%',
   },
@@ -39,8 +39,8 @@ export const projects: Project[] = [
     title: 'United Nations General Assembly Exhibit 2025',
     description: 'An immersive UN 2.0 exhibit at UN Headquarters, with a visual identity built on AI-generated photography.',
     tags: ['Exhibition Design', 'Visual Identity', 'AI Imagery', 'Art Direction', 'Brand Design', 'Print Design', 'Adobe CC', 'Figma'],
-    image: '/images/unga80-unga-sign.webp',
-    hoverImage: '/images/unga80-lounge-column.webp',
+    image: '/images/unga80-lounge-column.webp',
+    hoverImage: '/images/unga80-unga-sign.webp',
     cardHeight: 430,
     x: '50%', y: '50%',
   },
@@ -48,8 +48,8 @@ export const projects: Project[] = [
     id: 'kaaro',
     slug: '/kaaro',
     title: 'Kaaro',
-    description: 'Branding, strategy and product design for a handcrafted jewelry brand.',
-    tags: ['Brand Identity', 'Brand Strategy', 'Market Research', 'Logo Design', 'Jewelry Design', 'Photography'],
+    description: 'Co-founded a handcrafted jewelry brand and built its identity, strategy and products.',
+    tags: ['Entrepreneurship', 'Brand Identity', 'Brand Strategy', 'Market Research', 'Logo Design', 'Jewelry Design', 'Photography'],
     image: '/images/kaaro.webp',
     hoverImage: '/images/kaaro_banner.webp',
     cardHeight: 360,
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     image: '/images/banner_icc.webp',
     hoverImage: '/images/icc-card-hover.svg',
     cardHeight: 400,
-    x: '50%', y: '50%',
+    x: '0%', y: '50%',
   },
   {
     id: 'housing-works',
@@ -107,7 +107,7 @@ export const projects: Project[] = [
 // columns left, right, left, right.
 export const workCategories: { label: string; ids: string[] }[] = [
   { label: 'Featured Works', ids: ['un80', 'unga80', 'kaaro', 'in-the-loop'] },
-  { label: 'Brand Design', ids: ['un80', 'unga80', 'integrated-care', 'kaaro', 'housing-works'] },
+  { label: 'Brand Design', ids: ['un80', 'kaaro', 'integrated-care', 'unga80', 'housing-works'] },
   { label: 'Strategy', ids: ['in-the-loop', 'housing-works', 'know-your-vote', 'kaaro'] },
 ]
 
