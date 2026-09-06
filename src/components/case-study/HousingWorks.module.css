@@ -1,0 +1,628 @@
+/* ============================================================
+   Reimagining Housing Works
+   Page-specific styles. Reuses the shared case-study classes from
+   InTheLoop.module.css (page shell, hero header, metadata grid) and
+   adds the sections unique to this project. Page-scoped tokens live
+   on .housingWorks so the whole page can be re-themed from one place.
+   ============================================================ */
+.housingWorks {
+  /* Housing Works' own colours, sampled from the master logo: the
+     raspberry pink carries every accent on the page, the slate carries
+     the wordmark. The tint is the pink at a whisper, used for panels. */
+  --hw-pink: #d0538f;
+  --hw-slate: #49555f;
+  --hw-tint: #fbf1f6;
+}
+
+/* A generic light section wrapper with the page's aligned side padding. */
+.section {
+  padding: 88px var(--page-side-padding);
+  background-color: var(--bg-primary);
+}
+.sectionAlt {
+  background-color: var(--bg-secondary);
+}
+/* A section that continues the one above it: no repeated top padding. */
+.sectionTight {
+  padding-top: 0;
+}
+.sectionLabelWrap {
+  margin-bottom: 48px;
+}
+
+/* Body copy. Capped at three quarters of the content width so the
+   lines stay short enough to read comfortably. */
+.bodyText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 75%;
+}
+.bodyText + .bodyText {
+  margin-top: 20px;
+}
+/* The one sentence in a section that carries the argument. */
+.bodyLead {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+}
+
+/* A small heading inside a section, below the numbered label. */
+.subHeading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 56px var(--page-side-padding);
+  }
+  .bodyText {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   HERO BANNER — the finished store render, full bleed, before any
+   of the argument starts.
+   ============================================================ */
+.bannerBand {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: var(--bg-tertiary);
+}
+.bannerImg {
+  display: block;
+  width: 100%;
+  height: clamp(220px, 40vw, 560px);
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+/* ============================================================
+   OVERVIEW — one large statement, the way the other case studies
+   open, with the scope of work listed underneath it.
+   ============================================================ */
+.overviewText {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 155%;
+  color: var(--text-primary);
+  margin: 0;
+  max-width: 75%;
+}
+.overviewText span {
+  color: var(--hw-pink);
+}
+
+/* The scope of work, as a run of pills. Fully round by design, the
+   same treatment the project tags carry elsewhere on the site. */
+.scopeWrap {
+  margin-top: 48px;
+}
+.scopeLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 140%;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+.scopeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.scopeItem {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1;
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+@media (max-width: 768px) {
+  .overviewText {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   BACKGROUND — the copy, with the three businesses Housing Works
+   trades under sitting beside it as their own marks.
+   ============================================================ */
+.logoRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+.logoPanel {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-card);
+  padding: 40px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoPanel img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .logoRow {
+    grid-template-columns: 1fr;
+  }
+  .logoPanel {
+    padding: 28px 24px;
+  }
+}
+
+/* ============================================================
+   THE CHALLENGE — the brief itself, set apart in a tinted box so it
+   reads as the thing that was handed over rather than as narration.
+   The section label sits inside the box, so it runs without its line.
+   ============================================================ */
+.askBox {
+  background: var(--hw-tint);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  max-width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+/* The label inside a centred box needs centring too: it is a flex row. */
+.askBox > div {
+  justify-content: center;
+}
+.askText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 175%;
+  color: var(--text-primary);
+  margin: 24px 0 0;
+}
+@media (max-width: 768px) {
+  .askBox {
+    max-width: 100%;
+    padding: 28px;
+  }
+}
+
+/* ============================================================
+   PRIMARY RESEARCH — three blocks, one per business. Each carries
+   what the business is, what we noticed in it, and the photographs
+   the observations came from.
+   ============================================================ */
+.venture + .venture {
+  margin-top: 72px;
+}
+.ventureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.ventureTitle {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+}
+
+/* The plain list of what a business does. */
+.factList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.factList li {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 170%;
+  color: var(--text-secondary);
+  padding-left: 20px;
+  position: relative;
+}
+.factList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 8px;
+  height: 1px;
+  background: var(--border-medium);
+}
+
+/* What we saw, set apart from what the business says about itself. */
+.observations {
+  border-left: 3px solid var(--hw-pink);
+  padding-left: 24px;
+}
+.observationsLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hw-pink);
+  margin: 0 0 14px;
+}
+.observations .factList li::before {
+  background: var(--hw-pink);
+}
+
+/* The photographs behind a block, all one height so they read as a set. */
+.photoRow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+.photoRow img {
+  width: 100%;
+  height: clamp(180px, 22vw, 300px);
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+/* Screens rather than photographs. Cropping a website or a phone screen
+   throws away the thing being shown, so these sit whole on a grey ground
+   and are given the extra height a tall screenshot needs. */
+.photoRowScreens img {
+  height: clamp(300px, 34vw, 480px);
+  object-fit: contain;
+  background: var(--bg-tertiary);
+  padding: 16px;
+}
+.caption {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 12px 0 0;
+}
+@media (max-width: 900px) {
+  .ventureGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+@media (max-width: 640px) {
+  .photoRow {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+  }
+  .photoRow img {
+    height: clamp(200px, 56vw, 300px);
+  }
+  /* A whole screenshot shown small is unreadable, so the screens keep
+     their generous height once the row has stacked. */
+  .photoRowScreens img {
+    height: clamp(320px, 96vw, 480px);
+  }
+}
+
+/* ============================================================
+   SERVICE BLUEPRINT — a very wide diagram. It keeps its own
+   proportions and scrolls sideways inside its frame rather than
+   shrinking until nothing on it can be read.
+   ============================================================ */
+.wideFigure {
+  margin: 40px 0 0;
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  background: var(--bg-primary);
+}
+.wideFigure img {
+  display: block;
+  /* Held wide enough that the type inside the diagram stays legible. On
+     every screen this is wider than the frame, so the frame scrolls
+     sideways rather than the diagram shrinking until nothing reads. */
+  min-width: 1900px;
+  width: 100%;
+  height: auto;
+}
+.figureHint {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 12px 0 0;
+}
+
+/* A diagram that does fit, sitting on the section's own ground. */
+.plainFigure {
+  margin: 40px 0 0;
+}
+.plainFigure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+/* ============================================================
+   PROPOSED STRATEGY — the three moves, then the vision and mission
+   the reimagining is built on.
+   ============================================================ */
+.moveGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+.moveCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+}
+.moveNumber {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--hw-pink);
+  display: block;
+  margin-bottom: 16px;
+}
+.moveText {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 150%;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.statementGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 56px;
+}
+.statement {
+  background: var(--hw-tint);
+  border-radius: var(--radius-card);
+  padding: 40px;
+}
+.statementLabel {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hw-pink);
+  margin: 0 0 16px;
+}
+.statementText {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(1.0625rem, 1.6vw, 1.375rem);
+  line-height: 155%;
+  color: var(--text-primary);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .moveGrid,
+  .statementGrid {
+    grid-template-columns: 1fr;
+  }
+  .statement {
+    padding: 28px;
+  }
+}
+
+/* ============================================================
+   ONLINE AND IN-STORE STRATEGY — copy on one side, the work on the
+   other, alternating so the page does not fall into a rhythm.
+   ============================================================ */
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-top: 48px;
+}
+.splitGrid .bodyText {
+  max-width: 100%;
+}
+/* The picture leads on this row instead of following. */
+.splitReverse .splitMedia {
+  order: -1;
+}
+.splitMedia img,
+.splitMedia video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-card);
+  background: var(--bg-secondary);
+}
+@media (max-width: 900px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .splitReverse .splitMedia {
+    order: 0;
+  }
+}
+
+/* The three in-store moves, stacked as their own titled notes. */
+.noteList {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 48px;
+  max-width: 75%;
+}
+.note {
+  border-top: 1px solid var(--border-light);
+  padding-top: 28px;
+}
+@media (max-width: 768px) {
+  .noteList {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   THE RENDERS — the proposed store, shown as one board. The layout
+   drawing runs the full width, the four views sit two up, and the
+   merchandise closes it.
+   ============================================================ */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 56px;
+}
+.boardFull img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  background: var(--bg-primary);
+}
+.boardPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.boardPair img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+@media (max-width: 768px) {
+  .boardPair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   SUCCESS METRICS — what the team said it would watch. Two columns,
+   one for the rebrand and one for the store itself.
+   ============================================================ */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+.metricsCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 36px 32px;
+}
+.metricsTitle {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 140%;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+}
+@media (max-width: 768px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   PROTOTYPE — the mock shop, photographed. A collage rather than a
+   row: the wide room shot leads, the details sit under it.
+   ============================================================ */
+.protoGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.protoGrid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+/* Each tile names its own span and height. The selectors carry the grid
+   class as well, so they outweigh the `height: 100%` rule above rather
+   than losing to it and letting the row decide. */
+/* The room, wide, leading the collage. */
+.protoGrid .protoWide {
+  grid-column: span 4;
+  height: clamp(240px, 32vw, 440px);
+}
+/* The storytelling corner, tall, beside it. */
+.protoGrid .protoTall {
+  grid-column: span 2;
+  height: clamp(240px, 32vw, 440px);
+}
+.protoGrid .protoThird {
+  grid-column: span 2;
+  height: clamp(200px, 24vw, 320px);
+}
+@media (max-width: 900px) {
+  .protoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .protoGrid .protoWide,
+  .protoGrid .protoTall,
+  .protoGrid .protoThird {
+    grid-column: span 1;
+    height: clamp(200px, 42vw, 320px);
+  }
+  .protoGrid .protoWide {
+    grid-column: span 2;
+  }
+}
+
+/* ============================================================
+   PROJECT LEARNINGS — the honest close, set off by a rule down its
+   left edge, the same idiom the other case studies use.
+   ============================================================ */
+.reflectionsContent {
+  max-width: 75%;
+}
+.reflectionItem {
+  border-left: 3px solid var(--hw-pink);
+  padding-left: 28px;
+}
+.reflectionBody {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .reflectionsContent {
+    max-width: 100%;
+  }
+  .reflectionItem {
+    padding-left: 20px;
+  }
+}

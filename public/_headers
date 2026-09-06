@@ -1,3 +1,15 @@
 /resume.pdf
   Content-Type: application/pdf
   Content-Disposition: inline
+
+# Housing Works is still being built, so it is kept out of search results.
+# This header says the same thing as the robots meta tag in the page itself,
+# and it also covers the images and the video, which a meta tag cannot do.
+# Delete this whole block, and the robots meta tag in
+# src/routes/housing-works.tsx, when the page is ready to publish.
+/housing-works
+  X-Robots-Tag: noindex, follow
+/housing-works/*
+  X-Robots-Tag: noindex, follow
+/images/hw-*
+  X-Robots-Tag: noindex

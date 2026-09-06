@@ -15,6 +15,7 @@ import { Route as PlayRouteImport } from './routes/play'
 import { Route as KaaroRouteImport } from './routes/kaaro'
 import { Route as IntegratedCareForChildrenRouteImport } from './routes/integrated-care-for-children'
 import { Route as InTheLoopRouteImport } from './routes/in-the-loop'
+import { Route as HousingWorksRouteImport } from './routes/housing-works'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -49,6 +50,11 @@ const InTheLoopRoute = InTheLoopRouteImport.update({
   path: '/in-the-loop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HousingWorksRoute = HousingWorksRouteImport.update({
+  id: '/housing-works',
+  path: '/housing-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -63,6 +69,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/housing-works': typeof HousingWorksRoute
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/housing-works': typeof HousingWorksRoute
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/housing-works': typeof HousingWorksRoute
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/housing-works'
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/housing-works'
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/housing-works'
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
@@ -127,6 +139,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  HousingWorksRoute: typeof HousingWorksRoute
   InTheLoopRoute: typeof InTheLoopRoute
   IntegratedCareForChildrenRoute: typeof IntegratedCareForChildrenRoute
   KaaroRoute: typeof KaaroRoute
@@ -179,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InTheLoopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/housing-works': {
+      id: '/housing-works'
+      path: '/housing-works'
+      fullPath: '/housing-works'
+      preLoaderRoute: typeof HousingWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -199,6 +219,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  HousingWorksRoute: HousingWorksRoute,
   InTheLoopRoute: InTheLoopRoute,
   IntegratedCareForChildrenRoute: IntegratedCareForChildrenRoute,
   KaaroRoute: KaaroRoute,
