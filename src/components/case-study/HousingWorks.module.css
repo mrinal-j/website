@@ -6,21 +6,17 @@
    on .housingWorks so the whole page can be re-themed from one place.
    ============================================================ */
 .housingWorks {
-  /* Housing Works' own colours, sampled from the master logo: the
-     raspberry pink carries every accent on the page, the slate carries
-     the wordmark. The tint is the pink at a whisper, used for panels. */
-  --hw-pink: #d0538f;
-  --hw-slate: #49555f;
-  --hw-tint: #fbf1f6;
+  /* Housing Works pink, sampled from the master logo. It carries every
+     accent on the page and fills the reflections panel at the end. The
+     tint below it is the same pink at a whisper, used for quiet panels. */
+  --housing-works-pink: #d0538f;
+  --housing-works-pink-tint: #fbf1f6;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
 .section {
   padding: 88px var(--page-side-padding);
   background-color: var(--bg-primary);
-}
-.sectionAlt {
-  background-color: var(--bg-secondary);
 }
 /* A section that continues the one above it: no repeated top padding. */
 .sectionTight {
@@ -90,7 +86,7 @@
 
 /* ============================================================
    OVERVIEW — one large statement, the way the other case studies
-   open, with the scope of work listed underneath it.
+   open.
    ============================================================ */
 .overviewText {
   font-family: var(--font-sans);
@@ -102,38 +98,9 @@
   max-width: 75%;
 }
 .overviewText span {
-  color: var(--hw-pink);
+  color: var(--housing-works-pink);
 }
 
-/* The scope of work, as a run of pills. Fully round by design, the
-   same treatment the project tags carry elsewhere on the site. */
-.scopeWrap {
-  margin-top: 48px;
-}
-.scopeLabel {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  line-height: 140%;
-  color: var(--text-muted);
-  margin: 0 0 16px;
-}
-.scopeList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.scopeItem {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  line-height: 1;
-  color: var(--text-primary);
-  border: 1px solid var(--border-medium);
-  border-radius: 999px;
-  padding: 10px 16px;
-}
 @media (max-width: 768px) {
   .overviewText {
     max-width: 100%;
@@ -178,7 +145,7 @@
    The section label sits inside the box, so it runs without its line.
    ============================================================ */
 .askBox {
-  background: var(--hw-tint);
+  background: var(--housing-works-pink-tint);
   border-radius: var(--radius-card);
   padding: 40px;
   max-width: 75%;
@@ -258,7 +225,7 @@
 
 /* What we saw, set apart from what the business says about itself. */
 .observations {
-  border-left: 3px solid var(--hw-pink);
+  border-left: 3px solid var(--housing-works-pink);
   padding-left: 24px;
 }
 .observationsLabel {
@@ -267,11 +234,11 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--hw-pink);
+  color: var(--housing-works-pink);
   margin: 0 0 14px;
 }
 .observations .factList li::before {
-  background: var(--hw-pink);
+  background: var(--housing-works-pink);
 }
 
 /* The photographs behind a block, all one height so they read as a set. */
@@ -382,7 +349,7 @@
 .moveNumber {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--hw-pink);
+  color: var(--housing-works-pink);
   display: block;
   margin-bottom: 16px;
 }
@@ -402,7 +369,7 @@
   margin-top: 56px;
 }
 .statement {
-  background: var(--hw-tint);
+  background: var(--housing-works-pink-tint);
   border-radius: var(--radius-card);
   padding: 40px;
 }
@@ -412,7 +379,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--hw-pink);
+  color: var(--housing-works-pink);
   margin: 0 0 16px;
 }
 .statementText {
@@ -600,22 +567,27 @@
 }
 
 /* ============================================================
-   PROJECT LEARNINGS — the honest close, set off by a rule down its
-   left edge, the same idiom the other case studies use.
+   REFLECTIONS — the honest close, carried in a panel filled with the
+   Housing Works pink rather than set off by a rule down its edge.
    ============================================================ */
 .reflectionsContent {
   max-width: 75%;
 }
 .reflectionItem {
-  border-left: 3px solid var(--hw-pink);
-  padding-left: 28px;
+  background: var(--housing-works-pink);
+  border-radius: var(--radius-card);
+  padding: 40px;
 }
+/* Black type, not white. On this pink black reaches about 5.3:1 against
+   the background and white only about 3.9:1, so black is the one that
+   clears the readability bar. It also matches how the other case studies
+   set copy on a panel of brand colour. */
 .reflectionBody {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
   line-height: 175%;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   margin: 0;
 }
 @media (max-width: 768px) {
@@ -623,6 +595,6 @@
     max-width: 100%;
   }
   .reflectionItem {
-    padding-left: 20px;
+    padding: 28px;
   }
 }

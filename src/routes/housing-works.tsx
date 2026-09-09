@@ -30,19 +30,6 @@ export const Route = createFileRoute('/housing-works')({
   component: HousingWorksPage,
 })
 
-// The scope of work, as agreed at the start of the project.
-const SCOPE = [
-  'Brand Study',
-  'Market Research',
-  'Environment Study',
-  'Service Blueprint',
-  'Brand Strategy',
-  'Visual Identity',
-  'Store Experience Design',
-  'Customer Experience',
-  'User Testing',
-]
-
 // The three businesses Housing Works trades under, shown as their own marks.
 const SUB_BRANDS = [
   {
@@ -272,21 +259,10 @@ function HousingWorksPage() {
             locals, while amplifying its mission of community empowerment and
             social inclusion.
           </p>
-
-          <div className={h.scopeWrap}>
-            <p className={h.scopeLabel}>Scope of work</p>
-            <ul className={h.scopeList}>
-              {SCOPE.map((item) => (
-                <li className={h.scopeItem} key={item}>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
         </section>
 
         {/* ============ BACKGROUND ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="BACKGROUND" number="01" />
           </div>
@@ -335,7 +311,7 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ PRIMARY RESEARCH ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="PRIMARY RESEARCH" number="02" />
           </div>
@@ -412,7 +388,7 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ IDEATION ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="IDEATION" number="04" />
           </div>
@@ -466,7 +442,7 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ ONLINE COMMUNICATIONS ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="ONLINE COMMUNICATIONS" number="06" />
           </div>
@@ -624,7 +600,7 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ SUCCESS METRICS ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="SUCCESS METRICS" number="08" />
           </div>
@@ -713,10 +689,12 @@ function HousingWorksPage() {
           </div>
         </section>
 
-        {/* ============ PROJECT LEARNINGS ============ */}
-        <section className={`${h.section} ${h.sectionAlt}`}>
+        {/* ============ REFLECTIONS — the honest close, carried in a
+             panel of the Housing Works pink rather than set off by a
+             rule down its edge. ============ */}
+        <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="PROJECT LEARNINGS" number="10" />
+            <SectionLabel title="REFLECTIONS" number="10" />
           </div>
           <div className={h.reflectionsContent}>
             <div className={h.reflectionItem}>
