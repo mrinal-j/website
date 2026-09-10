@@ -108,54 +108,78 @@
 }
 
 /* ============================================================
-   BACKGROUND — the copy, with the three businesses Housing Works
-   trades under sitting beside it as their own marks.
+   THE STATEMENT AND THE THREE MARKS — opens primary research. The
+   statement carries the brand pink, and the marks stand straight on
+   the page underneath it, one next to the other, with no panels.
    ============================================================ */
+/* Set large as well as pink. At body size this pink sits just under the
+   readability bar against white; at this size and weight it clears it,
+   and the statement earns the emphasis anyway. */
+.pinkStatement {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  line-height: 145%;
+  letter-spacing: -0.01em;
+  color: var(--housing-works-pink);
+  margin: 32px 0 0;
+  max-width: 75%;
+}
 .logoRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 56px;
-}
-.logoPanel {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-card);
-  padding: 40px 32px;
-  display: flex;
+  gap: 48px;
   align-items: center;
-  justify-content: center;
+  margin-top: 48px;
+  max-width: 75%;
 }
-.logoPanel img {
+.logoMark {
   width: 100%;
-  max-width: 260px;
+  max-width: 240px;
   height: auto;
 }
 @media (max-width: 768px) {
+  .pinkStatement,
+  .logoRow {
+    max-width: 100%;
+  }
   .logoRow {
     grid-template-columns: 1fr;
-  }
-  .logoPanel {
-    padding: 28px 24px;
+    gap: 28px;
+    justify-items: start;
   }
 }
 
 /* ============================================================
-   THE CHALLENGE — the brief itself, set apart in a tinted box so it
-   reads as the thing that was handed over rather than as narration.
-   The section label sits inside the box, so it runs without its line.
+   THE CHALLENGE — the brief itself, with a question mark standing the
+   full height of it alongside. The section label sits inside the block,
+   so it runs without its line.
    ============================================================ */
-.askBox {
-  background: var(--housing-works-pink-tint);
-  border-radius: var(--radius-card);
-  padding: 40px;
+.askRow {
+  position: relative;
   max-width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  /* Space held open on the left for the mark. The mark itself sits out of
+     the flow, so its width can never squeeze the text: were it in the flow,
+     a wider mark would narrow the text, the text would wrap to more lines,
+     the taller text would widen the mark again, and so on. */
+  padding-left: clamp(110px, 14vw, 190px);
 }
-/* The label inside a centred box needs centring too: it is a flex row. */
-.askBox > div {
-  justify-content: center;
+/* Pinned top and bottom, so it stands the exact height of the text beside
+   it. Being pinned is also what gives it a height CSS can work from, which
+   is what lets the width below follow from the drawing's own proportions. */
+.askMark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  color: var(--housing-works-pink);
+}
+.askMark svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  /* The proportions of the viewBox, so the width follows the height. */
+  aspect-ratio: 103.8 / 146.6;
 }
 .askText {
   font-family: var(--font-body);
@@ -166,34 +190,73 @@
   margin: 24px 0 0;
 }
 @media (max-width: 768px) {
-  .askBox {
+  .askRow {
     max-width: 100%;
-    padding: 28px;
+    padding-left: 0;
+  }
+  /* Stacked above the text rather than beside it, so it comes back into
+     the flow and is given a height of its own. */
+  .askMark {
+    position: static;
+    display: block;
+    height: 80px;
+    margin-bottom: 20px;
   }
 }
 
 /* ============================================================
-   PRIMARY RESEARCH — three blocks, one per business. Each carries
-   what the business is, what we noticed in it, and the photographs
-   the observations came from.
+   PRIMARY RESEARCH — one row per business. Copy on one side,
+   pictures on the other, swapping sides each row, with a hairline
+   between them so each row reads as its own account.
    ============================================================ */
-.venture + .venture {
-  margin-top: 72px;
-}
-.ventureGrid {
+.ventureRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 64px;
   align-items: start;
+  padding: 56px 0;
+}
+.ventureRow:first-of-type {
+  margin-top: 24px;
+  padding-top: 0;
+}
+/* The rule divides one account from the next, so it belongs between the
+   rows and not above the first one, where it would only underline the
+   marks sitting above. */
+.ventureRow + .ventureRow {
+  border-top: 1px solid var(--border-light);
+}
+/* Both halves need naming so the grid can hold them apart, and both need
+   to be allowed to shrink: a grid column defaults to refusing to go below
+   the width of its widest word, which is what pushes a row off the page. */
+.ventureText,
+.ventureMedia {
+  min-width: 0;
+}
+/* Every other row hands the pictures to the left instead. */
+.ventureRowFlip .ventureMedia {
+  order: -1;
+}
+
+/* Number and category, set apart by a gap rather than by a dash. */
+.ventureEyebrow {
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--housing-works-pink);
+  margin: 0 0 12px;
 }
 .ventureTitle {
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 1.375rem;
-  line-height: 130%;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 120%;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
 /* The plain list of what a business does. */
@@ -227,6 +290,7 @@
 .observations {
   border-left: 3px solid var(--housing-works-pink);
   padding-left: 24px;
+  margin-top: 32px;
 }
 .observationsLabel {
   font-family: var(--font-body);
@@ -241,25 +305,27 @@
   background: var(--housing-works-pink);
 }
 
-/* The photographs behind a block, all one height so they read as a set. */
-.photoRow {
+/* The pictures. Two across, and an odd third runs the full width under
+   the pair rather than being squeezed into a third of the column. */
+.mediaGrid {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin-top: 32px;
 }
-.photoRow img {
+.mediaGrid img {
   width: 100%;
-  height: clamp(180px, 22vw, 300px);
+  height: clamp(180px, 18vw, 260px);
   object-fit: cover;
   border-radius: var(--radius-card);
+}
+.mediaGrid img:nth-child(3) {
+  grid-column: 1 / -1;
 }
 /* Screens rather than photographs. Cropping a website or a phone screen
    throws away the thing being shown, so these sit whole on a grey ground
    and are given the extra height a tall screenshot needs. */
-.photoRowScreens img {
-  height: clamp(300px, 34vw, 480px);
+.mediaGridScreens img {
+  height: clamp(280px, 26vw, 400px);
   object-fit: contain;
   background: var(--bg-tertiary);
   padding: 16px;
@@ -271,24 +337,22 @@
   color: var(--text-muted);
   margin: 12px 0 0;
 }
+
 @media (max-width: 900px) {
-  .ventureGrid {
+  .ventureRow {
     grid-template-columns: 1fr;
     gap: 32px;
+    padding: 40px 0;
+  }
+  /* Stacked, the copy always leads: a picture arriving before the thing
+     it illustrates reads as a break in the argument. */
+  .ventureRowFlip .ventureMedia {
+    order: 0;
   }
 }
-@media (max-width: 640px) {
-  .photoRow {
-    grid-auto-flow: row;
-    grid-auto-columns: auto;
-  }
-  .photoRow img {
-    height: clamp(200px, 56vw, 300px);
-  }
-  /* A whole screenshot shown small is unreadable, so the screens keep
-     their generous height once the row has stacked. */
-  .photoRowScreens img {
-    height: clamp(320px, 96vw, 480px);
+@media (max-width: 560px) {
+  .mediaGrid img {
+    height: clamp(180px, 44vw, 260px);
   }
 }
 

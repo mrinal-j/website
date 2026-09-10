@@ -50,12 +50,13 @@ const SUB_BRANDS = [
 // is, what we noticed inside it, and the photographs the notes came from.
 const VENTURES = [
   {
+    number: '01',
+    category: 'Retail',
     title: 'Thrift Stores',
     facts: [
-      'Operates 9 thrift stores across NYC, selling donated clothing, accessories, furniture, and home goods at affordable prices.',
-      "100% of profits funding Housing Works' advocacy and services.",
+      '9 thrift stores across NYC',
       'Online thrift shop (eShop), auctions, and Bookshop.org partnerships extend reach beyond physical stores.',
-      'Relies on community donations.',
+      'Relies on community donations of clothing, accessories, furniture, and home goods',
     ],
     observations: [
       'Lack of visual cohesion across all touchpoints, such as clothing tags, packaging material or posters.',
@@ -78,15 +79,16 @@ const VENTURES = [
     ],
   },
   {
+    number: '02',
+    category: 'Place',
     title: 'Bookstore and Cafe',
     facts: [
-      "Operates as a hybrid bookstore, thrift boutique, and café, with 100% of profits funding Housing Works' advocacy and services.",
       'Primarily relies on donated inventory (books, media, clothing, housewares) and volunteer staffing.',
-      'The space is used to host weddings, corporate events, and cultural programming (e.g. readings, fundraisers).',
+      'Space doubles as an event venue (e.g. readings, fundraisers, weddings etc.).',
       'The café provides coffee, wine, and light fare, enhancing the overall experience and encouraging customers to linger, thereby increasing dwell time and social engagement.',
     ],
     observations: [
-      'Multiple ventures operating inside the same space makes one heavily rely on signage and directions which are lacking, even though the store was organized.',
+      'Multiple ventures operating inside the same space makes one heavily rely on signage and directions which are lacking',
       'Brand messaging could benefit from increased visual cohesion.',
       'Customers stay seated at the cafe without exploring merchandise (missed cross-selling opportunities).',
     ],
@@ -107,11 +109,13 @@ const VENTURES = [
     ],
   },
   {
+    number: '03',
+    category: 'Digital',
     title: 'Website and Social Media',
     facts: [
-      'Website serves as both an e-commerce hub (thrift, books, auctions) and mission advocacy portal, with clear CTAs for donations/volunteering.',
+      'Website serves as both an e-commerce hub and mission advocacy portal, with clear CTAs for donations/volunteering.',
       'Leverages influencer partnerships over social media (e.g. LGBTQ+ creators).',
-      'Promotions through ad boosts and posts of events (bookstore readings, thrift sales) to drive foot traffic.',
+      'Promotions through ad boosts and posts of events to drive foot traffic.',
     ],
     observations: [
       'Social followers rarely translate to in-store.',
@@ -278,27 +282,36 @@ function HousingWorksPage() {
             training, and legal assistance, to tens of thousands of low-income
             New Yorkers each year.
           </p>
-          <p className={h.bodyText}>
-            Housing Works sustains its mission through entrepreneurial
-            businesses, which not only generate crucial funding for the
-            organization's advocacy and services but also create employment
-            opportunities within the community.
-          </p>
-
-          <div className={h.logoRow}>
-            {SUB_BRANDS.map((brand) => (
-              <div className={h.logoPanel} key={brand.src}>
-                <img src={brand.src} alt={brand.alt} loading="lazy" />
-              </div>
-            ))}
-          </div>
         </section>
 
-        {/* ============ CHALLENGE STATEMENT — the brief itself, set apart
-             in a tinted box. The label sits inside the box, so it runs
-             without its trailing line. ============ */}
+        {/* ============ CHALLENGE STATEMENT — the brief itself, with a
+             question mark standing the full height of it alongside. The
+             label sits inside the block, so it runs without its trailing
+             line. ============ */}
         <section className={h.section}>
-          <div className={h.askBox}>
+          <div className={h.askRow}>
+            {/* Drawn rather than typed, so it can stretch to whatever
+                height the text beside it turns out to be. The viewBox is
+                the glyph's own ink box, measured in General Sans Bold, so
+                the mark fills the box exactly with nothing to trim. */}
+            <span className={h.askMark} aria-hidden="true">
+              <svg
+                viewBox="3.6 -145.6 103.8 146.6"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+              >
+                <text
+                  x="0"
+                  y="0"
+                  fontFamily="General Sans, sans-serif"
+                  fontWeight="700"
+                  fontSize="200"
+                  fill="currentColor"
+                >
+                  ?
+                </text>
+              </svg>
+            </span>
             <SectionLabel title="CHALLENGE STATEMENT" noLine />
             <p className={h.askText}>
               How might we transform Housing Works into a global experiential
@@ -316,23 +329,47 @@ function HousingWorksPage() {
             <SectionLabel title="PRIMARY RESEARCH" number="02" />
           </div>
           <h3 className={h.subHeading}>Current Strategy</h3>
-          <p className={h.bodyText}>
-            Housing Works funds its mission to end homelessness and HIV/AIDS
-            through a network of entrepreneurial businesses and strategies such
-            as:
-          </p>
 
-          {VENTURES.map((venture) => (
-            <div className={h.venture} key={venture.title}>
-              <div className={h.ventureGrid}>
-                <div>
-                  <h4 className={h.ventureTitle}>{venture.title}</h4>
-                  <ul className={h.factList}>
-                    {venture.facts.map((fact) => (
-                      <li key={fact}>{fact}</li>
-                    ))}
-                  </ul>
-                </div>
+          {/* The statement, and under it the three businesses it is
+              talking about, standing on the page without panels. */}
+          <p className={h.pinkStatement}>
+            Housing Works sustains its mission through entrepreneurial
+            businesses, which not only generate crucial funding for the
+            organization's advocacy and services but also create employment
+            opportunities within the community.
+          </p>
+          <div className={h.logoRow}>
+            {SUB_BRANDS.map((brand) => (
+              <img
+                key={brand.src}
+                className={h.logoMark}
+                src={brand.src}
+                alt={brand.alt}
+                loading="lazy"
+              />
+            ))}
+          </div>
+
+          {/* One row per business, the copy and the pictures swapping sides
+              each time so the eye is handed across the page rather than
+              running down one column. */}
+          {VENTURES.map((venture, i) => (
+            <div
+              className={`${h.ventureRow} ${i % 2 === 1 ? h.ventureRowFlip : ''}`}
+              key={venture.title}
+            >
+              <div className={h.ventureText}>
+                <p className={h.ventureEyebrow}>
+                  <span>{venture.number}</span>
+                  <span>{venture.category}</span>
+                </p>
+                <h4 className={h.ventureTitle}>{venture.title}</h4>
+                <ul className={h.factList}>
+                  {venture.facts.map((fact) => (
+                    <li key={fact}>{fact}</li>
+                  ))}
+                </ul>
+
                 <div className={h.observations}>
                   <p className={h.observationsLabel}>Observations</p>
                   <ul className={h.factList}>
@@ -342,21 +379,24 @@ function HousingWorksPage() {
                   </ul>
                 </div>
               </div>
-              <div
-                className={`${h.photoRow} ${
-                  'screens' in venture ? h.photoRowScreens : ''
-                }`}
-              >
-                {venture.photos.map((photo) => (
-                  <img
-                    key={photo.src}
-                    src={photo.src}
-                    alt={photo.alt}
-                    loading="lazy"
-                  />
-                ))}
+
+              <div className={h.ventureMedia}>
+                <div
+                  className={`${h.mediaGrid} ${
+                    'screens' in venture ? h.mediaGridScreens : ''
+                  }`}
+                >
+                  {venture.photos.map((photo) => (
+                    <img
+                      key={photo.src}
+                      src={photo.src}
+                      alt={photo.alt}
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+                <p className={h.caption}>{venture.caption}</p>
               </div>
-              <p className={h.caption}>{venture.caption}</p>
             </div>
           ))}
         </section>
