@@ -127,6 +127,14 @@ These apply site wide, not just to one page.
 3. **Cap body text width.** Long paragraphs running the full width of the screen
    are hard to read. Keep the line length to roughly three quarters of the
    content width or less.
+4. **Flag anything that steps outside this document.** If a font, a colour or a
+   styling choice is not in the set here, say so plainly when handing the work
+   over, and say what was used and why. This includes a token from the system
+   being used for a job it was not given, not only a brand new value.
+
+   A project sometimes does need a colour of its own, so this is not a ban. It
+   is a checkpoint: flagged, it can be confirmed or refused. Unflagged, the
+   system quietly drifts and nobody notices until it has.
 
 ---
 

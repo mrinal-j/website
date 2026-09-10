@@ -213,7 +213,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
-  align-items: start;
+  /* The copy sits level with the middle of the pictures beside it. Topped
+     out, a short column of text leaves a hole under it that reads as a
+     mistake; centred, the two halves settle against each other. */
+  align-items: center;
   padding: 56px 0;
 }
 .ventureRow:first-of-type {
@@ -238,17 +241,6 @@
   order: -1;
 }
 
-/* Number and category, set apart by a gap rather than by a dash. */
-.ventureEyebrow {
-  display: flex;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--housing-works-pink);
-  margin: 0 0 12px;
-}
 .ventureTitle {
   font-family: var(--font-sans);
   font-weight: 700;
@@ -321,14 +313,24 @@
 .mediaGrid img:nth-child(3) {
   grid-column: 1 / -1;
 }
-/* Screens rather than photographs. Cropping a website or a phone screen
-   throws away the thing being shown, so these sit whole on a grey ground
-   and are given the extra height a tall screenshot needs. */
+/* Screens rather than photographs. They stand at a common height so the
+   pair reads as one row, and the columns are weighted to the two images'
+   own proportions, roughly square for the web page and tall for the
+   phone, so holding them level crops next to nothing off either. The
+   phone screenshot's black side bars are trimmed out of the file itself,
+   so the width here is all content. A hairline keeps them reading as
+   screens rather than floating loose on the page. */
+.mediaGridScreens {
+  grid-template-columns: 1.93fr 1fr;
+  align-items: start;
+}
 .mediaGridScreens img {
-  height: clamp(280px, 26vw, 400px);
-  object-fit: contain;
-  background: var(--bg-tertiary);
-  padding: 16px;
+  height: clamp(300px, 25vw, 360px);
+  object-fit: cover;
+  /* Both are captured from the top of a page, so that is the end to keep
+     if anything ever does have to go. */
+  object-position: top;
+  border: 1px solid var(--border-light);
 }
 .caption {
   font-family: var(--font-mono);
@@ -353,6 +355,17 @@
 @media (max-width: 560px) {
   .mediaGrid img {
     height: clamp(180px, 44vw, 260px);
+  }
+  /* Screens keep their own proportions at every width. Side by side on a
+     phone they come out barely a finger wide, which is no use for reading
+     a web page or a feed, so they take the full width one after the
+     other instead. */
+  .mediaGridScreens {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .mediaGridScreens img {
+    height: auto;
   }
 }
 

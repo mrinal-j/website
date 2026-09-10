@@ -15,6 +15,11 @@
 - Cards, images and thumbnails use `var(--radius-card)` (currently 8px). Never type a radius number straight into a component stylesheet.
 - Shared colour, type and radius tokens live in `src/styles/globals.css`.
 - When a visual rule changes, update `DESIGN.md` in the same pass.
+- Flag any font, colour or styling choice that sits outside `DESIGN.md`, and say
+  what was used and why. This covers a system token used for a job it was not
+  given, not just a brand new value. Projects may well need a colour of their
+  own, so flagging is not asking permission to be refused, it is so the choice
+  can be confirmed or denied rather than slipping in unnoticed.
 
 ## Git Workflow
 

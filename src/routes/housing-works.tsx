@@ -50,13 +50,11 @@ const SUB_BRANDS = [
 // is, what we noticed inside it, and the photographs the notes came from.
 const VENTURES = [
   {
-    number: '01',
-    category: 'Retail',
     title: 'Thrift Stores',
     facts: [
-      '9 thrift stores across NYC',
+      '9 thrift stores across NYC.',
       'Online thrift shop (eShop), auctions, and Bookshop.org partnerships extend reach beyond physical stores.',
-      'Relies on community donations of clothing, accessories, furniture, and home goods',
+      'Relies on community donations of clothing, accessories, furniture, and home goods.',
     ],
     observations: [
       'Lack of visual cohesion across all touchpoints, such as clothing tags, packaging material or posters.',
@@ -79,16 +77,14 @@ const VENTURES = [
     ],
   },
   {
-    number: '02',
-    category: 'Place',
     title: 'Bookstore and Cafe',
     facts: [
-      'Primarily relies on donated inventory (books, media, clothing, housewares) and volunteer staffing.',
+      'Primarily relies on donated inventory and volunteer staffing.',
       'Space doubles as an event venue (e.g. readings, fundraisers, weddings etc.).',
-      'The café provides coffee, wine, and light fare, enhancing the overall experience and encouraging customers to linger, thereby increasing dwell time and social engagement.',
+      'The café serves coffee, wine and light fare, which keeps people in the space longer.',
     ],
     observations: [
-      'Multiple ventures operating inside the same space makes one heavily rely on signage and directions which are lacking',
+      'Multiple ventures operating inside the same space makes one heavily rely on signage and directions which are lacking.',
       'Brand messaging could benefit from increased visual cohesion.',
       'Customers stay seated at the cafe without exploring merchandise (missed cross-selling opportunities).',
     ],
@@ -109,8 +105,6 @@ const VENTURES = [
     ],
   },
   {
-    number: '03',
-    category: 'Digital',
     title: 'Website and Social Media',
     facts: [
       'Website serves as both an e-commerce hub and mission advocacy portal, with clear CTAs for donations/volunteering.',
@@ -359,10 +353,6 @@ function HousingWorksPage() {
               key={venture.title}
             >
               <div className={h.ventureText}>
-                <p className={h.ventureEyebrow}>
-                  <span>{venture.number}</span>
-                  <span>{venture.category}</span>
-                </p>
                 <h4 className={h.ventureTitle}>{venture.title}</h4>
                 <ul className={h.factList}>
                   {venture.facts.map((fact) => (
