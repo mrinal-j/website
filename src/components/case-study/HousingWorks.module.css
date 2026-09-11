@@ -397,23 +397,20 @@
   width: 100%;
   height: auto;
 }
-/* A short prompt telling you the frame above moves, set as a small pill
-   so it reads as something to act on rather than as a caption. */
+/* A short prompt telling you the frame above moves. Caption weight, not a
+   button: it describes the frame rather than asking to be pressed. */
 .figureHint {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  letter-spacing: 0.02em;
-  color: var(--housing-works-pink);
-  border: 1px solid var(--housing-works-pink);
-  border-radius: 999px;
-  padding: 8px 16px;
-  margin: 16px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 12px 0 0;
 }
 .figureHintArrow {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1;
 }
 
@@ -539,7 +536,12 @@
      merchandise picture. The lighter one left the white hoodie with
      nothing to read against. */
   background: var(--bg-tertiary);
+  /* A flex item refuses to go below its content in either direction by
+     default. Left alone, a tile holding several pictures is floored at
+     their stacked height, which stretches the whole band and quietly
+     distorts every tile beside it. */
   min-width: 0;
+  min-height: 0;
 }
 .bentoTile img,
 .bentoTile video {
@@ -575,6 +577,25 @@
   border-radius: var(--radius-card);
 }
 
+/* Four small tiles sharing one slot, two by two. Same idea as the pair
+   above: many small proofs that the system reaches everywhere, kept small
+   enough not to compete with the pictures beside them. */
+.bentoQuad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  background: none;
+  border-radius: 0;
+  overflow: visible;
+}
+.bentoQuad img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
 /* The two written tiles: black on white, standing in their own space
    with no panel or border, so they read as breathing room in the grid
    rather than as another picture. */
@@ -599,6 +620,27 @@
   color: var(--housing-works-pink);
   margin: 0 0 18px;
 }
+/* A written tile carrying a move rather than a statement: the line itself
+   leads, with what it is made of sitting under it. Same white ground and
+   same lack of a panel as vision and mission, so the two kinds of written
+   tile read as one family. */
+.bentoIdeaTitle {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.5vw, 1.3125rem);
+  line-height: 135%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+.bentoIdeaDetail {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 .bentoStatementText {
   font-family: var(--font-sans);
   font-weight: 400;
@@ -622,7 +664,8 @@
   /* Landscape tiles take the whole width. A lone upright tile grows into
      the gap on its own, since these are all allowed to grow. */
   .bentoWide,
-  .bentoStack {
+  .bentoStack,
+  .bentoQuad {
     flex-basis: 100%;
   }
   /* The writing takes the full width, where it has room to be read. */
@@ -654,84 +697,107 @@
   }
 }
 
-/* The three in-store moves, stacked as their own titled notes. */
-.noteList {
+/* Social, web and in-store, one line each. The name carries the brand pink
+   and the sentence runs straight on from it, so the three read as a list of
+   places the brand shows up rather than as three headed sections. */
+.channelList {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-top: 48px;
+  gap: 14px;
   max-width: 75%;
 }
-.note {
-  border-top: 1px solid var(--border-light);
-  padding-top: 28px;
+.channelList li {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+}
+.channelName {
+  color: var(--housing-works-pink);
+  font-weight: 700;
+}
+/* The same line shape, standing on its own to open the store bento. */
+.channelLead {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+  margin: 0 0 40px;
+  max-width: 75%;
 }
 @media (max-width: 768px) {
-  .noteList {
+  .channelList {
     max-width: 100%;
   }
 }
 
 /* ============================================================
-   THE RENDERS — the proposed store, shown as one board. The layout
-   drawing runs the full width, the four views sit two up, and the
-   merchandise closes it.
+   SUCCESS METRICS — a heading with the measures listed plainly
+   beneath it, and a picture alongside. No boxes: these are things to
+   watch, not cards to click, and a border around each one only made
+   them look like controls.
    ============================================================ */
-.board {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 56px;
-}
-.boardFull img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-card);
-  background: var(--bg-primary);
-}
-.boardPair {
+.metricsRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 64px;
+  align-items: center;
 }
-.boardPair img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: var(--radius-card);
-}
-@media (max-width: 768px) {
-  .boardPair {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================================
-   SUCCESS METRICS — what the team said it would watch. Two columns,
-   one for the rebrand and one for the store itself.
-   ============================================================ */
-.metricsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 40px;
-}
-.metricsCard {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-card);
-  padding: 36px 32px;
-}
-.metricsTitle {
+.metricsHeading {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1.0625rem;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  line-height: 135%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 40px;
+}
+.metricsGroups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 32px;
+}
+.metricsGroupTitle {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
   line-height: 140%;
   color: var(--text-primary);
-  margin: 0 0 20px;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--housing-works-pink);
 }
-@media (max-width: 768px) {
-  .metricsGrid {
+.metricsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.metricsList li {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 160%;
+  color: var(--text-secondary);
+}
+.metricsMedia img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-card);
+}
+@media (max-width: 900px) {
+  .metricsRow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+@media (max-width: 560px) {
+  .metricsGroups {
     grid-template-columns: 1fr;
   }
 }
@@ -785,27 +851,34 @@
 }
 
 /* ============================================================
-   REFLECTIONS — the honest close, carried in a panel filled with the
-   Housing Works pink rather than set off by a rule down its edge.
+   REFLECTIONS — the honest close, set off by a rule down its left edge
+   with the heading in the brand pink, the same idiom the In The Loop
+   page uses for its reflections.
    ============================================================ */
 .reflectionsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
   max-width: 75%;
 }
 .reflectionItem {
-  background: var(--housing-works-pink);
-  border-radius: var(--radius-card);
-  padding: 40px;
+  border-left: 3px solid var(--housing-works-pink);
+  padding-left: 28px;
 }
-/* Black type, not white. On this pink black reaches about 5.3:1 against
-   the background and white only about 3.9:1, so black is the one that
-   clears the readability bar. It also matches how the other case studies
-   set copy on a panel of brand colour. */
+.reflectionSubheading {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 120%;
+  color: var(--housing-works-pink);
+  margin: 0 0 16px;
+}
 .reflectionBody {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
   line-height: 175%;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   margin: 0;
 }
 @media (max-width: 768px) {
@@ -813,6 +886,6 @@
     max-width: 100%;
   }
   .reflectionItem {
-    padding: 28px;
+    padding-left: 20px;
   }
 }

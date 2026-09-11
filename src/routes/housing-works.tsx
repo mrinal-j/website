@@ -200,17 +200,17 @@ const BENTO_BANDS = [
   ],
   [
     {
-      kind: 'statement' as const,
-      ratio: 1.05,
-      label: 'Mission',
-      text: 'By giving a second life to belongings and a second chance to people, Housing Works gets inspired and gives hope to the innumerable lives in the city of New York.',
-    },
-    {
       kind: 'video' as const,
       ratio: 1.7778,
       src: '/images/hw-website-walkthrough.mp4',
       poster: '/images/hw-website-poster.webp',
       alt: 'A walkthrough of the proposed website, opening on the headline "Giving a second life to clothing and a second opportunity to people".',
+    },
+    {
+      kind: 'statement' as const,
+      ratio: 1.05,
+      label: 'Mission',
+      text: 'By giving a second life to belongings and a second chance to people, Housing Works gets inspired and gives hope to the innumerable lives in the city of New York.',
     },
   ],
   [
@@ -225,6 +225,32 @@ const BENTO_BANDS = [
       ratio: 1.0224,
       src: '/images/hw-bento-posters.webp',
       alt: 'Posters pasted on a concrete wall, a passer-by blurred in front of them.',
+    },
+    {
+      // Four small proofs in one slot: the tags, keyrings and totes that
+      // show the system reaching past the shopfront.
+      kind: 'quad' as const,
+      // Tuned so the four cells inside come out at the shape of the
+      // pictures in them, once the gap between them is accounted for.
+      ratio: 1.048,
+      items: [
+        {
+          src: '/images/hw-asset-stickers.webp',
+          alt: 'Stickers and badges carrying the wordmark.',
+        },
+        {
+          src: '/images/hw-asset-keyrings.webp',
+          alt: 'Two keyrings carrying the house mark.',
+        },
+        {
+          src: '/images/hw-asset-tote-pink.webp',
+          alt: 'A pink tote printed with a Statue of Liberty stamp reading "Thrift like a New Yorker".',
+        },
+        {
+          src: '/images/hw-asset-tote-nyc.webp',
+          alt: 'A canvas tote printed with a New York street sign.',
+        },
+      ],
     },
   ],
   [
@@ -260,26 +286,72 @@ const BENTO_BANDS = [
   ],
 ]
 
-// The renders of the proposed store, in the order they were presented.
-const RENDER_PAIR_ONE = [
-  {
-    src: '/images/hw-store-render-1.webp',
-    alt: 'A render of the proposed store: a seating corner with a green sofa, a West Village transit map, staff picks signage and store-specific zones.',
-  },
-  {
-    src: '/images/hw-store-render-2.webp',
-    alt: 'A render of the proposed billing counter: branded joinery, a "Who are we?" mission poster, and merchandise on open shelves.',
-  },
-]
-const RENDER_PAIR_TWO = [
-  {
-    src: '/images/hw-store-render-3.webp',
-    alt: 'A render showing New York inspired wayfinding above the rails, records on the brick wall, and branded tote bags on the shelf.',
-  },
-  {
-    src: '/images/hw-store-render-4.webp',
-    alt: 'A wide render of the proposed store: jewellery counter, wayfinding signage, framed New York artwork and the seating corner beyond.',
-  },
+// The store, as its own bento: every render kept, with the three in-store
+// moves set among them as written tiles, the way vision and mission sit
+// among the brand pictures above.
+const STORE_BANDS = [
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.9925,
+      src: '/images/hw-store-layout.webp',
+      alt: 'The proposed layout for the West Village thrift shop: a plan view marked with the story wall, brand assets, specialized zones and the donation corner, beside a cutaway of the same room.',
+    },
+    {
+      kind: 'idea' as const,
+      ratio: 1.05,
+      title: 'A consistent retail layer',
+      detail: 'Aprons, signage, displays.',
+    },
+  ],
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-store-render-2.webp',
+      alt: 'A render of the proposed billing counter: branded joinery, a "Who are we?" mission poster, and merchandise on open shelves.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-store-render-3.webp',
+      alt: 'A render showing New York inspired wayfinding above the rails, records on the brick wall, and branded tote bags on the shelf.',
+    },
+    {
+      kind: 'idea' as const,
+      ratio: 1.05,
+      title: 'A corner for the neighborhood',
+      detail: 'Local history, staff picks, wall art.',
+    },
+  ],
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-store-render-4.webp',
+      alt: 'A render of the seating corner: a green sofa, a West Village transit map, staff picks signage and store-specific zones.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-store-render-1.webp',
+      alt: 'A wide render of the proposed store: jewellery counter, wayfinding signage, framed New York artwork and the seating corner beyond.',
+    },
+  ],
+  [
+    {
+      kind: 'idea' as const,
+      ratio: 1.05,
+      title: 'Walls that carry the mission',
+      detail: 'Second-chance stories.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-store-render-5.webp',
+      alt: 'A render of the NYC Stories wall: a grid of portraits filling the brick wall beside the fitting room, with two shoppers looking at it.',
+    },
+  ],
 ]
 
 // What the team said it would watch once the reimagining was live.
@@ -587,45 +659,26 @@ function HousingWorksPage() {
         {/* ============ ONLINE COMMUNICATIONS ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="THE BRAND" number="06" />
+            <SectionLabel title="BRAND IN PRACTICE" number="06" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
-            We focused on creating a cohesive and impactful online
-            communication strategy that highlights the brand's mission,
-            storytelling, and aesthetic consistency.
+            The goal was to create one coherent brand across every touchpoint,
+            from a scrolling feed to a shop floor, each carrying the same
+            mission, story, and look.
           </p>
 
-          <div className={h.splitGrid}>
-            <div>
-              <h4 className={h.ventureTitle}>Social Media</h4>
-              <ul className={h.factList}>
-                <li>
-                  The mockup showcases Housing Works' signature pink color
-                  throughout the feed, ensuring visual cohesion while allowing
-                  flexibility for other brand colors.
-                </li>
-                <li>
-                  The Instagram account would feature event promotions, curated
-                  thrift collections, and storytelling content that connects
-                  purchases to Housing Works' mission.
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className={h.ventureTitle}>Website</h4>
-              <ul className={h.factList}>
-                <li>
-                  Designed a cohesive layout that integrates the thrift shop's
-                  branding while emphasizing the organization's mission and
-                  stories of individuals positively impacted by Housing Works.
-                </li>
-                <li>
-                  Simplified navigation and visually engaging elements to
-                  improve user experience.
-                </li>
-              </ul>
-            </div>
-          </div>
+          <ul className={h.channelList}>
+            <li>
+              <span className={h.channelName}>Social:</span> A pink-led feed
+              that ties every post, including events, collections and stories,
+              back to the mission.
+            </li>
+            <li>
+              <span className={h.channelName}>Web:</span> A redesign that puts
+              impact stories beside the shop, so browsing and giving live on
+              the same page.
+            </li>
+          </ul>
 
           {/* The brand itself, laid out as a bento: the identity, the two
               statements behind it, and the places it shows up. */}
@@ -649,6 +702,24 @@ function HousingWorksPage() {
                       >
                         <p className={h.bentoStatementLabel}>{tile.label}</p>
                         <p className={h.bentoStatementText}>{tile.text}</p>
+                      </div>
+                    )
+                  }
+                  if (tile.kind === 'quad') {
+                    return (
+                      <div
+                        className={`${h.bentoTile} ${h.bentoQuad}`}
+                        key={tile.items[0].src}
+                        style={style}
+                      >
+                        {tile.items.map((item) => (
+                          <img
+                            key={item.src}
+                            src={item.src}
+                            alt={item.alt}
+                            loading="lazy"
+                          />
+                        ))}
                       </div>
                     )
                   }
@@ -705,114 +776,87 @@ function HousingWorksPage() {
           </div>
         </section>
 
-        {/* ============ IN-STORE STRATEGY ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
-            <SectionLabel
-              title="IN-STORE COMMUNICATIONS AND EXPERIENCE"
-              number="07"
-            />
-          </div>
-          <p className={`${h.bodyText} ${h.bodyLead}`}>
-            Our reimagined in-store strategy focuses on creating an immersive,
+        {/* The same system on the shop floor, in its own bento, introduced
+            by the line that used to sit with social and web. */}
+        <section className={`${h.section} ${h.sectionTight}`}>
+          <p className={h.channelLead}>
+            <span className={h.channelName}>In-store:</span> An immersive,
             location-specific experience while maintaining core brand assets
-            across all thrift shops. This transforms Housing Works thrift
-            stores and the bookstore into experiential spaces that reflect
-            their mission while engaging diverse audiences.
+            across all thrift shops.
           </p>
-
-          <div className={h.noteList}>
-            <div className={h.note}>
-              <h4 className={h.ventureTitle}>Branding &amp; Merchandising</h4>
-              <p className={h.bodyText}>
-                To strengthen brand visibility, we introduced branded aprons for
-                employees, signage that reflect New York City, and dedicated
-                display areas for storytelling and merchandise. These elements
-                reinforce Housing Works' identity while creating a polished
-                retail experience.
-              </p>
-            </div>
-            <div className={h.note}>
-              <h4 className={h.ventureTitle}>Neighborhood Storytelling Corner</h4>
-              <p className={h.bodyText}>
-                Each store features a dedicated area celebrating its location's
-                history and culture. For example: a conversation corner with
-                locally relevant décor; mannequins showcasing staff picks that
-                reflect the neighborhood's fashion aesthetic; and wall art
-                providing educational content about the neighborhood's history.
-              </p>
-            </div>
-            <div className={h.note}>
-              <h4 className={h.ventureTitle}>Mission-Focused Displays</h4>
-              <p className={h.bodyText}>
-                Drawing inspiration from the website redesign, we proposed using
-                wall space to showcase stories of New Yorkers whose lives have
-                been transformed by Housing Works. This reinforces the brand's
-                "second chances" narrative and ensures customers understand how
-                their purchases contribute to meaningful change.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ THE RENDERS — the proposed store as one board.
-             The layout drawing leads, the four views sit two up, and the
-             brand assets and merchandise close it. ============ */}
-        <section
-          className={`${h.section} ${h.sectionTight}`}
-          aria-label="Renders of the proposed store"
-        >
-          <div className={h.board}>
-            <div className={h.boardFull}>
-              <img
-                src="/images/hw-store-layout.webp"
-                alt="The proposed layout for the West Village thrift shop: a plan view marked with the story wall, brand assets, specialized zones and the donation corner, beside a cutaway view of the same room."
-                loading="lazy"
-              />
-            </div>
-            <div className={h.boardPair}>
-              {RENDER_PAIR_ONE.map((r) => (
-                <img key={r.src} src={r.src} alt={r.alt} loading="lazy" />
-              ))}
-            </div>
-            <div className={h.boardPair}>
-              {RENDER_PAIR_TWO.map((r) => (
-                <img key={r.src} src={r.src} alt={r.alt} loading="lazy" />
-              ))}
-            </div>
-            <div className={h.boardFull}>
-              <img
-                src="/images/hw-brand-assets.webp"
-                alt="Proposed brand assets: stickers and badges carrying the wordmark, two keyrings, a pink tote printed with a Statue of Liberty stamp reading 'Thrift like a New Yorker', and a canvas tote printed with a New York street sign."
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ============ SUCCESS METRICS ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
-            <SectionLabel title="SUCCESS METRICS" number="08" />
-          </div>
-          <div className={h.metricsGrid}>
-            {METRICS.map((group) => (
-              <div className={h.metricsCard} key={group.title}>
-                <h4 className={h.metricsTitle}>{group.title}</h4>
-                <ul className={h.factList}>
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className={h.bento}>
+            {STORE_BANDS.map((band, bandIndex) => (
+              <div className={h.bentoBand} key={bandIndex}>
+                {band.map((tile) => {
+                  const style = { '--tile-ratio': tile.ratio } as CSSProperties
+                  const wide = tile.ratio >= 1.2 ? h.bentoWide : ''
+                  if (tile.kind === 'idea') {
+                    return (
+                      <div
+                        className={`${h.bentoTile} ${h.bentoStatement}`}
+                        key={tile.title}
+                        style={style}
+                      >
+                        <p className={h.bentoIdeaTitle}>{tile.title}</p>
+                        <p className={h.bentoIdeaDetail}>{tile.detail}</p>
+                      </div>
+                    )
+                  }
+                  return (
+                    <div
+                      className={`${h.bentoTile} ${wide}`}
+                      key={tile.src}
+                      style={style}
+                    >
+                      <img src={tile.src} alt={tile.alt} loading="lazy" />
+                    </div>
+                  )
+                })}
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ============ SUCCESS METRICS — a heading, the measures laid
+             out beneath it in a plain grid, and a picture alongside.
+             ============ */}
+        <section className={h.section}>
+          <div className={h.sectionLabelWrap}>
+            <SectionLabel title="SUCCESS METRICS" number="07" />
+          </div>
+          <div className={h.metricsRow}>
+            <div>
+              <h3 className={h.metricsHeading}>
+                What we would watch once it was live
+              </h3>
+              <div className={h.metricsGroups}>
+                {METRICS.map((group) => (
+                  <div key={group.title}>
+                    <h4 className={h.metricsGroupTitle}>{group.title}</h4>
+                    <ul className={h.metricsList}>
+                      {group.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className={h.metricsMedia}>
+              <img
+                src="/images/hw-metrics.webp"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
+            </div>
           </div>
         </section>
 
         {/* ============ PROTOTYPE ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="PROTOTYPE" number="09" />
+            <SectionLabel title="PROTOTYPE" number="08" />
           </div>
           <h3 className={h.subHeading}>
             Execution of the In-Store Experience
@@ -885,10 +929,11 @@ function HousingWorksPage() {
              rule down its edge. ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="10" />
+            <SectionLabel title="REFLECTIONS" number="09" />
           </div>
           <div className={h.reflectionsContent}>
             <div className={h.reflectionItem}>
+              <h3 className={h.reflectionSubheading}>What I took from it</h3>
               <p className={h.reflectionBody}>
                 Through this project, I gained valuable insights into
                 transforming a well-established brand like Housing Works into a
