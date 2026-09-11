@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import type { CSSProperties } from 'react'
 import { useRef } from 'react'
 import { Navbar } from '~/components/Navbar'
 import { Footer } from '~/components/Footer'
@@ -131,11 +132,132 @@ const VENTURES = [
   },
 ]
 
-// The three things the reimagining sets out to do.
+// The three things the reimagining sets out to do. The pictures are
+// placeholders: overwrite the files in public/images and nothing here
+// needs to change.
 const MOVES = [
-  'Attract locals and tourists through storytelling',
-  'Bring NYC and its history into the store experience',
-  'Highlight their mission through the experience',
+  {
+    text: 'Attract locals and tourists through storytelling',
+    image: '/images/hw-move-1.webp',
+  },
+  {
+    text: 'Bring NYC and its history into the store experience',
+    image: '/images/hw-move-2.webp',
+  },
+  {
+    text: 'Highlight their mission through the experience',
+    image: '/images/hw-move-3.webp',
+  },
+]
+
+// The brand, laid out as a bento in bands. Every tile carries its
+// picture's true width-to-height ratio, and inside a band the tiles are
+// given widths in proportion to those ratios. That makes every tile in a
+// band land on exactly the same height while each picture keeps its own
+// shape, so nothing has to be cropped to make the grid line up. The two
+// written tiles are given a ratio too, which is simply how much of the
+// band's width they take.
+const BENTO_BANDS = [
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-logo-pink.webp',
+      alt: 'The Housing Works wordmark reversed out of the brand crimson, with the house mark in black.',
+    },
+    {
+      kind: 'statement' as const,
+      ratio: 1.45,
+      label: 'Vision',
+      text: 'To be a representative of New York City by providing a safe platform for expression and education.',
+    },
+    {
+      // Two small tiles sharing one slot in the white space at the end of
+      // the band. The ratio is the pair's own: the width that makes both
+      // pictures, plus the gap between them, add up to the band's height.
+      kind: 'stack' as const,
+      ratio: 0.4453,
+      items: [
+        {
+          src: '/images/hw-store-sign.webp',
+          alt: 'The house mark on a black projecting sign above a shopfront.',
+        },
+        {
+          src: '/images/hw-store-card.webp',
+          alt: 'Two loyalty cards in the brand crimson, one carrying the wordmark and one offering five percent off for collecting a card.',
+        },
+      ],
+    },
+  ],
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.5295,
+      src: '/images/hw-bento-browser-logo.webp',
+      alt: 'The wordmark shown in a browser window on a yellow ground.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 0.7108,
+      src: '/images/hw-bento-heart.webp',
+      alt: 'A blue campaign card reading "Your Thrift with a Heart" above the wordmark.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 0.615,
+      src: '/images/hw-bento-marks-light.webp',
+      alt: 'The three sub-brand lockups on white: Thrift Store in pink, Cafe in blue, Bookstore in orange.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 0.6516,
+      src: '/images/hw-bento-marks-dark.webp',
+      alt: 'The same three sub-brand lockups reversed out of black.',
+    },
+  ],
+  [
+    {
+      kind: 'video' as const,
+      ratio: 1.7778,
+      src: '/images/hw-website-walkthrough.mp4',
+      poster: '/images/hw-website-poster.webp',
+      alt: 'A walkthrough of the proposed website, opening on the headline "Giving a second life to clothing and a second opportunity to people".',
+    },
+    {
+      kind: 'statement' as const,
+      ratio: 1.05,
+      label: 'Mission',
+      text: 'By giving a second life to belongings and a second chance to people, Housing Works gets inspired and gives hope to the innumerable lives in the city of New York.',
+    },
+  ],
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.5314,
+      src: '/images/hw-bento-instagram.webp',
+      alt: 'The Housing Works Instagram profile shown in a browser window on a yellow ground.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.0224,
+      src: '/images/hw-bento-posters.webp',
+      alt: 'Posters pasted on a concrete wall, a passer-by blurred in front of them.',
+    },
+  ],
+  [
+    {
+      kind: 'image' as const,
+      ratio: 1.5634,
+      src: '/images/hw-merch.webp',
+      alt: 'Proposed merchandise on a grey ground: pink and black bucket hats, a knitted beanie, and three sweatshirts carrying the mark.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.7789,
+      src: '/images/hw-social-mockup.webp',
+      alt: 'A mockup of the proposed Housing Works Thrift Instagram: a profile grid held together by the brand pink, beside a single post.',
+    },
+  ],
 ]
 
 // The renders of the proposed store, in the order they were presented.
@@ -394,7 +516,7 @@ function HousingWorksPage() {
         {/* ============ SERVICE BLUEPRINT ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="UNDERSTANDING THE EXPERIENCE" number="03" />
+            <SectionLabel title="MAPPING USER EXPERIENCE" number="03" />
           </div>
           <p className={h.bodyText}>
             To understand the customer experience better, we created a service
@@ -413,7 +535,10 @@ function HousingWorksPage() {
             />
           </figure>
           <p className={h.figureHint}>
-            The blueprint is wide. Scroll it sideways to read it in full.
+            <span>Scroll to explore</span>
+            <span className={h.figureHintArrow} aria-hidden="true">
+              &rarr;
+            </span>
           </p>
         </section>
 
@@ -422,11 +547,12 @@ function HousingWorksPage() {
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="IDEATION" number="04" />
           </div>
-          <h3 className={h.subHeading}>Opportunity Matrix</h3>
           <p className={h.bodyText}>
-            To understand what directions are the most viable to least viable,
-            we laid it out in a matrix, highlighting what our next steps would
-            look like.
+            To understand what directions are the{' '}
+            <span className={h.inlineHighlight}>
+              most viable to least viable, we laid it out in a matrix,
+            </span>{' '}
+            highlighting what our next steps would look like.
           </p>
           <figure className={h.plainFigure}>
             <img
@@ -443,38 +569,25 @@ function HousingWorksPage() {
             <SectionLabel title="PROPOSED STRATEGY" number="05" />
           </div>
           <h3 className={h.subHeading}>Why "reimagine" Housing Works?</h3>
-          <div className={h.moveGrid}>
+          <div className={h.moveList}>
             {MOVES.map((move, i) => (
-              <div className={h.moveCard} key={move}>
-                <span className={h.moveNumber}>{`0${i + 1}`}</span>
-                <p className={h.moveText}>{move}</p>
+              <div className={h.moveCard} key={move.text}>
+                <div className={h.moveBody}>
+                  <span className={h.moveNumber}>{`0${i + 1}`}</span>
+                  <p className={h.moveText}>{move.text}</p>
+                </div>
+                <div className={h.moveMedia}>
+                  <img src={move.image} alt="" aria-hidden="true" loading="lazy" />
+                </div>
               </div>
             ))}
-          </div>
-
-          <div className={h.statementGrid}>
-            <div className={h.statement}>
-              <p className={h.statementLabel}>Vision</p>
-              <p className={h.statementText}>
-                To be a representative of New York City by providing a safe
-                platform for expression and education.
-              </p>
-            </div>
-            <div className={h.statement}>
-              <p className={h.statementLabel}>Mission</p>
-              <p className={h.statementText}>
-                By giving a second life to belongings and a second chance to
-                people, Housing Works gets inspired and gives hope to the
-                innumerable lives in the city of New York.
-              </p>
-            </div>
           </div>
         </section>
 
         {/* ============ ONLINE COMMUNICATIONS ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="ONLINE COMMUNICATIONS" number="06" />
+            <SectionLabel title="THE BRAND" number="06" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
             We focused on creating a cohesive and impactful online
@@ -498,16 +611,6 @@ function HousingWorksPage() {
                 </li>
               </ul>
             </div>
-            <div className={h.splitMedia}>
-              <img
-                src="/images/hw-social-mockup.webp"
-                alt="A mockup of the proposed Housing Works Thrift Instagram: a profile grid held together by the brand pink, beside a single post about reusing thrifted finds."
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className={`${h.splitGrid} ${h.splitReverse}`}>
             <div>
               <h4 className={h.ventureTitle}>Website</h4>
               <ul className={h.factList}>
@@ -522,18 +625,83 @@ function HousingWorksPage() {
                 </li>
               </ul>
             </div>
-            <div className={h.splitMedia}>
-              <video
-                src="/images/hw-website-walkthrough.mp4"
-                poster="/images/hw-website-poster.webp"
-                aria-label="A walkthrough of the proposed Housing Works website, opening on the headline 'Giving a second life to clothing and a second opportunity to people'."
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="none"
-              />
-            </div>
+          </div>
+
+          {/* The brand itself, laid out as a bento: the identity, the two
+              statements behind it, and the places it shows up. */}
+          <div className={h.bento}>
+            {BENTO_BANDS.map((band, bandIndex) => (
+              <div className={h.bentoBand} key={bandIndex}>
+                {band.map((tile) => {
+                  // Width in proportion to the picture's own shape, which is
+                  // what levels the heights across the band.
+                  const style = { '--tile-ratio': tile.ratio } as CSSProperties
+                  // Landscape tiles take the full width on a phone. Halved,
+                  // a wide tile comes out only a finger tall, which is no use
+                  // for reading a logo or a rail of merchandise.
+                  const wide = tile.ratio >= 1.2 ? h.bentoWide : ''
+                  if (tile.kind === 'statement') {
+                    return (
+                      <div
+                        className={`${h.bentoTile} ${h.bentoStatement}`}
+                        key={tile.label}
+                        style={style}
+                      >
+                        <p className={h.bentoStatementLabel}>{tile.label}</p>
+                        <p className={h.bentoStatementText}>{tile.text}</p>
+                      </div>
+                    )
+                  }
+                  if (tile.kind === 'stack') {
+                    return (
+                      <div
+                        className={`${h.bentoTile} ${h.bentoStack}`}
+                        key={tile.items[0].src}
+                        style={style}
+                      >
+                        {tile.items.map((item) => (
+                          <img
+                            key={item.src}
+                            src={item.src}
+                            alt={item.alt}
+                            loading="lazy"
+                          />
+                        ))}
+                      </div>
+                    )
+                  }
+                  if (tile.kind === 'video') {
+                    return (
+                      <div
+                        className={`${h.bentoTile} ${wide}`}
+                        key={tile.src}
+                        style={style}
+                      >
+                        <video
+                          src={tile.src}
+                          poster={tile.poster}
+                          aria-label={tile.alt}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="none"
+                        />
+                      </div>
+                    )
+                  }
+                  return (
+                    <div
+                      className={`${h.bentoTile} ${wide}`}
+                      key={tile.src}
+                      style={style}
+                    >
+                      <img src={tile.src} alt={tile.alt} loading="lazy" />
+                    </div>
+                  )
+                })}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -616,13 +784,6 @@ function HousingWorksPage() {
               <img
                 src="/images/hw-brand-assets.webp"
                 alt="Proposed brand assets: stickers and badges carrying the wordmark, two keyrings, a pink tote printed with a Statue of Liberty stamp reading 'Thrift like a New Yorker', and a canvas tote printed with a New York street sign."
-                loading="lazy"
-              />
-            </div>
-            <div className={h.boardFull}>
-              <img
-                src="/images/hw-merch.webp"
-                alt="Proposed merchandise: pink and black bucket hats, a knitted beanie, and three sweatshirts carrying the Housing Works mark."
                 loading="lazy"
               />
             </div>

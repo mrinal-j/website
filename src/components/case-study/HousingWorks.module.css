@@ -6,11 +6,18 @@
    on .housingWorks so the whole page can be re-themed from one place.
    ============================================================ */
 .housingWorks {
-  /* Housing Works pink, sampled from the master logo. It carries every
-     accent on the page and fills the reflections panel at the end. The
-     tint below it is the same pink at a whisper, used for quiet panels. */
-  --housing-works-pink: #d0538f;
-  --housing-works-pink-tint: #fbf1f6;
+  /* Housing Works pink, taken from the rebrand artwork rather than from the
+     organisation's existing logo, since this page is about the rebrand. It
+     carries every accent here and fills the reflections panel at the end.
+     The tint below it is the same crimson at a whisper, for quiet panels.
+
+     Note on contrast: black on this crimson reaches 4.89:1, so the filled
+     panels are comfortably readable. The crimson on white reaches 4.29:1,
+     which clears the bar for large or bold type but sits just under it for
+     the smallest labels. Darkening it by two percent to #d93659 would clear
+     it everywhere, at the cost of no longer matching the artwork exactly. */
+  --housing-works-pink: #db3f60;
+  --housing-works-pink-tint: #fdf3f5;
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
@@ -390,11 +397,30 @@
   width: 100%;
   height: auto;
 }
+/* A short prompt telling you the frame above moves, set as a small pill
+   so it reads as something to act on rather than as a caption. */
 .figureHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-body);
   font-size: 0.8125rem;
-  color: var(--text-muted);
-  margin: 12px 0 0;
+  letter-spacing: 0.02em;
+  color: var(--housing-works-pink);
+  border: 1px solid var(--housing-works-pink);
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin: 16px 0 0;
+}
+.figureHintArrow {
+  font-size: 0.9375rem;
+  line-height: 1;
+}
+
+/* A run of words lifted out of a sentence in the brand pink. */
+.inlineHighlight {
+  color: var(--housing-works-pink);
+  font-weight: 700;
 }
 
 /* A diagram that does fit, sitting on the section's own ground. */
@@ -408,20 +434,32 @@
 }
 
 /* ============================================================
-   PROPOSED STRATEGY — the three moves, then the vision and mission
-   the reimagining is built on.
+   PROPOSED STRATEGY — the three moves, each a card with the copy
+   leading and a picture alongside it, roughly seven parts copy to
+   three parts picture.
    ============================================================ */
-.moveGrid {
+.moveList {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 40px;
 }
 .moveCard {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  align-items: stretch;
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-card);
+  /* The picture runs to the card's edge, so the corners have to clip. */
+  overflow: hidden;
+  min-height: 260px;
+}
+.moveBody {
   padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .moveNumber {
   font-family: var(--font-mono);
@@ -433,47 +471,162 @@
 .moveText {
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1.0625rem;
-  line-height: 150%;
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  line-height: 140%;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
 }
+.moveMedia {
+  background: var(--bg-secondary);
+}
+.moveMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 900px) {
+  /* Three abreast gets too tight to read before the phone breakpoint. */
+  .moveList {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .moveCard {
+    grid-template-columns: 1fr;
+  }
+  .moveBody {
+    padding: 28px;
+  }
+  /* Stacked, the picture needs a height of its own. */
+  .moveMedia img {
+    height: clamp(140px, 38vw, 220px);
+  }
+}
 
-.statementGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+/* ============================================================
+   THE BENTO — the identity, the two statements behind it, and the
+   places the brand shows up.
+
+   Laid out in bands rather than on a fixed grid. Within a band each
+   tile is given a share of the width in proportion to its picture's
+   own width-to-height ratio, and is then held to that same ratio. The
+   arithmetic falls out: a tile twice as wide as another is also twice
+   as wide in the row, so both land on exactly the same height. Every
+   picture therefore keeps its own shape and nothing is cropped to make
+   the row line up, which matters here because these are drawn artwork
+   rather than photographs: a crop takes a bite out of a logo.
+   ============================================================ */
+.bento {
   margin-top: 56px;
 }
-.statement {
-  background: var(--housing-works-pink-tint);
-  border-radius: var(--radius-card);
-  padding: 40px;
+.bentoBand {
+  display: flex;
+  gap: 14px;
 }
-.statementLabel {
+.bentoBand + .bentoBand {
+  margin-top: 14px;
+}
+.bentoTile {
+  /* Grow in proportion to the ratio, from a zero basis, so the widths
+     come out in the same proportion as the shapes. */
+  flex: var(--tile-ratio) 1 0%;
+  aspect-ratio: var(--tile-ratio);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  min-width: 0;
+}
+.bentoTile img,
+.bentoTile video {
+  width: 100%;
+  height: 100%;
+  /* The box is already the picture's own shape, so this crops nothing;
+     it is here to guard against a rounding pixel at the edges. */
+  object-fit: cover;
+  display: block;
+}
+
+/* Two small tiles sharing one slot, one above the other. The slot has no
+   ground of its own: each picture carries the rounding, so the pair reads
+   as two tiles rather than one box with a line through it.
+
+   This has to come after the rule above, not before it: both select an
+   image inside a tile with equal weight, so the later one wins, and the
+   pictures here must size to their own height rather than being stretched
+   to fill the slot. */
+.bentoStack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  background: none;
+  border-radius: 0;
+  overflow: visible;
+}
+.bentoStack img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-card);
+}
+
+/* The two written tiles: black on white, standing in their own space
+   with no panel or border, so they read as breathing room in the grid
+   rather than as another picture. */
+.bentoStatement {
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 32px;
+  /* Its ratio decides how much width it takes, but it must not also fix
+     its height: a written tile taller than its share would stretch the
+     whole band and start cropping the pictures next to it. Left to
+     stretch instead, it simply matches whatever height the pictures set. */
+  aspect-ratio: auto;
+}
+.bentoStatementLabel {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--housing-works-pink);
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
-.statementText {
+.bentoStatementText {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: clamp(1.0625rem, 1.6vw, 1.375rem);
-  line-height: 155%;
+  font-size: clamp(1.0625rem, 1.6vw, 1.4375rem);
+  line-height: 145%;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
 }
+
 @media (max-width: 900px) {
-  .moveGrid,
-  .statementGrid {
-    grid-template-columns: 1fr;
+  /* Bands wrap to two across. Tiles keep their own shapes, so the rows
+     come out a little ragged, which is the right trade on a narrow
+     screen: the alternative is artwork too small to make out. */
+  .bentoBand {
+    flex-wrap: wrap;
   }
-  .statement {
-    padding: 28px;
+  .bentoTile {
+    flex: 1 1 calc(50% - 7px);
+  }
+  /* Landscape tiles take the whole width. A lone upright tile grows into
+     the gap on its own, since these are all allowed to grow. */
+  .bentoWide,
+  .bentoStack {
+    flex-basis: 100%;
+  }
+  /* The writing takes the full width, where it has room to be read. */
+  .bentoStatement {
+    flex-basis: 100%;
+    aspect-ratio: auto;
+    padding: 24px 0;
   }
 }
 
@@ -491,25 +644,10 @@
 .splitGrid .bodyText {
   max-width: 100%;
 }
-/* The picture leads on this row instead of following. */
-.splitReverse .splitMedia {
-  order: -1;
-}
-.splitMedia img,
-.splitMedia video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: var(--radius-card);
-  background: var(--bg-secondary);
-}
 @media (max-width: 900px) {
   .splitGrid {
     grid-template-columns: 1fr;
     gap: 28px;
-  }
-  .splitReverse .splitMedia {
-    order: 0;
   }
 }
 
