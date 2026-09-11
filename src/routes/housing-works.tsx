@@ -160,16 +160,16 @@ const MOVES = [
 const BENTO_BANDS = [
   [
     {
-      kind: 'image' as const,
-      ratio: 1.7778,
-      src: '/images/hw-logo-pink.webp',
-      alt: 'The Housing Works wordmark reversed out of the brand crimson, with the house mark in black.',
-    },
-    {
       kind: 'statement' as const,
       ratio: 1.45,
       label: 'Vision',
       text: 'To be a representative of New York City by providing a safe platform for expression and education.',
+    },
+    {
+      kind: 'image' as const,
+      ratio: 1.7778,
+      src: '/images/hw-logo-pink.webp',
+      alt: 'The Housing Works wordmark reversed out of the brand crimson, with the house mark in black.',
     },
   ],
   [
@@ -200,17 +200,17 @@ const BENTO_BANDS = [
   ],
   [
     {
+      kind: 'statement' as const,
+      ratio: 1.05,
+      label: 'Mission',
+      text: 'By giving a second life to belongings and a second chance to people, Housing Works gets inspired and gives hope to the innumerable lives in the city of New York.',
+    },
+    {
       kind: 'video' as const,
       ratio: 1.7778,
       src: '/images/hw-website-walkthrough.mp4',
       poster: '/images/hw-website-poster.webp',
       alt: 'A walkthrough of the proposed website, opening on the headline "Giving a second life to clothing and a second opportunity to people".',
-    },
-    {
-      kind: 'statement' as const,
-      ratio: 1.05,
-      label: 'Mission',
-      text: 'By giving a second life to belongings and a second chance to people, Housing Works gets inspired and gives hope to the innumerable lives in the city of New York.',
     },
   ],
   [

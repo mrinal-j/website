@@ -535,7 +535,10 @@
   aspect-ratio: var(--tile-ratio);
   border-radius: var(--radius-card);
   overflow: hidden;
-  background: var(--bg-secondary);
+  /* The darker of the two greys, matching the ground baked into the
+     merchandise picture. The lighter one left the white hoodie with
+     nothing to read against. */
+  background: var(--bg-tertiary);
   min-width: 0;
 }
 .bentoTile img,
