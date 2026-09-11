@@ -171,23 +171,6 @@ const BENTO_BANDS = [
       label: 'Vision',
       text: 'To be a representative of New York City by providing a safe platform for expression and education.',
     },
-    {
-      // Two small tiles sharing one slot in the white space at the end of
-      // the band. The ratio is the pair's own: the width that makes both
-      // pictures, plus the gap between them, add up to the band's height.
-      kind: 'stack' as const,
-      ratio: 0.4453,
-      items: [
-        {
-          src: '/images/hw-store-sign.webp',
-          alt: 'The house mark on a black projecting sign above a shopfront.',
-        },
-        {
-          src: '/images/hw-store-card.webp',
-          alt: 'Two loyalty cards in the brand crimson, one carrying the wordmark and one offering five percent off for collecting a card.',
-        },
-      ],
-    },
   ],
   [
     {
@@ -253,9 +236,26 @@ const BENTO_BANDS = [
     },
     {
       kind: 'image' as const,
-      ratio: 1.7789,
+      ratio: 1.1334,
       src: '/images/hw-social-mockup.webp',
       alt: 'A mockup of the proposed Housing Works Thrift Instagram: a profile grid held together by the brand pink, beside a single post.',
+    },
+    {
+      // Two small tiles sharing one slot. The ratio is the pair's own: the
+      // width at which both pictures, plus the gap between them, come to
+      // exactly the height of the band they sit in.
+      kind: 'stack' as const,
+      ratio: 0.4486,
+      items: [
+        {
+          src: '/images/hw-store-sign.webp',
+          alt: 'The house mark on a black projecting sign above a shopfront.',
+        },
+        {
+          src: '/images/hw-store-card.webp',
+          alt: 'Two loyalty cards in the brand crimson, one carrying the wordmark and one offering five percent off for collecting a card.',
+        },
+      ],
     },
   ],
 ]
