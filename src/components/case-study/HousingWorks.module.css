@@ -122,6 +122,14 @@
 /* Set large as well as pink. At body size this pink sits just under the
    readability bar against white; at this size and weight it clears it,
    and the statement earns the emphasis anyway. */
+.strategyRow {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 56px;
+  /* Both halves take the row's height, which the statement sets. */
+  align-items: stretch;
+  margin-top: 32px;
+}
 .pinkStatement {
   font-family: var(--font-sans);
   font-weight: 600;
@@ -129,31 +137,39 @@
   line-height: 145%;
   letter-spacing: -0.01em;
   color: var(--housing-works-pink);
-  margin: 32px 0 0;
-  max-width: 75%;
+  margin: 0;
 }
-.logoRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  align-items: center;
-  margin-top: 48px;
-  max-width: 75%;
+/* The three marks stacked beside the statement, sharing its height between
+   them. Each takes a third of the column and is fitted inside that share
+   rather than sized from its own width, so however long the statement runs
+   the three always come out inside it and never push the row taller. */
+.logoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
 }
-.logoMark {
+.logoColumn img {
+  flex: 1 1 0;
+  /* Without this a flex child refuses to go below its content height,
+     which is exactly what would let the marks stretch the row. */
+  min-height: 0;
   width: 100%;
-  max-width: 240px;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
 }
-@media (max-width: 768px) {
-  .pinkStatement,
-  .logoRow {
-    max-width: 100%;
-  }
-  .logoRow {
+@media (max-width: 900px) {
+  /* Stacked, the marks have no statement beside them to take a height
+     from, so they go back to sizing from their own width. */
+  .strategyRow {
     grid-template-columns: 1fr;
-    gap: 28px;
-    justify-items: start;
+    gap: 36px;
+  }
+  .logoColumn img {
+    flex: 0 0 auto;
+    height: auto;
+    max-width: 260px;
   }
 }
 
@@ -799,6 +815,105 @@
 @media (max-width: 560px) {
   .metricsGroups {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   PROTOTYPE — the opening statement in the heading face, what the
+   room was built out of, then what came back from the people in it.
+   ============================================================ */
+/* The section opens on a statement rather than a small heading, so it is
+   set in the heading face at heading size. */
+.prototypeLead {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+  max-width: 75%;
+}
+
+/* What the room was made of: a label and the thing itself. The original
+   notes joined these with a long dash, which the site's rules do not
+   allow in copy, so the pairing is carried by the layout instead. */
+.pointerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+/* One sentence each, numbered, under a short rule. The number and the rule
+   do the work a heading would have done, marking where one point ends and
+   the next begins, without putting a label on something the sentence
+   already names. */
+.pointerNumber {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--housing-works-pink);
+  margin-bottom: 10px;
+}
+.pointerText {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 165%;
+  color: var(--text-secondary);
+  margin: 0;
+  padding-top: 20px;
+  border-top: 2px solid var(--housing-works-pink);
+}
+
+/* What came back. Numbered, because the order is the point: these are
+   set down strongest first. */
+.findingsIntro {
+  margin-top: 56px;
+}
+.findingList {
+  list-style: none;
+  counter-reset: finding;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 75%;
+}
+.findingList li {
+  counter-increment: finding;
+  position: relative;
+  padding-left: 40px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 175%;
+  color: var(--text-secondary);
+}
+.findingList li::before {
+  content: counter(finding, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--housing-works-pink);
+}
+/* The one number worth reading on its own. */
+.findingStat {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--housing-works-pink);
+}
+
+@media (max-width: 768px) {
+  .prototypeLead,
+  .findingList {
+    max-width: 100%;
+  }
+  .pointerGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 }
 

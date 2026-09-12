@@ -354,6 +354,29 @@ const STORE_BANDS = [
   ],
 ]
 
+// What the mock room was built out of, each said in a single sentence.
+// No headings: naming each one twice added a label without adding a
+// meaning, so the sentence carries it on its own.
+const PROTOTYPE_BUILD = [
+  'Store layout echoing the West Village street grid.',
+  "Housing Works' identity reinforced through the colours, signage, ambient lighting and music.",
+  'Storytelling built in through a West Village history wall and a curated staff-pick corner.',
+]
+
+// What came back, strongest first.
+const FINDINGS = [
+  {
+    stat: '70%+',
+    text: "of visitors said they'd want to learn about the history of their own neighborhood.",
+  },
+  {
+    text: 'Visitors consciously noticed the atmosphere: the scent, the lighting, the curated playlist. Several said the space taught them something they did not expect.',
+  },
+  {
+    text: 'The neighborhood corner drew the most appreciation. People valued learning West Village history in a place they would never expect to find.',
+  },
+]
+
 // What the team said it would watch once the reimagining was live.
 const METRICS = [
   {
@@ -514,28 +537,27 @@ function HousingWorksPage() {
         {/* ============ PRIMARY RESEARCH ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="PRIMARY RESEARCH" number="02" />
+            <SectionLabel title="CURRENT STRATEGY" number="02" />
           </div>
-          <h3 className={h.subHeading}>Current Strategy</h3>
-
-          {/* The statement, and under it the three businesses it is
+          {/* The statement, and beside it the three businesses it is
               talking about, standing on the page without panels. */}
-          <p className={h.pinkStatement}>
-            Housing Works sustains its mission through entrepreneurial
-            businesses, which not only generate crucial funding for the
-            organization's advocacy and services but also create employment
-            opportunities within the community.
-          </p>
-          <div className={h.logoRow}>
-            {SUB_BRANDS.map((brand) => (
-              <img
-                key={brand.src}
-                className={h.logoMark}
-                src={brand.src}
-                alt={brand.alt}
-                loading="lazy"
-              />
-            ))}
+          <div className={h.strategyRow}>
+            <p className={h.pinkStatement}>
+              Housing Works sustains its mission through entrepreneurial
+              businesses, which not only generate crucial funding for the
+              organization's advocacy and services but also create employment
+              opportunities within the community.
+            </p>
+            <div className={h.logoColumn}>
+              {SUB_BRANDS.map((brand) => (
+                <img
+                  key={brand.src}
+                  src={brand.src}
+                  alt={brand.alt}
+                  loading="lazy"
+                />
+              ))}
+            </div>
           </div>
 
           {/* One row per business, the copy and the pictures swapping sides
@@ -858,37 +880,25 @@ function HousingWorksPage() {
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="PROTOTYPE" number="08" />
           </div>
-          <h3 className={h.subHeading}>
-            Execution of the In-Store Experience
-          </h3>
-          <p className={`${h.bodyText} ${h.bodyLead}`}>
-            To test our reimagined in-store experience, we transformed a
-            classroom into a mock thrift shop by organizing a donation drive,
-            and replicated the reimagination of the West Village branch of
-            Housing Works Thrift shop.
+          <p className={h.prototypeLead}>
+            Translating the renders into a real room was to replicate and test
+            the overall experience and strategy we were proposing, and getting
+            real feedback on it.
           </p>
           <p className={h.bodyText}>
-            The layout incorporated modular aspects inspired by the West Village
-            thrift store, such as diagonal clothing racks reflecting the
-            neighborhood's street grid. Core brand assets, including pink
-            hangers, NYC-inspired signage, and ambient lighting, were
-            prominently featured to ensure consistency.
+            We turned a classroom into a working mock of the West Village
+            location of the Housing Works thrift store, stocked through a
+            donation drive we ran ourselves.
           </p>
-          <p className={h.bodyText}>
-            We displayed wall art that narrated the history of West Village,
-            creating an educational and engaging environment. A dedicated
-            storytelling corner featured curated staff picks and
-            neighborhood-inspired décor, enhancing the connection between
-            visitors and the store's local identity. Visitors experienced a
-            curated playlist, ambient lighting, and subtle scents designed to
-            create a memorable shopping atmosphere.
-          </p>
-          <p className={h.bodyText}>
-            Feedback was gathered through forms and conversations. Participants
-            responded positively, noting the immersive sensory experience and
-            expressing interest in learning about the neighborhood through
-            visual storytelling.
-          </p>
+
+          <div className={h.pointerGrid}>
+            {PROTOTYPE_BUILD.map((item, i) => (
+              <div key={item}>
+                <span className={h.pointerNumber}>{`0${i + 1}`}</span>
+                <p className={h.pointerText}>{item}</p>
+              </div>
+            ))}
+          </div>
 
           <div className={h.protoGrid}>
             <img
@@ -922,6 +932,21 @@ function HousingWorksPage() {
               loading="lazy"
             />
           </div>
+
+          <p className={`${h.bodyText} ${h.findingsIntro}`}>
+            Feedback was gathered through forms and in-person conversations
+            with visitors as they moved through the space.
+          </p>
+          <ol className={h.findingList}>
+            {FINDINGS.map((f) => (
+              <li key={f.text}>
+                {'stat' in f && (
+                  <span className={h.findingStat}>{f.stat}</span>
+                )}{' '}
+                {f.text}
+              </li>
+            ))}
+          </ol>
         </section>
 
         {/* ============ REFLECTIONS — the honest close, carried in a
