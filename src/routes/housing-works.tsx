@@ -377,27 +377,18 @@ const FINDINGS = [
   },
 ]
 
-// What the team said it would watch once the reimagining was live.
+// What the team said it would watch once the reimagining was live. No
+// grouping: they read as one set of things to keep an eye on.
 const METRICS = [
-  {
-    title: 'Rebrand of Housing Works',
-    items: [
-      'Improved overall brand perception',
-      'Higher social media engagement',
-      'Rise in volunteer sign up under new brand',
-      'Increased website feedback and traffic',
-    ],
-  },
-  {
-    title: 'In-Store Experience of Housing Works',
-    items: [
-      'Average time spent in store is higher',
-      'Improved donation conversion rates',
-      'Frequency of return visits',
-      '% of customers who post about their visit',
-    ],
-  },
+  'Higher social media engagement',
+  'Rise in volunteer sign-ups',
+  'Increased website feedback and traffic',
+  'Higher average time spent in stores',
+  'Improved donation conversion rates',
+  'Frequency of return visits',
+  '% of customers who post about their visit',
 ]
+
 
 function HousingWorksPage() {
   const mainRef = useRef<HTMLElement>(null)
@@ -839,40 +830,21 @@ function HousingWorksPage() {
           </div>
         </section>
 
-        {/* ============ SUCCESS METRICS — a heading, the measures laid
-             out beneath it in a plain grid, and a picture alongside.
+        {/* ============ SUCCESS METRICS — one set of pills, nothing
+             else. They are things to keep an eye on, and a heading over
+             each half only split a list that reads better whole.
              ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
             <SectionLabel title="SUCCESS METRICS" number="07" />
           </div>
-          <div className={h.metricsRow}>
-            <div>
-              <h3 className={h.metricsHeading}>
-                What we would watch once it was live
-              </h3>
-              <div className={h.metricsGroups}>
-                {METRICS.map((group) => (
-                  <div key={group.title}>
-                    <h4 className={h.metricsGroupTitle}>{group.title}</h4>
-                    <ul className={h.metricsList}>
-                      {group.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className={h.metricsMedia}>
-              <img
-                src="/images/hw-metrics.webp"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          <ul className={h.metricPills}>
+            {METRICS.map((item) => (
+              <li className={h.metricPill} key={item}>
+                {item}
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* ============ PROTOTYPE ============ */}

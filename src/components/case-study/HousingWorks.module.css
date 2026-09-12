@@ -129,6 +129,10 @@
   /* Both halves take the row's height, which the statement sets. */
   align-items: stretch;
   margin-top: 32px;
+  /* Clear of the research rows below, which were running almost into the
+     statement. The rows carry their own top padding, so this is on top of
+     that rather than instead of it. */
+  margin-bottom: 56px;
 }
 .pinkStatement {
   font-family: var(--font-sans);
@@ -156,6 +160,9 @@
   min-height: 0;
   width: 100%;
   height: 100%;
+  /* Capped as well as fitted, so they sit quietly beside the statement
+     rather than matching it for weight. */
+  max-width: 260px;
   object-fit: contain;
   object-position: left center;
 }
@@ -241,10 +248,6 @@
      mistake; centred, the two halves settle against each other. */
   align-items: center;
   padding: 56px 0;
-}
-.ventureRow:first-of-type {
-  margin-top: 24px;
-  padding-top: 0;
 }
 /* The rule divides one account from the next, so it belongs between the
    rows and not above the first one, where it would only underline the
@@ -751,71 +754,25 @@
 }
 
 /* ============================================================
-   SUCCESS METRICS — a heading with the measures listed plainly
-   beneath it, and a picture alongside. No boxes: these are things to
-   watch, not cards to click, and a border around each one only made
-   them look like controls.
+   SUCCESS METRICS — one run of pills. Fully round by design, the
+   same treatment tags carry elsewhere on the site.
    ============================================================ */
-.metricsRow {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-.metricsHeading {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
-  line-height: 135%;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  margin: 0 0 40px;
-}
-.metricsGroups {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px 32px;
-}
-.metricsGroupTitle {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 140%;
-  color: var(--text-primary);
-  margin: 0 0 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--housing-works-pink);
-}
-.metricsList {
+.metricPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
-.metricsList li {
+.metricPill {
   font-family: var(--font-body);
   font-size: 0.9375rem;
-  line-height: 160%;
-  color: var(--text-secondary);
-}
-.metricsMedia img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: var(--radius-card);
-}
-@media (max-width: 900px) {
-  .metricsRow {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-@media (max-width: 560px) {
-  .metricsGroups {
-    grid-template-columns: 1fr;
-  }
+  line-height: 1.4;
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 999px;
+  padding: 12px 22px;
 }
 
 /* ============================================================
@@ -850,8 +807,9 @@
    already names. */
 .pointerNumber {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--housing-works-pink);
   margin-bottom: 10px;
 }
@@ -893,9 +851,10 @@
   content: counter(finding, decimal-leading-zero);
   position: absolute;
   left: 0;
-  top: 0.28em;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  top: 0.18em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--housing-works-pink);
 }
 /* The one number worth reading on its own. */
