@@ -6,6 +6,13 @@ import { Footer } from '~/components/Footer'
 import { MoreWork } from '~/components/case-study/MoreWork'
 import { SectionLabel } from '~/components/SectionLabel'
 import { useScrollReveal } from '~/hooks/useScrollReveal'
+import {
+  CAN_EDIT,
+  MoveFramerPanel,
+  MoveFramerProvider,
+  useMoveFraming,
+  useRegisterMoves,
+} from '~/components/case-study/MoveFramer'
 import s from '~/components/case-study/InTheLoop.module.css'
 import h from '~/components/case-study/HousingWorks.module.css'
 
@@ -28,8 +35,17 @@ export const Route = createFileRoute('/housing-works')({
       { name: 'robots', content: 'noindex, follow' },
     ],
   }),
-  component: HousingWorksPage,
+  component: HousingWorksRoute,
 })
+
+/** Wraps the page so the cards and the dev framing panel share state. */
+function HousingWorksRoute() {
+  return (
+    <MoveFramerProvider>
+      <HousingWorksPage />
+    </MoveFramerProvider>
+  )
+}
 
 // The three businesses Housing Works trades under, shown as their own marks.
 const SUB_BRANDS = [
@@ -132,21 +148,28 @@ const VENTURES = [
   },
 ]
 
-// The three things the reimagining sets out to do. The pictures are
-// placeholders: overwrite the files in public/images and nothing here
-// needs to change.
+// The three things the reimagining sets out to do. Each picture sits in a
+// narrow upright strip, so most of it is cropped away; x and y say which
+// part shows, as percents, with 50/50 centred. In dev the framing panel
+// can slide these about and copy the numbers back here.
 const MOVES = [
   {
     text: 'Attract locals and tourists through storytelling',
     image: '/images/hw-move-1.webp',
+    x: 100,
+    y: 50,
   },
   {
     text: 'Bring NYC and its history into the store experience',
     image: '/images/hw-move-2.webp',
+    x: 5,
+    y: 50,
   },
   {
     text: 'Highlight their mission through the experience',
     image: '/images/hw-move-3.webp',
+    x: 46,
+    y: 50,
   },
 ]
 
@@ -390,10 +413,41 @@ const METRICS = [
 ]
 
 
+/** One strategy card. The picture's framing comes from the move itself,
+ *  unless the dev panel is overriding it. */
+function MoveCard({
+  move,
+  index,
+}: {
+  move: (typeof MOVES)[number]
+  index: number
+}) {
+  const framing = useMoveFraming(index, { x: move.x, y: move.y })
+  return (
+    <div className={h.moveCard}>
+      <div className={h.moveBody}>
+        <span className={h.moveNumber}>{`0${index + 1}`}</span>
+        <p className={h.moveText}>{move.text}</p>
+      </div>
+      <div className={h.moveMedia}>
+        <img
+          src={move.image}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          style={{ objectPosition: `${framing.x}% ${framing.y}%` }}
+        />
+      </div>
+    </div>
+  )
+}
+
 function HousingWorksPage() {
   const mainRef = useRef<HTMLElement>(null)
   // Each top-level <section> fades and rises in as it enters the viewport.
   useScrollReveal(mainRef)
+  // Names the three pictures for the dev framing panel.
+  useRegisterMoves(MOVES.map((m) => m.text))
 
   return (
     <>
@@ -656,15 +710,7 @@ function HousingWorksPage() {
           <h3 className={h.subHeading}>Why "reimagine" Housing Works?</h3>
           <div className={h.moveList}>
             {MOVES.map((move, i) => (
-              <div className={h.moveCard} key={move.text}>
-                <div className={h.moveBody}>
-                  <span className={h.moveNumber}>{`0${i + 1}`}</span>
-                  <p className={h.moveText}>{move.text}</p>
-                </div>
-                <div className={h.moveMedia}>
-                  <img src={move.image} alt="" aria-hidden="true" loading="lazy" />
-                </div>
-              </div>
+              <MoveCard move={move} index={i} key={move.text} />
             ))}
           </div>
         </section>
@@ -952,6 +998,7 @@ function HousingWorksPage() {
         <MoreWork currentSlug="https://legacy.mrinaljadhav.com/housing-works" />
       </main>
       <Footer />
+      {CAN_EDIT && <MoveFramerPanel />}
     </>
   )
 }

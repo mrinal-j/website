@@ -464,8 +464,10 @@
   display: grid;
   grid-template-columns: 7fr 3fr;
   align-items: stretch;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-light);
+  /* The faintest of the brand pink, and no outline. A white card inside a
+     hairline box is the most generic shape there is; letting the colour
+     hold the card means it does not need one. */
+  background: var(--housing-works-pink-tint);
   border-radius: var(--radius-card);
   /* The picture runs to the card's edge, so the corners have to clip. */
   overflow: hidden;
@@ -478,8 +480,9 @@
   justify-content: center;
 }
 .moveNumber {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.875rem;
   color: var(--housing-works-pink);
   display: block;
   margin-bottom: 16px;
@@ -494,7 +497,7 @@
   margin: 0;
 }
 .moveMedia {
-  background: var(--bg-secondary);
+  background: var(--housing-works-pink-tint);
 }
 .moveMedia img {
   width: 100%;
