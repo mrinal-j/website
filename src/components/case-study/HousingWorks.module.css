@@ -76,8 +76,11 @@
   }
 }
 
-/* Body copy. Capped at three quarters of the content width so the
-   lines stay short enough to read comfortably. */
+/* Body copy. The three quarters measure is now held by the layout rather
+   than by a cap here: the section title takes the first of four columns and
+   the copy takes the other three, which is three quarters of the page's
+   content area. Capping again inside that column stacked one measure on top
+   of another and left the text stopping well short of the right margin. */
 .bodyText {
   font-family: var(--font-body);
   font-weight: 400;
@@ -85,7 +88,6 @@
   line-height: 175%;
   color: var(--text-secondary);
   margin: 0;
-  max-width: 75%;
 }
 .bodyText + .bodyText {
   margin-top: 20px;
@@ -110,9 +112,6 @@
 @media (max-width: 768px) {
   .section {
     padding: 56px var(--page-side-padding);
-  }
-  .bodyText {
-    max-width: 100%;
   }
 }
 
@@ -145,16 +144,9 @@
   line-height: 155%;
   color: var(--text-primary);
   margin: 0;
-  max-width: 75%;
 }
 .overviewText span {
   color: var(--housing-works-pink);
-}
-
-@media (max-width: 768px) {
-  .overviewText {
-    max-width: 100%;
-  }
 }
 
 /* ============================================================
@@ -245,7 +237,6 @@
    ============================================================ */
 .askRow {
   position: relative;
-  max-width: 75%;
   /* Space held open on the left for the mark. The mark itself sits out of
      the flow, so its width can never squeeze the text: were it in the flow,
      a wider mark would narrow the text, the text would wrap to more lines,
@@ -281,7 +272,6 @@
 }
 @media (max-width: 768px) {
   .askRow {
-    max-width: 100%;
     padding-left: 0;
   }
   /* Stacked above the text rather than beside it, so it comes back into
@@ -727,6 +717,11 @@
 .bentoStatement:first-child {
   padding-left: 0;
 }
+/* The same on the closing edge: a written tile ending a band has the page's
+   right margin as its right edge, and nothing to clear before it. */
+.bentoStatement:last-child {
+  padding-right: 0;
+}
 
 .bentoStatementLabel {
   font-family: var(--font-body);
@@ -804,9 +799,6 @@
   align-items: center;
   margin-top: 48px;
 }
-.splitGrid .bodyText {
-  max-width: 100%;
-}
 @media (max-width: 900px) {
   .splitGrid {
     grid-template-columns: 1fr;
@@ -824,7 +816,6 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 75%;
 }
 .channelList li {
   font-family: var(--font-body);
@@ -843,14 +834,7 @@
   line-height: 175%;
   color: var(--text-secondary);
   margin: 0 0 40px;
-  max-width: 75%;
 }
-@media (max-width: 768px) {
-  .channelList {
-    max-width: 100%;
-  }
-}
-
 /* ============================================================
    SUCCESS METRICS — one run of pills. Fully round by design, the
    same treatment tags carry elsewhere on the site.
@@ -887,7 +871,6 @@
   letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0 0 24px;
-  max-width: 75%;
 }
 
 /* What the room was made of: a label and the thing itself. The original
@@ -934,7 +917,6 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
-  max-width: 75%;
 }
 .findingList li {
   counter-increment: finding;
@@ -964,10 +946,6 @@
 }
 
 @media (max-width: 768px) {
-  .prototypeLead,
-  .findingList {
-    max-width: 100%;
-  }
   .pointerGrid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -1031,7 +1009,6 @@
   display: flex;
   flex-direction: column;
   gap: 48px;
-  max-width: 75%;
 }
 .reflectionItem {
   border-left: 3px solid var(--housing-works-pink);
@@ -1054,9 +1031,6 @@
   margin: 0;
 }
 @media (max-width: 768px) {
-  .reflectionsContent {
-    max-width: 100%;
-  }
   .reflectionItem {
     padding-left: 20px;
   }

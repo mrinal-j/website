@@ -178,9 +178,22 @@ These apply site wide, not just to one page.
 1. **All raster images must be `.webp`.** Convert before adding them. It keeps
    pages fast.
 2. **No em dashes in copy.** Use commas, colons, brackets or a full stop.
-3. **Cap body text width.** Long paragraphs running the full width of the screen
-   are hard to read. Keep the line length to roughly three quarters of the
-   content width or less.
+3. **Cap body text width.** Long paragraphs running the full width of the
+   screen are hard to read. Keep the line length to roughly three quarters of
+   the page's content area, meaning the space inside the side margins.
+
+   **On a four column section the layout already does this.** The title takes
+   the first column and the copy takes the other three, which is three quarters
+   of the content area by construction. Capping again inside that column stacks
+   one measure on top of another and leaves the text stopping well short of the
+   right margin, so a section laid out this way should let its copy run the full
+   width of its column. Housing Works is the page doing this; the other five
+   still carry their own caps until they move to the same layout.
+
+   One number worth knowing: on a 1440px screen this puts body copy at about
+   86 characters a line. That is at the long end of comfortable rather than in
+   the middle of it, and it is a deliberate choice on this page rather than an
+   oversight.
 4. **Flag anything that steps outside this document.** If a font, a colour or a
    styling choice is not in the set here, say so plainly when handing the work
    over, and say what was used and why. This includes a token from the system
