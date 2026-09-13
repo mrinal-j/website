@@ -1012,7 +1012,7 @@ function HousingWorksPage() {
           </div>
         </section>
 
-        <MoreWork currentSlug="https://legacy.mrinaljadhav.com/housing-works" />
+        <MoreWork currentSlug="/housing-works" />
       </main>
       <Footer />
       {CAN_EDIT && <MoveFramerPanel />}

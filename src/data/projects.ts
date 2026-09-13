@@ -68,7 +68,7 @@ export const projects: Project[] = [
   },
   {
     id: 'housing-works',
-    slug: 'https://legacy.mrinaljadhav.com/housing-works',
+    slug: '/housing-works',
     title: 'Reimagining Housing Works, New York',
     description: 'Transforming their thrift shop into a global retail destination that fuels its mission of community empowerment.',
     tags: ['Brand Strategy', 'Retail Experience Design', 'Customer Experience (CX)', 'Design for Social Impact', 'Design Strategy', 'Storytelling'],
