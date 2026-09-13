@@ -545,6 +545,9 @@ function HousingWorksPage() {
              label sits inside the block, so it runs without its trailing
              line. ============ */}
         <section className={h.section}>
+          <div className={h.sectionLabelWrap}>
+            <SectionLabel title="CHALLENGE STATEMENT" />
+          </div>
           <div className={h.askRow}>
             {/* Drawn rather than typed, so it can stretch to whatever
                 height the text beside it turns out to be. The viewBox is
@@ -568,7 +571,6 @@ function HousingWorksPage() {
                 </text>
               </svg>
             </span>
-            <SectionLabel title="CHALLENGE STATEMENT" noLine />
             <p className={h.askText}>
               How might we transform Housing Works into a global experiential
               space, bridging its mission of advocacy, and community through

@@ -94,6 +94,51 @@ Nations master brand typeface as it really is. Do not use it anywhere else.
 
 ---
 
+## Section layout
+
+**On case study pages, the section title sits in its own column on the left,
+and the content sits to the right of it.**
+
+The content area is divided into four equal columns. The title takes the first
+one, everything else in the section spans the remaining three. At the usual
+1440px screen that works out as four 262px columns with 24px between them, so
+the title column is 262px wide and the content column is 835px.
+
+The tokens are in `src/styles/globals.css`:
+
+```css
+--section-columns: 4;
+--section-gutter: 24px;
+```
+
+The rule itself is applied per page, in that page's own `.section` block, since
+each page names its sections differently. Housing Works is the reference
+implementation.
+
+Three things worth knowing:
+
+1. **A section with no title still indents.** The continuation bands push their
+   content into columns two to four as well, so they stay lined up with the
+   section above rather than jumping back to the left edge.
+2. **Below 1000px this switches off entirely** and sections stack exactly as
+   they used to, with the title above its content. A quarter column is around
+   85px on a phone, which is too narrow to hold a title.
+3. **Full width bands stay full width.** Heroes, banner images, the metadata
+   grid and the pinned scroll blocks are not part of this and keep running edge
+   to edge.
+
+### Section titles
+
+Titles have **no trailing line**. They used to end in a fade-out rule that
+stretched across the page; that is gone, because in a 262px column it was only
+ever a stub. The type itself is unchanged: General Sans, 13px, weight 600,
+uppercase, `0.14em` letter spacing, with the optional number in front of it.
+
+Long titles wrap onto two or three lines inside the column. The number stays on
+the first line, since the label aligns on the baseline rather than the centre.
+
+---
+
 ## Phone layout
 
 Phone styling starts at `max-width: 767px`.

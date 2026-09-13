@@ -203,7 +203,7 @@ function IntegratedCarePage() {
           {/* The brief itself, set apart in a coloured box. The label sits
               inside the box, so it runs without its trailing line. */}
           <div className={`${c.askBox} ${c.askBoxCentered}`}>
-            <SectionLabel title="THE ASK" noLine />
+            <SectionLabel title="THE ASK" />
             <p className={c.askText}>
               To build the visual language and identity for the initiative
               "Integrated Care for Children", along with the first asset of a

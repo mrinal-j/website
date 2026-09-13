@@ -10,11 +10,9 @@ interface SectionLabelProps {
   onColor?: boolean
   /** Optional; omit to hide the leading number */
   number?: string
-  /** Hides the trailing fade-out line (used on the About page) */
-  noLine?: boolean
 }
 
-export function SectionLabel({ title, dark, onColor, number, noLine }: SectionLabelProps) {
+export function SectionLabel({ title, dark, onColor, number }: SectionLabelProps) {
   return (
     <div
       className={`${styles.wrapper} ${dark ? styles.dark : ''} ${
@@ -25,7 +23,6 @@ export function SectionLabel({ title, dark, onColor, number, noLine }: SectionLa
         <span className={styles.number}>{number}</span>
       )}
       <span className={styles.title}>{title}</span>
-      {!noLine && <div className={styles.line} />}
     </div>
   )
 }

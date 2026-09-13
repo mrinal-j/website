@@ -28,7 +28,7 @@ const steps = [
 
 const MOBILE_MQ = '(max-width: 1023px)'
 
-export function HowIWork({ noLabelLine }: { noLabelLine?: boolean } = {}) {
+export function HowIWork() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const { fadeStyle } = useSectionFadeIn(sectionRef)
   const [activeStep, setActiveStep] = useState(0)
@@ -73,7 +73,7 @@ export function HowIWork({ noLabelLine }: { noLabelLine?: boolean } = {}) {
       >
         <h2 className={styles.srOnly}>How I work</h2>
         <div className={styles.sectionLabelWrap}>
-          <SectionLabel title="HOW I WORK" noLine={noLabelLine} />
+          <SectionLabel title="HOW I WORK" />
         </div>
         <div className={styles.contentRow}>
           {/* Left: one step at a time */}

@@ -54,6 +54,16 @@
      rounding so they read as real hardware. */
   --radius-card: 8px;
 
+  /* Section layout
+     Case-study sections run on four equal columns inside the page's side
+     padding: the section title sits in the first column, all the content in
+     the remaining three. Below 1000px the layout stacks and the title goes
+     back above its content, because a quarter column is too narrow to hold a
+     title at that width. The stacking width lives in the media queries, since
+     a token cannot be read inside one. */
+  --section-columns: 4;
+  --section-gutter: 24px;
+
   /* Font stacks */
   --font-sans: "General Sans", sans-serif;
   --font-body: "Manrope", sans-serif;

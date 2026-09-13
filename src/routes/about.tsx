@@ -26,7 +26,7 @@ function AboutPage() {
         <AboutHero />
         <Experience />
         <FreeTime />
-        {/* <HowIWork noLabelLine /> */}
+        {/* <HowIWork /> */}
       </main>
       <Footer />
     </>

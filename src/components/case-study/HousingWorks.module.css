@@ -33,6 +33,43 @@
   margin-bottom: 48px;
 }
 
+/* ------------------------------------------------------------
+   Four-column sections (1000px and up)
+
+   The section title sits in the first of four equal columns and every other
+   child spans the remaining three. Children are placed in source order, so
+   the title takes row one column one, the first block of content takes row
+   one columns two to four, and each block after that starts a new row in the
+   same three columns.
+
+   A section with no title (the continuation bands) still pushes its content
+   into columns two to four, so it stays lined up with the section above it.
+
+   Below 1000px none of this applies and the sections stack exactly as they
+   did before: a quarter column is too narrow to hold a title on a phone or a
+   small tablet.
+   ------------------------------------------------------------ */
+@media (min-width: 1000px) {
+  .section {
+    display: grid;
+    grid-template-columns: repeat(var(--section-columns), 1fr);
+    column-gap: var(--section-gutter);
+  }
+  /* min-width: 0 lets wide children (the bento bands, the image rows) shrink
+     to the content column instead of forcing the grid wider than the page. */
+  .section > * {
+    grid-column: 2 / -1;
+    min-width: 0;
+  }
+  .section > .sectionLabelWrap {
+    grid-column: 1;
+    /* Held to the top of the row rather than stretched down it, so the title
+       lines up with the first line of its content. */
+    align-self: start;
+    margin-bottom: 0;
+  }
+}
+
 /* Body copy. Capped at three quarters of the content width so the
    lines stay short enough to read comfortably. */
 .bodyText {
@@ -217,7 +254,9 @@
   font-size: 1.125rem;
   line-height: 175%;
   color: var(--text-primary);
-  margin: 24px 0 0;
+  /* The label used to sit above this inside the row and needed clearing. It
+     now sits out in the title column, so the text starts at the top. */
+  margin: 0;
 }
 @media (max-width: 768px) {
   .askRow {
