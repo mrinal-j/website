@@ -1,19 +1,5 @@
 .wrapper {
   width: 100%;
-  display: flex;
-  /* Baseline rather than centre so that when the title wraps onto two or
-     three lines in a narrow column, the number still sits on the first line
-     instead of drifting to the middle of the block. */
-  align-items: baseline;
-  gap: 16px;
-}
-
-.number {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.25);
-  letter-spacing: 0.05em;
 }
 
 .title {
@@ -26,11 +12,9 @@
   line-height: 150%;
 }
 
-.dark .number { color: rgba(255, 255, 255, 0.25); }
 .dark .title { color: rgba(255, 255, 255, 0.35); }
 
 /* On a mid-tone background (e.g. the UN80 results band) the muted grey does
    not carry. 0.69 is as light as the title can go and still clear 4.5:1 on
-   UN blue — anything softer drops below the bar. */
-.onColor .number { color: rgba(0, 0, 0, 0.55); }
+   UN blue, anything softer drops below the bar. */
 .onColor .title { color: rgba(0, 0, 0, 0.69); }

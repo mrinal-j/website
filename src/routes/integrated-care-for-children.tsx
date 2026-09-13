@@ -163,7 +163,7 @@ function IntegratedCarePage() {
              the place for the single-window diagram. ============ */}
         <section className={`${c.section} ${c.sectionAlt}`}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="WHY IT EXISTS" number="01" />
+            <SectionLabel title="WHY IT EXISTS" />
           </div>
           <div className={c.whyGrid}>
             <div>
@@ -219,7 +219,7 @@ function IntegratedCarePage() {
              ============ */}
         <section className={c.identityHeader}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="THE IDENTITY" number="02" />
+            <SectionLabel title="THE IDENTITY" />
           </div>
           <p className={`${c.bodyText} ${c.bodyLead}`}>
             The initiative is built so a child's care can be completed inside
@@ -397,7 +397,7 @@ function IntegratedCarePage() {
              by a rule on the left. ============ */}
         <section className={c.section}>
           <div className={c.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="03" />
+            <SectionLabel title="REFLECTIONS" />
           </div>
           <div className={c.reflectionsContent}>
             <div className={c.reflectionItem}>

@@ -208,17 +208,25 @@ const BENTO_BANDS = [
       src: '/images/hw-bento-heart.webp',
       alt: 'A blue campaign card reading "Your Thrift with a Heart" above the wordmark.',
     },
+    // These two sheets are drawn with the wordmark running into the very
+    // edge of the artwork, so on a rounded tile the corners bite into it.
+    // They sit inset instead, on a ground sampled from the artwork itself so
+    // the inset reads as margin rather than as a second box.
     {
       kind: 'image' as const,
       ratio: 0.615,
       src: '/images/hw-bento-marks-light.webp',
       alt: 'The three sub-brand lockups on white: Thrift Store in pink, Cafe in blue, Bookstore in orange.',
+      inset: true,
+      ground: '#fff',
     },
     {
       kind: 'image' as const,
       ratio: 0.6516,
       src: '/images/hw-bento-marks-dark.webp',
       alt: 'The same three sub-brand lockups reversed out of black.',
+      inset: true,
+      ground: '#1c1a19',
     },
   ],
   [
@@ -524,7 +532,7 @@ function HousingWorksPage() {
         {/* ============ BACKGROUND ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="BACKGROUND" number="01" />
+            <SectionLabel title="BACKGROUND" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
             Housing Works is a New York City-based non-profit organization
@@ -584,7 +592,7 @@ function HousingWorksPage() {
         {/* ============ PRIMARY RESEARCH ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="CURRENT STRATEGY" number="02" />
+            <SectionLabel title="CURRENT STRATEGY" />
           </div>
           {/* The statement, and beside it the three businesses it is
               talking about, standing on the page without panels. */}
@@ -657,7 +665,7 @@ function HousingWorksPage() {
         {/* ============ SERVICE BLUEPRINT ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="MAPPING USER EXPERIENCE" number="03" />
+            <SectionLabel title="MAPPING USER EXPERIENCE" />
           </div>
           <p className={h.bodyText}>
             To understand the customer experience better, we created a service
@@ -686,7 +694,7 @@ function HousingWorksPage() {
         {/* ============ IDEATION ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="IDEATION" number="04" />
+            <SectionLabel title="IDEATION" />
           </div>
           <p className={h.bodyText}>
             To understand what directions are the{' '}
@@ -707,7 +715,7 @@ function HousingWorksPage() {
         {/* ============ PROPOSED STRATEGY ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="PROPOSED STRATEGY" number="05" />
+            <SectionLabel title="PROPOSED STRATEGY" />
           </div>
           <h3 className={h.subHeading}>Why "reimagine" Housing Works?</h3>
           <div className={h.moveList}>
@@ -720,7 +728,7 @@ function HousingWorksPage() {
         {/* ============ ONLINE COMMUNICATIONS ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="BRAND IN PRACTICE" number="06" />
+            <SectionLabel title="BRAND IN PRACTICE" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
             The goal was to create one coherent brand across every touchpoint,
@@ -749,11 +757,19 @@ function HousingWorksPage() {
                 {band.map((tile) => {
                   // Width in proportion to the picture's own shape, which is
                   // what levels the heights across the band.
-                  const style = { '--tile-ratio': tile.ratio } as CSSProperties
+                  const style = {
+                    '--tile-ratio': tile.ratio,
+                    ...('ground' in tile
+                      ? { '--tile-ground': tile.ground }
+                      : {}),
+                  } as CSSProperties
                   // Landscape tiles take the full width on a phone. Halved,
                   // a wide tile comes out only a finger tall, which is no use
                   // for reading a logo or a rail of merchandise.
                   const wide = tile.ratio >= 1.2 ? h.bentoWide : ''
+                  // Held clear of the rounding, for artwork drawn with no
+                  // margin of its own.
+                  const inset = 'inset' in tile ? h.bentoInset : ''
                   if (tile.kind === 'statement') {
                     return (
                       <div
@@ -824,7 +840,7 @@ function HousingWorksPage() {
                   }
                   return (
                     <div
-                      className={`${h.bentoTile} ${wide}`}
+                      className={`${h.bentoTile} ${wide} ${inset}`}
                       key={tile.src}
                       style={style}
                     >
@@ -884,7 +900,7 @@ function HousingWorksPage() {
              ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="SUCCESS METRICS" number="07" />
+            <SectionLabel title="SUCCESS METRICS" />
           </div>
           <ul className={h.metricPills}>
             {METRICS.map((item) => (
@@ -898,7 +914,7 @@ function HousingWorksPage() {
         {/* ============ PROTOTYPE ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="PROTOTYPE" number="08" />
+            <SectionLabel title="PROTOTYPE" />
           </div>
           <p className={h.prototypeLead}>
             Translating the renders into a real room was to replicate and test
@@ -974,7 +990,7 @@ function HousingWorksPage() {
              rule down its edge. ============ */}
         <section className={h.section}>
           <div className={h.sectionLabelWrap}>
-            <SectionLabel title="REFLECTIONS" number="09" />
+            <SectionLabel title="REFLECTIONS" />
           </div>
           <div className={h.reflectionsContent}>
             <div className={h.reflectionItem}>

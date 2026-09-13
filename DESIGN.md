@@ -129,13 +129,22 @@ Three things worth knowing:
 
 ### Section titles
 
-Titles have **no trailing line**. They used to end in a fade-out rule that
-stretched across the page; that is gone, because in a 262px column it was only
-ever a stub. The type itself is unchanged: General Sans, 13px, weight 600,
-uppercase, `0.14em` letter spacing, with the optional number in front of it.
+A section title is the plain name of the section and nothing else. Two rules
+shape it, and both are about taking things away.
 
-Long titles wrap onto two or three lines inside the column. The number stays on
-the first line, since the label aligns on the baseline rather than the centre.
+**Do not number the section titles.** No `01`, no `02`, no counting of any
+kind. A number promises the reader a sequence they have to keep track of, and a
+case study is not a numbered procedure. The title column already shows where
+each section starts, so the count adds nothing and dates badly the moment a
+section is added, dropped or reordered.
+
+**Titles have no trailing line.** They used to end in a fade-out rule that
+stretched across the page. In a 262px column that would only ever have been a
+stub, so it is gone.
+
+The type is General Sans, 13px, weight 600, uppercase, `0.14em` letter spacing,
+in a muted grey. Long titles wrap onto two or three lines inside the column,
+which is expected and fine.
 
 ---
 

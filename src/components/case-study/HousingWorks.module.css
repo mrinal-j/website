@@ -68,6 +68,12 @@
     align-self: start;
     margin-bottom: 0;
   }
+  /* The block that now sits beside the title, rather than under it, must not
+     carry the gap it used to need when the title was above it. Any top margin
+     here reads as the title and its content being out of line. */
+  .section > .sectionLabelWrap + * {
+    margin-top: 0;
+  }
 }
 
 /* Body copy. Capped at three quarters of the content width so the
@@ -161,7 +167,11 @@
    and the statement earns the emphasis anyway. */
 .strategyRow {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
+  /* The marks are capped at 200px, so the column holds exactly that and the
+     statement takes all the rest. Splitting it by ratio left the statement
+     narrow enough to run eight lines deep, which read as a slab of pink
+     rather than a sentence. */
+  grid-template-columns: 1fr 200px;
   gap: 56px;
   /* Both halves take the row's height, which the statement sets. */
   align-items: stretch;
@@ -189,6 +199,9 @@
   flex-direction: column;
   gap: 14px;
   min-height: 0;
+  /* Carried over to the right, so the marks finish on the page's right margin
+     rather than stopping short of it with a band of empty space behind. */
+  align-items: flex-end;
 }
 .logoColumn img {
   flex: 1 1 0;
@@ -199,9 +212,11 @@
   height: 100%;
   /* Capped as well as fitted, so they sit quietly beside the statement
      rather than matching it for weight. */
-  max-width: 260px;
+  max-width: 200px;
   object-fit: contain;
-  object-position: left center;
+  /* Drawn against the right edge of its own box too, so nothing can reopen a
+     gap between the mark and the margin if a mark is a wider shape. */
+  object-position: right center;
 }
 @media (max-width: 900px) {
   /* Stacked, the marks have no statement beside them to take a height
@@ -210,17 +225,23 @@
     grid-template-columns: 1fr;
     gap: 36px;
   }
+  /* Stacked, there is no statement beside them and no right margin worth
+     reaching for, so the marks go back to reading from the left. */
+  .logoColumn {
+    align-items: flex-start;
+  }
   .logoColumn img {
     flex: 0 0 auto;
     height: auto;
-    max-width: 260px;
+    max-width: 200px;
+    object-position: left center;
   }
 }
 
 /* ============================================================
    THE CHALLENGE — the brief itself, with a question mark standing the
-   full height of it alongside. The section label sits inside the block,
-   so it runs without its line.
+   full height of it alongside. The section title sits out in the title
+   column with every other one.
    ============================================================ */
 .askRow {
   position: relative;
@@ -614,6 +635,31 @@
   display: block;
 }
 
+/* A tile whose artwork is drawn with no margin of its own: the wordmark runs
+   into the edge of the picture, so on a rounded tile the corners bite into
+   it. The picture is held off the edge and the tile takes the ground the
+   artwork is drawn on, passed in as --tile-ground, so the inset reads as the
+   picture's own margin rather than as a second box behind it.
+
+   This has to come after the rule above: both select an image inside a tile
+   with equal weight, so the later one wins, and the picture here has to sit
+   inside the padding rather than fill through it. */
+.bentoInset {
+  background: var(--tile-ground);
+}
+.bentoInset img {
+  /* The inset goes on the picture, never on the tile. Every tile in a band is
+     sized from its picture's ratio, and that is what levels the heights, so
+     padding the tile changes its box and pushes the tiles beside it off their
+     own shape until they start being cropped. Padding the picture leaves the
+     tile's box exactly as it was.
+
+     A fixed gap rather than a percentage, which would resolve against the
+     band's width rather than the tile's. */
+  padding: 14px;
+  object-fit: contain;
+}
+
 /* Two small tiles sharing one slot, one above the other. The slot has no
    ground of its own: each picture carries the rounding, so the pair reads
    as two tiles rather than one box with a line through it.
@@ -672,6 +718,16 @@
      stretch instead, it simply matches whatever height the pictures set. */
   aspect-ratio: auto;
 }
+/* A written tile opening a band starts on the section's left edge, like every
+   other block on the page. These tiles carry the page's own white rather than
+   a panel of their own, so there is no edge for an inset to sit inside: it
+   just reads as the text being out of line with the copy above it. Tiles that
+   open a band are the only ones affected, since the rest have a picture
+   beside them to clear. */
+.bentoStatement:first-child {
+  padding-left: 0;
+}
+
 .bentoStatementLabel {
   font-family: var(--font-body);
   font-weight: 700;
