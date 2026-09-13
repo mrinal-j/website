@@ -307,7 +307,15 @@
   position: relative;
   flex: 1;
   max-width: 560px;
-  height: 580px; /* tall enough for the biggest photo — nothing clips */
+  /* The photos are positioned absolutely, so they give the box no height of
+     their own and it has to be stated. A ratio rather than a fixed height, so
+     it tracks the width: the photos are sized from the width too, so the box
+     keeps hugging them at any column size. 1.06 is the tightest that still
+     clears the lowest photo. Left at a fixed 580px it stood 164px taller than
+     the photos, and the text beside it, centred against the box, read as
+     sitting well below them. */
+  height: auto;
+  aspect-ratio: 1.06;
 }
 
 /* Each photo keeps its natural proportions — nothing is cropped. */
@@ -372,24 +380,6 @@
 }
 
 /* Brand keyword capsules shown above the bento grid. */
-.valueTagRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 32px 0 0;
-}
-
-.valueTag {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  color: var(--kaaro-cream);
-  background: var(--kaaro-teal);
-  padding: 8px 20px;
-  border-radius: 999px;
-}
-
 /* ============================================================
    BRAND LANGUAGE & VISUAL IDENTITY — bento grid
    Column/row proportions follow the reference: three stacked tiles
@@ -398,19 +388,24 @@
    ============================================================ */
 .bentoGrid {
   display: grid;
-  grid-template-columns: 0.9fr 1fr 1fr 0.67fr;
+  /* The second column is a fixed 138px rather than a share of the width. The
+     rows are fixed heights, so that is what lets the Instagram post sit in its
+     cell with nothing either side of it: 138 wide against the 190px first row
+     is the post's own shape. A fr share would drift with the page width and
+     the cream would come back. */
+  grid-template-columns: 0.9fr 138px 1fr 0.67fr;
   grid-template-rows: 190px 200px 220px;
   grid-template-areas:
-    'logo   insta palette palette'
-    'chain  insta pack    glass'
-    'picnic tote  grey    glass';
+    'pack   insta  palette palette'
+    'chain  chain  logo    glass'
+    'picnic picnic grey    glass';
   gap: 16px;
   padding: 40px 0 0;
 }
 
 /* Every tile: cover its cell, with the site's usual image border. The cream
-   background fills any transparent areas in the card graphics (the logo and
-   tote cards have transparent corners) so they don't read as white gaps. */
+   background fills any transparent areas in the card graphics (the logo card
+   has transparent corners) so they don't read as white gaps. */
 .bentoImg {
   width: 100%;
   height: 100%;
@@ -425,10 +420,21 @@
 .bentoGrey { grid-area: grey; }
 /* The px offsets nudge which part of the photo is visible in the tile:
    minus = photo shifts up/left, plus = shifts down/right. */
-.bentoInsta { grid-area: insta; object-position: 50% calc(50% + 5px); }
-.bentoTote { grid-area: tote; object-position: 50% calc(50% - 15px); }
-.bentoChain { object-position: calc(50% - 10px) calc(50% - 10px); }
-.bentoPicnic { grid-area: picnic; }
+/* A screen mockup rather than a photograph, so it is fitted whole instead of
+   cropped to fill: the tile is far narrower than the post, and covering it cut
+   roughly a quarter off the sides. The cream it sits on is the tile's own
+   ground, so the fit reads as a card rather than as a gap. */
+.bentoInsta { grid-area: insta; object-fit: contain; object-position: 50% 50%; }
+/* Nudged up only. A nudge sideways used to be safe here, but this tile is
+   wider than the photo's shape now, so the photo is scaled to the tile's width
+   exactly and has no slack left to slide: shifting it merely pulled it off the
+   right edge and showed the tile's cream underneath. Only nudge on the axis
+   the photo actually overflows. */
+.bentoChain { object-position: 50% calc(50% - 10px); }
+/* The photo fills this tile's height exactly, so the only room it has to move
+   is sideways: 42px in total. Pulled towards its left, where the chains begin,
+   rather than sitting dead centre. */
+.bentoPicnic { grid-area: picnic; object-position: 25% 50%; }
 .bentoPack { grid-area: pack; }
 .bentoGlass { grid-area: glass; }
 /* Palette tile: three equal vertical colour blocks filling the cell. */
@@ -661,7 +667,6 @@
    room between the last content and the footer. */
 .impactGreen {
   background-color: var(--kaaro-teal);
-  padding-bottom: 278px;
 }
 
 .impactGreen [class*='impactClosingHighlight'] {
@@ -867,17 +872,14 @@
       'palette palette'
       'grey   glass'
       'pack   glass'
-      'picnic tote';
+      'picnic picnic';
     gap: 12px;
     padding-top: 28px;
   }
   .visualContent { flex-direction: column; gap: 28px; align-items: flex-start; }
-  /* Value keywords in an even 2×2 grid so "Elegant" sits beside "Affordable". */
-  .valueTagRow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .valueTag { text-align: center; }
   .reviewsFrame { height: 440px; }
   .reviewsRow { gap: 20px; padding: 0 24px; }
-  .impactGreen { padding-bottom: 128px; }
+  .impactGreen { padding-bottom: 40px; }
 
   /* Accordion becomes a vertical stack with every panel open. */
   .strategyAccordion { flex-direction: column; height: auto; gap: 12px; }

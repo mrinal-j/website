@@ -190,7 +190,7 @@ function KaaroPage() {
         </section>
 
         {/* Brand statement */}
-        <section className={k.statement}>
+        <section className={`${k.statement} section-columns`}>
           <p className={k.statementLede}>
             Founded in 2020, Kaaro creates unique, affordable and versatile accessories
             that blend modern and traditional elements for Urban Indian women. It was
@@ -206,9 +206,8 @@ function KaaroPage() {
           </div>
           <p className={k.sectionIntro}>
             The Instagram small-business boom during the COVID-19 pandemic flooded
-            the market with handmade jewelry.
-            <br />
-            To survive, Kaaro focused on fixing three main things:
+            the market with handmade jewelry. To survive, Kaaro focused on fixing
+            three main things:
           </p>
           <div className={k.challengeGrid}>
             {[
@@ -309,7 +308,7 @@ function KaaroPage() {
             Hovering one bento tile dims all the others. */}
         <section className={`${k.section} section-columns`} style={{ paddingTop: 64 }}>
           <div className={`${k.sectionLabelWrap} section-columns-label`}>
-            <SectionLabel title="BRAND LANGUAGE AND VISUAL IDENTITY" />
+            <SectionLabel title="BRAND LANGUAGE AND VISUAL IDENTITY" />
           </div>
           <div className={k.visualContent}>
             <div className={k.visualText}>
@@ -321,17 +320,11 @@ function KaaroPage() {
               </p>
             </div>
           </div>
-          <div className={k.valueTagRow}>
-            {['Tasteful', 'Simple', 'Elegant', 'Affordable'].map((word) => (
-              <span key={word} className={k.valueTag}>{word}</span>
-            ))}
-          </div>
           <div className={k.bentoGrid}>
             <img className={`${k.bentoImg} ${k.bentoLogo}`} src="/images/Card 1.1 (1×2).webp" alt="Kaaro logo card" />
             <img className={`${k.bentoImg} ${k.bentoChain}`} src="/images/Card 2.3 (2×3)-1.webp" alt="Palm-leaf packaging" />
             <img className={`${k.bentoImg} ${k.bentoGrey}`} src="/images/Card 5.1 (1×2).webp" alt="Monochrome jewelry flatlay" />
             <img className={`${k.bentoImg} ${k.bentoInsta}`} src="/images/Card 2.2 (1×3).webp" alt="Instagram post of models in the garden" />
-            <img className={`${k.bentoImg} ${k.bentoTote}`} src="/images/Card 3.1 (1×2)-1.webp" alt="Kaaro tote bag" />
             <img className={`${k.bentoImg} ${k.bentoPicnic}`} src="/images/Card 3.1 (1×2).webp" alt="Jewelry chains flatlay" />
             <img className={`${k.bentoImg} ${k.bentoPack}`} src="/images/Card 2.3 (2×3).webp" alt="Picnic styling with flowers" />
             <img className={`${k.bentoImg} ${k.bentoGlass}`} src="/images/Card 2.3 (2×3)-2.webp" alt="Glassware still life" />
