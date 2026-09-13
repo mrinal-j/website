@@ -67,7 +67,7 @@ function IntegratedCarePage() {
         <section className={s.hero}>
           <div className={s.heroHeader}>
             <div className={s.heroTitle}>
-              <h1>Integrated Care for Children</h1>
+              <h1>Integrated Care for&nbsp;Children</h1>
             </div>
             <div className={s.heroDesc}>
               <p>

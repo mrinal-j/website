@@ -43,7 +43,10 @@
 .heroHeader {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  /* The summary sits level with the middle of the title rather than with its
+     first line. A two-line title left the summary hanging at the top with the
+     second line alone beneath it. */
+  align-items: center;
   /* Mirror homepage side padding so the title/desc don't sit flush to the edge. */
   padding: 64px var(--page-side-padding) 48px;
   gap: 80px;
@@ -845,7 +848,9 @@
 
 @media (max-width: 767px) {
   .page { --page-side-padding: 24px; }
-  .heroHeader { flex-direction: column; padding: 40px var(--page-side-padding) 32px; gap: 16px; }
+  /* Stacked, the cross axis is horizontal, so centring here would centre the
+     text on the page rather than the summary against the title. */
+  .heroHeader { flex-direction: column; align-items: stretch; padding: 40px var(--page-side-padding) 32px; gap: 16px; }
   .heroTitle { flex: none; }
   .heroImage { height: 200px; }
   /* Single column so each detail (Role, Skills, Timeline, Team) sizes to its

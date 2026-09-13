@@ -65,7 +65,10 @@
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 48px;
-  align-items: start;
+  /* Stretched rather than started, so the photo stands the same height as the
+     writing beside it instead of stopping short and leaving the column half
+     empty. The text sets the height; the photo fills it. */
+  align-items: stretch;
 }
 .contextBody {
   max-width: 62ch;
@@ -73,7 +76,10 @@
 .contextPhoto {
   display: block;
   width: 100%;
-  height: auto;
+  /* Takes the row's height, which the text sets, and crops to fill it rather
+     than distorting. */
+  height: 100%;
+  object-fit: cover;
   border-radius: var(--radius-card);
   background: var(--bg-secondary);
 }
@@ -129,6 +135,7 @@
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
+  text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--un-blue);
   /* The rule runs the width of the column, which is the measure the body
@@ -274,6 +281,12 @@
   .contextGrid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+  /* Stacked, there is no text beside the photo to take a height from, so it
+     goes back to its own. Left at 100% it has nothing to measure against and
+     collapses to nothing. */
+  .contextPhoto {
+    height: auto;
   }
   .factRow {
     grid-template-columns: 1fr;

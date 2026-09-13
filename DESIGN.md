@@ -143,6 +143,21 @@ Three things worth knowing:
    grid and the pinned scroll blocks are not part of this and keep running edge
    to edge.
 
+### Case study heroes
+
+**The summary sits level with the middle of the title, not with its first
+line.** Titles run to one line on some pages and two on others, and aligned to
+the top a two-line title leaves the summary stranded up in the corner with the
+second line sitting alone underneath it. Centred, the pair reads as one block
+whatever length the title happens to be.
+
+It is one rule in one place, on the shared `.heroHeader`, so every case study
+follows it. The exception is the phone layout, where the two stack and there is
+nothing to centre against: there they simply run full width, one under the
+other.
+
+---
+
 ### Reflections
 
 **Every reflections section carries a vertical line down its left edge.** A 3px
