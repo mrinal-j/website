@@ -209,6 +209,57 @@ button {
 }
 
 /* ============================================================
+   SECTION COLUMNS
+
+   A case-study section laid out on four columns: the section title in the
+   first, everything else spanning the other three. Put `section-columns` on
+   the section and `section-columns-label` on the block holding its title.
+
+   Global rather than per page, like the reveal classes above, because each
+   page names its sections differently and this rule is the same on all of
+   them. Written once here, it cannot drift between pages.
+
+   Children are placed in source order, so the title takes row one column one,
+   the first block of content takes row one columns two to four, and every
+   block after that starts a new row in the same three columns. A section with
+   no title still pushes its content into columns two to four, which is what
+   keeps a continuation band lined up with the section above it.
+
+   Below 1000px none of this applies and sections stack as they always did:
+   a quarter column is around 85px on a phone, too narrow to hold a title.
+   ============================================================ */
+@media (min-width: 1000px) {
+  /* Every selector here doubles the class to raise its weight. Page
+     stylesheets load after this file, so a page rule of equal weight, such as
+     a section that sets its own `display: flex`, would otherwise win and the
+     layout would silently not apply. */
+  .section-columns.section-columns {
+    display: grid;
+    grid-template-columns: repeat(var(--section-columns), 1fr);
+    column-gap: var(--section-gutter);
+  }
+  /* min-width lets wide children (bento bands, image rows) shrink into the
+     content column instead of forcing the grid wider than the page. */
+  .section-columns.section-columns > * {
+    grid-column: 2 / -1;
+    min-width: 0;
+  }
+  .section-columns.section-columns > .section-columns-label {
+    grid-column: 1;
+    /* Held to the top of the row rather than stretched down it, so the title
+       lines up with the first line of its content. */
+    align-self: start;
+    margin-bottom: 0;
+  }
+  /* The block that now sits beside the title, rather than under it, must not
+     carry the gap it needed when the title was above it. Any top margin here
+     reads as the title and its content being out of line. */
+  .section-columns.section-columns > .section-columns-label + * {
+    margin-top: 0;
+  }
+}
+
+/* ============================================================
    KEYFRAME ANIMATIONS
    ============================================================ */
 

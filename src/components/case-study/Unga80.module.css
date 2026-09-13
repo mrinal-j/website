@@ -100,7 +100,6 @@
 .askLead {
   margin: 34px 0 0;
   /* The lead runs long, so it is allowed a wider measure than body copy. */
-  max-width: 46ch;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: clamp(1.25rem, 2.2vw, 1.625rem);
@@ -111,7 +110,6 @@
 }
 .askNote {
   margin: 24px 0 0;
-  max-width: 62ch;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   line-height: 165%;
@@ -158,7 +156,6 @@
   line-height: 165%;
   letter-spacing: -0.01em;
   color: var(--text-secondary);
-  max-width: 62ch;
 }
 
 /* The five identity banners, filling the full content width so the row

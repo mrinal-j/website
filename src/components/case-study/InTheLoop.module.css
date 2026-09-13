@@ -765,6 +765,12 @@
   margin: 64px 0 0;
   max-width: 800px;
 }
+/* In a four-column section the copy runs the width of its column and is not
+   capped again. This file's own impact band is shared with In the Loop, which
+   is not on that layout yet, so the cap above stays for it. */
+:global(.section-columns) .impactClosing {
+  max-width: none;
+}
 
 .impactClosingHighlight {
   color: #D0D029;

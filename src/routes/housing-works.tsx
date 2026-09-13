@@ -514,8 +514,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ OVERVIEW ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="OVERVIEW" />
           </div>
           <p className={h.overviewText}>
@@ -530,8 +530,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ BACKGROUND ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="BACKGROUND" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
@@ -552,8 +552,8 @@ function HousingWorksPage() {
              question mark standing the full height of it alongside. The
              label sits inside the block, so it runs without its trailing
              line. ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="CHALLENGE STATEMENT" />
           </div>
           <div className={h.askRow}>
@@ -590,8 +590,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ PRIMARY RESEARCH ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="CURRENT STRATEGY" />
           </div>
           {/* The statement, and beside it the three businesses it is
@@ -663,8 +663,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ SERVICE BLUEPRINT ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="MAPPING USER EXPERIENCE" />
           </div>
           <p className={h.bodyText}>
@@ -692,8 +692,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ IDEATION ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="IDEATION" />
           </div>
           <p className={h.bodyText}>
@@ -713,8 +713,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ PROPOSED STRATEGY ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="PROPOSED STRATEGY" />
           </div>
           <h3 className={h.subHeading}>Why "reimagine" Housing Works?</h3>
@@ -726,8 +726,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ ONLINE COMMUNICATIONS ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="BRAND IN PRACTICE" />
           </div>
           <p className={`${h.bodyText} ${h.bodyLead}`}>
@@ -855,7 +855,7 @@ function HousingWorksPage() {
 
         {/* The same system on the shop floor, in its own bento, introduced
             by the line that used to sit with social and web. */}
-        <section className={`${h.section} ${h.sectionTight}`}>
+        <section className={`${h.section} ${h.sectionTight} section-columns`}>
           <p className={h.channelLead}>
             <span className={h.channelName}>In-store:</span> An immersive,
             location-specific experience while maintaining core brand assets
@@ -898,8 +898,8 @@ function HousingWorksPage() {
              else. They are things to keep an eye on, and a heading over
              each half only split a list that reads better whole.
              ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="SUCCESS METRICS" />
           </div>
           <ul className={h.metricPills}>
@@ -912,8 +912,8 @@ function HousingWorksPage() {
         </section>
 
         {/* ============ PROTOTYPE ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="PROTOTYPE" />
           </div>
           <p className={h.prototypeLead}>
@@ -988,13 +988,12 @@ function HousingWorksPage() {
         {/* ============ REFLECTIONS — the honest close, carried in a
              panel of the Housing Works pink rather than set off by a
              rule down its edge. ============ */}
-        <section className={h.section}>
-          <div className={h.sectionLabelWrap}>
+        <section className={`${h.section} section-columns`}>
+          <div className={`${h.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="REFLECTIONS" />
           </div>
           <div className={h.reflectionsContent}>
             <div className={h.reflectionItem}>
-              <h3 className={h.reflectionSubheading}>What I took from it</h3>
               <p className={h.reflectionBody}>
                 Through this project, I gained valuable insights into
                 transforming a well-established brand like Housing Works into a

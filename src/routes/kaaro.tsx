@@ -173,8 +173,8 @@ function KaaroPage() {
         </div>
 
         {/* Overview */}
-        <section className={k.overviewSection}>
-          <div className={k.overviewLabelWrap}>
+        <section className={`${k.overviewSection} section-columns`}>
+          <div className={`${k.overviewLabelWrap} section-columns-label`}>
             <SectionLabel title="OVERVIEW" />
           </div>
           <figure className={k.overviewFigure}>
@@ -200,11 +200,11 @@ function KaaroPage() {
         </section>
 
         {/* Challenges */}
-        <section className={k.section}>
-          <div className={k.sectionLabelWrap}>
+        <section className={`${k.section} section-columns`}>
+          <div className={`${k.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="CHALLENGES" />
           </div>
-          <p className={`${k.sectionIntro} ${k.sectionIntroWide}`}>
+          <p className={k.sectionIntro}>
             The Instagram small-business boom during the COVID-19 pandemic flooded
             the market with handmade jewelry.
             <br />
@@ -284,8 +284,8 @@ function KaaroPage() {
         </section>
 
         {/* Target Market — text left, looping photo-album stack right */}
-        <section className={k.section} style={{ paddingTop: 64 }}>
-          <div className={k.sectionLabelWrap}>
+        <section className={`${k.section} section-columns`} style={{ paddingTop: 64 }}>
+          <div className={`${k.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="TARGET MARKET" />
           </div>
           <div className={k.targetContent}>
@@ -307,8 +307,8 @@ function KaaroPage() {
 
         {/* Brand Language & Visual Identity — logo + meaning, then bento grid.
             Hovering one bento tile dims all the others. */}
-        <section className={k.section} style={{ paddingTop: 64 }}>
-          <div className={k.sectionLabelWrap}>
+        <section className={`${k.section} section-columns`} style={{ paddingTop: 64 }}>
+          <div className={`${k.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="BRAND LANGUAGE AND VISUAL IDENTITY" />
           </div>
           <div className={k.visualContent}>
@@ -344,8 +344,8 @@ function KaaroPage() {
         </section>
 
         {/* Brand Strategy */}
-        <section className={k.section} style={{ paddingTop: 64, paddingBottom: 80 }}>
-          <div className={k.sectionLabelWrap}>
+        <section className={`${k.section} section-columns`} style={{ paddingTop: 64, paddingBottom: 80 }}>
+          <div className={`${k.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="BRAND STRATEGY" />
           </div>
           <p className={k.sectionIntro}>
@@ -408,8 +408,10 @@ function KaaroPage() {
         </section>
 
         {/* Results & Impact (brand green) */}
-        <section className={`${s.impactSection} ${k.impactGreen}`}>
-          <SectionLabel title="RESULTS & IMPACT" dark />
+        <section className={`${s.impactSection} ${k.impactGreen} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="RESULTS & IMPACT" dark />
+          </div>
 
           <p className={k.impactBody}>
             Over the course of 2 years, Kaaro witnessed a notable increase in brand

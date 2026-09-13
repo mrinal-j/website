@@ -27,8 +27,9 @@
 }
 
 
-/* Body copy. Capped at three quarters of the content width so the
-   lines stay short enough to read comfortably. */
+/* Body copy. The three quarters measure is held by the layout rather than by
+   a cap here: the section title takes the first of four columns and the copy
+   takes the other three. */
 .bodyText {
   font-family: var(--font-body);
   font-weight: 400;
@@ -36,7 +37,6 @@
   line-height: 175%;
   color: var(--text-secondary);
   margin: 0;
-  max-width: 75%;
 }
 .bodyText + .bodyText {
   margin-top: 20px;
@@ -50,9 +50,6 @@
 @media (max-width: 768px) {
   .section {
     padding: 56px var(--page-side-padding);
-  }
-  .bodyText {
-    max-width: 100%;
   }
 }
 
@@ -127,17 +124,10 @@
   line-height: 155%;
   color: var(--text-primary);
   margin: 0;
-  max-width: 75%;
 }
 .overviewText span {
   color: var(--ic-red);
 }
-@media (max-width: 768px) {
-  .overviewText {
-    max-width: 100%;
-  }
-}
-
 /* ============================================================
    WHY IT EXISTS — the emotional beat. Copy on the left, the
    single-window diagram on the right.
@@ -180,7 +170,6 @@
   border-radius: var(--radius-card);
   padding: 40px;
   margin-bottom: 56px;
-  max-width: 75%;
 }
 .askBoxCentered {
   margin-left: auto;
@@ -203,7 +192,6 @@
 }
 @media (max-width: 768px) {
   .askBox {
-    max-width: 100%;
     padding: 28px;
   }
 }
@@ -219,7 +207,6 @@
   letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0 0 24px;
-  max-width: 75%;
 }
 /* The identity's closing block, sitting under the grid. */
 .identityClose {
@@ -496,7 +483,6 @@
   display: flex;
   flex-direction: column;
   gap: 48px;
-  max-width: 75%;
 }
 .reflectionItem {
   border-left: 3px solid var(--ic-red);
@@ -511,9 +497,6 @@
   margin: 0;
 }
 @media (max-width: 768px) {
-  .reflectionsContent {
-    max-width: 100%;
-  }
   .reflectionItem {
     padding-left: 20px;
   }

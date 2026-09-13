@@ -104,16 +104,32 @@ one, everything else in the section spans the remaining three. At the usual
 1440px screen that works out as four 262px columns with 24px between them, so
 the title column is 262px wide and the content column is 835px.
 
-The tokens are in `src/styles/globals.css`:
+The tokens and the rule both live in `src/styles/globals.css`:
 
 ```css
 --section-columns: 4;
 --section-gutter: 24px;
 ```
 
-The rule itself is applied per page, in that page's own `.section` block, since
-each page names its sections differently. Housing Works is the reference
-implementation.
+Apply it by putting **`section-columns`** on the section and
+**`section-columns-label`** on the block holding its title. These are plain
+global class names used straight from the JSX, the same way `reveal-root` works,
+rather than per page rules. Written once, they cannot drift between pages.
+
+**Which pages are on it:** Housing Works, UN80, UNGA80, Kaaro and Integrated
+Care. In the Loop is not, and is the odd one out until someone does the
+groundwork described below.
+
+**A section must hold the page margins itself.** The layout divides the
+section's own content box into four, so the section needs
+`padding: ... var(--page-side-padding)` on it. Some pages were built the other
+way round, with the section at zero padding and every block inside it carrying
+the margins. Those pages need that padding hoisted onto the section, and taken
+off every child, before the layout can be applied. Kaaro and UN80's context
+section were converted this way. In the Loop still works the old way across
+about 45 rules, including the phone mockup positioning, which reads
+`--page-side-padding` to line the phone up with the copy, so it needs a
+dedicated pass rather than being folded in with the others.
 
 Three things worth knowing:
 
@@ -126,6 +142,39 @@ Three things worth knowing:
 3. **Full width bands stay full width.** Heroes, banner images, the metadata
    grid and the pinned scroll blocks are not part of this and keep running edge
    to edge.
+
+### Reflections
+
+**Every reflections section carries a vertical line down its left edge.** A 3px
+rule, with the text held 28px clear of it. It is how the honest close at the end
+of a case study is marked, and it is the same on every page that has one.
+
+**The line stands the height of the body text and no more.** It starts where the
+writing starts and stops where it stops. It does not run on down the side of
+anything that follows, such as a row of tags, and it does not extend into the
+space above or below the text. In practice that means putting the rule on the
+text itself rather than on the block wrapping it, and indenting whatever sits
+underneath to stay level with the writing.
+
+The line takes **the page's own accent colour**, so it belongs to the project
+rather than to a site-wide palette:
+
+| Page | Line |
+| --- | --- |
+| Housing Works | `--housing-works-pink` |
+| Integrated Care | `--ic-red` |
+| In the Loop | the yellow used across that page |
+| UN80 | `currentColor`, the black of the text |
+
+UN80 is the one worth explaining. Its reflection sits on the blue results band,
+so the page's accent is the ground itself and would disappear into it. The rule
+there takes the colour of the writing instead, which is black, set as
+`currentColor` so it follows the copy if that colour ever changes.
+
+Kaaro and UNGA80 have no reflections section. If either gains one, it gets the
+line too.
+
+---
 
 ### Section titles
 
@@ -186,9 +235,14 @@ These apply site wide, not just to one page.
    the first column and the copy takes the other three, which is three quarters
    of the content area by construction. Capping again inside that column stacks
    one measure on top of another and leaves the text stopping well short of the
-   right margin, so a section laid out this way should let its copy run the full
-   width of its column. Housing Works is the page doing this; the other five
-   still carry their own caps until they move to the same layout.
+   right margin, so a section laid out this way lets its copy run the full width
+   of its column. This applies to every page on the layout, and the cap comes
+   off whatever form it took, per cent, `ch` or pixels. All five pages on the
+   layout have had theirs removed.
+
+   The exception is copy that sits in a column of its own inside a section, for
+   example the text beside a picture in a two-up row. There the width is the
+   layout, not a measure laid over it, and it stays.
 
    One number worth knowing: on a 1440px screen this puts body copy at about
    86 characters a line. That is at the long end of comfortable rather than in

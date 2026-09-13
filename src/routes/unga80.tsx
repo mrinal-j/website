@@ -117,8 +117,10 @@ function Unga80Page() {
         </section>
 
         {/* ============ CONTEXT ============ */}
-        <section className={g.section}>
-          <SectionLabel title="CONTEXT" />
+        <section className={`${g.section} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="CONTEXT" />
+          </div>
           <div className={g.contextGrid}>
             <div className={g.contextBody}>
               <p className={g.contextPara}>
@@ -149,8 +151,10 @@ function Unga80Page() {
 
         {/* ============ THE ASK — the brief, then the fixed facts of the
              job underneath it. ============ */}
-        <section className={g.section}>
-          <SectionLabel title="THE ASK" />
+        <section className={`${g.section} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="THE ASK" />
+          </div>
           <p className={g.askLead}>
             Transform the high-traffic area in the UN Secretariat into a
             bright, participatory meeting point, where passers-by are drawn in
@@ -190,8 +194,10 @@ function Unga80Page() {
         </section>
 
         {/* ============ THE OUTCOME ============ */}
-        <section className={g.section}>
-          <SectionLabel title="THE OUTCOME" />
+        <section className={`${g.section} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="THE OUTCOME" />
+          </div>
           <p className={g.outcomeText}>
             Three pillars standing between the wall and the lounge carried the
             main exhibit, which included high-resolution UN 2.0 visual banners

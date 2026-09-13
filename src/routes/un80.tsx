@@ -178,8 +178,8 @@ function Un80Page() {
         </section>
 
         {/* ============ OVERVIEW ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
+        <section className={`${u.section} section-columns`}>
+          <div className={`${u.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="OVERVIEW" />
           </div>
           <p className={u.overviewText}>
@@ -192,8 +192,8 @@ function Un80Page() {
 
         {/* ============ 01 · CONTEXT — label, then a rounded photo with
              a 40% black layer and the text centred on it ============ */}
-        <section className={u.contextSection}>
-          <div className={u.contextLabelWrap}>
+        <section className={`${u.contextSection} section-columns`}>
+          <div className={`${u.contextLabelWrap} section-columns-label`}>
             <SectionLabel title="CONTEXT" />
           </div>
           <figure className={u.contextFigure}>
@@ -214,8 +214,8 @@ function Un80Page() {
         </section>
 
         {/* ============ 02 · THE CHALLENGE ============ */}
-        <section className={u.section}>
-          <div className={u.sectionLabelWrap}>
+        <section className={`${u.section} section-columns`}>
+          <div className={`${u.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="THE CHALLENGE" />
           </div>
           <h2 className={u.sectionHeadline}>
@@ -272,8 +272,8 @@ function Un80Page() {
 
         {/* ============ 03 · THE SUB-IDENTITY — the three pieces of the
              system: the logo lockup, the palette, and the type ============ */}
-        <section className={u.systemSection}>
-          <div className={u.sectionLabelWrap}>
+        <section className={`${u.systemSection} section-columns`}>
+          <div className={`${u.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="THE SUB-IDENTITY" />
           </div>
           <p className={u.systemIntro}>
@@ -341,8 +341,8 @@ function Un80Page() {
         </section>
 
         {/* ============ 04 · ACROSS CHANNELS ============ */}
-        <section className={u.channelsSection}>
-          <div className={u.sectionLabelWrap}>
+        <section className={`${u.channelsSection} section-columns`}>
+          <div className={`${u.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="ACROSS CHANNELS" />
           </div>
 
@@ -506,7 +506,7 @@ function Un80Page() {
              window until it reaches the bottom of the page. Same idea as the
              phone screens in the In the Loop case study. ============ */}
         <section ref={siteWrapRef} className={u.siteScrollWrap}>
-          <div className={u.siteSticky}>
+          <div className={`${u.siteSticky} section-columns`}>
             <div className={u.siteGrid}>
               <div className={u.siteCopy}>
                 <div className={u.channelLabel}>Website</div>
@@ -570,9 +570,12 @@ function Un80Page() {
           </div>
         </section>
 
+
         {/* ============ 05 · RESULTS + 06 · REFLECTION (one blue box) ============ */}
-        <section className={u.resultsSection}>
-          <SectionLabel title="RESULTS" onColor />
+        <section className={`${u.resultsSection} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="RESULTS" onColor />
+          </div>
           <div className={u.resultsGrid}>
             <div className={u.resultStat}>
               <span className={u.resultNum}>
@@ -600,10 +603,12 @@ function Un80Page() {
             </div>
           </div>
 
+          <div
+            className={`${u.sectionLabelWrap} ${u.reflectionLabelWrap} section-columns-label`}
+          >
+            <SectionLabel title="REFLECTION" onColor />
+          </div>
           <div className={u.reflectionBlock}>
-            <div className={u.sectionLabelWrap}>
-              <SectionLabel title="REFLECTION" onColor />
-            </div>
             <p className={u.reflectionQuote}>
               The challenge of building a visual identity for the initiative was
               not layering it on top of the UN's foundational identity, but
@@ -612,15 +617,6 @@ function Un80Page() {
               a complex institution easier to understand for its wide audience,
               across every channel.
             </p>
-            <div className={u.tagRow}>
-              {['Brand identity', 'Design systems', 'Content strategy', 'Multi-channel'].map(
-                (t) => (
-                  <span key={t} className={u.tag}>
-                    {t}
-                  </span>
-                ),
-              )}
-            </div>
           </div>
         </section>
       </main>

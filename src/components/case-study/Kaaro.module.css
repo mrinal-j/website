@@ -57,17 +57,19 @@
 .overviewSection {
   width: 100%;
   background: var(--bg-primary);
-  padding: 96px 0 40px;
+  /* The side padding sits here rather than on each child. The children are
+     grid columns now, and a column cannot also hold the page's margins. */
+  padding: 96px var(--page-side-padding) 40px;
 }
 
 .overviewLabelWrap {
-  padding: 0 var(--page-side-padding);
+  padding: 0;
 }
 
 .overviewFigure {
   position: relative;
   /* Sits within the page margins (not full-bleed) */
-  margin: 28px var(--page-side-padding) 0;
+  margin: 28px 0 0;
   border-radius: var(--radius-card);
   overflow: hidden;
   background: #2a2a2a;
@@ -99,7 +101,7 @@
 }
 
 @media (max-width: 767px) {
-  .overviewSection { padding: 48px 0 32px; }
+  .overviewSection { padding: 48px var(--page-side-padding) 32px; }
   .overviewImg { height: clamp(320px, 60vh, 460px); object-position: 50% 22%; }
   .overviewCaption { bottom: 10%; font-size: 1.1rem; width: 88%; }
 }
@@ -146,10 +148,12 @@
 .section {
   width: 100%;
   background-color: var(--bg-primary);
+  /* As above: the margins live on the section, not on every block inside it. */
+  padding: 0 var(--page-side-padding);
 }
 
 .sectionLabelWrap {
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
 }
 
 .sectionIntro {
@@ -158,24 +162,17 @@
   font-size: 1.05rem;
   line-height: 165%;
   color: var(--text-secondary);
-  padding: 32px var(--page-side-padding) 0;
+  padding: 32px 0 0;
   margin: 0;
-  /* max-width includes the side padding (border-box), so it must grow with
-     it — a fixed 760px collapses to a sliver on wide monitors where the
-     side padding alone exceeds it. 600px = the actual text width. */
-  max-width: calc(600px + 2 * var(--page-side-padding));
 }
 
 /* Wider variant for longer intros that should wrap in two lines, not three. */
-.sectionIntroWide {
-  max-width: calc(1000px + 2 * var(--page-side-padding));
-}
 
 .challengeGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
 }
 
 /* Card: rounded corners all around (images clip to them too), a coloured
@@ -290,7 +287,7 @@
   display: flex;
   align-items: center; /* text vertically centered to the album */
   gap: 56px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
 }
 
 .targetText {
@@ -379,7 +376,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 32px var(--page-side-padding) 0;
+  padding: 32px 0 0;
 }
 
 .valueTag {
@@ -408,7 +405,7 @@
     'chain  insta pack    glass'
     'picnic tote  grey    glass';
   gap: 16px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
 }
 
 /* Every tile: cover its cell, with the site's usual image border. The cream
@@ -450,7 +447,7 @@
 .visualContent {
   display: flex;
   gap: 48px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
   align-items: center;
 }
 
@@ -479,7 +476,7 @@
 .strategyAccordion {
   display: flex;
   gap: 16px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
   height: 720px;
 }
 
@@ -679,7 +676,6 @@
   line-height: 175%;
   color: rgba(255, 255, 255, 0.78);
   margin: 40px 0 0;
-  max-width: 800px;
 }
 
 /* ============================================================
@@ -854,7 +850,7 @@
 
 @media (max-width: 767px) {
   .statementText { font-size: 1.5rem; }
-  .challengeGrid { grid-template-columns: 1fr; padding: 28px var(--page-side-padding) 0; }
+  .challengeGrid { grid-template-columns: 1fr; padding: 28px 0 0; }
   .targetContent { flex-direction: column; align-items: flex-start; gap: 8px; }
   .targetText { max-width: none; }
   /* flex:none so the explicit height actually applies (flex:1 in a column

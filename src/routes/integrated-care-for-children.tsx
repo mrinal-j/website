@@ -140,8 +140,8 @@ function IntegratedCarePage() {
         </section>
 
         {/* ============ OVERVIEW ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
+        <section className={`${c.section} section-columns`}>
+          <div className={`${c.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="OVERVIEW" />
           </div>
           <p className={c.overviewText}>
@@ -161,8 +161,8 @@ function IntegratedCarePage() {
 
         {/* ============ WHY IT EXISTS — the emotional beat of the page, and
              the place for the single-window diagram. ============ */}
-        <section className={`${c.section} ${c.sectionAlt}`}>
-          <div className={c.sectionLabelWrap}>
+        <section className={`${c.section} ${c.sectionAlt} section-columns`}>
+          <div className={`${c.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="WHY IT EXISTS" />
           </div>
           <div className={c.whyGrid}>
@@ -199,11 +199,13 @@ function IntegratedCarePage() {
         </section>
 
         {/* ============ THE ASK ============ */}
-        <section className={c.section}>
-          {/* The brief itself, set apart in a coloured box. The label sits
-              inside the box, so it runs without its trailing line. */}
-          <div className={`${c.askBox} ${c.askBoxCentered}`}>
+        <section className={`${c.section} section-columns`}>
+          <div className={`${c.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="THE ASK" />
+          </div>
+          {/* The brief itself, set apart in a coloured box. Its title sits out
+              in the title column with every other one. */}
+          <div className={`${c.askBox} ${c.askBoxCentered}`}>
             <p className={c.askText}>
               To build the visual language and identity for the initiative
               "Integrated Care for Children", along with the first asset of a
@@ -217,8 +219,8 @@ function IntegratedCarePage() {
              run of separate sections. Tiles butt edge to edge, each carrying
              a small label and nothing else: the artwork does the explaining.
              ============ */}
-        <section className={c.identityHeader}>
-          <div className={c.sectionLabelWrap}>
+        <section className={`${c.identityHeader} section-columns`}>
+          <div className={`${c.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="THE IDENTITY" />
           </div>
           <p className={`${c.bodyText} ${c.bodyLead}`}>
@@ -395,8 +397,8 @@ function IntegratedCarePage() {
 
         {/* ============ REFLECTIONS — the honest close: one note, set off
              by a rule on the left. ============ */}
-        <section className={c.section}>
-          <div className={c.sectionLabelWrap}>
+        <section className={`${c.section} section-columns`}>
+          <div className={`${c.sectionLabelWrap} section-columns-label`}>
             <SectionLabel title="REFLECTIONS" />
           </div>
           <div className={c.reflectionsContent}>

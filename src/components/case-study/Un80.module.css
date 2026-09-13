@@ -47,7 +47,6 @@
   line-height: 120%;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  max-width: 720px;
   margin: 0 0 22px;
 }
 
@@ -76,7 +75,6 @@
   line-height: 170%;
   letter-spacing: -0.01em;
   color: var(--text-secondary);
-  max-width: 640px;
   margin: 0;
   text-wrap: pretty;
 }
@@ -145,15 +143,17 @@
 .contextSection {
   width: 100%;
   background: var(--bg-primary);
-  padding: 88px 0;
+  /* The side padding sits here rather than on each child, so the children can
+     be grid columns. A column cannot also hold the page's margins. */
+  padding: 88px var(--page-side-padding);
 }
 .contextLabelWrap {
-  padding: 0 var(--page-side-padding);
+  padding: 0;
 }
 .contextFigure {
   position: relative;
   /* Sits within the page margins (not full-bleed) */
-  margin: 28px var(--page-side-padding) 0;
+  margin: 28px 0 0;
   border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--un-ink);
@@ -172,7 +172,7 @@
 }
 /* Photo credit, aligned to the right edge of the image above it. */
 .contextCredit {
-  margin: 10px var(--page-side-padding) 0;
+  margin: 10px 0 0;
   text-align: right;
   font-family: var(--font-body);
   font-size: 0.6875rem;
@@ -278,7 +278,6 @@
   font-size: 1.0625rem;
   line-height: 170%;
   color: var(--text-secondary);
-  max-width: 620px;
   margin: 0 0 48px;
 }
 .systemIntro em {
@@ -305,7 +304,6 @@
   font-size: 0.875rem;
   line-height: 165%;
   color: var(--text-secondary);
-  max-width: 620px;
   margin: 18px 0 0;
 }
 
@@ -433,7 +431,6 @@
   line-height: 165%;
   font-weight: 600;
   color: var(--un-accent);
-  max-width: 640px;
   margin: 18px 0 0;
 }
 .channelDesc {
@@ -441,7 +438,6 @@
   font-size: 0.9375rem;
   line-height: 165%;
   color: var(--text-secondary);
-  max-width: 640px;
   margin: 0 0 20px;
 }
 
@@ -475,15 +471,18 @@
      an awkward gap. Sized to its content, the block simply holds near the top
      of the screen while the Results band scrolls up to meet it. */
   min-height: auto;
-  display: flex;
-  align-items: flex-start;
+  /* The layout comes from the four-column rule in globals.css. */
+  align-items: start;
   /* Clears the fixed navbar while the block is pinned. */
   padding-top: 96px;
 }
 .siteGrid {
   display: grid;
-  grid-template-columns: minmax(260px, 0.85fr) 1.15fr;
-  gap: 72px;
+  /* The pair shares the three-column content area rather than the whole page,
+     so the gap tightens and the mockup takes the larger share of what is left.
+     The window itself scrolls the screenshot as you pass it. */
+  grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+  gap: 40px;
   /* Copy sits level with the middle of the browser mockup beside it. */
   align-items: center;
   width: 100%;
@@ -607,6 +606,7 @@
   margin: 12px 0 0;
 }
 
+
 /* LinkedIn posts — each square asset sits inside a post frame (avatar, name,
    follower count) so it reads as a feed post rather than a loose graphic. */
 .postsScroller {
@@ -622,11 +622,25 @@
 .postsScroller::-webkit-scrollbar {
   display: none;
 }
+
 .postsTrack {
   display: flex;
   gap: 16px;
   width: max-content;
   padding: 4px var(--page-side-padding);
+}
+/* On the four-column layout the copy starts at the content column, not at the
+   page margin, so the rail starts there too: scrolled back to the beginning,
+   the first card lines up with the text above it. It still bleeds off the
+   right edge, which is what says the row keeps going. Placed after the two
+   rules it overrides, since a media query adds no weight of its own. */
+@media (min-width: 1000px) {
+  .postsScroller {
+    margin-left: 0;
+  }
+  .postsTrack {
+    padding-left: 0;
+  }
 }
 .postCard {
   width: 280px;
@@ -800,9 +814,21 @@
    REFLECTION — lives inside the Results blue box as one unit,
    separated by a hairline divider rather than a second band.
    ============================================================ */
+/* The reflection opens a new row inside the blue band. Its gap is padding
+   rather than margin, because the block beside a title has its top margin
+   cleared, and the title carries the same padding so the two stay level. */
+.reflectionLabelWrap,
 .reflectionBlock {
-  margin-top: 96px;
+  padding-top: 96px;
 }
+/* The site-wide reflections treatment: a rule down the left edge, standing the
+   height of the body text and no more. It sits on the quote itself rather than
+   on the block, so it stops where the writing stops instead of running on past
+   it and down the side of the tags.
+
+   On this band the page's accent is the blue itself, which would vanish into
+   the ground, so the rule takes the 20% tint: the lightest of the page's own
+   blues and the only one that reads against it. */
 /* Set as body copy, matching the paragraphs elsewhere on the page, just
    reversed out on the blue. */
 .reflectionQuote {
@@ -812,23 +838,13 @@
   line-height: 170%;
   letter-spacing: -0.01em;
   color: #000;
-  max-width: 640px;
   margin: 0;
+  /* The reflections rule, standing the height of this text and no more.
+     currentColor so it is the black of the writing it belongs to, and stays
+     that way if the copy's colour is ever changed. */
+  border-left: 3px solid currentColor;
+  padding-left: 28px;
   text-wrap: pretty;
-}
-.tagRow {
-  margin-top: 40px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.tag {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.55);
-  border-radius: 999px;
-  padding: 8px 16px;
 }
 
 /* ============================================================
@@ -873,22 +889,15 @@
   .resultsGrid {
     grid-template-columns: 1fr 1fr;
   }
-  /* The label and the photo carry their own side padding here, so the
-     section keeps its 0 horizontal padding and only the inset changes. */
+  /* The side padding is on the section now, so the blocks inside it only
+     change their own vertical spacing here. */
   .contextSection {
     padding-top: 64px;
     padding-bottom: 64px;
   }
-  .contextLabelWrap {
-    padding: 0 max(24px, var(--page-side-padding));
-  }
   .contextFigure {
-    margin: 24px max(24px, var(--page-side-padding)) 0;
+    margin: 24px 0 0;
     border-radius: var(--radius-card);
-  }
-  .contextCredit {
-    margin-left: max(24px, var(--page-side-padding));
-    margin-right: max(24px, var(--page-side-padding));
   }
   .contextImg {
     height: clamp(340px, 58vh, 460px);
