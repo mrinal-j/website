@@ -5,8 +5,10 @@
   gap: 20px;
   padding-top: 0px;      /* ← space above the cards */
   padding-bottom: 10px;   /* ← space below the cards */
-  padding-left: var(--page-side-padding, 80px);
-  padding-right: var(--page-side-padding, 80px);
+  /* The section holds the page margins now, so this sits flush inside its
+     grid column rather than reaching for them itself. */
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .stack {

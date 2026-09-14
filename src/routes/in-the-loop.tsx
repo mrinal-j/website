@@ -232,8 +232,8 @@ function InTheLoopPage() {
         </section>
 
         {/* Solution - Phone Carousel */}
-        <section className={styles.solutionSection}>
-          <div className={styles.solutionLabelWrap}>
+        <section className={`${styles.solutionSection} section-columns`}>
+          <div className={`${styles.solutionLabelWrap} section-columns-label`}>
             <SectionLabel title="WHAT WE BUILT" />
           </div>
 
@@ -267,8 +267,8 @@ function InTheLoopPage() {
         </section>
 
         {/* What we heard — research findings */}
-        <section className={styles.heardSection}>
-          <div className={styles.heardLabelWrap}>
+        <section className={`${styles.heardSection} section-columns`}>
+          <div className={`${styles.heardLabelWrap} section-columns-label`}>
             <SectionLabel title="PROBLEM" />
           </div>
 
@@ -336,8 +336,8 @@ function InTheLoopPage() {
         </section>
 
         {/* Exploration */}
-        <section className={styles.explorationSection}>
-          <div className={styles.explorationLabelWrap}>
+        <section className={`${styles.explorationSection} section-columns`}>
+          <div className={`${styles.explorationLabelWrap} section-columns-label`}>
             <SectionLabel title="EXPLORATION" />
           </div>
 

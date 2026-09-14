@@ -434,6 +434,15 @@
    SOLUTION SECTION (Dark)
    ============================================================ */
 .solutionSection {
+  /* The margins sit here rather than on each block inside, which are grid
+     columns now and cannot hold them themselves. */
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  /* The section's own top spacing. It lives here rather than on the title and
+     the block beside it separately: held separately they each inset their own
+     text by a different amount and the two no longer read as level. */
+  padding-top: 40px;
+
   /* Single source of truth for the section background. The carousel side
      fades read this same variable so they always match. */
   --solution-bg: #fff;
@@ -446,8 +455,11 @@
                             ≥ --carousel-phone-h, ideally a bit more so the
                             phone has breathing room above/below) */
   /* iPhone 16 Pro aspect ratio (1 : 2.174) */
-  --carousel-phone-w: 184px;
-  --carousel-phone-h: 400px;
+  /* Five across has to fit the content column, which is 834px wide, so the
+     phones come down from 184px: 5 x 142 + 4 gaps of 30 = 830. The height
+     follows the same ratio so the screens are not stretched. */
+  --carousel-phone-w: 142px;
+  --carousel-phone-h: 309px;
   --carousel-card-gap:30px;
   --carousel-height: 470px;
   /* iPhone 16 Pro display has ~13.7% corner radius; for 184px-wide cards
@@ -466,7 +478,7 @@
 }
 
 .solutionLabelWrap {
-  padding: 40px var(--page-side-padding) 0;
+  padding: 0;
 }
 
 .carousel {
@@ -643,7 +655,7 @@
 }
 
 .concludingQuote {
-  padding: 48px var(--page-side-padding) 56px;
+  padding: 0 0 56px;
 }
 
 .concludingQuote p {
@@ -814,8 +826,8 @@
   .highlightPhone { top: auto; bottom: -10px; }
   .dataSection { padding: 64px var(--page-side-padding); }
   .hmwSection { padding: 64px var(--page-side-padding); }
-  .solutionLabelWrap { padding: 40px var(--page-side-padding) 0; }
-  .concludingQuote { padding: 48px var(--page-side-padding) 64px; }
+  .solutionLabelWrap { padding: 40px 0 0; }
+  .concludingQuote { padding: 48px 0 64px; }
 }
 
 /* The phone is placed a share of the way across the content column rather
@@ -895,7 +907,7 @@
   .hmwSection { padding: 40px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
   .hmwText { font-size: 1rem; }
-  .solutionLabelWrap { padding: 40px var(--page-side-padding) 0; }
+  .solutionLabelWrap { padding: 40px 0 0; }
   .solutionSection {
     --carousel-phone-w: 170px;
     --carousel-phone-h: 370px;
@@ -913,7 +925,7 @@
   .phoneBezels {
     left: calc(50% + 5px);
   }
-  .concludingQuote { padding: 40px var(--page-side-padding) 40px; }
+  .concludingQuote { padding: 40px 0 40px; }
   .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
   .impactSection { padding: 40px var(--page-side-padding) 40px; }
   .impactHeadline { font-size: 1.5rem; }
@@ -921,8 +933,8 @@
   .impactPillars { flex-direction: column; gap: 32px; margin-top: 40px; }
   .impactClosing { font-size: 1.5rem; margin-top: 48px; }
   .reflectionsSection { padding: 40px var(--page-side-padding) 128px; }
-  .heardLabelWrap { padding: 40px var(--page-side-padding) 0; }
-  .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px var(--page-side-padding) 32px; }
+  .heardLabelWrap { padding: 40px 0 0; }
+  .heardHeadline { font-size: 1.5rem; font-weight: 700; padding: 24px 0 32px; }
 
   /* 1. Hero subheading — body text size */
   .heroDesc p { font-size: 1rem; }
@@ -958,10 +970,16 @@
   width: 100%;
   background-color: var(--bg-primary);
   padding-bottom: 96px;
+  /* As above: the section holds the top spacing so the title and the headline
+     beside it start level. */
+  padding-top: 80px;
+  /* As above: the margins live on the section now. */
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
 }
 
 .heardLabelWrap {
-  padding: 80px var(--page-side-padding) 0;
+  padding: 0;
 }
 
 .heardHeadline {
@@ -973,7 +991,7 @@
   text-align: center;
   max-width: none;
   margin: 0;
-  padding: 48px var(--page-side-padding) 6px; /* ← last value is space below the headline */
+  padding: 0 0 6px; /* ← last value is space below the headline */
 }
 
 /* ============================================================
@@ -985,14 +1003,14 @@
   font-size: 1.05rem;
   line-height: 165%;
   color: var(--text-secondary);
-  padding: 64px var(--page-side-padding) 0;
+  padding: 64px 0 0;
   margin: 0;
 }
 
 .problemRow {
   display: flex;
   gap: 24px;
-  padding: 32px var(--page-side-padding) 0;
+  padding: 32px 0 0;
 }
 
 /* ============================================================
@@ -1004,14 +1022,14 @@
   font-size: 1.05rem;
   line-height: 165%;
   color: var(--text-secondary);
-  padding: 64px var(--page-side-padding) 0;
+  padding: 64px 0 0;
   margin: 0;
 }
 
 .platformRow {
   display: flex;
   gap: 32px;
-  padding: 32px var(--page-side-padding) 0;
+  padding: 32px 0 0;
 }
 
 .platformCard {
@@ -1054,7 +1072,7 @@
 }
 
 .connectDotsBox {
-  margin: 24px var(--page-side-padding) 0; /* ← space above the connect-the-dots box */
+  margin: 24px 0 0; /* ← space above the connect-the-dots box */
   padding: 56px 64px;
   border-radius: var(--radius-card);
   background: var(--bg-secondary);
@@ -1255,10 +1273,15 @@
   width: 100%;
   background-color: var(--bg-primary);
   padding-bottom: 96px;
+  /* As above. */
+  padding-top: 40px;
+  /* As above: the margins live on the section now. */
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
 }
 
 .explorationLabelWrap {
-  padding: 40px var(--page-side-padding) 0;
+  padding: 0;
 }
 
 .explorationIntro {
@@ -1284,7 +1307,12 @@
   padding: 5px 14px;
   border-radius: 100px;
   display: inline-block;
-  margin: 32px 0 0 var(--page-side-padding);
+  /* As a grid item this stretches to fill its area whatever its display says,
+     across and down, and a pill the size of the column is not a pill. Held to
+     its own content in both directions. */
+  justify-self: start;
+  align-self: start;
+  margin: 0;
 }
 
 .iterationIntro {
@@ -1293,14 +1321,14 @@
   font-size: 1rem;
   line-height: 170%;
   color: rgba(0, 0, 0, 0.55);
-  margin: 16px 0 0 var(--page-side-padding);
+  margin: 16px 0 0 0;
   max-width: 600px;
 }
 
 .oooContent {
   display: flex;
   gap: 40px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
   align-items: flex-start;
 }
 
@@ -1379,15 +1407,17 @@
   font-size: 1.5rem;
   line-height: 130%;
   color: var(--text-primary);
-  padding: 80px var(--page-side-padding) 0;
+  padding: 80px 0 0;
   margin: 0;
 }
 
 .testedMethods {
   display: flex;
-  flex-wrap: nowrap;
+  /* Wrapped: nowrap kept them on one line, which came to 1069px against a
+     column of 834 and ran them past the right margin. */
+  flex-wrap: wrap;
   gap: 12px;
-  padding: 28px var(--page-side-padding) 0;
+  padding: 28px 0 0;
 }
 
 .methodPill {
@@ -1416,7 +1446,7 @@
 .outcomeRow {
   display: flex;
   gap: 24px;
-  padding: 40px var(--page-side-padding) 0;
+  padding: 40px 0 0;
 }
 
 .outcomeCard {
@@ -1969,7 +1999,7 @@
 
 @media (max-width: 767px) {
   .takeawayIntro { padding: 40px var(--page-side-padding) 0; font-size: 1rem; }
-  .problemRow { flex-direction: column; padding: 20px var(--page-side-padding) 0; gap: 16px; }
+  .problemRow { flex-direction: column; padding: 20px 0 0; gap: 16px; }
   .problemCard { padding: 24px 20px; border-radius: var(--radius-card); }
   .problemNumber { font-size: 3rem; }
   .problemText { font-size: 1rem; }
@@ -2002,13 +2032,13 @@
   .heardHeadline { font-size: 1.5rem; font-weight: 700; }
   .oooHeadline { font-size: 1.5rem; font-weight: 700; }
   .solTaglineText { font-size: 1.5rem; }
-  .existingIntro { font-size: 1rem; padding: 40px var(--page-side-padding) 0; }
+  .existingIntro { font-size: 1rem; padding: 40px 0 0; }
   .platformRow { gap: 8px; }
   .platformCard { padding: 24px 8px; gap: 12px; }
   .connectDotsBox { padding: 32px 24px 24px; }
   .heardSection { padding-bottom: 40px; }
   .explorationSection { padding-bottom: 40px; }
-  .explorationLabelWrap { padding: 40px var(--page-side-padding) 0; }
+  .explorationLabelWrap { padding: 40px 0 0; }
   .protoSection { padding-bottom: 40px; }
   .protoLabelWrap { padding: 60px var(--page-side-padding) 0; }
   .solSection { padding-bottom: 40px; }
