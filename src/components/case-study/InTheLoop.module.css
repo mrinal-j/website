@@ -1863,7 +1863,9 @@
   font-size: 1rem;
   line-height: 165%;
   color: rgba(255, 255, 255, 0.5);
-  padding: 0 var(--page-side-padding);
+  /* Starts at the content column like the rest of the page. The right edge
+     stays on the page margin, which is where that column ends. */
+  padding: 0 var(--page-side-padding) 0 var(--content-left);
   margin: 0;
 }
 
@@ -1872,12 +1874,26 @@
   align-items: center;
   /* ← Gap between text and phone mockup. Adjust this value. */
   gap: 180px;
-  padding: 0 var(--page-side-padding);
+  /* As above. These panels are full-bleed black and sticky, so the section
+     itself cannot be laid out in columns; the block inside starts at the
+     content column instead, which puts it in line with the sections above. */
+  padding: 0 var(--page-side-padding) 0 var(--content-left);
 }
 
 .featureText {
   flex: 1;
   max-width: 620px;
+}
+
+/* The gap between the copy and the phone was 180px across a 1120px block. In
+   the 834px content column that leaves the copy at 374px and the panel reads
+   as cramped, so it comes down to keep the copy at roughly the share of the
+   block it had before. Placed after the rule it overrides: a media query adds
+   no weight of its own. */
+@media (min-width: 1000px) {
+  .featureBlock {
+    gap: 96px;
+  }
 }
 
 .featureIconImg {
