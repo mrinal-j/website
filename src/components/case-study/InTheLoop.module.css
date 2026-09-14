@@ -13,6 +13,14 @@
      past 1280px so content stays aligned with the centered 1280px container. */
   --page-side-padding: max(80px, calc((100vw - 1280px) / 2 + 80px));
 
+  /* Where the content starts and how wide it runs. Below the four-column
+     breakpoint that is simply the page's margins, which is what these default
+     to; the column values are set in the min-width block further down. Blocks
+     laid out by the grid get placed on their own, so these are for the ones
+     that are positioned instead and cannot be. */
+  --content-left: var(--page-side-padding);
+  --content-width: calc(100vw - 2 * var(--page-side-padding));
+
   /* Phone mockup position (overrides may live on .highlight too).
      --phone-x is the distance from the viewport's left edge to the phone's
      left edge — both Overview text and the highlight banner read this so
@@ -164,15 +172,23 @@
   width: 100%;
 }
 
+.overviewLabelWrap {
+  /* The title's own column; the shared rule places it. */
+  padding-top: 40px;
+}
+
 .overviewGrid {
   display: grid;
   /* Stack the heading and the body paragraph in one column on the left so
      the phone mockup (in the highlight banner below) reads as the right
      half of this section. */
   grid-template-columns: 1fr;
-  /* Right edge of the text column = phone's left edge minus the shared
-     --text-right-gap knob. Adjust the knob on .page to tune. */
-  max-width: calc(var(--phone-x) - var(--page-side-padding) - var(--text-right-gap));
+  /* Right edge of the text column = the phone's left edge, less the shared
+     --text-right-gap knob. The text no longer starts at the page margin but
+     at the content column, so the column's own left edge is what the phone's
+     position is measured from, not the page's. Get this wrong and the copy
+     runs underneath the phone rather than stopping short of it. */
+  max-width: calc(var(--phone-x) - var(--content-left) - var(--text-right-gap));
   gap: 20px;
   padding-top: 40px;
 }
@@ -180,7 +196,10 @@
 .overviewHeading {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 2.5rem;
+  /* Down from 2.5rem: in a 3-column content area that read as oversized, and
+     this is the size a section-opening statement takes on the pages already
+     on this layout. */
+  font-size: 1.75rem;
   line-height: 120%;
   letter-spacing: -0.01em;
   color: var(--text-primary);
@@ -244,8 +263,9 @@
 .highlightBg {
   position: absolute;
   bottom: -10px;
-  /* Box now sits inside the page padding (no full-bleed overhang). */
-  left: calc(var(--page-side-padding) + var(--hl-bg-inset));
+  /* Starts at the content column so it lines up with the copy above it. The
+     right edge stays on the page margin, which is where that column ends. */
+  left: calc(var(--content-left) + var(--hl-bg-inset));
   right: calc(var(--page-side-padding) + var(--hl-bg-inset));
   height: var(--hl-bg-height);
   background-color: rgb(var(--hl-bg-color) / var(--hl-bg-opacity));
@@ -260,8 +280,8 @@
      by --hl-text-padding-x on .highlight) gives the headline breathing
      room from the box edge and from the phone. */
   bottom: -10px;
-  left: calc(var(--page-side-padding) + var(--hl-bg-inset));
-  width: calc(var(--phone-x) - var(--page-side-padding) - var(--hl-bg-inset));
+  left: calc(var(--content-left) + var(--hl-bg-inset));
+  width: calc(var(--phone-x) - var(--content-left) - var(--hl-bg-inset));
   height: var(--hl-bg-height);
   padding: 0 var(--text-right-gap) 0 var(--hl-text-padding-left);
   overflow: hidden;
@@ -311,23 +331,15 @@
    DATA / PROBLEM SECTION
    ============================================================ */
 .dataSection {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   background-color: var(--bg-primary);
+  /* The margins sit here rather than on the block inside, which is a grid
+     column now and cannot hold them itself. */
+  padding: 80px var(--page-side-padding);
 }
 
 .dataLeft {
-  flex: 1;
-  padding: 80px 40px 80px var(--page-side-padding);
-}
-
-.dataRight {
-  flex: 1;
-  padding: 80px var(--page-side-padding) 80px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
 }
 
 .statBlock {
@@ -380,46 +392,7 @@
 
 
 /* Bubble chart */
-.bubbleChart {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
 
-.bubbleLegend {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.legendWork,
-.legendAdult {
-  writing-mode: vertical-rl;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.legendWork { color: var(--color-yellow); }
-.legendAdult { color: var(--color-indigo); }
-
-.bubbleGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  width: 208px;
-}
-
-.bubble {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-.bubbleYellow { background-color: var(--color-yellow); }
-.bubbleBlue { background-color: var(--color-indigo); }
 
 /* ============================================================
    HMW QUESTION
@@ -839,11 +812,30 @@
   .highlightContent { height: 320px; bottom: -10px; }
   .highlightText { font-size: 2rem; }
   .highlightPhone { top: auto; bottom: -10px; }
-  .dataLeft { padding: 64px 24px 64px var(--page-side-padding); }
-  .dataRight { padding: 64px var(--page-side-padding) 64px 24px; }
+  .dataSection { padding: 64px var(--page-side-padding); }
   .hmwSection { padding: 64px var(--page-side-padding); }
   .solutionLabelWrap { padding: 40px var(--page-side-padding) 0; }
   .concludingQuote { padding: 48px var(--page-side-padding) 64px; }
+}
+
+/* The phone is placed a share of the way across the content column rather
+   than a fixed distance from the page's edge. Fixed, it stayed put while the
+   copy moved right into the column, and between 1000 and 1199px that left the
+   text 129px wide. Measured from the column, the space between the copy and
+   the phone holds at every width. 0.62 reproduces where the phone already sat
+   on a 1440px screen. */
+@media (min-width: 1000px) {
+  .page {
+    /* On the four-column layout the content starts one column and one gutter
+       in from the page margin, and runs from there to the right margin. */
+    --content-left: calc(
+      var(--page-side-padding)
+      + (100vw - 2 * var(--page-side-padding) - 3 * var(--section-gutter)) / 4
+      + var(--section-gutter)
+    );
+    --content-width: calc(100vw - var(--page-side-padding) - var(--content-left));
+    --phone-x: calc(var(--content-left) + 0.62 * var(--content-width));
+  }
 }
 
 @media (max-width: 767px) {
@@ -899,9 +891,7 @@
     margin: 0 auto;
     padding-bottom: 0px;
   }
-  .dataSection { flex-direction: column; }
-  .dataLeft { padding: 40px var(--page-side-padding) 16px; }
-  .dataRight { padding: 16px var(--page-side-padding) 40px; }
+  .dataSection { padding: 40px var(--page-side-padding) 16px; }
   .hmwSection { padding: 40px var(--page-side-padding); }
   .hmwCard { flex-direction: column; padding: 20px; gap: 16px; }
   .hmwText { font-size: 1rem; }

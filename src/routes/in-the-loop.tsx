@@ -172,8 +172,10 @@ function InTheLoopPage() {
         </section>
 
         {/* Overview */}
-        <section className={styles.overview}>
-          <SectionLabel title="OVERVIEW" />
+        <section className={`${styles.overview} section-columns`}>
+          <div className={`${styles.overviewLabelWrap} section-columns-label`}>
+            <SectionLabel title="OVERVIEW" />
+          </div>
           <div className={styles.overviewGrid}>
             <h2 className={styles.overviewHeading}>
               In the Loop is a digital platform that reimagines mobility as a tool for growth.
@@ -201,7 +203,7 @@ function InTheLoopPage() {
         </section>
 
         {/* Problem / Data */}
-        <section className={styles.dataSection}>
+        <section className={`${styles.dataSection} section-columns`}>
           <div className={styles.dataLeft}>
             <div className={styles.statBlock}>
               <p className={styles.statLabel}>THE AVERAGE EMPLOYEE SPENDS</p>
@@ -215,24 +217,10 @@ function InTheLoopPage() {
               <p className={styles.statUnit}>YEARS OF YOUR ADULTHOOD</p>
             </div>
           </div>
-          <div className={styles.dataRight}>
-            <div className={styles.bubbleChart}>
-              <div className={styles.bubbleLegend}>
-                <span className={styles.legendWork}>WORK LIFE</span>
-                <span className={styles.legendAdult}>ADULTHOOD</span>
-              </div>
-              <div className={styles.bubbleGrid}>
-                <div className={`${styles.bubble} ${styles.bubbleYellow}`} />
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className={`${styles.bubble} ${styles.bubbleBlue}`} />
-                ))}
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* HMW Question */}
-        <section className={styles.hmwSection}>
+        <section className={`${styles.hmwSection} section-columns`}>
           <div className={styles.hmwCard}>
             <svg className={styles.hmwIcon} width="32" height="32" viewBox="0 0 256 256" fill="var(--color-indigo)">
               <path d="M229.66,218.34l-50.07-50.07a88.11,88.11,0,1,0-11.31,11.31l50.07,50.07a8,8,0,0,0,11.31-11.31ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/>
