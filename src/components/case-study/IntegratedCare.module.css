@@ -299,10 +299,10 @@
   max-width: 70%;
   max-height: 340px;
 }
-.artMark      { max-width: 92%; }
+.artMark      { max-width: 100%; }
 /* The construction drawing is deliberately the smallest thing here: it
    is supporting evidence, not the headline. */
-.artBuild     { max-width: 58%; }
+.artBuild     { max-width: 66%; }
 
 /* ---- The rows of the grid. Columns are deliberately unequal. ---- */
 .rowSecondary,
@@ -463,11 +463,37 @@
   overflow: hidden;
   background: #263474;
 }
+/* Sampled from the photograph's own background, so the picture, which is
+   fitted rather than cropped, sits on the same grey it was shot on. */
+.tilePhoto:has(.photoId) {
+  background: #dadada;
+}
 .tilePhotoImg {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* The flyer sits further away in its photograph than the other two, so it
+   reads smaller at the same tile size. Scaled up inside the tile, which clips
+   it. That does crop a little more off every edge, so keep the number modest:
+   the point of the picture is the whole trifold.
+
+   The trifold does not sit centred in the photograph, so a centred crop left
+   128px of empty surface on its left and only 30px on its right, measured in
+   the source. Nudging the crop right evens that out to about 79px a side. */
+.photoFlyer {
+  transform: scale(1.12);
+  object-position: 55% 50%;
+}
+
+/* This tile is portrait and the lanyard is a wide, landscape subject, so any
+   crop that fills the tile has to cut its sides: it was losing 68px off the
+   left and 26px off the right. Fitted whole instead. The tile takes the grey
+   the photograph is shot on, so the space above and below reads as more of
+   that surface rather than as bands of a different colour. */
+.photoId {
+  object-fit: contain;
 }
 /* The three share one height so the row reads as a set. Kept shallow:
    the taller the row, the harder every one of them has to crop. */

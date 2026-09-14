@@ -243,7 +243,7 @@ function IntegratedCarePage() {
           </p>
         </section>
 
-        <section className={c.boardWrap} aria-label="Identity style guide">
+        <section className={`${c.boardWrap} section-columns`} aria-label="Identity style guide">
           <div className={c.board}>
             {/* Row 1 — the primary lockup, the full width of the grid. */}
             <div className={`${c.tile} ${c.tileWhite}`}>
@@ -364,14 +364,14 @@ function IntegratedCarePage() {
               </div>
               <div className={`${c.tile} ${c.tilePhoto}`}>
                 <img
-                  className={c.tilePhotoImg}
+                  className={`${c.tilePhotoImg} ${c.photoFlyer}`}
                   src="/images/icc-flyer-mockup.webp"
                   alt="The trifold flyer, opened and closed: a navy cover carrying the mark and the name, with inside panels setting out how a contribution helps, how to support the initiative, and the room, clinic hours and contact details."
                 />
               </div>
               <div className={`${c.tile} ${c.tilePhoto}`}>
                 <img
-                  className={c.tilePhotoImg}
+                  className={`${c.tilePhotoImg} ${c.photoId}`}
                   src="/images/icc-id-mockup.webp"
                   alt="A staff ID badge on a branded lanyard: the logo and the wearer's photograph on the card, with the lanyard carrying the logo and a run of the identity's colour blocks."
                 />
@@ -381,7 +381,7 @@ function IntegratedCarePage() {
         </section>
 
         {/* The identity closes on what the whole thing is for. */}
-        <section className={c.identityClose}>
+        <section className={`${c.identityClose} section-columns`}>
           <p className={c.positioning}>An initiative held together by goodwill.</p>
           <p className={c.bodyText}>
             Care that runs on volunteered expertise, donated support and the
