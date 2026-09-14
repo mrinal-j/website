@@ -240,7 +240,7 @@ function InTheLoopPage() {
           {/* Concluding quote sits above the carousel, left-aligned with the
               page padding like the rest of the content above. */}
           <div className={styles.concludingQuote}>
-            <p>A digital platform intentionally designed for professionals<br />seeking flexible accommodations and meaningful connections.</p>
+            <p>A digital platform intentionally designed for professionals seeking flexible accommodations and meaningful connections.</p>
           </div>
 
           <div className={styles.carousel}>
@@ -426,7 +426,7 @@ function InTheLoopPage() {
         </section>
 
         {/* The Pivot */}
-        <section className={styles.pivotSection}>
+        <section className={`${styles.pivotSection} section-columns`}>
           <div className={styles.pivotBox}>
             <div className={styles.pivotLeft}>
               <span className={styles.pivotLabel}>THE PIVOT</span>
@@ -439,8 +439,8 @@ function InTheLoopPage() {
         </section>
 
         {/* Prototype Testing */}
-        <section className={styles.protoSection}>
-          <div className={styles.protoLabelWrap}>
+        <section className={`${styles.protoSection} section-columns`}>
+          <div className={`${styles.protoLabelWrap} section-columns-label`}>
             <SectionLabel title="PROTOTYPE TESTING" />
           </div>
 
@@ -479,8 +479,8 @@ function InTheLoopPage() {
         </section>
 
         {/* Solution */}
-        <section className={styles.solSection}>
-          <div className={styles.solLabelWrap}>
+        <section className={`${styles.solSection} section-columns`}>
+          <div className={`${styles.solLabelWrap} section-columns-label`}>
             <SectionLabel title="SOLUTION" dark />
           </div>
 
@@ -705,8 +705,10 @@ function InTheLoopPage() {
         </div>
 
         {/* Impact */}
-        <section className={styles.impactSection}>
-          <SectionLabel title="IMPACT" dark />
+        <section className={`${styles.impactSection} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="IMPACT" dark />
+          </div>
           <h2 className={styles.impactHeadline}>
             At its core, In the Loop is not just about travel. It is about movement with meaning.
           </h2>
@@ -744,8 +746,10 @@ function InTheLoopPage() {
         </section>
 
         {/* Reflections */}
-        <section className={styles.reflectionsSection}>
-          <SectionLabel title="REFLECTIONS" dark />
+        <section className={`${styles.reflectionsSection} section-columns`}>
+          <div className="section-columns-label">
+            <SectionLabel title="REFLECTIONS" dark />
+          </div>
           <div className={styles.reflectionsContent}>
             <div className={styles.reflectionItem}>
               <h3 className={styles.reflectionSubheading}>The pivot</h3>

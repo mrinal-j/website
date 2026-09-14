@@ -680,7 +680,6 @@
   line-height: 120%;
   color: #fff;
   margin: 32px 0 20px;
-  max-width: 720px;
 }
 
 .impactBody {
@@ -1583,12 +1582,18 @@
    ============================================================ */
 .protoSection {
   width: 100%;
+  /* The margins and the top spacing sit here, not on each block inside: the
+     blocks are grid columns now and cannot hold the margins, and holding the
+     top spacing separately leaves the title and the copy beside it unlevel. */
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  padding-top: 136px;
   background-color: var(--bg-primary);
   padding-bottom: 96px;
 }
 
 .protoLabelWrap {
-  padding: 136px var(--page-side-padding) 0; /* matches exploration gap: 96px section-bottom + 40px label-top */
+  padding: 0;
 }
 
 .protoSubheading {
@@ -1597,14 +1602,14 @@
   font-size: 1.5rem;
   line-height: 130%;
   color: var(--text-primary);
-  padding: 48px var(--page-side-padding) 0;
-  margin: 0;
+  padding: 0;
+  margin: 48px 0 0;
 }
 
 .fixRow {
   display: flex;
   gap: 0;
-  padding: 28px var(--page-side-padding) 0;
+  padding: 28px 0 0;
 }
 
 .fixCard {
@@ -1673,19 +1678,24 @@
    ============================================================ */
 .solSection {
   width: 100%;
+  /* As above. */
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  padding-top: 40px;
   background-color: #000;
   padding-bottom: 80px;
 }
 
 .solLabelWrap {
-  padding: 40px var(--page-side-padding) 0;
+  padding: 0;
 }
 
 .solHeader {
   display: flex;
   align-items: center;
   gap: 48px;
-  padding: 48px var(--page-side-padding) 0;
+  padding: 0;
+  margin-top: 48px;
 }
 
 .solLogoWrap {
@@ -1712,7 +1722,7 @@
 .solCards {
   display: flex;
   gap: 20px;
-  padding: 48px var(--page-side-padding) 0;
+  padding: 48px 0 0;
 }
 
 .solCard {
@@ -1733,14 +1743,14 @@
   font-size: 1rem;
   line-height: 165%;
   color: rgba(255, 255, 255, 0.6);
-  padding: 80px var(--page-side-padding) 0;
+  padding: 80px 0 0;
   margin: 0;
 }
 
 .stayRow {
   display: flex;
   gap: 20px;
-  padding: 32px var(--page-side-padding) 0;
+  padding: 32px 0 0;
 }
 
 .stayCard {
