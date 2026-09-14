@@ -2,10 +2,14 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  /* Not the height of what you see, which is the sticky block below at one
+     screen. This is the scroll distance reserved to drive the images through
+     the two columns. */
   height: 350vh;
   background-color: var(--bg-primary);
-  border-radius: 48px 48px 0 0;
-  margin-top: -48px;
+  /* Room before the footer, which pulls itself up 48px to tuck its own rounded
+     edge under this band. 128 less that 48 leaves 80px of clear white. */
+  margin-bottom: 128px;
 }
 
 .sticky {

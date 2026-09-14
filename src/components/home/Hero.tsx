@@ -53,7 +53,7 @@ export function Hero() {
   }, [])
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div id="home" className={styles.container} ref={containerRef}>
       <div className={styles.sticky} style={fadeStyle}>
         <div className={`${styles.meshLayer} ${loaded ? styles.meshLayerVisible : ''}`}>
           <MeshGradient colors={MESH_COLORS} />

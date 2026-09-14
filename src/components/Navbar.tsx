@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import styles from './Navbar.module.css'
 
 interface NavbarProps {
-  /** Keep the bar visible at all times (e.g. case study pages). Home omits this and uses scroll past #home. */
+  /** Keep the bar visible at all times (e.g. case study pages). Home omits this and waits until the hero, which carries #home, has scrolled past. */
   alwaysVisible?: boolean
   /** Skip the hide-over-footer behavior. Short pages (e.g. /play) reach the footer with barely any scroll, which would dismiss the bar almost immediately. */
   ignoreFooter?: boolean
@@ -37,11 +37,21 @@ export function Navbar({ alwaysVisible = false, ignoreFooter = false }: NavbarPr
 
     const onScroll = () => {
       if (!alwaysVisible) {
+        // #home sits on the hero. The bar appears once the band below the
+        // hero reaches the top of the screen, not once the hero's own bottom
+        // edge does: that band pulls itself up to overlap the hero, so the
+        // hero is covered before its bottom edge arrives, and waiting for the
+        // edge leaves the bar missing for the length of that overlap. Reading
+        // the band's position keeps this right whatever the overlap becomes.
         const target = document.getElementById('home')
         if (!target) {
           setVisible(true)
         } else {
-          setVisible(target.getBoundingClientRect().top <= 0)
+          const below = target.nextElementSibling
+          const edge = below
+            ? below.getBoundingClientRect().top
+            : target.getBoundingClientRect().bottom
+          setVisible(edge <= 0)
         }
       }
 

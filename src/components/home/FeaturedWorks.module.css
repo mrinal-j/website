@@ -6,8 +6,25 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-top: 60px;
-  margin-bottom: 198px;
+  /* Clears the fixed navbar, whose bottom edge sits 72px down. With the tab
+     bar's own 36px on top of this, the filters land 124px in, so jumping here
+     from the nav leaves them comfortably clear rather than tucked right under
+     the bar. */
+  padding-top: 88px;
+  /* The large rounded top edge, pulled up so it cuts into the hero's gradient
+     behind it. It belongs to whichever band opens the page under the hero, and
+     that is this one now.
+
+     The stacking is part of the effect, not decoration: the hero holds a
+     sticky layer at z-index 1, so a static band paints underneath it and the
+     overlapping 48px, the rounded part, is hidden behind the gradient. The
+     corners are drawn but invisible and the edge looks square. Lifting this
+     band above that layer is what makes them show. */
+  position: relative;
+  z-index: 2;
+  border-radius: 48px 48px 0 0;
+  margin-top: -48px;
+  margin-bottom: 80px;
 }
 
 .fadeWrap {
@@ -26,16 +43,6 @@
   gap: 28px;
   margin: 36px var(--grid-side-padding) 34px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.heading {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 2rem;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  margin: 0 auto 14px 0;
 }
 
 .tabs {
@@ -266,11 +273,6 @@
     align-items: stretch;
     gap: 14px;
     margin: 24px var(--grid-side-padding) 24px;
-  }
-
-  .heading {
-    font-size: 1.75rem;
-    margin: 0;
   }
 
   /* Three tabs do not fit across a phone, so let them scroll sideways. */

@@ -39,7 +39,7 @@ These are deliberate. Leave them alone unless you are changing the rule itself.
 | Pills, tags, buttons | `999px` or `100px` | Fully round by design. Not tokenised, because one number cannot serve both short and tall pills. |
 | Avatars, dots, circular buttons | `50%` | Must stay perfectly circular at any size. |
 | Navbar bar | `16px` | Its own shape, agreed separately. |
-| Footer, and the Statements band on the home page | `48px 48px 0 0` | Large rounded top edge, a page level treatment rather than a card. |
+| Footer, and the Featured Works band on the home page | `48px 48px 0 0` | Large rounded top edge, a page level treatment rather than a card. It belongs to whichever band opens the page under the hero, so that it cuts into the gradient behind it. Move it if the order changes: on a white band sitting under another white one it is invisible and does nothing. |
 | Phone mockups (In the Loop) | `--screen-radius` and friends | Copying real hardware. 8px would look wrong. |
 | Browser window mockup (UN80) | `12px` | Same reason: it is a window frame, not a card. |
 | Edit panel | its own values | Developer only tool. Never appears on the live site. |

@@ -41,7 +41,10 @@ export function FeaturedWorks() {
     >
       <div className={styles.fadeWrap} style={fadeStyle}>
         <div className={styles.tabBar}>
-          <h2 id="featured-works-title" className={styles.heading}>Work</h2>
+          {/* Kept for the section's accessible name, which the section
+              points at, and for the document outline. Not shown: the tabs say
+              what this is. */}
+          <h2 id="featured-works-title" className="visually-hidden">Work</h2>
           <div className={styles.tabs} role="group" aria-label="Filter work by category">
             {workCategories.map((category) => {
               const isActive = category.label === activeCategory

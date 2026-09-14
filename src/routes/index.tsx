@@ -21,8 +21,8 @@ function HomePage() {
       <Navbar />
       <main>
         <Hero />
-        <Statements />
         <FeaturedWorks />
+        <Statements />
       </main>
       <Footer />
     </>
