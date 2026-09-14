@@ -25,14 +25,6 @@ export const Route = createFileRoute('/housing-works')({
         content:
           'Transforming Housing Works into a global retail destination that fuels its mission of community empowerment.',
       },
-      // Keep this page out of search results while it is still being built.
-      // Visitors can still reach it directly, and search engines may still
-      // follow its links; they just won't list the page itself. Note that
-      // /housing-works must stay crawlable in robots.txt, otherwise crawlers
-      // never read this tag. A matching X-Robots-Tag header lives in
-      // public/_headers, which also covers the images and the video.
-      // Remove both when the page is ready to publish.
-      { name: 'robots', content: 'noindex, follow' },
     ],
   }),
   component: HousingWorksRoute,
