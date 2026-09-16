@@ -40,6 +40,7 @@ These are deliberate. Leave them alone unless you are changing the rule itself.
 | Avatars, dots, circular buttons | `50%` | Must stay perfectly circular at any size. |
 | Navbar bar | `16px` | Its own shape, agreed separately. |
 | Footer, and the Featured Works band on the home page | `48px 48px 0 0` | Large rounded top edge, a page level treatment rather than a card. It belongs to whichever band opens the page under the hero, so that it cuts into the gradient behind it. Move it if the order changes: on a white band sitting under another white one it is invisible and does nothing. |
+| Speech bubbles (Know your Vote) | `20px` | The research quotes are drawn as speech bubbles. At 8px they read as plain cards and the tail looks like a mistake stuck to a box, so they take a bubble's own rounding. |
 | Phone mockups (In the Loop) | `--screen-radius` and friends | Copying real hardware. 8px would look wrong. |
 | Browser window mockup (UN80) | `12px` | Same reason: it is a window frame, not a card. |
 | Edit panel | its own values | Developer only tool. Never appears on the live site. |
@@ -88,7 +89,9 @@ its stylesheet, never in `globals.css`, so they cannot leak onto anything else.
 | Page | Token | Value | What it is |
 | --- | --- | --- | --- |
 | Know your Vote | `--kyv-purple` | `#7e02d5` | The purple of the Know your Vote logotype. Carries the numbered barriers, the quote rules, the goal headings and the outbound links. |
-| Know your Vote | `--kyv-purple-soft` | `#f4e9fd` | A tint of the same purple, used as the ground under the tester quotes. |
+| Know your Vote | `--kyv-purple-soft` | `#f4e9fd` | A tint of the same purple. Fills one speech bubble in What users said, and draws the large quotation mark opening each feedback card. |
+| Know your Vote | `--kyv-yellow-soft` | `#faf2d6` | A tint of the yellow paper on the booth wall. Fills one speech bubble. |
+| Know your Vote | `--kyv-green-soft` | `#edf4e6` | A tint of the green paper on the booth wall. Fills one speech bubble. The fourth bubble is plain white. |
 
 ---
 

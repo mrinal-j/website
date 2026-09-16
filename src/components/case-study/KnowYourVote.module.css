@@ -4,33 +4,46 @@
    InTheLoop.module.css (hero header, metadata grid) and adds the
    sections unique to this project. Page-scoped colour tokens live on
    .kyv so the whole page can be re-themed from one place.
+
+   The page runs white throughout: no section carries a tinted band.
    ============================================================ */
 .kyv {
   /* The project's own accent, lifted from the Know your Vote logotype.
      It is not in the site's shared set, and is flagged in the handover
      for confirmation. */
   --kyv-purple: #7e02d5;
+
+  /* The speech-bubble fills. Three muted tints, all at roughly the same
+     lightness so no one bubble shouts louder than the others, taken from the
+     colours the project already used: the brand purple, and the yellow and
+     green of the paper on the booth wall. The fourth bubble is plain white
+     with the page's hairline. */
   --kyv-purple-soft: #f4e9fd;
+  --kyv-yellow-soft: #faf2d6;
+  --kyv-green-soft: #edf4e6;
 }
 
-/* The title runs to three words on a wide screen and the standfirst is long,
-   so the two are centred against each other, the same fix UNGA80 uses.
-   Doubled to out-specify the shared rule whichever order the stylesheets
-   end up in. */
-.heroCenter.heroCenter {
-  align-items: center;
+/* The title and the standfirst are centred against each other, the same fix
+   UNGA80 uses. Doubled to out-specify the shared rule whichever order the
+   stylesheets end up in.
+
+   Held above the phone breakpoint on purpose. Below it the shared hero stacks
+   into a column, where `align-items` no longer centres the two against each
+   other but centres them both on the page, and shrinks each to its own
+   content. A short title like this one then sits indented and reads as though
+   it had been centred. DESIGN.md is explicit that on a phone the two simply
+   run full width, one under the other, so the shared stretch rule is left to
+   win there. */
+@media (min-width: 768px) {
+  .heroCenter.heroCenter {
+    align-items: center;
+  }
 }
 
-/* A generic light section wrapper with the page's aligned side padding. */
+/* A generic section wrapper with the page's aligned side padding. */
 .section {
   padding: 88px var(--page-side-padding);
   background-color: var(--bg-primary);
-}
-
-/* The grey section, used to set the research half of the page apart from
-   the intervention that follows it. */
-.sectionGrey {
-  background-color: var(--bg-secondary);
 }
 
 /* ============================================================
@@ -56,6 +69,34 @@
   .bannerImg {
     height: clamp(200px, 32vh, 280px);
   }
+}
+
+/* ============================================================
+   OVERVIEW — one summary statement, opening the page the same way
+   UN80's does. The phrase carrying the point of the project takes the
+   page's purple, so the eye lands on it before reading the rest.
+   ============================================================ */
+/* The overview and the context section under it are one thought in two
+   parts, so the gap between them is closed up rather than left at the
+   full 88px each side would otherwise give. */
+.overviewSection {
+  padding-bottom: 24px;
+}
+.overviewText {
+  /* The same 34px the other copy blocks carry: cleared by the column layout on
+     a wide screen, so the copy sits level with the section title, and kept on a
+     phone, where the two stack and would otherwise touch. */
+  margin: 34px 0 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 170%;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+.overviewText span {
+  color: var(--kyv-purple);
 }
 
 /* ============================================================
@@ -98,6 +139,19 @@
   text-wrap: pretty;
 }
 
+/* A subheading inside a section, naming a block that sits under the
+   section's own copy. Smaller than a section title and set in the display
+   face, so it reads as a step down rather than a second section. */
+.subhead {
+  margin: 0 0 32px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 135%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
 /* ============================================================
    THE FOUR BARRIERS — the reasons people do not vote, numbered in a
    row under the context copy. Same shape as the UN80 challenge grid.
@@ -132,33 +186,19 @@
 }
 
 /* ============================================================
-   PROCESS — the seven-step diagram, shown whole. The artwork is line
-   drawing on a white ground that goes all the way to its edges, so a
-   tinted panel behind it would only show as a border around a white
-   box. It sits in a white panel with a hairline instead, which is the
-   same framing the research artefacts get, and the padding keeps the
-   drawing clear of that line.
+   PROCESS — the seven-step diagram, shown whole and unframed. It is
+   line drawing on a white ground, so it sits straight on the page.
    ============================================================ */
-.processPanel {
-  margin-top: 34px;
-  padding: 40px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-card);
-}
 .processImg {
   display: block;
   width: 100%;
   height: auto;
-}
-@media (max-width: 768px) {
-  .processPanel {
-    padding: 20px;
-  }
+  margin-top: 34px;
 }
 
 /* ============================================================
-   RESEARCH — the two artefacts side by side, then what people said.
+   CURRENT LANDSCAPE — the two artefacts side by side, then what
+   people said.
    ============================================================ */
 .artefactRow {
   margin-top: 40px;
@@ -167,9 +207,27 @@
   gap: 24px;
 }
 .artefact {
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+/* Each artefact is a button, because clicking it opens the picture full
+   screen. It is stripped back to looking like the image it wraps, and
+   holds the zoom badge in its corner. */
+.artefactButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: var(--radius-card);
+}
+.artefactButton:focus-visible {
+  outline: 2px solid var(--kyv-purple);
+  outline-offset: 3px;
 }
 /* Both artefacts sit in a frame of the same size so the two captions under
    them line up, but they are contained rather than cropped: the blueprint is
@@ -187,42 +245,233 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
 }
+/* The magnifier, telling you the picture opens. It sits inside the frame's
+   bottom-right corner on a white pill, so it stays readable whatever the
+   artwork behind it is doing. */
+.zoomBadge {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  color: var(--kyv-purple);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+.artefactButton:hover .zoomBadge,
+.artefactButton:focus-visible .zoomBadge {
+  transform: scale(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .zoomBadge {
+    transition: none;
+  }
+}
+/* Captions take the site's caption face, the mono stack DESIGN.md reserves
+   for small technical labels on pictures. */
 .artefactCaption {
   margin: 0;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
   line-height: 155%;
-  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
 }
 
-/* The four things participants said, as a two-by-two of quotations.
-   The purple rule on the left marks them as somebody else's words. */
-.quoteGrid {
-  margin-top: 48px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+/* ============================================================
+   THE FULL-SCREEN ARTEFACT — both maps are far too dense to read at
+   the size they sit on the page, so a click opens them over the top
+   of everything at their full width.
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: zoom-out;
 }
-.quote {
+.lightboxImg {
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  object-fit: contain;
+  background: var(--bg-primary);
+  border-radius: var(--radius-card);
+  cursor: default;
+}
+.lightboxCaption {
   margin: 0;
-  border-left: 3px solid var(--kyv-purple);
-  padding-left: 24px;
+  max-width: 70ch;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 155%;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
 }
-.quote p {
+.lightboxClose {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+}
+.lightboxClose:hover,
+.lightboxClose:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+@media (max-width: 768px) {
+  .lightbox {
+    padding: 20px;
+  }
+  .lightboxImg {
+    max-height: calc(100vh - 170px);
+  }
+}
+
+/* ============================================================
+   WHAT USERS SAID — the four quotations as speech bubbles, set as a
+   conversation rather than a grid. They alternate sides and step
+   inward, so the group reads as people talking over each other,
+   which is what the research felt like.
+   ============================================================ */
+.saidBlock {
+  margin-top: 72px;
+}
+.bubbleCluster {
+  display: flex;
+  flex-direction: column;
+}
+/* Each bubble carries its own fill and hairline as custom properties, so the
+   tail below reads them too and every tone gets a matching point without a
+   rule of its own. */
+.bubble {
+  position: relative;
+  margin: 0;
+  max-width: 68%;
+  padding: 22px 26px;
+  border-radius: 20px;
+  --bubble-fill: var(--bg-primary);
+  --bubble-line: var(--border-light);
+  background: var(--bubble-fill);
+  border: 1px solid var(--bubble-line);
+  box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.45);
+}
+.bubble p {
   margin: 0;
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
-  line-height: 160%;
+  line-height: 155%;
   letter-spacing: -0.01em;
   color: var(--text-primary);
   text-wrap: pretty;
+}
+/* One tone per bubble, so the four read as four different people. The tinted
+   ones take no hairline: at this lightness a border only muddies the edge. */
+.bubbleLilac {
+  --bubble-fill: var(--kyv-purple-soft);
+  --bubble-line: transparent;
+}
+.bubbleYellow {
+  --bubble-fill: var(--kyv-yellow-soft);
+  --bubble-line: transparent;
+}
+.bubbleGreen {
+  --bubble-fill: var(--kyv-green-soft);
+  --bubble-line: transparent;
+}
+/* The tail. Two stacked triangles, the back one the border colour and the
+   front one the fill, so a bordered bubble keeps its hairline all the way
+   round the point. */
+.bubble::before,
+.bubble::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-color: transparent;
+}
+.bubble::before {
+  bottom: -14px;
+  border-width: 14px 13px 0;
+  border-top-color: var(--bubble-line);
+}
+.bubble::after {
+  bottom: -12px;
+  border-width: 13px 12px 0;
+  border-top-color: var(--bubble-fill);
+}
+/* Left-hand bubbles hang off the start of the column with their tail under
+   the leading edge; right-hand ones do the mirror. */
+.bubbleLeft {
+  align-self: flex-start;
+}
+.bubbleLeft::before,
+.bubbleLeft::after {
+  left: 30px;
+  transform: skewX(-18deg);
+}
+.bubbleRight {
+  align-self: flex-end;
+}
+.bubbleRight::before,
+.bubbleRight::after {
+  right: 30px;
+  transform: skewX(18deg);
+}
+.bubble + .bubble {
+  margin-top: 10px;
+}
+/* Every bubble after the first is nudged in from its own edge, so the run
+   steps inward rather than forming two straight walls. */
+.bubbleCluster > .bubble:nth-child(2) {
+  margin-right: 6%;
+}
+.bubbleCluster > .bubble:nth-child(3) {
+  margin-left: 10%;
+}
+.bubbleCluster > .bubble:nth-child(4) {
+  margin-right: 2%;
 }
 
 /* ============================================================
    THE INTERVENTION — two halves of one answer, each with its icon,
    its list of what it does, its artwork and its prototype link.
    ============================================================ */
+/* The project's logotype, opening the intervention section. Held to a modest
+   width so it reads as a mark introducing the work rather than as artwork in
+   its own right, and it keeps its own white ground, which is the same white
+   the page runs on. */
+.interventionLogo {
+  display: block;
+  width: 168px;
+  height: auto;
+  /* The top margin is the same 34px the copy blocks carry. On a wide screen
+     the column layout clears it, so the mark sits level with the section
+     title; stacked on a phone it survives, and keeps the mark off the title
+     above it. */
+  margin: 34px 0 30px;
+}
+
 .strandRow {
   margin-top: 48px;
   display: grid;
@@ -292,6 +541,106 @@
   background: var(--bg-primary);
 }
 
+/* ============================================================
+   THE BOOTH CAROUSEL — one frame that moves through the booth
+   photography on its own, with arrows and dots for taking it over.
+   Sized to match .strandMedia exactly, so the two strands stay level.
+   ============================================================ */
+.carousel {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.carouselFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+/* Every slide is stacked in the same place and cross-fades, so the frame
+   never changes height and nothing jumps as the set moves on. */
+.carouselSlide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.carouselSlideOn {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carouselSlide {
+    transition: none;
+  }
+}
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+.carouselArrow:hover,
+.carouselArrow:focus-visible {
+  background: #fff;
+}
+.carouselArrowPrev {
+  left: 12px;
+}
+.carouselArrowNext {
+  right: 12px;
+}
+/* The dots sit under the frame rather than on the picture, so they never
+   cover part of a photograph.
+
+   The min-height is doing a job: the website strand beside this one ends in a
+   prototype link and this one no longer does, and with both columns stretched
+   to the same height the column carrying less below its picture would hang its
+   picture 22px lower than its neighbour. Reserving the same space the link
+   takes (its 24px of clearance plus its 20px of type, less this row's own 14px
+   gap) puts the two pictures back on the same line. If that link ever goes,
+   this can go with it. */
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+}
+.carouselDot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: 0;
+  background: var(--border-medium);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.carouselDotOn {
+  background: var(--kyv-purple);
+}
+@media (prefers-reduced-motion: reduce) {
+  .carouselDot {
+    transition: none;
+  }
+}
+
 /* The outbound links, matching the UN80 treatment: a purple label with an
    arrow that steps forward on hover. */
 .cta {
@@ -347,8 +696,10 @@
 }
 
 /* ============================================================
-   FEEDBACK — what testers said, set larger than the research quotes
-   because these are the closing note of the page.
+   PROTOTYPE FEEDBACK — what testers said, on cards opened by a large
+   quotation mark. The mark is decorative, set in the page's purple at
+   a light tint so it reads as a graphic rather than as punctuation
+   somebody has to parse.
    ============================================================ */
 .feedbackRow {
   margin-top: 34px;
@@ -358,9 +709,21 @@
 }
 .feedback {
   margin: 0;
-  padding: 28px;
-  background: var(--kyv-purple-soft);
+  padding: 32px 30px 34px;
+  background: var(--bg-primary);
   border-radius: var(--radius-card);
+  box-shadow: 0 14px 34px -22px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-light);
+  text-align: center;
+}
+.feedbackMark {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 4.5rem;
+  line-height: 0.72;
+  color: var(--kyv-purple-soft);
+  margin-bottom: 18px;
 }
 .feedback p {
   margin: 0;
@@ -376,6 +739,17 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* The feedback cards break earlier than everything else on the page. Three of
+   them share the three-quarter content column, so on a 1024px laptop each is
+   about 190px wide and the centred quotes fall to four words a line. One under
+   the other reads properly, and there is room for three again from here up. */
+@media (max-width: 1200px) {
+  .feedbackRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 900px) {
   .section {
     padding-left: max(24px, var(--page-side-padding));
@@ -388,15 +762,21 @@
     gap: 36px 28px;
   }
   .artefactRow,
-  .quoteGrid,
   .strandRow,
   .goalGrid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .feedbackRow {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  /* A bubble capped at 68% is too narrow to hold a sentence on a tablet,
+     and the inward steps stop being legible as a cluster. */
+  .bubble {
+    max-width: 86%;
+  }
+  .bubbleCluster > .bubble:nth-child(2),
+  .bubbleCluster > .bubble:nth-child(3),
+  .bubbleCluster > .bubble:nth-child(4) {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -406,5 +786,10 @@
   .barrierGrid {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  /* On a phone the bubbles run nearly full width and simply alternate
+     which edge they hang from. */
+  .bubble {
+    max-width: 94%;
   }
 }
