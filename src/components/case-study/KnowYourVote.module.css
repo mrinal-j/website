@@ -1,0 +1,410 @@
+/* ============================================================
+   Know your Vote
+   Page-specific styles. Reuses the shared case-study classes from
+   InTheLoop.module.css (hero header, metadata grid) and adds the
+   sections unique to this project. Page-scoped colour tokens live on
+   .kyv so the whole page can be re-themed from one place.
+   ============================================================ */
+.kyv {
+  /* The project's own accent, lifted from the Know your Vote logotype.
+     It is not in the site's shared set, and is flagged in the handover
+     for confirmation. */
+  --kyv-purple: #7e02d5;
+  --kyv-purple-soft: #f4e9fd;
+}
+
+/* The title runs to three words on a wide screen and the standfirst is long,
+   so the two are centred against each other, the same fix UNGA80 uses.
+   Doubled to out-specify the shared rule whichever order the stylesheets
+   end up in. */
+.heroCenter.heroCenter {
+  align-items: center;
+}
+
+/* A generic light section wrapper with the page's aligned side padding. */
+.section {
+  padding: 88px var(--page-side-padding);
+  background-color: var(--bg-primary);
+}
+
+/* The grey section, used to set the research half of the page apart from
+   the intervention that follows it. */
+.sectionGrey {
+  background-color: var(--bg-secondary);
+}
+
+/* ============================================================
+   HERO BANNER — full-width edge-to-edge band carrying the photograph
+   of the booth in use. The picture is a 3:2 landscape shot with the
+   action in its middle, so the band crops top and bottom and holds
+   the centre.
+   ============================================================ */
+.bannerBand {
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  line-height: 0; /* removes the inline-image gap under the band */
+}
+.bannerImg {
+  display: block;
+  width: 100%;
+  height: clamp(280px, 46vh, 460px);
+  object-fit: cover;
+  object-position: 50% 45%;
+}
+@media (max-width: 768px) {
+  .bannerImg {
+    height: clamp(200px, 32vh, 280px);
+  }
+}
+
+/* ============================================================
+   SHARED TEXT SETTINGS
+   Body copy on this page is the same size and rhythm as UN80 and
+   UNGA80, so the three read as one site.
+   ============================================================ */
+.para {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 165%;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+.para + .para {
+  margin-top: 20px;
+}
+.para strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+/* The first paragraph of a section, which sits directly under the section
+   title and so needs the gap the title column does not give it. */
+.leadPara {
+  margin-top: 34px;
+}
+
+/* A statement set large, used where a section opens on a single claim
+   rather than on running copy. */
+.headline {
+  margin: 34px 0 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   THE FOUR BARRIERS — the reasons people do not vote, numbered in a
+   row under the context copy. Same shape as the UN80 challenge grid.
+   ============================================================ */
+.barrierGrid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.barrierNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--kyv-purple);
+  border-radius: 50%;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--kyv-purple);
+  margin-bottom: 22px;
+}
+.barrierText {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 155%;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ============================================================
+   PROCESS — the seven-step diagram, shown whole. The artwork is line
+   drawing on a white ground that goes all the way to its edges, so a
+   tinted panel behind it would only show as a border around a white
+   box. It sits in a white panel with a hairline instead, which is the
+   same framing the research artefacts get, and the padding keeps the
+   drawing clear of that line.
+   ============================================================ */
+.processPanel {
+  margin-top: 34px;
+  padding: 40px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+}
+.processImg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .processPanel {
+    padding: 20px;
+  }
+}
+
+/* ============================================================
+   RESEARCH — the two artefacts side by side, then what people said.
+   ============================================================ */
+.artefactRow {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.artefact {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Both artefacts sit in a frame of the same size so the two captions under
+   them line up, but they are contained rather than cropped: the blueprint is
+   more than twice as wide as it is tall, and cropping it to the frame would
+   cut off the stage labels down its left edge. Contained, each is shown
+   whole, and the white it letterboxes against is the same white the drawings
+   are already on. */
+.artefactImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  padding: 12px;
+  border-radius: var(--radius-card);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+}
+.artefactCaption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 155%;
+  color: var(--text-secondary);
+}
+
+/* The four things participants said, as a two-by-two of quotations.
+   The purple rule on the left marks them as somebody else's words. */
+.quoteGrid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.quote {
+  margin: 0;
+  border-left: 3px solid var(--kyv-purple);
+  padding-left: 24px;
+}
+.quote p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   THE INTERVENTION — two halves of one answer, each with its icon,
+   its list of what it does, its artwork and its prototype link.
+   ============================================================ */
+.strandRow {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  /* Stretched, not started: the booth's list runs to four points and the
+     website's to three, and left to their own heights the two pictures, and
+     the two prototype links under them, would sit at different levels. */
+  align-items: stretch;
+}
+.strand {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.strandIcon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+.strandTitle {
+  margin: 0 0 14px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+/* The list takes up whatever height is left over, which is how the shorter
+   of the two columns makes up the difference. */
+.strandList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.strandList li {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 155%;
+  color: var(--text-secondary);
+}
+.strandList li::marker {
+  color: var(--kyv-purple);
+}
+/* The artwork sits at the foot of each strand, so the two prototype links
+   below it line up with each other whatever length the lists run to. */
+.strandMedia {
+  margin-top: 28px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-card);
+  background: var(--bg-secondary);
+}
+/* The website strand's media is a silent screen recording of the site,
+   drawn inside a laptop, so it is shown whole rather than cropped. */
+.strandVideo {
+  object-fit: contain;
+  background: var(--bg-primary);
+}
+
+/* The outbound links, matching the UN80 treatment: a purple label with an
+   arrow that steps forward on hover. */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--kyv-purple);
+  text-decoration: none;
+}
+.ctaArrow {
+  transition: transform 0.25s ease;
+}
+.cta:hover .ctaArrow,
+.cta:focus-visible .ctaArrow {
+  transform: translateX(5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ctaArrow {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   GOALS — the four things the pair of interventions was built to do.
+   ============================================================ */
+.goalGrid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 48px;
+}
+.goalLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--kyv-purple);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--kyv-purple);
+  margin-bottom: 12px;
+}
+.goalText {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 155%;
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   FEEDBACK — what testers said, set larger than the research quotes
+   because these are the closing note of the page.
+   ============================================================ */
+.feedbackRow {
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.feedback {
+  margin: 0;
+  padding: 28px;
+  background: var(--kyv-purple-soft);
+  border-radius: var(--radius-card);
+}
+.feedback p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .section {
+    padding-left: max(24px, var(--page-side-padding));
+    padding-right: max(24px, var(--page-side-padding));
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .barrierGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 28px;
+  }
+  .artefactRow,
+  .quoteGrid,
+  .strandRow,
+  .goalGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .feedbackRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Two across leaves each barrier about 130px wide, which is too narrow
+     for a sentence. One across from here. */
+  .barrierGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

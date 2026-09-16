@@ -79,6 +79,17 @@ switched off on purpose, so black text is never auto inverted by the browser.
 
 Use the token, not the hex code, so a colour change stays a one line edit.
 
+**Page accents**
+
+A case study sometimes needs a colour the shared set does not hold, because the
+project it documents had its own. These live on the page's own wrapper class in
+its stylesheet, never in `globals.css`, so they cannot leak onto anything else.
+
+| Page | Token | Value | What it is |
+| --- | --- | --- | --- |
+| Know your Vote | `--kyv-purple` | `#7e02d5` | The purple of the Know your Vote logotype. Carries the numbered barriers, the quote rules, the goal headings and the outbound links. |
+| Know your Vote | `--kyv-purple-soft` | `#f4e9fd` | A tint of the same purple, used as the ground under the tester quotes. |
+
 ---
 
 ## Type
@@ -116,9 +127,9 @@ Apply it by putting **`section-columns`** on the section and
 global class names used straight from the JSX, the same way `reveal-root` works,
 rather than per page rules. Written once, they cannot drift between pages.
 
-**Which pages are on it:** Housing Works, UN80, UNGA80, Kaaro and Integrated
-Care. In the Loop is not, and is the odd one out until someone does the
-groundwork described below.
+**Which pages are on it:** Housing Works, UN80, UNGA80, Kaaro, Integrated
+Care and Know your Vote. In the Loop is not, and is the odd one out until
+someone does the groundwork described below.
 
 **A section must hold the page margins itself.** The layout divides the
 section's own content box into four, so the section needs
@@ -186,8 +197,8 @@ so the page's accent is the ground itself and would disappear into it. The rule
 there takes the colour of the writing instead, which is black, set as
 `currentColor` so it follows the copy if that colour ever changes.
 
-Kaaro and UNGA80 have no reflections section. If either gains one, it gets the
-line too.
+Kaaro, UNGA80 and Know your Vote have no reflections section. If any of them
+gains one, it gets the line too.
 
 ---
 

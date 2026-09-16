@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as Unga80RouteImport } from './routes/unga80'
 import { Route as Un80RouteImport } from './routes/un80'
 import { Route as PlayRouteImport } from './routes/play'
+import { Route as KnowYourVoteRouteImport } from './routes/know-your-vote'
 import { Route as KaaroRouteImport } from './routes/kaaro'
 import { Route as IntegratedCareForChildrenRouteImport } from './routes/integrated-care-for-children'
 import { Route as InTheLoopRouteImport } from './routes/in-the-loop'
@@ -32,6 +33,11 @@ const Un80Route = Un80RouteImport.update({
 const PlayRoute = PlayRouteImport.update({
   id: '/play',
   path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowYourVoteRoute = KnowYourVoteRouteImport.update({
+  id: '/know-your-vote',
+  path: '/know-your-vote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KaaroRoute = KaaroRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
+  '/know-your-vote': typeof KnowYourVoteRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
   '/unga80': typeof Unga80Route
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
+  '/know-your-vote': typeof KnowYourVoteRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
   '/unga80': typeof Unga80Route
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/in-the-loop': typeof InTheLoopRoute
   '/integrated-care-for-children': typeof IntegratedCareForChildrenRoute
   '/kaaro': typeof KaaroRoute
+  '/know-your-vote': typeof KnowYourVoteRoute
   '/play': typeof PlayRoute
   '/un80': typeof Un80Route
   '/unga80': typeof Unga80Route
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
+    | '/know-your-vote'
     | '/play'
     | '/un80'
     | '/unga80'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
+    | '/know-your-vote'
     | '/play'
     | '/un80'
     | '/unga80'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/in-the-loop'
     | '/integrated-care-for-children'
     | '/kaaro'
+    | '/know-your-vote'
     | '/play'
     | '/un80'
     | '/unga80'
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   InTheLoopRoute: typeof InTheLoopRoute
   IntegratedCareForChildrenRoute: typeof IntegratedCareForChildrenRoute
   KaaroRoute: typeof KaaroRoute
+  KnowYourVoteRoute: typeof KnowYourVoteRoute
   PlayRoute: typeof PlayRoute
   Un80Route: typeof Un80Route
   Unga80Route: typeof Unga80Route
@@ -169,6 +182,13 @@ declare module '@tanstack/react-router' {
       path: '/play'
       fullPath: '/play'
       preLoaderRoute: typeof PlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/know-your-vote': {
+      id: '/know-your-vote'
+      path: '/know-your-vote'
+      fullPath: '/know-your-vote'
+      preLoaderRoute: typeof KnowYourVoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kaaro': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   InTheLoopRoute: InTheLoopRoute,
   IntegratedCareForChildrenRoute: IntegratedCareForChildrenRoute,
   KaaroRoute: KaaroRoute,
+  KnowYourVoteRoute: KnowYourVoteRoute,
   PlayRoute: PlayRoute,
   Un80Route: Un80Route,
   Unga80Route: Unga80Route,
