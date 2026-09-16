@@ -1,13 +1,3 @@
 /resume.pdf
   Content-Type: application/pdf
   Content-Disposition: inline
-
-# Know your Vote is still being written. This header is the strongest way to
-# keep it out of Google: it says "do not list this page" at the HTTP level, so
-# it holds even for files a crawler fetches without reading the HTML. The page
-# also carries the same instruction as a <meta name="robots"> tag.
-# Delete this block to publish the page.
-/know-your-vote
-  X-Robots-Tag: noindex, nofollow
-/know-your-vote/*
-  X-Robots-Tag: noindex, nofollow

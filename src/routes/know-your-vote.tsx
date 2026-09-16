@@ -17,13 +17,6 @@ export const Route = createFileRoute('/know-your-vote')({
         content:
           'A design intervention for New York City voters: an accessible website and a public booth that make the voting process easier to understand and act on.',
       },
-      // Keep this page out of search results while it is still being written.
-      // Visitors can still reach it from a direct link, and search engines may
-      // still follow its links; they just won't list the page itself. Note
-      // that /know-your-vote must stay crawlable in robots.txt, otherwise
-      // crawlers never read this tag. Remove this line to publish.
-      { name: 'robots', content: 'noindex, nofollow' },
-      { name: 'googlebot', content: 'noindex, nofollow' },
     ],
   }),
   component: KnowYourVotePage,
@@ -677,12 +670,7 @@ function KnowYourVotePage() {
         </div>
       )}
 
-      {/* The home page still points this project at the legacy site, so the
-          strip is told to drop that slug: otherwise the page you are reading
-          is offered back to you as "more work". Change this to
-          "/know-your-vote" when the card in src/data/projects.ts is switched
-          over. */}
-      <MoreWork currentSlug="https://legacy.mrinaljadhav.com/know-your-vote" />
+      <MoreWork currentSlug="/know-your-vote" />
       <Footer />
     </>
   )

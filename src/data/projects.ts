@@ -90,7 +90,7 @@ export const projects: Project[] = [
   },
   {
     id: 'know-your-vote',
-    slug: 'https://legacy.mrinaljadhav.com/know-your-vote',
+    slug: '/know-your-vote',
     title: 'Know your Vote',
     description: 'A design intervention that transforms how voters access, understand, and engage with electoral information.',
     tags: ['Design for Impact', 'Service Design', 'Service Blueprint', 'Design Strategy', 'Figma', 'Prototyping', 'Digital Design', 'Print Design'],
