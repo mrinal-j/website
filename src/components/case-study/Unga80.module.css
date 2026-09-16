@@ -16,9 +16,20 @@
    as stranded, so the two are centred against each other instead. Scoped
    here, not in the shared stylesheet, because the other case studies want
    the top-aligned version. The class is doubled to out-specify the shared
-   rule whichever order the two stylesheets end up in. */
-.heroCenter.heroCenter {
-  align-items: center;
+   rule whichever order the two stylesheets end up in.
+
+   Held above the phone breakpoint on purpose. Below it the shared hero stacks
+   into a column, where `align-items` stops centring the two against each other
+   and instead centres them both on the page, shrinking each to the width of
+   its own text. This page's title is long enough to fill that width anyway, so
+   nothing looks wrong here, but a short title would sit indented and read as
+   though it had been centred. DESIGN.md is explicit that on a phone the two
+   simply run full width, one under the other, so the shared stretch rule is
+   left to win there. */
+@media (min-width: 768px) {
+  .heroCenter.heroCenter {
+    align-items: center;
+  }
 }
 
 /* A generic light section wrapper with the page's aligned side padding. */
