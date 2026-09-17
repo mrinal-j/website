@@ -462,6 +462,10 @@
   --carousel-phone-h: 309px;
   --carousel-card-gap:30px;
   --carousel-height: 470px;
+  /* Distance from one card's left edge to the next one's. The slide
+     keyframes step by whole multiples of this, so they stay exact at any
+     phone width or gap. */
+  --carousel-advance: calc(var(--carousel-phone-w) + var(--carousel-card-gap));
   /* iPhone 16 Pro display has ~13.7% corner radius; for 184px-wide cards
      that's ~25px. */
   --screen-radius: 24px;
@@ -484,9 +488,12 @@
 .carousel {
   position: relative;
   height: var(--carousel-height);
-  /* Show exactly 5 cards (5 phone widths + 4 gaps) regardless of viewport
-     size — extras created for the seamless loop stay clipped off-screen. */
-  width: calc(5 * var(--carousel-phone-w) + 4 * var(--carousel-card-gap));
+  /* Room for 5 cards (5 phone widths + 4 gaps), but never wider than the
+     space the band actually has. Without the min() the band keeps its full
+     830px on a narrower window, overflows to the right and drags the centre
+     phone off-centre with it. Extra cards created for the seamless loop stay
+     clipped off-screen either way. */
+  width: min(100%, calc(5 * var(--carousel-phone-w) + 4 * var(--carousel-card-gap)));
   margin: 0 auto;
   /* Clip horizontally so off-screen cards stay hidden, but let the phone's
      drop shadow extend vertically beyond the carousel band. */
@@ -511,14 +518,19 @@
 
 /* Five segments of 20%. Within each segment: hold for 17.5%, then snap
    over the next 2.5% to the next position. The duplicated 5-card set in
-   the JSX makes the wrap from segment 5 → segment 1 invisible. */
+   the JSX makes the wrap from segment 5 → segment 1 invisible.
+
+   The track starts at the band's centre line, so a card sits dead centre
+   when the track is pulled back by that card's index worth of advances
+   plus half a phone. Stepping the whole-number part keeps every stop exact
+   whatever the phone width and gap are set to. */
 @keyframes carouselSnap {
-  0%,   17.5% { transform: translateX(calc(-2.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
-  20%,  37.5% { transform: translateX(calc(-3.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
-  40%,  57.5% { transform: translateX(calc(-4.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
-  60%,  77.5% { transform: translateX(calc(-5.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
-  80%,  97.5% { transform: translateX(calc(-6.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
-  100%        { transform: translateX(calc(-7.43 * (var(--carousel-phone-w) + var(--carousel-card-gap)))); }
+  0%,   17.5% { transform: translateX(calc(-2 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
+  20%,  37.5% { transform: translateX(calc(-3 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
+  40%,  57.5% { transform: translateX(calc(-4 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
+  60%,  77.5% { transform: translateX(calc(-5 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
+  80%,  97.5% { transform: translateX(calc(-6 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
+  100%        { transform: translateX(calc(-7 * var(--carousel-advance) - var(--carousel-phone-w) / 2)); }
 }
 
 .screenCard {
@@ -914,15 +926,8 @@
     --carousel-height: 400px;
   }
   .carousel {
-    width: 100%;
     overflow: visible;
     overflow-x: clip;
-  }
-  /* Nudge the phone frame to align with the center card —
-     the snap multiplier (2.43) is tuned for desktop sizes,
-     so mobile needs a small correction. */
-  .phoneBezels {
-    left: calc(50% + 5px);
   }
   .concludingQuote { padding: 40px 0 40px; }
   .concludingQuote p { font-size: 1.5rem; font-weight: 700; }
