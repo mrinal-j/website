@@ -1,2 +1,8 @@
+# Search engines may read the whole site.
+#
+# To keep a page out of results, give the page itself a `noindex` tag rather
+# than listing it here (see src/routes/un80.tsx). A page listed here is never
+# opened at all, so its noindex tag is never read, and Google ends up showing
+# the bare link with "No information is available for this page."
 User-agent: *
-Disallow: /about
+Disallow:
