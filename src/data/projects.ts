@@ -107,7 +107,7 @@ export const projects: Project[] = [
 // columns left, right, left, right.
 export const workCategories: { label: string; ids: string[] }[] = [
   { label: 'Featured Works', ids: ['un80', 'unga80', 'kaaro', 'in-the-loop'] },
-  { label: 'Brand Design', ids: ['un80', 'kaaro', 'integrated-care', 'unga80', 'housing-works'] },
+  { label: 'Brand Design', ids: ['un80', 'kaaro', 'housing-works', 'unga80', 'integrated-care'] },
   { label: 'Strategy', ids: ['in-the-loop', 'housing-works', 'know-your-vote', 'kaaro'] },
 ]
 
